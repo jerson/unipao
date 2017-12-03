@@ -20,10 +20,12 @@ export default class Main extends React.Component {
   static childContextTypes = {
     notification: PropTypes.object
   };
+  forcedLogout = false;
   onForceLogout = async () => {
-    await Auth.logout();
-    RouterUtil.resetTo(this.refs.navigation, 'Login');
-
+    if (this.forcedLogout) {
+      return;
+    }
+    this.forcedLogout = true;
     this.noti.show({
       type: 'warning',
       title: _(
@@ -33,6 +35,10 @@ export default class Main extends React.Component {
       autoDismiss: 4,
       iconType: 'MaterialIcons'
     });
+
+    await Auth.logout();
+    this.forcedLogout = false;
+    RouterUtil.resetTo(this.refs.navigation, 'Login');
   };
 
   getChildContext() {

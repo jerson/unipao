@@ -57,7 +57,9 @@ export default class AboutScreen extends React.Component {
 
           <ViewSpacer />
 
-          <Text style={[styles.text, styles.sectionTitle]}>{_('Importante')}:</Text>
+          <Text style={[styles.text, styles.sectionTitle]}>
+            {_('Importante')}:
+          </Text>
           <Text style={styles.text}>
             {_(
               'Esta aplicación es un proyecto que se hizo con el único fin de aprendizaje, no tiene ningún vinculo oficial con la UPAO.'

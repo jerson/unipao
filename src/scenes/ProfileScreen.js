@@ -78,12 +78,6 @@ export default class ProfileScreen extends React.Component {
         style={[styles.container]}
         keyboardShouldPersistTaps={'handled'}
       >
-        <StatusBar
-          backgroundColor="#0d61ac"
-          translucent
-          animated
-          barStyle="light-content"
-        />
         <Background />
 
         <View style={styles.profile}>

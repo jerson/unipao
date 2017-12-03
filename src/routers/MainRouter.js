@@ -88,12 +88,6 @@ const UsersTabNavigator = TabNavigator(
       screen: ({ navigation }) => {
         return (
           <View style={{ flex: 1 }}>
-            <StatusBar
-              animated
-              backgroundColor="#0d61ac"
-              translucent
-              barStyle="dark-content"
-            />
             <IntranetNavigator screenProps={{ tabNavigation: navigation }} />
           </View>
         );
@@ -113,12 +107,6 @@ const UsersTabNavigator = TabNavigator(
       screen: ({ navigation }) => {
         return (
           <View style={{ flex: 1 }}>
-            <StatusBar
-              animated
-              backgroundColor="#0d61ac"
-              translucent
-              barStyle="dark-content"
-            />
             <NewsNavigator screenProps={{ tabNavigation: navigation }} />
           </View>
         );
@@ -138,12 +126,6 @@ const UsersTabNavigator = TabNavigator(
       screen: ({ navigation }) => {
         return (
           <View style={{ flex: 1 }}>
-            <StatusBar
-              animated
-              backgroundColor="#0d61ac"
-              translucent
-              barStyle="dark-content"
-            />
             <AgendaNavigator screenProps={{ tabNavigation: navigation }} />
           </View>
         );
@@ -168,6 +150,7 @@ const UsersTabNavigator = TabNavigator(
     lazy: false,
     swipeEnabled: true,
     animationEnabled: true,
+    backBehavior: 'none',
     tabBarOptions: {
       activeTintColor: '#f59331'
     }
