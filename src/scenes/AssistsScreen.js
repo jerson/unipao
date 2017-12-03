@@ -69,7 +69,9 @@ export default class AssistsScreen extends React.Component {
     });
   };
 
-  load = async () => {
+  load = async () => {};
+  checkCache = async () => {};
+  loadRequest = async () => {
     let { isRefreshing } = this.state;
 
     if (!isRefreshing) {

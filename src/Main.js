@@ -13,6 +13,7 @@ import Emitter from './modules/listener/Emitter';
 import RouterUtil from './modules/util/RouterUtil';
 import { _ } from './modules/i18n/Translator';
 import SingleStorage from './modules/storage/SingleStorage';
+import CacheStorage from './modules/storage/CacheStorage';
 
 numeral.defaultFormat('0,0.00');
 
@@ -64,6 +65,10 @@ export default class Main extends React.Component {
     Auth.init({
       authPath: 'user/me',
       hashToken: Config.token.app
+    });
+    CacheStorage.init({
+      path: 'cache.db',
+      schemaVersion: 1
     });
     Emitter.on('onForceLogout', this.onForceLogout);
     this.showIntro();

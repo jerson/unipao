@@ -13,6 +13,7 @@ import Log from '../modules/logger/Log';
 import NewsItem from '../components/news/NewsItem';
 import Loading from '../components/ui/Loading';
 import { _ } from '../modules/i18n/Translator';
+import CacheStorage from '../modules/storage/CacheStorage';
 
 const TAG = 'NewsListScreen';
 export default class NewsListScreen extends React.Component {
@@ -41,6 +42,41 @@ export default class NewsListScreen extends React.Component {
   };
 
   load = async () => {
+    let { page, isRefreshing } = this.state;
+    if (page === 1 && !isRefreshing) {
+      await this.checkCache();
+    }
+    await this.loadRequest();
+  };
+  checkCache = async () => {
+    let { page } = this.state;
+
+    let cacheKey = `newsList_${page}`;
+    try {
+      let data = await CacheStorage.get(cacheKey);
+      data && this.loadResponse(data);
+    } catch (e) {
+      Log.info(TAG, 'checkCache', e);
+    }
+  };
+
+  loadResponse = body => {
+    let { page } = this.state;
+    let newsList = [];
+    if (body.data) {
+      let data = JSON.parse(body.data);
+      if (data.length < 1) {
+        this.setState({ canLoadMore: false });
+      }
+      if (page === 1) {
+        newsList = data;
+      } else {
+        newsList = [...this.state.newsList, ...data];
+      }
+    }
+    this.setState({ newsList });
+  };
+  loadRequest = async () => {
     let { isLoadingMore, isRefreshing, page } = this.state;
 
     if (!(isRefreshing || isLoadingMore)) {
@@ -60,19 +96,10 @@ export default class NewsListScreen extends React.Component {
         { secure: true }
       );
 
+      let cacheKey = `newsList_${page}`;
       let { body } = response;
-      if (body.data) {
-        let data = JSON.parse(body.data);
-        if (data.length < 1) {
-          this.setState({ canLoadMore: false });
-        }
-        if (page === 1) {
-          this.setState({ newsList: data });
-        } else {
-          let newsList = this.state.newsList;
-          this.setState({ newsList: [...newsList, ...data] });
-        }
-      }
+      this.loadResponse(body);
+      CacheStorage.set(cacheKey, body);
     } catch (e) {
       Log.warn(TAG, 'load', e);
     }
