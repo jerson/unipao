@@ -6,12 +6,12 @@
     "version": "0.3.0",
     "slug": "unipao",
     "ios": {
-      "bundleIdentifier": "sample.upao.app"
+      "bundleIdentifier": "com.unipao.app"
     },
     "android": {
-      "package": "sample.upao.app"
+      "package": "com.unipao.app"
     }
   },
-  "name": "upao",
+  "name": "unipao",
   "displayName": "UniPAO"
 }

@@ -1,5 +1,5 @@
 {
-  "name": "upao-native",
+  "name": "@jerson/unipao",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
