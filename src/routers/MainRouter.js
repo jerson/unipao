@@ -165,7 +165,7 @@ const UsersTabNavigator = TabNavigator(
   },
   {
     ...TabNavigator.Presets.iOSBottomTabs,
-    lazy: true,
+    lazy: false,
     swipeEnabled: true,
     animationEnabled: true,
     tabBarOptions: {
