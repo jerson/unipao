@@ -7,7 +7,7 @@ export default class InputSwitch extends React.Component {
   state = {
     value: false
   };
-  onValueChange = (text: string) => {
+  onValueChange = (text: boolean) => {
     let { onValueChange } = this.props;
     this.setValue(text);
     if (typeof onValueChange === 'function') {

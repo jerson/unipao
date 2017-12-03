@@ -38,6 +38,15 @@ export default class LoginScreen extends React.Component {
     defaults: {}
   };
 
+  onRememberChange = remember => {
+    !remember && this.clearCredentials();
+  };
+  clearCredentials = () => {
+    SingleStorage.remove('username');
+    SingleStorage.remove('password');
+    SingleStorage.remove('remember');
+  };
+
   login = async () => {
     let username = this.refs.username.getValue();
     let password = this.refs.password.getValue();
@@ -65,9 +74,7 @@ export default class LoginScreen extends React.Component {
             SingleStorage.set('password', password);
             SingleStorage.set('remember', '1');
           } else {
-            SingleStorage.remove('username');
-            SingleStorage.remove('password');
-            SingleStorage.remove('remember');
+            this.clearCredentials();
           }
           RouterUtil.resetTo(this.props.navigation, 'User');
           return;
@@ -174,6 +181,7 @@ export default class LoginScreen extends React.Component {
             <InputSwitch
               useLabel
               center
+              onValueChange={this.onRememberChange}
               defaultValue={!!defaults.remember}
               ref={'remember'}
               placeholder={_('Recordar mis credenciales')}
