@@ -42,7 +42,11 @@ export default class NewsListScreen extends React.Component {
   };
 
   load = async () => {
-    let { page, isRefreshing } = this.state;
+    let { page, isRefreshing, isLoadingMore } = this.state;
+
+    if (!(isRefreshing || isLoadingMore)) {
+      this.setState({ isLoading: true });
+    }
     if (page === 1 && !isRefreshing) {
       await this.checkCache();
     }
@@ -80,11 +84,7 @@ export default class NewsListScreen extends React.Component {
     this.setState({ newsList });
   };
   loadRequest = async () => {
-    let { isLoadingMore, isRefreshing, page } = this.state;
-
-    if (!(isRefreshing || isLoadingMore)) {
-      this.setState({ isLoading: true });
-    }
+    let { page } = this.state;
 
     try {
       let limit = 10;

@@ -43,7 +43,9 @@ export default class AgendaListScreen extends React.Component {
 
   load = async () => {
     let { isRefreshing } = this.state;
+
     if (!isRefreshing) {
+      this.setState({ isLoading: true });
       await this.checkCache();
     }
     await this.loadRequest();
@@ -94,11 +96,8 @@ export default class AgendaListScreen extends React.Component {
     );
   };
   loadRequest = async () => {
-    let { isRefreshing, month, year } = this.state;
+    let { month, year } = this.state;
 
-    if (!isRefreshing) {
-      this.setState({ isLoading: true });
-    }
     try {
       let response = await Request.post(
         'pr/listagenda',

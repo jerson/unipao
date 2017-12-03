@@ -146,9 +146,7 @@ export default class IntranetScreen extends React.Component {
   };
 
   reload = () => {
-    this.setState({ isLoading: true }, () => {
-      this.refs.periods.load();
-    });
+    this.onRefresh();
   };
   onRefresh = () => {
     this.setState({ isRefreshing: true }, () => {

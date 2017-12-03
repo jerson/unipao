@@ -37,15 +37,13 @@ export default class PaymentsScreen extends React.Component {
 
   state = {
     isLoading: true,
-    isRefreshing: false,
     paymentsGroups: {}
   };
 
   load = async () => {
-    let { isRefreshing } = this.state;
-    if (!isRefreshing) {
-      await this.checkCache();
-    }
+    this.setState({ isLoading: true });
+    await this.checkCache();
+
     await this.loadRequest();
   };
   getCacheKey = () => {
@@ -78,8 +76,6 @@ export default class PaymentsScreen extends React.Component {
     });
   };
   loadRequest = async () => {
-    this.setState({ isLoading: true });
-
     try {
       let response = await Request.post(
         'av/ej/estadocuenta',

@@ -59,9 +59,9 @@ export default class EnrollmentScreen extends React.Component {
     });
   };
 
-  load = async () => {
-    let { isRefreshing } = this.state;
-    if (!isRefreshing) {
+  load = async (skipCache = false) => {
+    this.setState({ isLoading: true });
+    if (!skipCache) {
       await this.checkCache();
     }
     await this.loadRequest();
@@ -118,7 +118,6 @@ export default class EnrollmentScreen extends React.Component {
     this.setState({ careers, isLoading: false });
   };
   loadRequest = async () => {
-    this.setState({ isLoading: true });
     let { period } = this.state;
 
     try {
@@ -142,7 +141,7 @@ export default class EnrollmentScreen extends React.Component {
   };
 
   reload = () => {
-    this.load();
+    this.load(true);
   };
   togglePeriods = () => {
     this.refs.periods.show();

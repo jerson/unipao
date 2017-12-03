@@ -55,11 +55,12 @@ export default class ScheduleScreen extends React.Component {
       this.load();
     });
   };
-  load = async () => {
-    let { isRefreshing } = this.state;
-    if (!isRefreshing) {
+  load = async (skipCache = false) => {
+    this.setState({ isLoading: true });
+    if (!skipCache) {
       await this.checkCache();
     }
+
     await this.loadRequest();
   };
   getCacheKey = () => {
@@ -93,7 +94,6 @@ export default class ScheduleScreen extends React.Component {
     });
   };
   loadRequest = async () => {
-    this.setState({ isLoading: true });
     let { period } = this.state;
 
     try {
@@ -116,7 +116,7 @@ export default class ScheduleScreen extends React.Component {
   };
 
   reload = () => {
-    this.load();
+    this.load(true);
   };
 
   togglePeriods = () => {

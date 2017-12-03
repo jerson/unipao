@@ -73,6 +73,7 @@ export default class AssistsScreen extends React.Component {
   load = async () => {
     let { isRefreshing } = this.state;
     if (!isRefreshing) {
+      this.setState({ isLoading: true });
       await this.checkCache();
     }
     await this.loadRequest();
@@ -98,11 +99,6 @@ export default class AssistsScreen extends React.Component {
     this.setState({ assists, isLoading: false, isRefreshing: false });
   };
   loadRequest = async () => {
-    let { isRefreshing } = this.state;
-
-    if (!isRefreshing) {
-      this.setState({ isLoading: true });
-    }
     let { period } = this.state;
 
     try {
@@ -124,7 +120,7 @@ export default class AssistsScreen extends React.Component {
   };
 
   reload = () => {
-    this.load();
+    this.onRefresh();
   };
   togglePeriods = () => {
     this.refs.periods.show();

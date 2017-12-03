@@ -44,6 +44,7 @@ export default class PeriodModal extends React.PureComponent {
     }
   };
   load = async () => {
+    this.setState({ isLoading: true });
     await this.checkCache();
 
     await this.loadRequest();
@@ -83,8 +84,6 @@ export default class PeriodModal extends React.PureComponent {
     }
   };
   loadRequest = async () => {
-    this.setState({ isLoading: true });
-
     try {
       let response = await Request.post(
         'av/ej/fichamatricula',

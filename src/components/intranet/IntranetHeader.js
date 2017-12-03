@@ -25,6 +25,7 @@ export default class IntranetHeader extends React.Component {
   };
 
   load = async () => {
+    this.setState({ isLoading: true });
     await this.checkCache();
 
     await this.loadRequest();
@@ -64,8 +65,6 @@ export default class IntranetHeader extends React.Component {
     }
   };
   loadRequest = async () => {
-    this.setState({ isLoading: true });
-
     try {
       let response = await Request.post(
         'av/ej/carreras',
