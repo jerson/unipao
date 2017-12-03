@@ -1,3 +1,5 @@
+import DeviceInfo from 'react-native-device-info';
+
 export function getDefaultLocale(): string {
-  return 'es';
+  return  DeviceInfo.getDeviceLocale();
 }
