@@ -1,0 +1,151 @@
+import React from 'react';
+import {
+  FlatList,
+  Platform,
+  RefreshControl,
+  StyleSheet,
+  View
+} from 'react-native';
+import { Theme } from '../themes/styles';
+import PropTypes from 'prop-types';
+import Request from '../modules/network/Request';
+import Log from '../modules/logger/Log';
+import Loading from '../components/ui/Loading';
+import AgendaItem from '../components/agenda/AgendaItem';
+import moment from 'moment';
+import { _ } from '../modules/i18n/Translator';
+
+const TAG = 'AgendaListScreen';
+export default class AgendaListScreen extends React.Component {
+  static contextTypes = {
+    notification: PropTypes.object.isRequired
+  };
+
+  static navigationOptions = {
+    title: _('Agenda del més'),
+    headerBackTitle: null,
+    headerTitleStyle: [Theme.title, Theme.subtitle],
+    headerTintColor: Theme.tintColor,
+    headerStyle: [
+      Theme.navigationBar,
+      Theme.subNavigationBar,
+      Theme.shadowDefault
+    ]
+  };
+
+  state = {
+    agendaList: [],
+    month: moment().format('MM'),
+    year: moment().format('YYYY'),
+    isRefreshing: false
+  };
+
+  load = async () => {
+    let { isRefreshing, month, year } = this.state;
+
+    if (!isRefreshing) {
+      this.setState({ isLoading: true });
+    }
+    try {
+      let response = await Request.post(
+        'pr/listagenda',
+        {
+          v_mes: month,
+          v_anno: year
+        },
+        { secure: true }
+      );
+
+      let { body } = response;
+      let data = [];
+      let exist = false;
+      if (body.data) {
+        data = JSON.parse(body.data);
+        let i = 0;
+        exist = false;
+        for (let item of data) {
+          let isToday = this.isToday(item);
+          if (isToday) {
+            exist = true;
+            break;
+          }
+          i++;
+        }
+      }
+      this.setState(
+        { agendaList: data, isLoading: false, isRefreshing: false },
+        () => {
+          if (!exist) {
+            return;
+          }
+          setTimeout(() => {
+            this.refs.list.scrollToIndex({
+              animated: true,
+              index: i,
+              viewPosition: 0.5
+            });
+          }, 1000);
+        }
+      );
+    } catch (e) {
+      Log.warn(TAG, 'load', e);
+      this.setState({ isLoading: false, isRefreshing: false });
+    }
+  };
+
+  isToday = item => {
+    let { month, year } = this.state;
+    let day = parseInt(item.DIA1 || item.FECHAFINAL, 10);
+    let date = `${day}/${month}/${year}`;
+    return date === moment().format('DD/MM/YYYY');
+  };
+  renderItem = ({ item, index }) => {
+    let isToday = this.isToday(item);
+    return <AgendaItem isToday={isToday} agenda={item} />;
+  };
+  onRefresh = () => {
+    this.setState({ isRefreshing: true }, () => {
+      this.load();
+    });
+  };
+
+  componentDidMount() {
+    this.load();
+  }
+
+  render() {
+    let { isLoading, isRefreshing, agendaList } = this.state;
+    let paddingTop = Platform.OS === 'ios' ? 65 : 60;
+    return (
+      <View style={[styles.container, { paddingTop }]}>
+        {/*<Background />*/}
+        {isLoading && <Loading margin />}
+        <FlatList
+          ref={'list'}
+          data={agendaList}
+          getItemLayout={(data, index) => {
+            let height = 145;
+            return { length: height, offset: height * index, index };
+          }}
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefreshing}
+              onRefresh={this.onRefresh}
+            />
+          }
+          renderItem={this.renderItem}
+          keyExtractor={(item, index) => {
+            return index;
+          }}
+        />
+      </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff'
+  }
+});

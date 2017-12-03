@@ -1,0 +1,15 @@
+{
+  "expo": {
+    "sdkVersion": "22.0.0",
+    "name": "UniPAO",
+    "icon": "src/images/icon.png",
+    "version": "0.3.0",
+    "slug": "unipao",
+    "ios": {
+      "bundleIdentifier": "sample.upao.app"
+    },
+    "android": {
+      "package": "sample.upao.app"
+    }
+  }
+}
