@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Alert,
+  Platform,
   Dimensions,
   Image,
   ScrollView,
@@ -78,6 +79,14 @@ export default class ProfileScreen extends React.Component {
         style={[styles.container]}
         keyboardShouldPersistTaps={'handled'}
       >
+        {Platform.OS === 'ios' && (
+          <StatusBar
+            backgroundColor="#0d61ac"
+            translucent
+            animated
+            barStyle="dark-content"
+          />
+        )}
         <Background />
 
         <View style={styles.profile}>

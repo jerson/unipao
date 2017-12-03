@@ -154,7 +154,7 @@ const UsersTabNavigator = TabNavigator(
     tabBarOptions: {
       activeTintColor: '#f59331',
       labelStyle: {
-      //  marginTop: 15,
+        //  marginTop: 15,
         marginLeft: 0
       },
       style: {
