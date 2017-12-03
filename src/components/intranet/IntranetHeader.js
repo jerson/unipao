@@ -130,6 +130,7 @@ export default class IntranetHeader extends React.Component {
             horizontal
             pagingEnabled
             onScroll={this.onScroll}
+            scrollEventThrottle={200}
             showsHorizontalScrollIndicator={false}
           >
             <View style={styles.scrollView}>

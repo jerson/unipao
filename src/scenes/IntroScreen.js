@@ -112,6 +112,7 @@ export default class IntroScreen extends React.Component {
           horizontal
           pagingEnabled
           onScroll={this.onScroll}
+          scrollEventThrottle={200}
           showsHorizontalScrollIndicator={false}
           renderItem={this.renderItem}
           keyExtractor={(item, index) => {
