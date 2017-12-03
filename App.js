@@ -3,11 +3,12 @@ import Translator from './src/modules/i18n/Translator';
 import en from './src/locales/en';
 import Loading from './src/components/ui/Loading';
 import Emitter from './src/modules/listener/Emitter';
+import codePush from "react-native-code-push";
 
 console.disableYellowBox = true;
+let codePushOptions = { checkFrequency: codePush.CheckFrequency.ON_APP_RESUME };
 
-
-export default class App extends React.Component {
+class App extends React.Component {
 
     state = {
         isLoaded: false,
@@ -45,3 +46,4 @@ export default class App extends React.Component {
     }
 }
 
+export default codePush(codePushOptions)(App);

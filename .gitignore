@@ -49,3 +49,6 @@ scripts/tmp
 flow-typed/
 .expo/
 Config.js
+.project
+.settings
+.classpath

@@ -49,6 +49,12 @@
 		97B13915249D49DE80BDFAF2 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0D9182408BDE4FBDA21D709D /* Octicons.ttf */; };
 		B3BB698338E44AC68557DE62 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FDDE391AAD5A49C29BB5F58C /* SimpleLineIcons.ttf */; };
 		312331F94F6644219733E1C0 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8811DEEB499948028A32EF8F /* Zocial.ttf */; };
+		1DF34FC2A7E44336BABDD7DB /* libAppCenterReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DFB9B86FF8944D8B8A860AB /* libAppCenterReactNative.a */; };
+		C298083B98BA40AF80539B3A /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B8B45940A8B49ABAA8938EC /* AppCenter-Config.plist */; };
+		33A096695C34493D97450154 /* libAppCenterReactNativeAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA58262ED9EC400086C7A046 /* libAppCenterReactNativeAnalytics.a */; };
+		E1EC44CB048E49609AABB2C3 /* libAppCenterReactNativeCrashes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 959D6969C1AC40F99C8006A8 /* libAppCenterReactNativeCrashes.a */; };
+		206AA3A4CE804AE6AA88C296 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95C571C543DD4872B613A180 /* libCodePush.a */; };
+		E35BA7510244456598B84D5F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FD74EB4F844948F6BEB82CD5 /* libz.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -291,6 +297,16 @@
 		0D9182408BDE4FBDA21D709D /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		FDDE391AAD5A49C29BB5F58C /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		8811DEEB499948028A32EF8F /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8F5FA74CDE084C31AAA36ACD /* AppCenterReactNative.xcodeproj */ = {isa = PBXFileReference; name = "AppCenterReactNative.xcodeproj"; path = "../node_modules/appcenter/ios/AppCenterReactNative.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		0DFB9B86FF8944D8B8A860AB /* libAppCenterReactNative.a */ = {isa = PBXFileReference; name = "libAppCenterReactNative.a"; path = "libAppCenterReactNative.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		7B8B45940A8B49ABAA8938EC /* AppCenter-Config.plist */ = {isa = PBXFileReference; name = "AppCenter-Config.plist"; path = "upao/AppCenter-Config.plist"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = text.plist.xml; explicitFileType = undefined; includeInIndex = 0; };
+		2E49252E655149C7A2DB7270 /* AppCenterReactNativeAnalytics.xcodeproj */ = {isa = PBXFileReference; name = "AppCenterReactNativeAnalytics.xcodeproj"; path = "../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		BA58262ED9EC400086C7A046 /* libAppCenterReactNativeAnalytics.a */ = {isa = PBXFileReference; name = "libAppCenterReactNativeAnalytics.a"; path = "libAppCenterReactNativeAnalytics.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		A97CA12EE7BE4B5991822DC8 /* AppCenterReactNativeCrashes.xcodeproj */ = {isa = PBXFileReference; name = "AppCenterReactNativeCrashes.xcodeproj"; path = "../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		959D6969C1AC40F99C8006A8 /* libAppCenterReactNativeCrashes.a */ = {isa = PBXFileReference; name = "libAppCenterReactNativeCrashes.a"; path = "libAppCenterReactNativeCrashes.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		F41B7A3BA62446BE9CFE5E6D /* CodePush.xcodeproj */ = {isa = PBXFileReference; name = "CodePush.xcodeproj"; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		95C571C543DD4872B613A180 /* libCodePush.a */ = {isa = PBXFileReference; name = "libCodePush.a"; path = "libCodePush.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		FD74EB4F844948F6BEB82CD5 /* libz.tbd */ = {isa = PBXFileReference; name = "libz.tbd"; path = "usr/lib/libz.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -321,6 +337,11 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				7C5262D2B82B40FBA1147E87 /* libBVLinearGradient.a in Frameworks */,
 				F956CBFD276C4D2DB61D6247 /* libRNVectorIcons.a in Frameworks */,
+				1DF34FC2A7E44336BABDD7DB /* libAppCenterReactNative.a in Frameworks */,
+				33A096695C34493D97450154 /* libAppCenterReactNativeAnalytics.a in Frameworks */,
+				E1EC44CB048E49609AABB2C3 /* libAppCenterReactNativeCrashes.a in Frameworks */,
+				206AA3A4CE804AE6AA88C296 /* libCodePush.a in Frameworks */,
+				E35BA7510244456598B84D5F /* libz.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,6 +512,10 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				C0ACD853CD144D87B518788D /* BVLinearGradient.xcodeproj */,
 				9E945E4B61EA4BD188915A5D /* RNVectorIcons.xcodeproj */,
+				8F5FA74CDE084C31AAA36ACD /* AppCenterReactNative.xcodeproj */,
+				2E49252E655149C7A2DB7270 /* AppCenterReactNativeAnalytics.xcodeproj */,
+				A97CA12EE7BE4B5991822DC8 /* AppCenterReactNativeCrashes.xcodeproj */,
+				F41B7A3BA62446BE9CFE5E6D /* CodePush.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -512,6 +537,8 @@
 				00E356EF1AD99517003FC87E /* upaoTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				225989AF5A594BFCA8E3B5F2 /* Resources */,
+				7B8B45940A8B49ABAA8938EC /* AppCenter-Config.plist */,
+				7EF313A0B5514954A7C4A791 /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -553,6 +580,15 @@
 				8811DEEB499948028A32EF8F /* Zocial.ttf */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+			path = "";
+		};
+		7EF313A0B5514954A7C4A791 /* Frameworks */ = {
+			isa = "PBXGroup";
+			children = (
+				FD74EB4F844948F6BEB82CD5 /* libz.tbd */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 			path = "";
 		};
@@ -936,6 +972,7 @@
 				97B13915249D49DE80BDFAF2 /* Octicons.ttf in Resources */,
 				B3BB698338E44AC68557DE62 /* SimpleLineIcons.ttf in Resources */,
 				312331F94F6644219733E1C0 /* Zocial.ttf in Resources */,
+				C298083B98BA40AF80539B3A /* AppCenter-Config.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1071,11 +1108,19 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
+					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 				);
 			};
 			name = Debug;
@@ -1098,11 +1143,19 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
+					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 				);
 			};
 			name = Release;
@@ -1126,6 +1179,10 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
+					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 				);
 			};
 			name = Debug;
@@ -1148,6 +1205,10 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
+					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 				);
 			};
 			name = Release;
@@ -1179,11 +1240,19 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
+					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 				);
 			};
 			name = Debug;
@@ -1215,11 +1284,19 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
+					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 				);
 			};
 			name = Release;
@@ -1246,6 +1323,10 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -1270,6 +1351,10 @@
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
