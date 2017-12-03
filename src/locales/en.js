@@ -1,4 +1,5 @@
 export default {
+    'Importante': 'Important',
     'Acerca de': 'About',
     'Hola, soy un ex-alumno de la carrera de ingeniería de software, espero que esta aplicación te sea de utilidad.':
         'Hello, I am a former student of the software engineering career, I hope this application is useful for you.',
