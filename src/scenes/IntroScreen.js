@@ -6,10 +6,12 @@ import Button from '../components/ui/Button';
 import { _ } from '../modules/i18n/Translator';
 import RouterUtil from '../modules/util/RouterUtil';
 import Background from '../components/ui/Background';
+import Log from '../modules/logger/Log';
 
 export default class IntroScreen extends React.Component {
   state = {
     currentPage: 0,
+    width: Dimensions.get('window').width,
     pages: [
       {
         imageHeader: require('../images/icon.png'),
@@ -38,12 +40,12 @@ export default class IntroScreen extends React.Component {
   };
 
   renderItem = ({ item, index }) => {
-    return <IntroItem item={item} index={index} />;
+    let { width } = this.state;
+    return <IntroItem item={item} width={width} index={index} />;
   };
 
   prev = () => {
-    let { width } = Dimensions.get('window');
-    let { pages, currentPage } = this.state;
+    let { width, currentPage } = this.state;
     let page = currentPage;
     page--;
     page = page < 0 ? 0 : page;
@@ -54,8 +56,7 @@ export default class IntroScreen extends React.Component {
   };
 
   next = () => {
-    let { width } = Dimensions.get('window');
-    let { pages, currentPage } = this.state;
+    let { pages, width, currentPage } = this.state;
     let page = currentPage;
     page++;
     page = page >= pages.length ? 0 : page;
@@ -71,22 +72,32 @@ export default class IntroScreen extends React.Component {
 
   onScroll = e => {
     let { pages, currentPage } = this.state;
-    let offset = e.nativeEvent.contentOffset.x || 0;
-    let newPage = 0;
-    if (offset > 1) {
-      let { width } = Dimensions.get('window');
-      newPage = Math.round(offset / width);
+    let contentOffset = e.nativeEvent.contentOffset;
+    let viewSize = e.nativeEvent.layoutMeasurement;
+    let newPage = Math.floor(contentOffset.x / viewSize.width);
+
+    if (contentOffset.x === 1) {
+      this.setState({ width: viewSize.width });
     }
 
     if (currentPage === newPage) {
       return;
     }
-    this.setState({ currentPage: newPage }, () => {
+    this.setState({ currentPage: newPage, width: viewSize.width }, () => {
       if (pages.length === newPage) {
         this.finish();
       }
     });
   };
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.refs.list &&
+        this.refs.list.scrollToOffset({
+          offset: 1
+        });
+    }, 100);
+  }
 
   render() {
     let { pages, currentPage } = this.state;

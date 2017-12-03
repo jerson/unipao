@@ -17,6 +17,7 @@ export default class IntranetHeader extends React.Component {
 
   state = {
     currentIndex: 0,
+    width: Dimensions.get('window').width,
     isLoading: false,
     careers: [],
     career: null
@@ -45,7 +46,12 @@ export default class IntranetHeader extends React.Component {
       }
       let data = [...data1, ...data2];
       let career = data[0] || null;
-      this.setState({ careers: data, career, isLoading: false });
+      this.setState({ careers: data, career, isLoading: false }, () => {
+        setTimeout(() => {
+          this.refs.scroll &&
+            this.refs.scroll.scrollTo({ x: 1, animated: true });
+        }, 100);
+      });
 
       let { onChooseCareer } = this.props;
       if (typeof onChooseCareer === 'function') {
@@ -58,8 +64,7 @@ export default class IntranetHeader extends React.Component {
   };
 
   prev = () => {
-    let { width } = Dimensions.get('window');
-    let { careers, currentIndex } = this.state;
+    let { careers, width, currentIndex } = this.state;
     let index = currentIndex - 1;
     if (index < 0) {
       index = careers.length - 1;
@@ -72,8 +77,7 @@ export default class IntranetHeader extends React.Component {
     }
   };
   next = () => {
-    let { width } = Dimensions.get('window');
-    let { careers, currentIndex } = this.state;
+    let { careers, width, currentIndex } = this.state;
     let index = currentIndex + 1;
     if (index > careers.length - 1) {
       index = 0;
@@ -84,18 +88,23 @@ export default class IntranetHeader extends React.Component {
       this.refs.scroll.scrollTo({ x: index * width, animated: true });
     }
   };
-  onMomentumScrollEnd = e => {
-    let offset = e.nativeEvent.contentOffset.x || 0;
-    let currentIndex = 0;
-    if (offset > 1) {
-      let { width } = Dimensions.get('window');
-      currentIndex = Math.round(offset / width);
-    }
+  onScroll = e => {
+    let { currentIndex } = this.state;
+    let contentOffset = e.nativeEvent.contentOffset;
+    let viewSize = e.nativeEvent.layoutMeasurement;
 
+    let newIndex = Math.floor(contentOffset.x / viewSize.width);
+
+    if (contentOffset.x === 1) {
+      this.setState({ width: viewSize.width });
+    }
+    if (newIndex === currentIndex) {
+      return;
+    }
     let { onChooseCareer } = this.props;
     let { careers } = this.state;
-    let career = careers[currentIndex];
-    this.setState({ career, currentIndex });
+    let career = careers[newIndex];
+    this.setState({ career, width: viewSize.width, currentIndex: newIndex });
 
     if (typeof onChooseCareer === 'function') {
       onChooseCareer(career);
@@ -107,8 +116,7 @@ export default class IntranetHeader extends React.Component {
   }
 
   render() {
-    let { width } = Dimensions.get('window');
-    let { careers, isLoading } = this.state;
+    let { careers, isLoading, width } = this.state;
     return (
       <View style={[styles.container]}>
         {/*<LinearGradient*/}
@@ -121,7 +129,7 @@ export default class IntranetHeader extends React.Component {
             ref={'scroll'}
             horizontal
             pagingEnabled
-            onMomentumScrollEnd={this.onMomentumScrollEnd}
+            onScroll={this.onScroll}
             showsHorizontalScrollIndicator={false}
           >
             <View style={styles.scrollView}>

@@ -113,7 +113,7 @@ export default {
   'Estas listo, ahora inicia sesión con tu cuenta':
     "You're ready, now sign in with your account",
   Anterior: 'Previous',
-  Siguiente: 'Following',
+  Siguiente: 'Next',
   Omitir: 'Skip',
   'Ahora podrás acceder a tu información del campus de la universidad':
     'Now you can access your information on the campus of the university',

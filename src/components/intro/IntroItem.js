@@ -18,13 +18,11 @@ export default class IntroItem extends React.Component {
     navigation: PropTypes.object.isRequired
   };
 
-  state = {};
-
   render() {
-    let { width, height } = Dimensions.get('window');
-    let { item, index } = this.props;
+    let { height } = Dimensions.get('window');
+    let { item, width, index } = this.props;
     return (
-      <View style={[styles.container, { width }]}>
+      <View style={[styles.container, { width: width }]}>
         <ScrollView
           contentContainerStyle={[
             styles.content,

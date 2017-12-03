@@ -70,7 +70,7 @@ export default class Main extends React.Component {
   }
 
   async showIntro() {
-    let val = '6';
+    let val = '102';
     let intro = await SingleStorage.get('intro');
     if (intro !== val) {
       RouterUtil.resetTo(this.refs.navigation, 'Intro');

@@ -25,7 +25,7 @@ export default class SelectModal extends React.Component {
       isVisible,
       onValueChange
     } = this.props;
-    let { width, height } = Dimensions.get('window');
+    let { height } = Dimensions.get('window');
 
     return (
       <Modal
