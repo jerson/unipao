@@ -11,5 +11,7 @@
     "android": {
       "package": "sample.upao.app"
     }
-  }
+  },
+  "name": "upao",
+  "displayName": "UniPAO"
 }

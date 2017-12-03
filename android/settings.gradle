@@ -1,0 +1,3 @@
+rootProject.name = 'upao'
+
+include ':app'
