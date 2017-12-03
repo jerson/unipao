@@ -55,13 +55,13 @@ export default class PeriodModal extends React.PureComponent {
   checkCache = async () => {
     try {
       let data = await CacheStorage.get(this.getCacheKey());
-      data && this.loadResponse(data);
+      data && this.loadResponse(data, true);
     } catch (e) {
       Log.info(TAG, 'checkCache', e);
     }
   };
 
-  loadResponse = body => {
+  loadResponse = (body, cacheLoaded = false) => {
     let { onLoaded } = this.props;
     if (body.data) {
       let periods = JSON.parse(body.data);
@@ -76,7 +76,7 @@ export default class PeriodModal extends React.PureComponent {
         return value1 < value2;
       });
       let period = this.state.period || periods[0] || {};
-      this.setState({ periods, period, isLoading: false });
+      this.setState({ cacheLoaded, periods, period, isLoading: false });
 
       if (typeof onLoaded === 'function') {
         onLoaded(periods);
@@ -84,6 +84,7 @@ export default class PeriodModal extends React.PureComponent {
     }
   };
   loadRequest = async () => {
+    let { cacheLoaded } = this.state;
     try {
       let response = await Request.post(
         'av/ej/fichamatricula',
@@ -98,7 +99,11 @@ export default class PeriodModal extends React.PureComponent {
       CacheStorage.set(this.getCacheKey(), body);
     } catch (e) {
       Log.warn(TAG, 'loadPeriods', e);
-      this.setState({ isLoading: false });
+      if (!cacheLoaded) {
+        this.loadResponse({});
+      } else {
+        this.setState({ isLoading: false });
+      }
     }
   };
 

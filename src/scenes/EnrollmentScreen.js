@@ -73,13 +73,13 @@ export default class EnrollmentScreen extends React.Component {
   checkCache = async () => {
     try {
       let data = await CacheStorage.get(this.getCacheKey());
-      data && this.loadResponse(data);
+      data && this.loadResponse(data, true);
     } catch (e) {
       Log.info(TAG, 'checkCache', e);
     }
   };
 
-  loadResponse = body => {
+  loadResponse = (body, cacheLoaded = false) => {
     let careers = {};
     let tabs = {};
 
@@ -115,10 +115,10 @@ export default class EnrollmentScreen extends React.Component {
         }
       });
     }
-    this.setState({ careers, isLoading: false });
+    this.setState({ careers, cacheLoaded, isLoading: false });
   };
   loadRequest = async () => {
-    let { period } = this.state;
+    let { cacheLoaded, period } = this.state;
 
     try {
       let response = await Request.post(
@@ -136,7 +136,11 @@ export default class EnrollmentScreen extends React.Component {
       CacheStorage.set(this.getCacheKey(), body);
     } catch (e) {
       Log.warn(TAG, 'load', e);
-      this.setState({ isLoading: false });
+      if (!cacheLoaded) {
+        this.loadResponse({});
+      } else {
+        this.setState({ isLoading: false });
+      }
     }
   };
 

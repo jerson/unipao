@@ -85,21 +85,26 @@ export default class AssistsScreen extends React.Component {
   checkCache = async () => {
     try {
       let data = await CacheStorage.get(this.getCacheKey());
-      data && this.loadResponse(data);
+      data && this.loadResponse(data, true);
     } catch (e) {
       Log.info(TAG, 'checkCache', e);
     }
   };
 
-  loadResponse = body => {
+  loadResponse = (body, cacheLoaded = false) => {
     let assists = [];
     if (body.data) {
       assists = JSON.parse(body.data);
     }
-    this.setState({ assists, isLoading: false, isRefreshing: false });
+    this.setState({
+      cacheLoaded,
+      assists,
+      isLoading: false,
+      isRefreshing: false
+    });
   };
   loadRequest = async () => {
-    let { period } = this.state;
+    let { cacheLoaded, period } = this.state;
 
     try {
       let response = await Request.post(
@@ -115,7 +120,11 @@ export default class AssistsScreen extends React.Component {
       CacheStorage.set(this.getCacheKey(), body);
     } catch (e) {
       Log.warn(TAG, 'load', e);
-      this.setState({ isLoading: false, isRefreshing: false });
+      if (!cacheLoaded) {
+        this.loadResponse({});
+      } else {
+        this.setState({ isLoading: false, isRefreshing: false });
+      }
     }
   };
 

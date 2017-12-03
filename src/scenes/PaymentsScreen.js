@@ -52,13 +52,13 @@ export default class PaymentsScreen extends React.Component {
   checkCache = async () => {
     try {
       let data = await CacheStorage.get(this.getCacheKey());
-      data && this.loadResponse(data);
+      data && this.loadResponse(data, true);
     } catch (e) {
       Log.info(TAG, 'checkCache', e);
     }
   };
 
-  loadResponse = body => {
+  loadResponse = (body, cacheLoaded = false) => {
     let paymentsGroups = {};
     if (body.data) {
       let data = JSON.parse(body.data);
@@ -72,10 +72,11 @@ export default class PaymentsScreen extends React.Component {
       }
     }
     InteractionManager.runAfterInteractions(() => {
-      this.setState({ paymentsGroups, isLoading: false });
+      this.setState({ cacheLoaded, paymentsGroups, isLoading: false });
     });
   };
   loadRequest = async () => {
+    let { cacheLoaded } = this.state;
     try {
       let response = await Request.post(
         'av/ej/estadocuenta',
@@ -90,7 +91,11 @@ export default class PaymentsScreen extends React.Component {
       CacheStorage.set(this.getCacheKey(), body);
     } catch (e) {
       Log.warn(TAG, 'load', e);
-      this.setState({ isLoading: false });
+      if (!cacheLoaded) {
+        this.loadResponse({});
+      } else {
+        this.setState({ isLoading: false });
+      }
     }
   };
 

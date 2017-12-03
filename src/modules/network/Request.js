@@ -215,6 +215,14 @@ export default class Request {
       }
     } catch (e) {
       Log.warn(e);
+      // let message = e.message || '';
+      // if (message.indexOf('Network request failed') !== -1) {
+      //     response = {
+      //         status: 200,
+      //         headers: {},
+      //         body: {}
+      //     }
+      // }
     }
 
     if (response.status === 200) {

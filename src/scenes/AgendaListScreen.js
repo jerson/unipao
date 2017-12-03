@@ -57,13 +57,13 @@ export default class AgendaListScreen extends React.Component {
   checkCache = async () => {
     try {
       let data = await CacheStorage.get(this.getCacheKey());
-      data && this.loadResponse(data);
+      data && this.loadResponse(data, true);
     } catch (e) {
       Log.info(TAG, 'checkCache', e);
     }
   };
 
-  loadResponse = body => {
+  loadResponse = (body, cacheLoaded = false) => {
     let data = [];
     let exist = false;
     if (body.data) {
@@ -80,23 +80,24 @@ export default class AgendaListScreen extends React.Component {
       }
     }
     this.setState(
-      { agendaList: data, isLoading: false, isRefreshing: false },
+      { agendaList: data, cacheLoaded, isLoading: false, isRefreshing: false },
       () => {
         if (!exist) {
           return;
         }
         setTimeout(() => {
-          this.refs.list.scrollToIndex({
-            animated: true,
-            index: i,
-            viewPosition: 0.5
-          });
+          this.refs.list &&
+            this.refs.list.scrollToIndex({
+              animated: true,
+              index: i,
+              viewPosition: 0.5
+            });
         }, 1000);
       }
     );
   };
   loadRequest = async () => {
-    let { month, year } = this.state;
+    let { cacheLoaded, month, year } = this.state;
 
     try {
       let response = await Request.post(
@@ -113,7 +114,11 @@ export default class AgendaListScreen extends React.Component {
       CacheStorage.set(this.getCacheKey(), body);
     } catch (e) {
       Log.warn(TAG, 'load', e);
-      this.setState({ isLoading: false, isRefreshing: false });
+      if (!cacheLoaded) {
+        this.loadResponse({});
+      } else {
+        this.setState({ isLoading: false, isRefreshing: false });
+      }
     }
   };
 

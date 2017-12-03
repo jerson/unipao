@@ -61,13 +61,13 @@ export default class NewsListScreen extends React.Component {
 
     try {
       let data = await CacheStorage.get(this.getCacheKey());
-      data && this.loadResponse(data);
+      data && this.loadResponse(data, true);
     } catch (e) {
       Log.info(TAG, 'checkCache', e);
     }
   };
 
-  loadResponse = body => {
+  loadResponse = (body, cacheLoaded = false) => {
     let { page } = this.state;
     let newsList = [];
     if (body.data) {
@@ -81,10 +81,16 @@ export default class NewsListScreen extends React.Component {
         newsList = [...this.state.newsList, ...data];
       }
     }
-    this.setState({ newsList });
+    this.setState({
+      cacheLoaded,
+      newsList,
+      isLoading: false,
+      isRefreshing: false,
+      isLoadingMore: false
+    });
   };
   loadRequest = async () => {
-    let { page } = this.state;
+    let { cacheLoaded, page } = this.state;
 
     try {
       let limit = 10;
@@ -104,13 +110,16 @@ export default class NewsListScreen extends React.Component {
       CacheStorage.set(this.getCacheKey(), body);
     } catch (e) {
       Log.warn(TAG, 'load', e);
+      if (!cacheLoaded) {
+        this.loadResponse({});
+      } else {
+        this.setState({
+          isLoading: false,
+          isRefreshing: false,
+          isLoadingMore: false
+        });
+      }
     }
-
-    this.setState({
-      isLoading: false,
-      isRefreshing: false,
-      isLoadingMore: false
-    });
   };
   renderItem = ({ item, index }) => {
     return <NewsItem news={item} />;

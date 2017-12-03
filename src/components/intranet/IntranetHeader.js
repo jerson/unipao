@@ -36,13 +36,13 @@ export default class IntranetHeader extends React.Component {
   checkCache = async () => {
     try {
       let data = await CacheStorage.get(this.getCacheKey());
-      data && this.loadResponse(data);
+      data && this.loadResponse(data, true);
     } catch (e) {
       Log.info(TAG, 'checkCache', e);
     }
   };
 
-  loadResponse = body => {
+  loadResponse = (body, cacheLoaded = false) => {
     let data1 = [];
     let data2 = [];
     if (body.data_carreras) {
@@ -53,11 +53,15 @@ export default class IntranetHeader extends React.Component {
     }
     let data = [...data1, ...data2];
     let career = data[0] || null;
-    this.setState({ careers: data, career, isLoading: false }, () => {
-      setTimeout(() => {
-        this.refs.scroll && this.refs.scroll.scrollTo({ x: 1, animated: true });
-      }, 100);
-    });
+    this.setState(
+      { cacheLoaded, careers: data, career, isLoading: false },
+      () => {
+        setTimeout(() => {
+          this.refs.scroll &&
+            this.refs.scroll.scrollTo({ x: 1, animated: true });
+        }, 100);
+      }
+    );
 
     let { onChooseCareer } = this.props;
     if (typeof onChooseCareer === 'function') {
@@ -65,6 +69,7 @@ export default class IntranetHeader extends React.Component {
     }
   };
   loadRequest = async () => {
+    let { cacheLoaded } = this.state;
     try {
       let response = await Request.post(
         'av/ej/carreras',
@@ -79,7 +84,11 @@ export default class IntranetHeader extends React.Component {
       CacheStorage.set(this.getCacheKey(), body);
     } catch (e) {
       Log.warn(TAG, 'load', e);
-      this.setState({ isLoading: false });
+      if (!cacheLoaded) {
+        this.loadResponse({});
+      } else {
+        this.setState({ isLoading: false });
+      }
     }
   };
 
