@@ -13,7 +13,7 @@ export default class StatusBarView extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: Expo.Constants.statusBarHeight,
+    height: 20,
     backgroundColor: '#0d61ac',
     position: 'absolute',
     left: 0,

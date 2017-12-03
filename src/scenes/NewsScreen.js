@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { Theme } from '../themes/styles';
 import PropTypes from 'prop-types';
-import { LinearGradient } from 'expo';
+import LinearGradient from 'react-native-linear-gradient';
 import ImageUtil from '../modules/util/ImageUtil';
 import HTMLView from 'react-native-htmlview';
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Dimensions, Image, ScrollView, StyleSheet, View } from 'react-native';
 import Button from '../components/ui/Button';
-import Icon from '../components/ui/Icon';
 import Input from '../components/ui/Input';
 import { Theme } from '../themes/styles';
 import PropTypes from 'prop-types';

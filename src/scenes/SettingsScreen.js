@@ -70,7 +70,7 @@ export default class SettingsScreen extends React.Component {
   onChangeLocale = async locale => {
     await PreferencesStorage.set('locale', locale);
     Translator.setLocale(locale);
-    Expo.Util.reload();
+    //Expo.Util.reload();
   };
 
   componentDidMount() {

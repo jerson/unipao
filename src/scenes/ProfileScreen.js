@@ -19,7 +19,6 @@ import RouterUtil from '../modules/util/RouterUtil';
 import { titleize } from 'underscore.string';
 import ImageUtil from '../modules/util/ImageUtil';
 import { _ } from '../modules/i18n/Translator';
-import { LinearGradient } from 'expo';
 
 const TAG = 'ProfileScreen';
 export default class ProfileScreen extends React.Component {

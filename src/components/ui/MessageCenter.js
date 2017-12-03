@@ -63,7 +63,7 @@ export default class MessageCenter extends React.Component {
     let { topOffset } = this.props;
     let top = topOffset || 5;
 
-    top += 50 + Expo.Constants.statusBarHeight;
+    top += 50 + 20;
 
     return (
       <View style={[styles.container, { top }]}>

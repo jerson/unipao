@@ -1,16 +1,14 @@
 import React from 'react';
 import {
   Dimensions,
+  Image,
   ScrollView,
   StyleSheet,
-  Image,
   Text,
   View
 } from 'react-native';
 import PropTypes from 'prop-types';
-import { _ } from '../../modules/i18n/Translator';
 import { Theme } from '../../themes/styles';
-import { LinearGradient } from 'expo';
 import Icon from '../ui/Icon';
 
 const TAG = 'IntroItem';

@@ -71,7 +71,7 @@ export default class Main extends React.Component {
   }
 
   render() {
-    let paddingTop = Platform.OS === 'ios' ? 0 : Expo.Constants.statusBarHeight;
+    let paddingTop = Platform.OS === 'ios' ? 0 : 20;
     return (
       <View style={{ paddingTop, flex: 1 }}>
         <StatusBar
