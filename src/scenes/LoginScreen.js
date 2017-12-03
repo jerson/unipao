@@ -152,6 +152,8 @@ export default class LoginScreen extends React.Component {
                 placeholder={_('Código de alumno')}
                 defaultValue={defaults.username}
                 returnKeyType={'next'}
+                autoCorrect={false}
+                autoFocus={true}
                 keyboardType={'email-address'}
                 blurOnSubmit={false}
                 onSubmitEditing={() => this.refs.password.focus()}

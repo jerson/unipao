@@ -3,6 +3,7 @@ package com.unipao.app;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import cl.json.RNSharePackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.microsoft.appcenter.reactnative.push.AppCenterReactNativePushPackage;
 import com.microsoft.codepush.react.CodePush;
@@ -37,6 +38,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNSharePackage(),
             new RNDeviceInfo(),
             new AppCenterReactNativePushPackage(MainApplication.this),
             new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG),

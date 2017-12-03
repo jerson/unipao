@@ -13,6 +13,8 @@ target 'upao' do
 
   
 
+  pod 'RNShare', :path => '../node_modules/react-native-share'
+
   target 'upaoTests' do
     inherit! :search_paths
     # Pods for testing

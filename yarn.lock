@@ -3633,6 +3633,10 @@ react-native-modal@^4.1.1:
     prop-types "15.5.10"
     react-native-animatable "^1.2.3"
 
+react-native-share@^1.0.23:
+  version "1.0.23"
+  resolved "https://registry.yarnpkg.com/react-native-share/-/react-native-share-1.0.23.tgz#6476f10d34e5274b9e0ef2c93def6c3a282ffe94"
+
 react-native-tab-view@^0.0.70:
   version "0.0.70"
   resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-0.0.70.tgz#1dd2ded32acd0cb6bfef38d26e53675db733b37b"
