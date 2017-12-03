@@ -107,14 +107,14 @@ export default class EnrollmentScreen extends React.Component {
         careers[name].push(enrollment);
       }
 
-      this.EnrollmentTabs = TabNavigator(tabs, {
-        ...tabsOptions,
-        tabBarOptions: {
-          ...tabsOptions.tabBarOptions,
-          scrollEnabled: false
-        }
-      });
     }
+      this.EnrollmentTabs = TabNavigator(tabs, {
+          ...tabsOptions,
+          tabBarOptions: {
+              ...tabsOptions.tabBarOptions,
+              scrollEnabled: false
+          }
+      });
     this.setState({ careers, cacheLoaded, isLoading: false });
   };
   loadRequest = async () => {
