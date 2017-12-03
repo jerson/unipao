@@ -11,6 +11,7 @@ import { TabNavigator } from 'react-navigation';
 import { tabsOptions } from '../routers/Tabs';
 import PeriodModal from '../components/period/PeriodModal';
 import { _ } from '../modules/i18n/Translator';
+import CacheStorage from '../modules/storage/CacheStorage';
 
 const TAG = 'EnrollmentScreen';
 export default class EnrollmentScreen extends React.Component {
@@ -59,6 +60,64 @@ export default class EnrollmentScreen extends React.Component {
   };
 
   load = async () => {
+    let { isRefreshing } = this.state;
+    if (!isRefreshing) {
+      await this.checkCache();
+    }
+    await this.loadRequest();
+  };
+  getCacheKey = () => {
+    let { period } = this.state;
+    return `enrollment_${period.PERIODO || '_'}`;
+  };
+  checkCache = async () => {
+    try {
+      let data = await CacheStorage.get(this.getCacheKey());
+      data && this.loadResponse(data);
+    } catch (e) {
+      Log.info(TAG, 'checkCache', e);
+    }
+  };
+
+  loadResponse = body => {
+    let careers = {};
+    let tabs = {};
+
+    if (body.data) {
+      let enrollments = JSON.parse(body.data);
+      for (let enrollment of enrollments) {
+        let name = enrollment.CARR || 'ERR';
+        if (!careers[name]) {
+          careers[name] = [];
+        }
+        if (!tabs[name]) {
+          tabs[name] = {
+            screen: ({ navigation, screenProps }) => {
+              let { careers } = screenProps;
+              let enrollments = careers[name] || [];
+              return <EnrollmentList enrollments={enrollments} />;
+            },
+            navigationOptions: ({ navigation, screenProps }) => {
+              return {
+                tabBarLabel: enrollment.CARRERA
+              };
+            }
+          };
+        }
+        careers[name].push(enrollment);
+      }
+
+      this.EnrollmentTabs = TabNavigator(tabs, {
+        ...tabsOptions,
+        tabBarOptions: {
+          ...tabsOptions.tabBarOptions,
+          scrollEnabled: false
+        }
+      });
+    }
+    this.setState({ careers, isLoading: false });
+  };
+  loadRequest = async () => {
     this.setState({ isLoading: true });
     let { period } = this.state;
 
@@ -74,42 +133,8 @@ export default class EnrollmentScreen extends React.Component {
       );
 
       let { body } = response;
-      let careers = {};
-      let tabs = {};
-
-      if (body.data) {
-        let enrollments = JSON.parse(body.data);
-        for (let enrollment of enrollments) {
-          let name = enrollment.CARR || 'ERR';
-          if (!careers[name]) {
-            careers[name] = [];
-          }
-          if (!tabs[name]) {
-            tabs[name] = {
-              screen: ({ navigation, screenProps }) => {
-                let { careers } = screenProps;
-                let enrollments = careers[name] || [];
-                return <EnrollmentList enrollments={enrollments} />;
-              },
-              navigationOptions: ({ navigation, screenProps }) => {
-                return {
-                  tabBarLabel: enrollment.CARRERA
-                };
-              }
-            };
-          }
-          careers[name].push(enrollment);
-        }
-
-        this.EnrollmentTabs = TabNavigator(tabs, {
-          ...tabsOptions,
-          tabBarOptions: {
-            ...tabsOptions.tabBarOptions,
-            scrollEnabled: false
-          }
-        });
-      }
-      this.setState({ careers, isLoading: false });
+      this.loadResponse(body);
+      CacheStorage.set(this.getCacheKey(), body);
     } catch (e) {
       Log.warn(TAG, 'load', e);
       this.setState({ isLoading: false });

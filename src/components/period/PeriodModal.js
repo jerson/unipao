@@ -5,6 +5,7 @@ import { _ } from '../../modules/i18n/Translator';
 import SelectModal from '../ui/SelectModal';
 import Request from '../../modules/network/Request';
 import Log from '../../modules/logger/Log';
+import CacheStorage from '../../modules/storage/CacheStorage';
 
 const TAG = 'PeriodModal';
 export default class PeriodModal extends React.PureComponent {
@@ -42,9 +43,46 @@ export default class PeriodModal extends React.PureComponent {
       onChange(period);
     }
   };
-
   load = async () => {
+    await this.checkCache();
+
+    await this.loadRequest();
+  };
+  getCacheKey = () => {
+    return `periods`;
+  };
+  checkCache = async () => {
+    try {
+      let data = await CacheStorage.get(this.getCacheKey());
+      data && this.loadResponse(data);
+    } catch (e) {
+      Log.info(TAG, 'checkCache', e);
+    }
+  };
+
+  loadResponse = body => {
     let { onLoaded } = this.props;
+    if (body.data) {
+      let periods = JSON.parse(body.data);
+      // periods.sort((a, b) => {
+      //   let value1 = this.parseLevelSort(a.NIVEL);
+      //   let value2 = this.parseLevelSort(b.NIVEL);
+      //   return value1 < value2;
+      // });
+      periods.sort((a, b) => {
+        let value1 = parseFloat(a.PERIODO);
+        let value2 = parseFloat(b.PERIODO);
+        return value1 < value2;
+      });
+      let period = this.state.period || periods[0] || {};
+      this.setState({ periods, period, isLoading: false });
+
+      if (typeof onLoaded === 'function') {
+        onLoaded(periods);
+      }
+    }
+  };
+  loadRequest = async () => {
     this.setState({ isLoading: true });
 
     try {
@@ -57,25 +95,8 @@ export default class PeriodModal extends React.PureComponent {
       );
 
       let { body } = response;
-      if (body.data) {
-        let periods = JSON.parse(body.data);
-        // periods.sort((a, b) => {
-        //   let value1 = this.parseLevelSort(a.NIVEL);
-        //   let value2 = this.parseLevelSort(b.NIVEL);
-        //   return value1 < value2;
-        // });
-        periods.sort((a, b) => {
-          let value1 = parseFloat(a.PERIODO);
-          let value2 = parseFloat(b.PERIODO);
-          return value1 < value2;
-        });
-        let period = this.state.period || periods[0] || {};
-        this.setState({ periods, period, isLoading: false });
-
-        if (typeof onLoaded === 'function') {
-          onLoaded(periods);
-        }
-      }
+      this.loadResponse(body);
+      CacheStorage.set(this.getCacheKey(), body);
     } catch (e) {
       Log.warn(TAG, 'loadPeriods', e);
       this.setState({ isLoading: false });

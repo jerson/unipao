@@ -7,6 +7,7 @@ import Icon from '../ui/Icon';
 import Loading from '../ui/Loading';
 import { _ } from '../../modules/i18n/Translator';
 import Touchable from '../ui/Touchable';
+import CacheStorage from '../../modules/storage/CacheStorage';
 
 const TAG = 'IntranetHeader';
 export default class IntranetHeader extends React.Component {
@@ -24,6 +25,45 @@ export default class IntranetHeader extends React.Component {
   };
 
   load = async () => {
+    await this.checkCache();
+
+    await this.loadRequest();
+  };
+  getCacheKey = () => {
+    return `careers`;
+  };
+  checkCache = async () => {
+    try {
+      let data = await CacheStorage.get(this.getCacheKey());
+      data && this.loadResponse(data);
+    } catch (e) {
+      Log.info(TAG, 'checkCache', e);
+    }
+  };
+
+  loadResponse = body => {
+    let data1 = [];
+    let data2 = [];
+    if (body.data_carreras) {
+      data1 = JSON.parse(body.data_carreras);
+    }
+    if (body.data_ingles) {
+      data2 = JSON.parse(body.data_ingles);
+    }
+    let data = [...data1, ...data2];
+    let career = data[0] || null;
+    this.setState({ careers: data, career, isLoading: false }, () => {
+      setTimeout(() => {
+        this.refs.scroll && this.refs.scroll.scrollTo({ x: 1, animated: true });
+      }, 100);
+    });
+
+    let { onChooseCareer } = this.props;
+    if (typeof onChooseCareer === 'function') {
+      onChooseCareer(career);
+    }
+  };
+  loadRequest = async () => {
     this.setState({ isLoading: true });
 
     try {
@@ -36,27 +76,8 @@ export default class IntranetHeader extends React.Component {
       );
 
       let { body } = response;
-      let data1 = [];
-      let data2 = [];
-      if (body.data_carreras) {
-        data1 = JSON.parse(body.data_carreras);
-      }
-      if (body.data_ingles) {
-        data2 = JSON.parse(body.data_ingles);
-      }
-      let data = [...data1, ...data2];
-      let career = data[0] || null;
-      this.setState({ careers: data, career, isLoading: false }, () => {
-        setTimeout(() => {
-          this.refs.scroll &&
-            this.refs.scroll.scrollTo({ x: 1, animated: true });
-        }, 100);
-      });
-
-      let { onChooseCareer } = this.props;
-      if (typeof onChooseCareer === 'function') {
-        onChooseCareer(career);
-      }
+      this.loadResponse(body);
+      CacheStorage.set(this.getCacheKey(), body);
     } catch (e) {
       Log.warn(TAG, 'load', e);
       this.setState({ isLoading: false });

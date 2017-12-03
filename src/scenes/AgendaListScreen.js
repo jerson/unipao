@@ -14,6 +14,7 @@ import Loading from '../components/ui/Loading';
 import AgendaItem from '../components/agenda/AgendaItem';
 import moment from 'moment';
 import { _ } from '../modules/i18n/Translator';
+import CacheStorage from '../modules/storage/CacheStorage';
 
 const TAG = 'AgendaListScreen';
 export default class AgendaListScreen extends React.Component {
@@ -41,6 +42,58 @@ export default class AgendaListScreen extends React.Component {
   };
 
   load = async () => {
+    let { isRefreshing } = this.state;
+    if (!isRefreshing) {
+      await this.checkCache();
+    }
+    await this.loadRequest();
+  };
+  getCacheKey = () => {
+    let { month, year } = this.state;
+    return `agendaList_${month}_${year}`;
+  };
+  checkCache = async () => {
+    try {
+      let data = await CacheStorage.get(this.getCacheKey());
+      data && this.loadResponse(data);
+    } catch (e) {
+      Log.info(TAG, 'checkCache', e);
+    }
+  };
+
+  loadResponse = body => {
+    let data = [];
+    let exist = false;
+    if (body.data) {
+      data = JSON.parse(body.data);
+      let i = 0;
+      exist = false;
+      for (let item of data) {
+        let isToday = this.isToday(item);
+        if (isToday) {
+          exist = true;
+          break;
+        }
+        i++;
+      }
+    }
+    this.setState(
+      { agendaList: data, isLoading: false, isRefreshing: false },
+      () => {
+        if (!exist) {
+          return;
+        }
+        setTimeout(() => {
+          this.refs.list.scrollToIndex({
+            animated: true,
+            index: i,
+            viewPosition: 0.5
+          });
+        }, 1000);
+      }
+    );
+  };
+  loadRequest = async () => {
     let { isRefreshing, month, year } = this.state;
 
     if (!isRefreshing) {
@@ -57,36 +110,8 @@ export default class AgendaListScreen extends React.Component {
       );
 
       let { body } = response;
-      let data = [];
-      let exist = false;
-      if (body.data) {
-        data = JSON.parse(body.data);
-        let i = 0;
-        exist = false;
-        for (let item of data) {
-          let isToday = this.isToday(item);
-          if (isToday) {
-            exist = true;
-            break;
-          }
-          i++;
-        }
-      }
-      this.setState(
-        { agendaList: data, isLoading: false, isRefreshing: false },
-        () => {
-          if (!exist) {
-            return;
-          }
-          setTimeout(() => {
-            this.refs.list.scrollToIndex({
-              animated: true,
-              index: i,
-              viewPosition: 0.5
-            });
-          }, 1000);
-        }
-      );
+      this.loadResponse(body);
+      CacheStorage.set(this.getCacheKey(), body);
     } catch (e) {
       Log.warn(TAG, 'load', e);
       this.setState({ isLoading: false, isRefreshing: false });

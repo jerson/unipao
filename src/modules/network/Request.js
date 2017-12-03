@@ -201,12 +201,18 @@ export default class Request {
       let success = typeof resBody.success === 'number' ? resBody.success : -1;
       if (success === 0) {
         Emitter.emit('onForceLogout', true);
+        response = {
+          status: 500,
+          headers: headers || {},
+          body: resBody
+        };
+      } else {
+        response = {
+          status: fetchResponse.status,
+          headers: headers || {},
+          body: resBody
+        };
       }
-      response = {
-        status: fetchResponse.status,
-        headers: headers || {},
-        body: resBody
-      };
     } catch (e) {
       Log.warn(e);
     }

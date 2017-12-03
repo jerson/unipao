@@ -10,6 +10,7 @@ import PaymentList from '../components/payment/PaymentList';
 import { _ } from '../modules/i18n/Translator';
 import { tabsOptions } from '../routers/Tabs';
 import NavigationButton from '../components/ui/NavigationButton';
+import CacheStorage from '../modules/storage/CacheStorage';
 
 const TAG = 'PaymentsScreen';
 export default class PaymentsScreen extends React.Component {
@@ -41,6 +42,42 @@ export default class PaymentsScreen extends React.Component {
   };
 
   load = async () => {
+    let { isRefreshing } = this.state;
+    if (!isRefreshing) {
+      await this.checkCache();
+    }
+    await this.loadRequest();
+  };
+  getCacheKey = () => {
+    return `payments`;
+  };
+  checkCache = async () => {
+    try {
+      let data = await CacheStorage.get(this.getCacheKey());
+      data && this.loadResponse(data);
+    } catch (e) {
+      Log.info(TAG, 'checkCache', e);
+    }
+  };
+
+  loadResponse = body => {
+    let paymentsGroups = {};
+    if (body.data) {
+      let data = JSON.parse(body.data);
+
+      for (let payment of data) {
+        let level = payment.NIVEL || 'ERR';
+        if (!paymentsGroups[level]) {
+          paymentsGroups[level] = [];
+        }
+        paymentsGroups[level].push(payment);
+      }
+    }
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({ paymentsGroups, isLoading: false });
+    });
+  };
+  loadRequest = async () => {
     this.setState({ isLoading: true });
 
     try {
@@ -53,21 +90,8 @@ export default class PaymentsScreen extends React.Component {
       );
 
       let { body } = response;
-      let paymentsGroups = {};
-      if (body.data) {
-        let data = JSON.parse(body.data);
-
-        for (let payment of data) {
-          let level = payment.NIVEL || 'ERR';
-          if (!paymentsGroups[level]) {
-            paymentsGroups[level] = [];
-          }
-          paymentsGroups[level].push(payment);
-        }
-      }
-      InteractionManager.runAfterInteractions(() => {
-        this.setState({ paymentsGroups, isLoading: false });
-      });
+      this.loadResponse(body);
+      CacheStorage.set(this.getCacheKey(), body);
     } catch (e) {
       Log.warn(TAG, 'load', e);
       this.setState({ isLoading: false });

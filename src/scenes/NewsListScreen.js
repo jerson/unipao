@@ -48,12 +48,15 @@ export default class NewsListScreen extends React.Component {
     }
     await this.loadRequest();
   };
+  getCacheKey = () => {
+    let { page } = this.state;
+    return `newsList_${page}`;
+  };
   checkCache = async () => {
     let { page } = this.state;
 
-    let cacheKey = `newsList_${page}`;
     try {
-      let data = await CacheStorage.get(cacheKey);
+      let data = await CacheStorage.get(this.getCacheKey());
       data && this.loadResponse(data);
     } catch (e) {
       Log.info(TAG, 'checkCache', e);
@@ -96,10 +99,9 @@ export default class NewsListScreen extends React.Component {
         { secure: true }
       );
 
-      let cacheKey = `newsList_${page}`;
       let { body } = response;
       this.loadResponse(body);
-      CacheStorage.set(cacheKey, body);
+      CacheStorage.set(this.getCacheKey(), body);
     } catch (e) {
       Log.warn(TAG, 'load', e);
     }

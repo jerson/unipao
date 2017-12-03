@@ -11,6 +11,7 @@ import { _ } from '../modules/i18n/Translator';
 import { tabsOptions } from '../routers/Tabs';
 import ScheduleList from '../components/schedule/ScheduleList';
 import PeriodModal from '../components/period/PeriodModal';
+import CacheStorage from '../modules/storage/CacheStorage';
 
 const TAG = 'ScheduleScreen';
 export default class ScheduleScreen extends React.Component {
@@ -54,8 +55,44 @@ export default class ScheduleScreen extends React.Component {
       this.load();
     });
   };
-
   load = async () => {
+    let { isRefreshing } = this.state;
+    if (!isRefreshing) {
+      await this.checkCache();
+    }
+    await this.loadRequest();
+  };
+  getCacheKey = () => {
+    let { period } = this.state;
+    return `schedule_${period.PERIODO || '_'}`;
+  };
+  checkCache = async () => {
+    try {
+      let data = await CacheStorage.get(this.getCacheKey());
+      data && this.loadResponse(data);
+    } catch (e) {
+      Log.info(TAG, 'checkCache', e);
+    }
+  };
+
+  loadResponse = body => {
+    let scheduleDays = {};
+    if (body.data) {
+      let data = JSON.parse(body.data);
+
+      for (let schedule of data) {
+        let day = schedule.DIA || 'ERR';
+        if (!scheduleDays[day]) {
+          scheduleDays[day] = [];
+        }
+        scheduleDays[day].push(schedule);
+      }
+    }
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({ scheduleDays, isLoading: false });
+    });
+  };
+  loadRequest = async () => {
     this.setState({ isLoading: true });
     let { period } = this.state;
 
@@ -70,21 +107,8 @@ export default class ScheduleScreen extends React.Component {
       );
 
       let { body } = response;
-      let scheduleDays = {};
-      if (body.data) {
-        let data = JSON.parse(body.data);
-
-        for (let schedule of data) {
-          let day = schedule.DIA || 'ERR';
-          if (!scheduleDays[day]) {
-            scheduleDays[day] = [];
-          }
-          scheduleDays[day].push(schedule);
-        }
-      }
-      InteractionManager.runAfterInteractions(() => {
-        this.setState({ scheduleDays, isLoading: false });
-      });
+      this.loadResponse(body);
+      CacheStorage.set(this.getCacheKey(), body);
     } catch (e) {
       Log.warn(TAG, 'load', e);
       this.setState({ isLoading: false });

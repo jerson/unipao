@@ -16,6 +16,7 @@ import AssistItem from '../components/assist/AssistItem';
 import PeriodModal from '../components/period/PeriodModal';
 import AlertMessage from '../components/ui/AlertMessage';
 import { _ } from '../modules/i18n/Translator';
+import CacheStorage from '../modules/storage/CacheStorage';
 
 const TAG = 'AssistsScreen';
 export default class AssistsScreen extends React.Component {
@@ -69,8 +70,33 @@ export default class AssistsScreen extends React.Component {
     });
   };
 
-  load = async () => {};
-  checkCache = async () => {};
+  load = async () => {
+    let { isRefreshing } = this.state;
+    if (!isRefreshing) {
+      await this.checkCache();
+    }
+    await this.loadRequest();
+  };
+  getCacheKey = () => {
+    let { period } = this.state;
+    return `assists_${period.PERIODO || '_'}`;
+  };
+  checkCache = async () => {
+    try {
+      let data = await CacheStorage.get(this.getCacheKey());
+      data && this.loadResponse(data);
+    } catch (e) {
+      Log.info(TAG, 'checkCache', e);
+    }
+  };
+
+  loadResponse = body => {
+    let assists = [];
+    if (body.data) {
+      assists = JSON.parse(body.data);
+    }
+    this.setState({ assists, isLoading: false, isRefreshing: false });
+  };
   loadRequest = async () => {
     let { isRefreshing } = this.state;
 
@@ -89,11 +115,8 @@ export default class AssistsScreen extends React.Component {
       );
 
       let { body } = response;
-      let assists = [];
-      if (body.data) {
-        assists = JSON.parse(body.data);
-      }
-      this.setState({ assists, isLoading: false, isRefreshing: false });
+      this.loadResponse(body);
+      CacheStorage.set(this.getCacheKey(), body);
     } catch (e) {
       Log.warn(TAG, 'load', e);
       this.setState({ isLoading: false, isRefreshing: false });
