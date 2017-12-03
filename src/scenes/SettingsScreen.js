@@ -18,6 +18,8 @@ import RouterUtil from '../modules/util/RouterUtil';
 import PreferenceItemSelect from '../components/preference/PreferenceItemSelect';
 import PreferencesStorage from '../modules/storage/PreferencesStorage';
 import Translator, { _ } from '../modules/i18n/Translator';
+import codePush from 'react-native-code-push';
+import DeviceInfo from 'react-native-device-info';
 
 export default class SettingsScreen extends React.Component {
   static navigationOptions = {
@@ -70,7 +72,7 @@ export default class SettingsScreen extends React.Component {
   onChangeLocale = async locale => {
     await PreferencesStorage.set('locale', locale);
     Translator.setLocale(locale);
-    //Expo.Util.reload();
+    codePush.restartApp(false);
   };
 
   componentDidMount() {
@@ -124,7 +126,14 @@ export default class SettingsScreen extends React.Component {
           description={Config.app.author}
         />
 
-        <PreferenceItem title={_('Versión')} description={'1.0'} />
+        <PreferenceItem
+          title={_('Identificador')}
+          description={DeviceInfo.getBundleId()}
+        />
+        <PreferenceItem
+          title={_('Versión')}
+          description={DeviceInfo.getReadableVersion()}
+        />
       </ScrollView>
     );
   }

@@ -149,6 +149,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-device-info')
     compile project(':appcenter-push')
     compile project(':react-native-code-push')
     compile project(':appcenter-crashes')

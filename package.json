@@ -44,6 +44,7 @@
         "react": "16.0.0-beta.5",
         "react-native": "^0.49.5",
         "react-native-code-push": "^5.2.0-beta",
+        "react-native-device-info": "^0.13.0",
         "react-native-htmlview": "^0.12.1",
         "react-native-linear-gradient": "^2.3.0",
         "react-native-modal": "^4.1.1",

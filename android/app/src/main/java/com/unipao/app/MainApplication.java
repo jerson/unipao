@@ -3,6 +3,7 @@ package com.unipao.app;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.microsoft.appcenter.reactnative.push.AppCenterReactNativePushPackage;
 import com.microsoft.codepush.react.CodePush;
 import com.microsoft.appcenter.reactnative.crashes.AppCenterReactNativeCrashesPackage;
@@ -36,6 +37,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNDeviceInfo(),
             new AppCenterReactNativePushPackage(MainApplication.this),
             new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG),
             new AppCenterReactNativeCrashesPackage(MainApplication.this, getResources().getString(R.string.appcenterCrashes_whenToSendCrashes)),
