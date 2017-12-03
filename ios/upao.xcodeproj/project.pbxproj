@@ -24,6 +24,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		15D5B209B24A40CDB620E545 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 49B4A611CF92456E9391D2D1 /* libc++.tbd */; };
 		18246FC08F3745FF80D86C45 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F78DF5E5720142A094064709 /* Ionicons.ttf */; };
 		1DF34FC2A7E44336BABDD7DB /* libAppCenterReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DFB9B86FF8944D8B8A860AB /* libAppCenterReactNative.a */; };
 		206AA3A4CE804AE6AA88C296 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95C571C543DD4872B613A180 /* libCodePush.a */; };
@@ -46,6 +47,7 @@
 		33A096695C34493D97450154 /* libAppCenterReactNativeAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA58262ED9EC400086C7A046 /* libAppCenterReactNativeAnalytics.a */; };
 		4E000CC2BD4C4B93A9715C66 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BD991FB874C40F69056C5FF /* EvilIcons.ttf */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
+		6B0E979B8D594756A967AEDB /* libRealmReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AF59649FC6748C8B9B8109D /* libRealmReact.a */; };
 		758F694A6B384DA188200836 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5F939F1660745658B13F05E /* Entypo.ttf */; };
 		7C5262D2B82B40FBA1147E87 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD12D9AD04664B0A960C5CA4 /* libBVLinearGradient.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
@@ -137,6 +139,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
 			remoteInfo = "upao-tvOS";
+		};
+		318D47FC1FD45FCE00C368FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05437B6E9F3149109521F956 /* RealmReact.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F60690131CA2766F0003FB26;
+			remoteInfo = RealmReact;
 		};
 		31C3BE921FD3C48E00281DAB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -417,6 +426,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* upaoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = upaoTests.m; sourceTree = "<group>"; };
 		044FDD61BC21450D8FD7EF3B /* libAppCenterReactNativePush.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAppCenterReactNativePush.a; sourceTree = "<group>"; };
+		05437B6E9F3149109521F956 /* RealmReact.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RealmReact.xcodeproj; path = "../node_modules/realm/react-native/ios/RealmReact.xcodeproj"; sourceTree = "<group>"; };
 		0BD991FB874C40F69056C5FF /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		0CB015A7A8494986836D1ADA /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		0D9182408BDE4FBDA21D709D /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
@@ -434,6 +444,7 @@
 		1ED42777B3BDE82C84196282 /* Pods-upaoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-upaoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-upaoTests/Pods-upaoTests.release.xcconfig"; sourceTree = "<group>"; };
 		1F1FEF2785FA4C2ADD1DCAE0 /* Pods-upao-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-upao-tvOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-upao-tvOSTests/Pods-upao-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		2A895D2099A2D04EAC47EA55 /* libPods-upaoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-upaoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AF59649FC6748C8B9B8109D /* libRealmReact.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRealmReact.a; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* upao-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "upao-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* upao-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "upao-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D49BBB6600865B70D97A7A2 /* libPods-upao-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-upao-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -444,6 +455,7 @@
 		35BDC9AFBBCD68B816894C6E /* libPods-upao.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-upao.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BDC4228AF1542BAB2C01A0F /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		41DFF2423CA14CB687E6C72D /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = "<group>"; };
+		49B4A611CF92456E9391D2D1 /* libc++.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		4D8DC67009CB40708D58B203 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		5691453BC54229989BE884D9 /* Pods-upao-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-upao-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-upao-tvOS/Pods-upao-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		5AB0D9D4B9B0126730BE8954 /* libPods-upao-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-upao-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -516,6 +528,8 @@
 				034EAF08E38D4FC8AD631DA1 /* libAppCenterReactNativePush.a in Frameworks */,
 				A16B667006644D19B532D7F8 /* libRNDeviceInfo.a in Frameworks */,
 				DABA5826F506645AF05229D1 /* libPods-upao.a in Frameworks */,
+				6B0E979B8D594756A967AEDB /* libRealmReact.a in Frameworks */,
+				15D5B209B24A40CDB620E545 /* libc++.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -681,6 +695,14 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		318D47F91FD45FCC00C368FB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				318D47FD1FD45FCE00C368FB /* libRealmReact.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		31C3BE8C1FD3C48E00281DAB /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -693,6 +715,7 @@
 				044FDD61BC21450D8FD7EF3B /* libAppCenterReactNativePush.a */,
 				41DFF2423CA14CB687E6C72D /* libRNDeviceInfo.a */,
 				D9A941C239B94C1AA08EBCF5 /* libRNDeviceInfo-tvOS.a */,
+				2AF59649FC6748C8B9B8109D /* libRealmReact.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -790,6 +813,7 @@
 				2D49BBB6600865B70D97A7A2 /* libPods-upao-tvOS.a */,
 				5AB0D9D4B9B0126730BE8954 /* libPods-upao-tvOSTests.a */,
 				2A895D2099A2D04EAC47EA55 /* libPods-upaoTests.a */,
+				49B4A611CF92456E9391D2D1 /* libc++.tbd */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -817,6 +841,7 @@
 				F41B7A3BA62446BE9CFE5E6D /* CodePush.xcodeproj */,
 				ABA6765A0D4C4D9DA56B2FE7 /* AppCenterReactNativePush.xcodeproj */,
 				F78F1F657A9946D08AD10D3A /* RNDeviceInfo.xcodeproj */,
+				05437B6E9F3149109521F956 /* RealmReact.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1087,6 +1112,10 @@
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
 				{
+					ProductGroup = 318D47F91FD45FCC00C368FB /* Products */;
+					ProjectRef = 05437B6E9F3149109521F956 /* RealmReact.xcodeproj */;
+				},
+				{
 					ProductGroup = 31C3BEAA1FD3C49000281DAB /* Products */;
 					ProjectRef = F78F1F657A9946D08AD10D3A /* RNDeviceInfo.xcodeproj */;
 				},
@@ -1160,6 +1189,13 @@
 			fileType = archive.ar;
 			path = libReact.a;
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		318D47FD1FD45FCE00C368FB /* libRealmReact.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRealmReact.a;
+			remoteRef = 318D47FC1FD45FCE00C368FB /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		31C3BE931FD3C48E00281DAB /* libRCTBlob-tvOS.a */ = {
@@ -1784,12 +1820,14 @@
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/appcenter-push/ios/AppCenterReactNativePush",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/realm/src/**",
 				);
 				INFOPLIST_FILE = upaoTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1825,12 +1863,14 @@
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/appcenter-push/ios/AppCenterReactNativePush",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/realm/src/**",
 				);
 				INFOPLIST_FILE = upaoTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1868,6 +1908,7 @@
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/appcenter-push/ios/AppCenterReactNativePush",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/realm/src/**",
 				);
 				INFOPLIST_FILE = upao/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1899,6 +1940,7 @@
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/appcenter-push/ios/AppCenterReactNativePush",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/realm/src/**",
 				);
 				INFOPLIST_FILE = upao/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1936,11 +1978,13 @@
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/appcenter-push/ios/AppCenterReactNativePush",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/realm/src/**",
 				);
 				INFOPLIST_FILE = "upao-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1986,11 +2030,13 @@
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/appcenter-push/ios/AppCenterReactNativePush",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/realm/src/**",
 				);
 				INFOPLIST_FILE = "upao-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -2038,6 +2084,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.upao-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2063,6 +2110,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

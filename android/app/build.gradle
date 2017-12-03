@@ -149,6 +149,7 @@ android {
 }
 
 dependencies {
+    compile project(':realm')
     compile project(':react-native-share')
     compile project(':react-native-device-info')
     compile project(':appcenter-push')
