@@ -113,7 +113,7 @@ export default class IntranetHeader extends React.Component {
     let contentOffset = e.nativeEvent.contentOffset;
     let viewSize = e.nativeEvent.layoutMeasurement;
 
-    let newIndex = Math.floor(contentOffset.x / viewSize.width);
+    let newIndex = Math.round(contentOffset.x / viewSize.width);
 
     if (contentOffset.x === 1) {
       this.setState({ width: viewSize.width });

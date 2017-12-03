@@ -74,7 +74,7 @@ export default class IntroScreen extends React.Component {
     let { pages, currentPage } = this.state;
     let contentOffset = e.nativeEvent.contentOffset;
     let viewSize = e.nativeEvent.layoutMeasurement;
-    let newPage = Math.floor(contentOffset.x / viewSize.width);
+    let newPage = Math.round(contentOffset.x / viewSize.width);
 
     if (contentOffset.x === 1) {
       this.setState({ width: viewSize.width });

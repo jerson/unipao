@@ -45,7 +45,6 @@ export default class IntranetScreen extends React.Component {
   state = {
     isLoading: true,
     isRefreshing: false,
-    withoutCareer: false,
     career: null,
     periods: [],
     items: [
@@ -116,11 +115,7 @@ export default class IntranetScreen extends React.Component {
     );
   };
   onChooseCareer = career => {
-    if (!career) {
-      this.setState({ withoutCareer: true });
-    } else {
-      this.setState({ career });
-    }
+    this.setState({ career });
   };
   onLoadPeriods = periods => {
     this.setState({ periods, isLoading: false, isRefreshing: false });
@@ -163,7 +158,7 @@ export default class IntranetScreen extends React.Component {
 
   render() {
     let paddingTop = Platform.OS === 'ios' ? 65 : 60;
-    let { items, isRefreshing, withoutCareer, isLoading } = this.state;
+    let { items, isRefreshing, isLoading } = this.state;
     return (
       <View style={[styles.container, { paddingTop }]}>
         <PeriodModal ref={'periods'} onLoaded={this.onLoadPeriods} />
