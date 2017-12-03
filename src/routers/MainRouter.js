@@ -166,6 +166,8 @@ const UsersTabNavigator = TabNavigator(
   {
     ...TabNavigator.Presets.iOSBottomTabs,
     lazy: true,
+    swipeEnabled: true,
+    animationEnabled: true,
     tabBarOptions: {
       activeTintColor: '#f59331'
     }
