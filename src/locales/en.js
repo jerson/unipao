@@ -121,5 +121,6 @@ export default {
   'Las últimas noticias de la universidad para que no te pierdas de nada':
     'The latest news from the university so you do not miss anything',
   'Estas listo, ahora solo tienes que iniciar sesión':
-    "You're ready, now you just have to sign in"
+    "You're ready, now you just have to sign in",
+  Identificador: '__Identificador'
 };
