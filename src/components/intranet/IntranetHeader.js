@@ -58,7 +58,7 @@ export default class IntranetHeader extends React.Component {
   };
 
   prev = () => {
-    let { width } = Dimensions.get('screen');
+    let { width } = Dimensions.get('window');
     let { careers, currentIndex } = this.state;
     let index = currentIndex - 1;
     if (index < 0) {
@@ -72,7 +72,7 @@ export default class IntranetHeader extends React.Component {
     }
   };
   next = () => {
-    let { width } = Dimensions.get('screen');
+    let { width } = Dimensions.get('window');
     let { careers, currentIndex } = this.state;
     let index = currentIndex + 1;
     if (index > careers.length - 1) {
@@ -88,7 +88,7 @@ export default class IntranetHeader extends React.Component {
     let offset = e.nativeEvent.contentOffset.x || 0;
     let currentIndex = 0;
     if (offset > 1) {
-      let { width } = Dimensions.get('screen');
+      let { width } = Dimensions.get('window');
       currentIndex = Math.round(offset / width);
     }
 
@@ -107,7 +107,7 @@ export default class IntranetHeader extends React.Component {
   }
 
   render() {
-    let { width } = Dimensions.get('screen');
+    let { width } = Dimensions.get('window');
     let { careers, isLoading } = this.state;
     return (
       <View style={[styles.container]}>

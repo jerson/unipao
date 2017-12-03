@@ -152,7 +152,18 @@ const UsersTabNavigator = TabNavigator(
     animationEnabled: true,
     backBehavior: 'none',
     tabBarOptions: {
-      activeTintColor: '#f59331'
+      activeTintColor: '#f59331',
+      labelStyle: {
+        marginTop: 15,
+        marginLeft: 0
+      },
+      style: {
+        height: 49
+      },
+      tabStyle: {
+        justifyContent: 'flex-end',
+        flexDirection: 'column'
+      }
     }
   }
 );

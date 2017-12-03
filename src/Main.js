@@ -37,8 +37,10 @@ export default class Main extends React.Component {
     });
 
     await Auth.logout();
-    this.forcedLogout = false;
     RouterUtil.resetTo(this.refs.navigation, 'Login');
+    setTimeout(() => {
+      this.forcedLogout = false;
+    }, 1000);
   };
 
   getChildContext() {

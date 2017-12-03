@@ -18,7 +18,7 @@ export default class NewsItem extends React.Component {
   state = {};
 
   render() {
-    let { height } = Dimensions.get('screen');
+    let { height } = Dimensions.get('window');
     let { news, index } = this.props;
     let ago = moment(news.FECHANOTICIA || '').fromNow();
     let itemHeight = height / 3;

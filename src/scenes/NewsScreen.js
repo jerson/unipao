@@ -42,7 +42,7 @@ export default class NewsListScreen extends React.Component {
     let subtitle = news.SUBTITULO.replace(/(\r\n|\n|\r)/gm, '')
       .replace(/(<([^>]+)>)/gi, '')
       .trim();
-    let { height } = Dimensions.get('screen');
+    let { height } = Dimensions.get('window');
     let itemHeight = height / 2;
 
     return (

@@ -42,7 +42,7 @@ export default class IntroScreen extends React.Component {
   };
 
   prev = () => {
-    let { width } = Dimensions.get('screen');
+    let { width } = Dimensions.get('window');
     let { pages, currentPage } = this.state;
     let page = currentPage;
     page--;
@@ -54,7 +54,7 @@ export default class IntroScreen extends React.Component {
   };
 
   next = () => {
-    let { width } = Dimensions.get('screen');
+    let { width } = Dimensions.get('window');
     let { pages, currentPage } = this.state;
     let page = currentPage;
     page++;
@@ -74,7 +74,7 @@ export default class IntroScreen extends React.Component {
     let offset = e.nativeEvent.contentOffset.x || 0;
     let newPage = 0;
     if (offset > 1) {
-      let { width } = Dimensions.get('screen');
+      let { width } = Dimensions.get('window');
       newPage = Math.round(offset / width);
     }
 
