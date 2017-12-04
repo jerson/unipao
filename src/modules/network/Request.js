@@ -202,7 +202,7 @@ export default class Request {
       if (success === 0) {
         Emitter.emit('onForceLogout', true);
         response = {
-          status: 500,
+          status: 555,
           headers: headers || {},
           body: resBody
         };

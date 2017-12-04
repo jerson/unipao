@@ -115,10 +115,14 @@ export default class IntranetScreen extends React.Component {
     );
   };
   onChooseCareer = career => {
-    this.setState({ career });
+    if (career) {
+      this.setState({ career });
+    }
   };
   onLoadPeriods = periods => {
-    this.setState({ periods, isLoading: false, isRefreshing: false });
+    if (periods && periods.length > 0) {
+      this.setState({ periods, isLoading: false, isRefreshing: false });
+    }
   };
 
   onChooseItem = item => {

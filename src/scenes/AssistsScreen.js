@@ -73,7 +73,7 @@ export default class AssistsScreen extends React.Component {
   load = async () => {
     let { isRefreshing } = this.state;
     if (!isRefreshing) {
-      this.setState({ isLoading: true });
+      this.setState({ isLoading: true, cacheLoaded: false });
       await this.checkCache();
     }
     await this.loadRequest();
@@ -121,8 +121,10 @@ export default class AssistsScreen extends React.Component {
     } catch (e) {
       Log.warn(TAG, 'load', e);
       if (!cacheLoaded) {
+        Log.info(TAG, 'loadRequest', '!cacheLoaded');
         this.loadResponse({});
       } else {
+        Log.info(TAG, 'loadRequest', 'cacheLoaded');
         this.setState({ isLoading: false, isRefreshing: false });
       }
     }

@@ -1,4 +1,5 @@
 import Realm from 'realm';
+import Log from '../logger/Log';
 
 export interface UserSettings {
   schemaVersion?: number;
@@ -24,6 +25,7 @@ export interface Cache {
   value: string;
 }
 
+const TAG = 'CacheStorage';
 export default class CacheStorage {
   static settings: Settings = { path: 'cache.realm', schemaVersion: 1 };
 
@@ -39,21 +41,27 @@ export default class CacheStorage {
     });
   }
   static async set(key: string, value: any): Promise<boolean> {
+    Log.info(TAG, 'set', key);
+    let keyEncoded = this.hashCode(key);
     let realm = await this.getInstance();
+    let cache = realm.objectForPrimaryKey('Cache', keyEncoded);
     realm.write(() => {
-      realm.create(
-        'Cache',
-        {
-          key: this.hashCode(key),
+      if (cache) {
+        Log.info(TAG, 'set', key, 'update');
+        cache.value = JSON.stringify(value);
+      } else {
+        Log.info(TAG, 'set', key, 'create');
+        realm.create('Cache', {
+          key: keyEncoded,
           value: JSON.stringify(value)
-        },
-        true
-      );
+        });
+      }
     });
     return true;
   }
 
   static async get(key: string): Promise<any> {
+    Log.info(TAG, 'get', key);
     let realm = await this.getInstance();
     let keyEncoded = this.hashCode(key);
     let data = null;
@@ -74,18 +82,19 @@ export default class CacheStorage {
   }
 
   static hashCode(text: string): string {
-    let hash = 0,
-      i,
-      chr,
-      len;
-    if (text.length === 0) {
-      return hash.toString();
-    }
-    for (i = 0, len = text.length; i < len; i++) {
-      chr = text.charCodeAt(i);
-      hash = (hash << 5) - hash + chr;
-      hash |= 0;
-    }
-    return 'K' + hash;
+    return text;
+    // let hash = 0,
+    //   i,
+    //   chr,
+    //   len;
+    // if (text.length === 0) {
+    //   return hash.toString();
+    // }
+    // for (i = 0, len = text.length; i < len; i++) {
+    //   chr = text.charCodeAt(i);
+    //   hash = (hash << 5) - hash + chr;
+    //   hash |= 0;
+    // }
+    // return 'K' + hash;
   }
 }

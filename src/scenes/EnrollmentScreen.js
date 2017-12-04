@@ -48,10 +48,9 @@ export default class EnrollmentScreen extends React.Component {
   state = {
     isLoading: true,
     period: null,
+    tabs: null,
     careers: {}
   };
-
-  EnrollmentTabs = null;
 
   onChangePeriod = period => {
     this.setState({ period }, () => {
@@ -60,7 +59,7 @@ export default class EnrollmentScreen extends React.Component {
   };
 
   load = async (skipCache = false) => {
-    this.setState({ isLoading: true });
+    this.setState({ isLoading: true, cacheLoaded: false });
     if (!skipCache) {
       await this.checkCache();
     }
@@ -106,16 +105,36 @@ export default class EnrollmentScreen extends React.Component {
         }
         careers[name].push(enrollment);
       }
-
     }
-      this.EnrollmentTabs = TabNavigator(tabs, {
-          ...tabsOptions,
-          tabBarOptions: {
-              ...tabsOptions.tabBarOptions,
-              scrollEnabled: false
+
+    let totalTabs = Object.keys(tabs);
+    if (totalTabs.length < 1) {
+      tabs = {
+        NO: {
+          screen: ({ navigation, screenProps }) => {
+            return <EnrollmentList enrollments={[]} />;
+          },
+          navigationOptions: ({ navigation, screenProps }) => {
+            return {
+              tabBarLabel: _('No se encontraron datos')
+            };
           }
-      });
-    this.setState({ careers, cacheLoaded, isLoading: false });
+        }
+      };
+    }
+    let EnrollmentTabs = TabNavigator(tabs, {
+      ...tabsOptions,
+      tabBarOptions: {
+        ...tabsOptions.tabBarOptions,
+        scrollEnabled: false
+      }
+    });
+    this.setState({
+      careers,
+      cacheLoaded,
+      tabs: EnrollmentTabs,
+      isLoading: false
+    });
   };
   loadRequest = async () => {
     let { cacheLoaded, period } = this.state;
@@ -167,8 +186,8 @@ export default class EnrollmentScreen extends React.Component {
 
   render() {
     let paddingTop = Platform.OS === 'ios' ? 65 : 60;
-    let { careers, period, isLoading } = this.state;
-    let { EnrollmentTabs } = this;
+    let { careers, period, tabs, isLoading } = this.state;
+    let EnrollmentTabs = tabs;
     return (
       <View style={[styles.container, { paddingTop }]}>
         {period && (

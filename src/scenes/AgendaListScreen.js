@@ -45,7 +45,7 @@ export default class AgendaListScreen extends React.Component {
     let { isRefreshing } = this.state;
 
     if (!isRefreshing) {
-      this.setState({ isLoading: true });
+      this.setState({ isLoading: true, cacheLoaded: false });
       await this.checkCache();
     }
     await this.loadRequest();

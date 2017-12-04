@@ -41,7 +41,7 @@ export default class PaymentsScreen extends React.Component {
   };
 
   load = async () => {
-    this.setState({ isLoading: true });
+    this.setState({ isLoading: true, cacheLoaded: false });
     await this.checkCache();
 
     await this.loadRequest();

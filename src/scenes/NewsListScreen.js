@@ -45,7 +45,7 @@ export default class NewsListScreen extends React.Component {
     let { page, isRefreshing, isLoadingMore } = this.state;
 
     if (!(isRefreshing || isLoadingMore)) {
-      this.setState({ isLoading: true });
+      this.setState({ isLoading: true, cacheLoaded: false });
     }
     if (page === 1 && !isRefreshing) {
       await this.checkCache();

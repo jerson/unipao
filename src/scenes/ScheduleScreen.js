@@ -56,7 +56,7 @@ export default class ScheduleScreen extends React.Component {
     });
   };
   load = async (skipCache = false) => {
-    this.setState({ isLoading: true });
+    this.setState({ isLoading: true, cacheLoaded: false });
     if (!skipCache) {
       await this.checkCache();
     }
@@ -89,9 +89,7 @@ export default class ScheduleScreen extends React.Component {
         scheduleDays[day].push(schedule);
       }
     }
-    InteractionManager.runAfterInteractions(() => {
-      this.setState({ cacheLoaded, scheduleDays, isLoading: false });
-    });
+    this.setState({ cacheLoaded, scheduleDays, isLoading: false });
   };
   loadRequest = async () => {
     let { cacheLoaded, period } = this.state;
