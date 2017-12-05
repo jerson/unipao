@@ -1,38 +1,37 @@
 import { AsyncStorage } from 'react-native';
 
 export interface UserSettings {
-    schemaVersion?: number;
-    path?: string;
+  schemaVersion?: number;
+  path?: string;
 }
 
 export interface Settings {
-    schemaVersion: number;
-    path: string;
+  schemaVersion: number;
+  path: string;
 }
 
 const CacheSchema = {
-    name: 'Cache',
-    primaryKey: 'key',
-    properties: {
-        key: 'string',
-        value: 'string'
-    }
+  name: 'Cache',
+  primaryKey: 'key',
+  properties: {
+    key: 'string',
+    value: 'string'
+  }
 };
 
 export interface Cache {
-    key: string;
-    value: string;
+  key: string;
+  value: string;
 }
 const TAG = 'CacheStorageWindows';
 export default class CacheStorageWindows {
+  static settings: Settings = { path: 'cache.realm', schemaVersion: 1 };
 
-    static settings: Settings = { path: 'cache.realm', schemaVersion: 1 };
-
-    static init(settings: UserSettings) {
-        if (settings) {
-            this.settings = Object.assign({}, this.settings, settings);
-        }
+  static init(settings: UserSettings) {
+    if (settings) {
+      this.settings = Object.assign({}, this.settings, settings);
     }
+  }
   static async set(key: string, value: any): Promise<boolean> {
     if (typeof value === 'undefined') {
       return false;
@@ -51,7 +50,7 @@ export default class CacheStorageWindows {
     let data = '';
     try {
       data = await AsyncStorage.getItem(key);
-        data = JSON.parse(data);
+      data = JSON.parse(data);
     } catch (e) {
       return data;
     }
