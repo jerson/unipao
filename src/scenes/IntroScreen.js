@@ -1,12 +1,12 @@
 import React from 'react';
 import { Dimensions, FlatList, StyleSheet, View } from 'react-native';
 import IntroItem from '../components/intro/IntroItem';
-import LinearGradient from 'react-native-linear-gradient';
 import Button from '../components/ui/Button';
 import { _ } from '../modules/i18n/Translator';
 import RouterUtil from '../modules/util/RouterUtil';
 import Background from '../components/ui/Background';
 import Log from '../modules/logger/Log';
+import LinearGradient from '../components/ui/LinearGradient';
 
 export default class IntroScreen extends React.Component {
   state = {

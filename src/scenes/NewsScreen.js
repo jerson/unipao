@@ -9,9 +9,9 @@ import {
 } from 'react-native';
 import { Theme } from '../themes/styles';
 import PropTypes from 'prop-types';
-import LinearGradient from 'react-native-linear-gradient';
 import ImageUtil from '../modules/util/ImageUtil';
 import HTMLView from 'react-native-htmlview';
+import LinearGradient from '../components/ui/LinearGradient';
 
 const TAG = 'NewsListScreen';
 export default class NewsListScreen extends React.Component {

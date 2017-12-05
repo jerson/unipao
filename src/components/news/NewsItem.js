@@ -4,9 +4,9 @@ import Touchable from '../ui/Touchable';
 import PropTypes from 'prop-types';
 import ImageUtil from '../../modules/util/ImageUtil';
 import { Theme } from '../../themes/styles';
-import LinearGradient from 'react-native-linear-gradient';
 import moment from 'moment';
 import { _ } from '../../modules/i18n/Translator';
+import LinearGradient from '../ui/LinearGradient';
 
 const TAG = 'NewsItem';
 export default class NewsItem extends React.Component {
