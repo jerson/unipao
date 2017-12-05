@@ -3,14 +3,11 @@ using ReactNative.Modules.Core;
 using ReactNative.Shell;
 using System.Collections.Generic;
 using RNDeviceInfo;
-using CodePush.ReactNative;
-using Cl.Json.RNShare;
 
 namespace unipao
 {
     class MainReactNativeHost : ReactNativeHost
     {
-        private CodePushReactPackage codePushReactPackage;
         public override string MainComponentName => "unipao";
 
 #if !BUNDLE || DEBUG
@@ -22,22 +19,13 @@ namespace unipao
         protected override string JavaScriptMainModuleName => "index";
 
 #if BUNDLE
-    protected override string JavaScriptBundleFile
-    {
-        get
-        {
-            codePushReactPackage = new CodePushReactPackage("deployment-key-here", this);
-            return codePushReactPackage.GetJavaScriptBundleFile();
-        }
-    }
+        protected override string JavaScriptBundleFile => "ms-appx:///ReactAssets/index.windows.bundle";
 #endif
 
         protected override List<IReactPackage> Packages => new List<IReactPackage>
         {
             new MainReactPackage(),
-            new RNDeviceInfoPackage(),
-            new RNSharePackage()
-                codePushReactPackage
+            new RNDeviceInfoPackage()
         };
     }
 }
