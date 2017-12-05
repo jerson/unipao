@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import LinearGradient from './LinearGradient';
 
 export default class Background extends React.Component {
   render() {
