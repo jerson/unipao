@@ -1,5 +1,5 @@
 {
-    "name": "@jerson/unipao",
+    "name": "unipao",
     "version": "0.1.0",
     "private": true,
     "devDependencies": {
