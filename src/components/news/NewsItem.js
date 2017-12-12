@@ -1,5 +1,12 @@
 import React from 'react';
-import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
+import {
+  Platform,
+  Dimensions,
+  Image,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
 import Touchable from '../ui/Touchable';
 import PropTypes from 'prop-types';
 import ImageUtil from '../../modules/util/ImageUtil';
@@ -38,7 +45,10 @@ export default class NewsItem extends React.Component {
           </View>
           <LinearGradient
             colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.9)']}
-            style={styles.gradient}
+            style={[
+              styles.gradient,
+              Platform.OS !== 'windows' ? { height: 130 } : { height: 90 }
+            ]}
           />
           <View style={styles.infoContainer}>
             <Text style={[styles.name, Theme.textShadow]}>
@@ -60,8 +70,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
-    bottom: 0,
-    height: 130
+    bottom: 0
   },
   info: {
     flex: 1,

@@ -19,12 +19,13 @@ export default class ModalWindows extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (this.props.isVisible) {
       setTimeout(() => {
-          this.container && this.container.measure((ox, oy, width, height, px, py) => {
-          if (this.state.loaded) {
-            return;
-          }
-          this.setState({ px, py, loaded: true });
-        });
+        this.container &&
+          this.container.measure((ox, oy, width, height, px, py) => {
+            if (this.state.loaded) {
+              return;
+            }
+            this.setState({ px, py, loaded: true });
+          });
       }, 100);
     }
   }
