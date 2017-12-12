@@ -159,7 +159,7 @@ const UsersTabNavigator = TabNavigator(
       },
       style: {
         borderTopColor: undefined,
-        borderColor: 'rgba(0, 0, 0, .3)',
+        borderColor: '#d4d4d4',
         height: 49
       },
       tabStyle: {
