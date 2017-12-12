@@ -14,7 +14,6 @@ export const tabsOptions = {
     activeTintColor: '#0d61ac',
     inactiveTintColor: '#444',
     style: {
-      borderColor: 'rgba(0, 0, 0, .3)',
       backgroundColor: '#fff',
       ...Theme.shadowDefault
     },
