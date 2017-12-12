@@ -46,7 +46,7 @@ export default class AssistDetailItem extends React.Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    borderBottomColor: '#f4f4f4',
+    borderColor: '#f4f4f4',
     borderBottomWidth: 1,
     padding: 5,
     flexDirection: 'row'
