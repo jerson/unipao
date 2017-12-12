@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import Touchable from '../ui/Touchable';
 import numeral from 'numeral';
 import { capitalize } from 'underscore.string';
-import Modal from 'react-native-modal';
 import { _ } from '../../modules/i18n/Translator';
+import Modal from '../ui/Modal';
 
 const TAG = 'PaymentItem';
 export default class PaymentItem extends React.PureComponent {
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: 5,
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(0,0,0,0.04)',
+    borderColor: 'rgba(0,0,0,0.04)',
     flexDirection: 'row',
     alignItems: 'center',
     height: 58

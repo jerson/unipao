@@ -1,15 +1,17 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import { Platform, StyleSheet, View } from 'react-native';
+import LinearGradient from './LinearGradient';
 
 export default class Background extends React.Component {
   render() {
     return (
       <View style={[styles.absolute, styles.container]}>
-        <LinearGradient
-          colors={['#2281c3', '#0e6dc2', '#0d61ac']}
-          style={styles.background}
-        />
+        {Platform.OS !== 'windows' && (
+          <LinearGradient
+            colors={['#2281c3', '#0e6dc2', '#0d61ac']}
+            style={styles.background}
+          />
+        )}
       </View>
     );
   }

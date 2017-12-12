@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   legend: {
     padding: 3,
     flexDirection: 'row',
-    borderBottomColor: '#f4f4f4',
+    borderColor: '#f4f4f4',
     borderBottomWidth: 1
   }
 });

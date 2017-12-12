@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { Platform, StyleSheet, Text, TextInput, View } from 'react-native';
 
 export default class Input extends React.Component {
   state = {
@@ -109,6 +109,9 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     fontSize: 13,
     padding: 4,
+    marginTop: Platform.OS === 'windows' ? 6 : 0,
+    borderWidth: 0,
+    borderColor: 'transparent',
     paddingLeft: 10,
     paddingRight: 10
   },

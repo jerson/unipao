@@ -66,9 +66,9 @@ export default class AgendaListScreen extends React.Component {
   loadResponse = (body, cacheLoaded = false) => {
     let data = [];
     let exist = false;
+    let i = 0;
     if (body.data) {
       data = JSON.parse(body.data);
-      let i = 0;
       exist = false;
       for (let item of data) {
         let isToday = this.isToday(item);
