@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: 1,
     minHeight: 120,
-    borderBottomColor: '#f1f1f1'
+    borderColor: '#f1f1f1'
   },
   todayIcon: {
     borderRadius: 4,

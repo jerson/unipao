@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(0,0,0,0.05)',
+    borderColor: 'rgba(0,0,0,0.05)',
     flexDirection: 'column'
   },
   course: {
