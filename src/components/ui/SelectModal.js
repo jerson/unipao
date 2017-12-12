@@ -1,11 +1,18 @@
 import React from 'react';
-import { Dimensions, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  Platform,
+  Dimensions,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
 import Touchable from '../ui/Touchable';
 import PropTypes from 'prop-types';
-import Modal from 'react-native-modal';
 import Icon from '../ui/Icon';
 import Button from './Button';
 import { _ } from '../../modules/i18n/Translator';
+import Modal from './Modal';
 
 const TAG = 'SelectModal';
 export default class SelectModal extends React.Component {
@@ -36,7 +43,12 @@ export default class SelectModal extends React.Component {
       >
         <View style={styles.modalContainer}>
           {title && <Text style={styles.title}>{title}</Text>}
-          <ScrollView horizontal={false} style={{ maxHeight: height - 200 }}>
+          <ScrollView
+            horizontal={false}
+            style={{
+              maxHeight: Platform.OS === 'windows' ? height - 260 : height - 200
+            }}
+          >
             {values.map((value, index) => {
               let isSelected = value.value === selectedValue;
               return (

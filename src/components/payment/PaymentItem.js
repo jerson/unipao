@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import Touchable from '../ui/Touchable';
 import numeral from 'numeral';
 import { capitalize } from 'underscore.string';
-import Modal from 'react-native-modal';
 import { _ } from '../../modules/i18n/Translator';
+import Modal from '../ui/Modal';
 
 const TAG = 'PaymentItem';
 export default class PaymentItem extends React.PureComponent {
