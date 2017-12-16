@@ -1,0 +1,41 @@
+#header {
+  z-index: 1;
+  position: relative;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 10px;
+
+  > .navigation {
+    padding-top: 30px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-left: 20px;
+    > .logo {
+      text-indent: -9990px;
+      @include background-image-retina('../images/logo','png',136px,51px);
+    }
+
+    > .menu {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      flex: 1;
+      justify-content: center;
+      li {
+        margin-right: 5px;
+        margin-left: 5px;
+        a {
+          padding: 10px;
+          text-decoration: none;
+          color: #fff;
+          text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+        }
+      }
+    }
+
+  }
+
+}

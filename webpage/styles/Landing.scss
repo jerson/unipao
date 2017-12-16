@@ -1,0 +1,66 @@
+#landing {
+  z-index: 1;
+  position: relative;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+
+  > .cursor {
+    width: 220px;
+  }
+
+  > .info {
+    padding-top: 50px;
+    padding-right: 10px;
+    padding-left: 10px;
+    flex: 1;
+    color: #fff;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05);
+
+    h1, h2 {
+      font-weight: normal;
+      font-size: 26px;
+      margin: 0;
+      padding: 0;
+    }
+    p {
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+    .options {
+      padding-top: 20px;
+    }
+
+    .download-links {
+      padding-top: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      > a {
+        text-indent: -9999px;
+        position: relative;
+        background-repeat: no-repeat;
+        width: 167px;
+        height: 53px;
+        margin-right: 6px;
+        margin-bottom: 6px;
+      }
+      .google-play {
+        @include background-image-retina('../images/download_googleplay', 'png', 167px, 53px);
+      }
+      .app-store {
+        @include background-image-retina('../images/download_appstore', 'png', 167px, 53px);
+      }
+      .windows-store {
+        @include background-image-retina('../images/download_windows', 'png', 167px, 53px);
+      }
+    }
+  }
+  .image-intranet {
+    @include background-image-retina('../images/screen_intranet', 'png', 273px, 470px);
+    margin-top: 20px;
+
+  }
+
+}

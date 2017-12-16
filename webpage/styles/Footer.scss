@@ -1,0 +1,43 @@
+#footer {
+  z-index: 1;
+  position: relative;
+  padding: 10px;
+  padding-top: 0;
+  background: linear-gradient(#fff, #e3e3e3);
+
+  > .navigation {
+    margin: 0 auto;
+    max-width: 880px;
+    padding-top: 30px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-left: 20px;
+    > .logo {
+      text-indent: -9990px;
+      @include background-image-retina('../images/logo_footer','png',84px,29px);
+    }
+
+    > .menu {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      flex: 1;
+      justify-content: center;
+      li {
+        margin-right: 5px;
+        margin-left: 5px;
+        a {
+          padding: 10px;
+          text-decoration: none;
+          color: #555;
+          text-shadow: 2px 2px 2px rgba(255, 255, 255, 0.3);
+        }
+      }
+    }
+
+  }
+
+}

@@ -1,0 +1,2 @@
+import './styles/App.scss';
+
