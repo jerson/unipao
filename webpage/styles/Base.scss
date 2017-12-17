@@ -49,6 +49,11 @@ body {
     box-shadow: 0 0 28px rgba(0,0,0,0.3);
   }
 }
+
+.overflow-background{
+  overflow: hidden;
+}
+
 $height: 900px;
 .background{
   transition:top  0.5s ease;
