@@ -3,10 +3,17 @@
   max-width: 840px;
   margin: 0 auto;
   padding: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
 
+
+  @media only screen and (max-width: 600px) {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }
 
-.contact{
+#contact{
   position: relative;
   margin-bottom: 30px;
   margin-top: 30px;
@@ -36,6 +43,7 @@
     margin-top: 20px;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 
     > .icon {
 
@@ -106,10 +114,13 @@
 }
 
 .feature {
-  margin-bottom: 30px;
+  margin-bottom: 50px;
   align-items: center;
   display: flex;
-  //background-color: #fff;
+  @media only screen and (max-width: 600px) {
+   flex-direction: column;
+  }
+
 
   &.border {
     border-top: 1px solid #f4f4f4;
@@ -133,7 +144,6 @@
       align-items: center;
       max-width: 600px;
       text-align: center;
-      //margin:0 auto;
     }
   }
 
@@ -141,6 +151,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @media only screen and (max-width: 600px) {
+      flex-direction: column;
+    }
 
     > .icon {
       width: 87px;
@@ -168,20 +182,22 @@
     height: 520px;
 
     .content {
-      display: inline-block;
+      display: flex;
       height: 520px;
-      width: 1500px;
-      left: -10%;
+      justify-content: center;
       position: relative;
-      //flex-wrap: wrap;
+      text-align: center;
+      flex-wrap: nowrap;
 
       > div {
-        display: inline-block;
+        display: inline-flex;
         margin-right: 10px;
+        margin-left: 10px;
         margin-top: 10px;
       }
 
       > .image-ipad-schedule {
+        //left:700px;
         @include background-image-retina('../images/screen_ipad_schedule', 'png', 667px, 500px)
       }
       > .image-ipad-assists {
@@ -196,10 +212,12 @@
     position: relative;
     margin-right: 30px;
     @include background-image-retina('../images/screen_login', 'png', 254px, 450px)
+    @media only screen and (max-width: 600px) {
+      margin-right: 0px;
+    }
   }
 
   > .info {
-    //display: flex;
     flex-direction: column;
     flex: 1;
     > h2 {

@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "scripts": { 
+  "scripts": {
     "start": "parcel index.html",
     "build": "rm -rf ../docs && parcel build --no-cache --public-url ./ && cp -R dist ../docs"
   },
   "dependencies": {
-    "node-sass": "^4.7.2"
+    "node-sass": "^4.7.2",
+    "smooth-scroll": "^12.1.5"
   }
 }

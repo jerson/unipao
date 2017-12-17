@@ -2,7 +2,9 @@
   position: relative;
   padding: 10px;
   padding-top: 0;
-  background: linear-gradient(#fff, #e3e3e3);
+  background: linear-gradient(#fff, #f2f2f2);
+  padding-left: 30px;
+  padding-right: 30px;
 
   > .navigation {
     margin: 0 auto;
@@ -12,10 +14,23 @@
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    padding-left: 20px;
+    padding-left: 0px;
+
+
+    @media only screen and (max-width: 600px) {
+      justify-content: center;
+      padding-left: 0;
+    }
+
     > .logo {
       text-indent: -9990px;
       @include background-image-retina('../images/logo_footer','png',84px,29px);
+    }
+
+    > .btn{
+      @media only screen and (max-width: 600px) {
+        display: none;
+      }
     }
 
     > .menu {
@@ -25,6 +40,9 @@
       flex-wrap: wrap;
       flex: 1;
       justify-content: center;
+      @media only screen and (max-width: 600px) {
+        display: none;
+      }
       li {
         margin-right: 5px;
         margin-left: 5px;

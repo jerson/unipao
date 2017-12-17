@@ -22,35 +22,64 @@ body {
 .btn{
   padding: 12px 16px;
   padding-bottom: 9px;
-  background: #207fd7;
+  background-color: #207fd7;
   color:#fff;
   text-decoration: none;
   border-radius: 30px;
   box-shadow: 0 0 15px rgba(0,0,0,0.15);
   text-transform: uppercase;
   font-size: 12px;
+  transition: all 0.1s ease-in-out;
+  &:hover{
+    transform: translateY(-2px);
+    background-color: darken(#207fd7,3%);
+  }
 }
 .btn-primary{
   background-color: #f58423;
+  &:hover{
+    background-color: darken(#f58423,3%);
+  }
 }
 
 .image{
   box-shadow: 0 0 12px rgba(0,0,0,0.2);
+  transition: all 0.2s;
+  &:hover{
+    box-shadow: 0 0 28px rgba(0,0,0,0.3);
+  }
 }
+$height: 900px;
 .background{
   transition:top  0.5s ease;
-  height: 900px;
-  width: 400vw;
+  height: $height;
+  width: 100vw;
   position: absolute;
-  top:-20vw;
+  top:-1 * ($height/2);
   transform: rotate(-25deg);
-  left:-180%;
+  left:-1 * ($height/3);
+  z-index: 0;
+
+  @media only screen and (max-width: 1300px) {
+    left:-1 * ($height/2.7);
+  }
+
+  @media only screen and (max-width: 1100px) {
+    left:-1 * ($height/2.5);
+  }
+  @media only screen and (max-width: 900px) {
+    left:-1 * ($height/2.8);
+  }
+
+  @media only screen and (max-width: 500px) {
+
+    left:-1 * ($height/3.5);
+  }
 
   .cursor{
     position: absolute;
-    left:200vw;
-    top: 60vh;
-
+    left:40vw;
+    bottom: 15%;
     filter: drop-shadow(10px 30px 10px rgba(0,0,0,0.3));
     @include background-image-retina('../images/cursor_landing', 'png', 117px, 184px);
     z-index: 30;
@@ -58,16 +87,68 @@ body {
     transform: rotate(25deg);
     transition: all 0.2s ease;
 
+    animation-name:Cursor;
+    animation-duration:1.5s;
+    animation-iteration-count:1;
+    animation-delay: 1s;
+    animation-direction:alternate;
+
+    @keyframes Cursor {
+      0%   {
+        bottom: -25%;
+        opacity: 0;
+      }
+      10%   {
+        bottom: -10%;
+        opacity: 0;
+        filter: none;
+      }
+      30% {
+        bottom: 70%;
+        opacity: 1;
+      }
+      31% {
+        bottom: -25%;
+        opacity: 0;
+      }
+      40% {
+        bottom: -10%;
+        opacity: 0;
+        filter: none;
+      }
+      60% {
+        bottom: 15%;
+        opacity: 1;
+        filter: drop-shadow(10px 10px 5px rgba(0,0,0,0.3));
+      }
+      //50%   {
+      //  bottom: -10%;
+      //  opacity: 0;
+      //  filter: none;
+      //}
+      80% {
+        bottom: 15%;
+        opacity: 1;
+        filter: drop-shadow(10px 30px 10px rgba(0,0,0,0.3));
+      }
+    }
+
+    @media only screen and (max-width: 700px) {
+
+      transform: rotate(25deg) scale(0.8);
+    }
+
     &:hover{
       filter: drop-shadow(10px 10px 5px rgba(0,0,0,0.3));
+      bottom: 16%;
 
       //transform: scale(1.1) rotate(25deg) rotateX(-20deg) rotateY(-10deg);
     }
   }
   &:before{
     content:'';
-    background: #fb820c;
-    width: 200vw;
+    background: linear-gradient(lighten(#fb820c,8%), #fb820c) ;
+    width: 40vw;
     position: absolute;
     left:0;
     top:0;
@@ -75,10 +156,11 @@ body {
   }
   &:after{
     content:'';
-    background: #0e67b6;
+    background: linear-gradient(lighten(#0e67b6,8%), #0e67b6) ;
+    //background: #0e67b6;
     width: 200vw;
     position: absolute;
-    left:200vw;
+    left:40vw;
     top:0;
     bottom:0
   }
