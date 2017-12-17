@@ -1,5 +1,4 @@
 #content {
-  z-index: 1;
   position: relative;
   max-width: 840px;
   margin: 0 auto;
@@ -8,7 +7,6 @@
 }
 
 .contact{
-  z-index: 1;
   position: relative;
   margin-bottom: 30px;
   margin-top: 30px;
@@ -19,7 +17,6 @@
 
   > h4 {
     font-size: 22px;
-    font-weight: normal;
     color: #FF7E00;
   }
 
@@ -156,10 +153,10 @@
     }
 
     > .image-agenda {
-      @include background-image-retina('../images/screen_agenda', 'png', 273px, 470px)
+      @include background-image-retina('../images/screen_agenda', 'png', 253px, 450px)
     }
     > .image-news-list {
-      @include background-image-retina('../images/screen_news_list', 'png', 273px, 470px)
+      @include background-image-retina('../images/screen_news_list', 'png', 253px, 450px)
     }
   }
 
@@ -180,13 +177,15 @@
 
       > div {
         display: inline-block;
+        margin-right: 10px;
+        margin-top: 10px;
       }
 
       > .image-ipad-schedule {
-        @include background-image-retina('../images/screen_ipad_schedule', 'png', 687px, 520px)
+        @include background-image-retina('../images/screen_ipad_schedule', 'png', 667px, 500px)
       }
       > .image-ipad-assists {
-        @include background-image-retina('../images/screen_ipad_assists', 'png', 687px, 520px)
+        @include background-image-retina('../images/screen_ipad_assists', 'png', 667px, 500px)
       }
 
     }
@@ -196,7 +195,7 @@
     top: -20px;
     position: relative;
     margin-right: 30px;
-    @include background-image-retina('../images/screen_login', 'png', 247px, 470px)
+    @include background-image-retina('../images/screen_login', 'png', 254px, 450px)
   }
 
   > .info {
@@ -205,8 +204,10 @@
     flex: 1;
     > h2 {
       font-size: 28px;
-      font-weight: normal;
       color: #FF7E00;
+      //background: linear-gradient(to right,#0086fe, #FF7E00);
+      //-webkit-background-clip: text;
+      //-webkit-text-fill-color: transparent;
     }
     > p {
       margin-top: 10px;
@@ -239,8 +240,6 @@
         > h4 {
           font-size: 18px;
           margin-bottom: 4px;
-
-          font-weight: normal;
           color: #444;
         }
         > p {
