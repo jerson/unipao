@@ -91,12 +91,10 @@ $height: 900px;
     margin-left: -45px;
     transform: rotate(25deg);
     transition: all 0.2s ease;
-
     animation-name:Cursor;
     animation-duration:1.5s;
     animation-iteration-count:1;
     animation-delay: 1s;
-    animation-direction:alternate;
 
     @keyframes Cursor {
       0%   {
@@ -152,8 +150,9 @@ $height: 900px;
   }
   &:before{
     content:'';
-    background-image: linear-gradient(darken(#fb820c,15%), lighten(#fb820c,10%)) ;
-    animation: Gradient 5s ease infinite;
+    background-image: linear-gradient(-90deg, darken(#fb820c,0%),#fb820c,darken(#fb820c,5%), lighten(#fb820c,0%));
+    background-size: 200% 200%;
+    animation: Gradient 3s ease infinite;
     width: 40vw;
     position: absolute;
     left:0;
@@ -162,20 +161,14 @@ $height: 900px;
   }
   &:after{
     content:'';
-    background-image: linear-gradient(darken(#0e67b6,15%), lighten(#0e67b6,10%)) ;
-    animation: Gradient 5s ease infinite;
-    //animation-name:Gradient;
-    //animation-duration:1.5s;
-    //animation-iteration-count:1;
-    //animation-delay: 1s;
-    //animation-direction:alternate;
-
-    //background: #0e67b6;
     width: 200vw;
     position: absolute;
     left:40vw;
     top:0;
-    bottom:0
+    bottom:0;
+    background-image: linear-gradient(-45deg, darken(#0e67b6,0%),#0e67b6,lighten(#0e67b6,5%), lighten(#0e67b6,0%));
+    background-size: 200% 200%;
+    animation: Gradient 3s ease infinite;
   }
   @keyframes Gradient {
     0% {

@@ -198,10 +198,10 @@
 
       > .image-ipad-schedule {
         //left:700px;
-        @include background-image-retina('../images/screen_ipad_schedule', 'png', 667px, 500px)
+        @include background-image-retina('../images/screen_ipad_schedule', 'png', 667px, 500px);
       }
       > .image-ipad-assists {
-        @include background-image-retina('../images/screen_ipad_assists', 'png', 667px, 500px)
+        @include background-image-retina('../images/screen_ipad_assists', 'png', 667px, 500px);
       }
 
     }
@@ -211,7 +211,7 @@
     top: -20px;
     position: relative;
     margin-right: 30px;
-    @include background-image-retina('../images/screen_login', 'png', 254px, 450px)
+    @include background-image-retina('../images/screen_login', 'png', 254px, 450px);
     @media only screen and (max-width: 600px) {
       margin-right: 0px;
     }
