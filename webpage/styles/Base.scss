@@ -152,7 +152,8 @@ $height: 900px;
   }
   &:before{
     content:'';
-    background: linear-gradient(lighten(#fb820c,8%), #fb820c) ;
+    background-image: linear-gradient(darken(#fb820c,15%), lighten(#fb820c,10%)) ;
+    animation: Gradient 5s ease infinite;
     width: 40vw;
     position: absolute;
     left:0;
@@ -161,12 +162,30 @@ $height: 900px;
   }
   &:after{
     content:'';
-    background: linear-gradient(lighten(#0e67b6,8%), #0e67b6) ;
+    background-image: linear-gradient(darken(#0e67b6,15%), lighten(#0e67b6,10%)) ;
+    animation: Gradient 5s ease infinite;
+    //animation-name:Gradient;
+    //animation-duration:1.5s;
+    //animation-iteration-count:1;
+    //animation-delay: 1s;
+    //animation-direction:alternate;
+
     //background: #0e67b6;
     width: 200vw;
     position: absolute;
     left:40vw;
     top:0;
     bottom:0
+  }
+  @keyframes Gradient {
+    0% {
+      background-position: 0% 50%
+    }
+    50% {
+      background-position: 100% 50%
+    }
+    100% {
+      background-position: 0% 50%
+    }
   }
 }
