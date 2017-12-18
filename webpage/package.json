@@ -12,6 +12,8 @@
     "smooth-scroll": "^12.1.5"
   },
   "devDependencies": {
+    "html-webpack-plugin": "^2.30.1",
+    "sass-loader": "^6.0.6",
     "webpack": "^3.10.0"
   }
 }
