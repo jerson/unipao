@@ -1,7 +1,7 @@
 export default {
     app: {
-        name: 'UniPAO'
-        author: '@author',
+        name: 'UniPAO',
+        author: 'AUTHOR',
     },
     token:{
         app:'SUPER_SECURE_CODE'
