@@ -452,6 +452,7 @@
 		31C3BF771FD3C86800281DAB /* iTunesArtwork@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iTunesArtwork@3x.png"; path = "upao/iTunesArtwork@3x.png"; sourceTree = "<group>"; };
 		31C3BF781FD3C86900281DAB /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iTunesArtwork@2x.png"; path = "upao/iTunesArtwork@2x.png"; sourceTree = "<group>"; };
 		31C3BF791FD3C86900281DAB /* iTunesArtwork@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iTunesArtwork@1x.png"; path = "upao/iTunesArtwork@1x.png"; sourceTree = "<group>"; };
+		31F021B31FE8B71A00BB2439 /* upao.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = upao.entitlements; path = upao/upao.entitlements; sourceTree = "<group>"; };
 		35BDC9AFBBCD68B816894C6E /* libPods-upao.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-upao.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BDC4228AF1542BAB2C01A0F /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		41DFF2423CA14CB687E6C72D /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = "<group>"; };
@@ -642,6 +643,7 @@
 		13B07FAE1A68108700A75B9A /* upao */ = {
 			isa = PBXGroup;
 			children = (
+				31F021B31FE8B71A00BB2439 /* upao.entitlements */,
 				31C3BF791FD3C86900281DAB /* iTunesArtwork@1x.png */,
 				31C3BF781FD3C86900281DAB /* iTunesArtwork@2x.png */,
 				31C3BF771FD3C86800281DAB /* iTunesArtwork@3x.png */,
@@ -1012,6 +1014,9 @@
 						DevelopmentTeam = EKR687JWFU;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -1895,6 +1900,7 @@
 			baseConfigurationReference = E80CC23552946E78F463889C /* Pods-upao.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = upao/upao.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = EKR687JWFU;
@@ -1917,6 +1923,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.unipao.app;
 				PRODUCT_NAME = upao;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1928,6 +1935,7 @@
 			baseConfigurationReference = 839D38EBE7B5EE76B7A34BF2 /* Pods-upao.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = upao/upao.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = EKR687JWFU;
 				HEADER_SEARCH_PATHS = (
@@ -1949,6 +1957,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.unipao.app;
 				PRODUCT_NAME = upao;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
