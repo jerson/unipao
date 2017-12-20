@@ -11,10 +11,6 @@ target 'upao' do
   pod 'AppCenter/Analytics', '~> 1.0.1'
   pod 'AppCenterReactNativeShared', '~> 1.0.1'
 
-  
-
-  pod 'RNShare', :path => '../node_modules/react-native-share'
-
   target 'upaoTests' do
     inherit! :search_paths
     # Pods for testing
