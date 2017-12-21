@@ -2,7 +2,7 @@
 
 Aplicación para que puedas acceder al campus virtual de la universidad
 
-![](https://github.com/jerson/unipao/raw/master/src/images/icon.png | width=100)
+<img src="https://github.com/jerson/unipao/raw/master/src/images/icon.pn" width="100" />
 
 ## Build Status
 
