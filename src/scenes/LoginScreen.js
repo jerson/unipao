@@ -132,6 +132,7 @@ export default class LoginScreen extends React.Component {
       <ScrollView
         contentContainerStyle={[styles.content, { minHeight: height }]}
         style={[styles.container]}
+        showsVerticalScrollIndicator={true}
         keyboardShouldPersistTaps={'handled'}
       >
         <Background />

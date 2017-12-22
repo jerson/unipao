@@ -43,6 +43,7 @@ export default class AboutScreen extends React.Component {
       <ScrollView
         contentContainerStyle={[styles.content, { minHeight }]}
         style={[styles.container]}
+        showsVerticalScrollIndicator={true}
         keyboardShouldPersistTaps={'handled'}
       >
         <Background />

@@ -78,6 +78,7 @@ export default class ProfileScreen extends React.Component {
         contentContainerStyle={[styles.content, { minHeight }]}
         style={[styles.container]}
         keyboardShouldPersistTaps={'handled'}
+        showsVerticalScrollIndicator={true}
       >
         {Platform.OS === 'ios' && (
           <StatusBar

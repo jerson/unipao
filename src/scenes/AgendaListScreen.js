@@ -152,6 +152,7 @@ export default class AgendaListScreen extends React.Component {
         <FlatList
           ref={'list'}
           data={agendaList}
+          showsVerticalScrollIndicator={true}
           getItemLayout={(data, index) => {
             let height = 145;
             return { length: height, offset: height * index, index };

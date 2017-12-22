@@ -91,6 +91,7 @@ export default class SettingsScreen extends React.Component {
         style={styles.container}
         contentContainerStyle={[{ minHeight, paddingTop }]}
         keyboardShouldPersistTaps={'handled'}
+        showsVerticalScrollIndicator={true}
       >
         <Background />
         <PreferenceHeader title={_('General')} />

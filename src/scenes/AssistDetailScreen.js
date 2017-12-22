@@ -47,6 +47,7 @@ export default class AssistDetailScreen extends React.Component {
     return (
       <View style={[styles.container]}>
         <FlatList
+          showsVerticalScrollIndicator={true}
           data={assist.DETALLE || []}
           contentContainerStyle={[{ paddingTop }]}
           renderItem={this.renderItem}

@@ -158,6 +158,8 @@ export default class NewsListScreen extends React.Component {
         {isLoading && <Loading margin />}
         <FlatList
           data={newsList}
+          scrollEnabled={true}
+          showsVerticalScrollIndicator={true}
           renderItem={this.renderItem}
           onEndReached={this.onEndReached}
           refreshControl={
