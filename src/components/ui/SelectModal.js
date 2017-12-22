@@ -44,6 +44,7 @@ export default class SelectModal extends React.Component {
         <View style={styles.modalContainer}>
           {title && <Text style={styles.title}>{title}</Text>}
           <ScrollView
+            showsVerticalScrollIndicator={true}
             horizontal={false}
             style={{
               maxHeight: Platform.OS === 'windows' ? height - 260 : height - 200

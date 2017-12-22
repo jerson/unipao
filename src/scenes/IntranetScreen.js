@@ -171,8 +171,8 @@ export default class IntranetScreen extends React.Component {
 
         {!isLoading && (
           <FlatList
-            data={items}
             showsVerticalScrollIndicator={true}
+            data={items}
             ListHeaderComponent={this.renderHeader}
             renderItem={this.renderItem}
             refreshControl={

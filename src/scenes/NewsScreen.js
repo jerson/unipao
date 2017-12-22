@@ -47,8 +47,10 @@ export default class NewsListScreen extends React.Component {
     let itemHeight = height / 2;
 
     return (
-      <ScrollView style={[styles.container]}
-        showsVerticalScrollIndicator={true}>
+      <ScrollView
+        style={[styles.container]}
+        showsVerticalScrollIndicator={true}
+      >
         <View>
           <View style={styles.header}>
             <Image
