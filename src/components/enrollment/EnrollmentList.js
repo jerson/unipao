@@ -71,6 +71,7 @@ export default class EnrollmentList extends React.Component {
       <SectionList
         sections={sections}
         stickySectionHeadersEnabled
+        showsVerticalScrollIndicator={true}
         renderSectionHeader={this.renderHeader}
         renderItem={this.renderItem}
         keyExtractor={(item, index) => {

@@ -18,6 +18,7 @@ export default class IntranetItem extends React.Component {
     if (intranet.disabled) {
       this.context.notification.show({
         type: 'warning',
+        id: 'intranet',
         title: _('Esta opción no esta implementada'),
         icon: 'error-outline',
         autoDismiss: 4,
