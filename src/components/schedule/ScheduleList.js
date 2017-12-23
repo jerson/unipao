@@ -27,6 +27,7 @@ export default class ScheduleList extends React.PureComponent {
 
     return (
       <FlatList
+        showsVerticalScrollIndicator={true}
         data={schedule}
         renderItem={this.renderItem}
         keyExtractor={(item, index) => {

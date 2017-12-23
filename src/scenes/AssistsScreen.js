@@ -181,6 +181,7 @@ export default class AssistsScreen extends React.Component {
         {isLoading && <Loading margin />}
         {!isLoading && (
           <FlatList
+            showsVerticalScrollIndicator={true}
             data={assists}
             renderItem={this.renderItem}
             refreshControl={

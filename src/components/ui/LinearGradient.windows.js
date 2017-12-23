@@ -11,9 +11,7 @@ export default class LinearGradientWindows extends React.Component {
 }
 const styles = StyleSheet.create({
   container: {},
-  backdrop: {
-    backgroundColor: 'rgba(0,0,0,0.8)'
-  },
+  backdrop: {},
   absolute: {
     position: 'absolute',
     left: 0,

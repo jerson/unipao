@@ -27,6 +27,7 @@ export default class PaymentList extends React.PureComponent {
 
     return (
       <FlatList
+        showsVerticalScrollIndicator={true}
         data={payments}
         ListHeaderComponent={this.renderHeader}
         renderItem={this.renderItem}

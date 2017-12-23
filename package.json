@@ -12,11 +12,12 @@
     "scripts": {
         "start": "react-native start",
         "build:android": "cd android && ./gradlew assembleRelease",
+        "build:windows:assets": "react-native bundle --platform windows --entry-file index.js --bundle-output windows\\unipao\\ReactAssets\\index.windows.bundle --assets-dest windows\\unipao\\ReactAssets  --dev false",
         "android": "react-native run-android",
         "ios": "react-native run-ios",
         "stats:android": "appcenter codepush deployment list -a jeral17/UniPAOAndroid",
         "stats:ios": "appcenter codepush deployment list -a jeral17/UniPAOIOS",
-        "push:ios": "appcenter codepush release-react -a jeral17/UniPAOIOS -d Release",
+        "push:ios": "appcenter codepush release-react --plist-file ios/upao/Info.plist -a jeral17/UniPAOIOS -d Release",
         "push:android": "appcenter codepush release-react -a jeral17/UniPAOAndroid -d Release",
         "push:all": "npm run push:android && npm run push:ios",
         "test": "node node_modules/jest/bin/jest.js --watch",

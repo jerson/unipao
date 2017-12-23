@@ -131,6 +131,7 @@ export default class IntranetScreen extends React.Component {
     if (!career) {
       this.context.notification.show({
         type: 'warning',
+        id: 'intranet',
         title: _('No has elegido una carrera'),
         icon: 'error-outline',
         autoDismiss: 4,
@@ -171,6 +172,7 @@ export default class IntranetScreen extends React.Component {
 
         {!isLoading && (
           <FlatList
+            showsVerticalScrollIndicator={true}
             data={items}
             ListHeaderComponent={this.renderHeader}
             renderItem={this.renderItem}

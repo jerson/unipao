@@ -47,7 +47,10 @@ export default class NewsItem extends React.Component {
             colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.9)']}
             style={[
               styles.gradient,
-              Platform.OS !== 'windows' ? { height: 130 } : { height: 90 }
+              Platform.OS === 'windows' && {
+                backgroundColor: 'rgba(0,0,0,0.8)'
+              },
+              Platform.OS !== 'windows' ? { minHeight: 130 } : { minHeight: 90 }
             ]}
           />
           <View style={styles.infoContainer}>
