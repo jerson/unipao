@@ -18,6 +18,7 @@ import EnrollmentScreen from '../scenes/EnrollmentScreen';
 import AssistDetailScreen from '../scenes/AssistDetailScreen';
 import { _ } from '../modules/i18n/Translator';
 import IntroScreen from '../scenes/IntroScreen';
+import DimensionUtil from '../modules/util/DimensionUtil';
 
 const NewsNavigator = StackNavigator(
   {
@@ -32,7 +33,7 @@ const NewsNavigator = StackNavigator(
     headerMode: 'float',
     cardStyle: {
       backgroundColor: '#0d61ac',
-      top: Platform.OS === 'android' ? -60 : -65
+      top: DimensionUtil.getNavigationBarHeight() * -1
     }
   }
 );
@@ -46,7 +47,7 @@ const AgendaNavigator = StackNavigator(
     headerMode: 'float',
     cardStyle: {
       backgroundColor: '#0d61ac',
-      top: Platform.OS === 'android' ? -60 : -65
+      top: DimensionUtil.getNavigationBarHeight() * -1
     }
   }
 );
@@ -75,7 +76,7 @@ const IntranetNavigator = StackNavigator(
     headerMode: 'float',
     cardStyle: {
       backgroundColor: '#0d61ac',
-      top: Platform.OS === 'android' ? -60 : -65
+      top: DimensionUtil.getNavigationBarHeight() * -1
     }
   }
 );

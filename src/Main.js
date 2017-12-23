@@ -14,6 +14,7 @@ import RouterUtil from './modules/util/RouterUtil';
 import { _ } from './modules/i18n/Translator';
 import SingleStorage from './modules/storage/SingleStorage';
 import CacheStorage from './modules/storage/CacheStorage';
+import DimensionUtil from './modules/util/DimensionUtil';
 
 numeral.defaultFormat('0,0.00');
 
@@ -84,13 +85,7 @@ export default class Main extends React.Component {
   }
 
   render() {
-    const version = parseInt(Platform.Version, 10);
-    let paddingTop =
-      Platform.OS === 'ios' ||
-      Platform.OS === 'windows' ||
-      (Platform.OS === 'android' && version <= 21)
-        ? 0
-        : 20;
+    let paddingTop = DimensionUtil.getStatusBarPadding();
     return (
       <View style={{ paddingTop, flex: 1 }}>
         <StatusBar

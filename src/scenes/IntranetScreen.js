@@ -14,6 +14,7 @@ import IntranetHeader from '../components/intranet/IntranetHeader';
 import Loading from '../components/ui/Loading';
 import PeriodModal from '../components/period/PeriodModal';
 import { _ } from '../modules/i18n/Translator';
+import DimensionUtil from '../modules/util/DimensionUtil';
 
 const TAG = 'IntranetScreen';
 export default class IntranetScreen extends React.Component {
@@ -162,7 +163,7 @@ export default class IntranetScreen extends React.Component {
   }
 
   render() {
-    let paddingTop = Platform.OS === 'ios' ? 65 : 60;
+    let paddingTop = DimensionUtil.getNavigationBarHeight();
     let { items, isRefreshing, isLoading } = this.state;
     return (
       <View style={[styles.container, { paddingTop }]}>

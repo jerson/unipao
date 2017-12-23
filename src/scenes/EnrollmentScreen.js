@@ -12,6 +12,7 @@ import { tabsOptions } from '../routers/Tabs';
 import PeriodModal from '../components/period/PeriodModal';
 import { _ } from '../modules/i18n/Translator';
 import CacheStorage from '../modules/storage/CacheStorage';
+import DimensionUtil from '../modules/util/DimensionUtil';
 
 const TAG = 'EnrollmentScreen';
 export default class EnrollmentScreen extends React.Component {
@@ -185,7 +186,7 @@ export default class EnrollmentScreen extends React.Component {
   }
 
   render() {
-    let paddingTop = Platform.OS === 'ios' ? 65 : 60;
+    let paddingTop = DimensionUtil.getNavigationBarHeight();
     let { careers, period, tabs, isLoading } = this.state;
     let EnrollmentTabs = tabs;
     return (

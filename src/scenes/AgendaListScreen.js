@@ -15,6 +15,7 @@ import AgendaItem from '../components/agenda/AgendaItem';
 import moment from 'moment';
 import { _ } from '../modules/i18n/Translator';
 import CacheStorage from '../modules/storage/CacheStorage';
+import DimensionUtil from '../modules/util/DimensionUtil';
 
 const TAG = 'AgendaListScreen';
 export default class AgendaListScreen extends React.Component {
@@ -144,7 +145,7 @@ export default class AgendaListScreen extends React.Component {
 
   render() {
     let { isLoading, isRefreshing, agendaList } = this.state;
-    let paddingTop = Platform.OS === 'ios' ? 65 : 60;
+    let paddingTop = DimensionUtil.getNavigationBarHeight();
     return (
       <View style={[styles.container, { paddingTop }]}>
         {/*<Background />*/}

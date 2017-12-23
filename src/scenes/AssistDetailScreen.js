@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import AssistDetailItem from '../components/assist/AssistDetailItem';
 import AssistHeader from '../components/assist/AssistHeader';
 import { _ } from '../modules/i18n/Translator';
+import DimensionUtil from '../modules/util/DimensionUtil';
 
 const TAG = 'AssistDetailScreen';
 export default class AssistDetailScreen extends React.Component {
@@ -41,7 +42,7 @@ export default class AssistDetailScreen extends React.Component {
   }
 
   render() {
-    let paddingTop = Platform.OS === 'ios' ? 65 : 60;
+    let paddingTop = DimensionUtil.getNavigationBarHeight();
     let { assist } = this.getParams();
 
     return (

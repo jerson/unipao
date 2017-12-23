@@ -14,6 +14,7 @@ import NewsItem from '../components/news/NewsItem';
 import Loading from '../components/ui/Loading';
 import { _ } from '../modules/i18n/Translator';
 import CacheStorage from '../modules/storage/CacheStorage';
+import DimensionUtil from '../modules/util/DimensionUtil';
 
 const TAG = 'NewsListScreen';
 export default class NewsListScreen extends React.Component {
@@ -151,7 +152,7 @@ export default class NewsListScreen extends React.Component {
 
   render() {
     let { isLoading, isRefreshing, newsList } = this.state;
-    let paddingTop = Platform.OS === 'ios' ? 65 : 60;
+    let paddingTop = DimensionUtil.getNavigationBarHeight();
     return (
       <View style={[styles.container, { paddingTop }]}>
         {/*<Background />*/}

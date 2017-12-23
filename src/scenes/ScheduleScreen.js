@@ -12,6 +12,7 @@ import { tabsOptions } from '../routers/Tabs';
 import ScheduleList from '../components/schedule/ScheduleList';
 import PeriodModal from '../components/period/PeriodModal';
 import CacheStorage from '../modules/storage/CacheStorage';
+import DimensionUtil from '../modules/util/DimensionUtil';
 
 const TAG = 'ScheduleScreen';
 export default class ScheduleScreen extends React.Component {
@@ -140,7 +141,7 @@ export default class ScheduleScreen extends React.Component {
   }
 
   render() {
-    let paddingTop = Platform.OS === 'ios' ? 65 : 60;
+    let paddingTop = DimensionUtil.getNavigationBarHeight();
     let { scheduleDays, period, isLoading } = this.state;
     return (
       <View style={[styles.container, { paddingTop }]}>

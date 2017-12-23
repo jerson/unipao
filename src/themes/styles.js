@@ -1,4 +1,5 @@
 import { Platform } from 'react-native';
+import DimensionUtil from '../modules/util/DimensionUtil';
 
 let isAndroid = Platform.OS === 'android';
 
@@ -13,7 +14,7 @@ export const Theme = {
     borderWidth: 0,
     borderBottomWidth: 0,
     borderColor: 'transparent',
-    height: 60,
+    height: DimensionUtil.getNavigationBarHeight(),
     shadowRadius: 4,
     shadowOffset: {
       height: 2,
