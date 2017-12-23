@@ -13,6 +13,7 @@ export const Theme = {
     borderWidth: 0,
     borderBottomWidth: 0,
     borderColor: 'transparent',
+    height: 60,
     shadowRadius: 4,
     shadowOffset: {
       height: 2,

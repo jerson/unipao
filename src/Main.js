@@ -84,7 +84,13 @@ export default class Main extends React.Component {
   }
 
   render() {
-    let paddingTop = Platform.OS === 'ios' ? 0 : 20;
+    const version = parseInt(Platform.Version, 10);
+    let paddingTop =
+      Platform.OS === 'ios' ||
+      Platform.OS === 'windows' ||
+      (Platform.OS === 'android' && version <= 21)
+        ? 0
+        : 20;
     return (
       <View style={{ paddingTop, flex: 1 }}>
         <StatusBar
