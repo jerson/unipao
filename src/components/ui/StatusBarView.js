@@ -3,7 +3,7 @@ import { Platform, StyleSheet, View } from 'react-native';
 
 export default class StatusBarView extends React.Component {
   render() {
-    if (Platform.OS === 'android') {
+    if (Platform.OS !== 'ios') {
       return null;
     }
     return <View style={styles.container} />;
