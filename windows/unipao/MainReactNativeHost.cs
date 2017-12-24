@@ -4,6 +4,7 @@ using ReactNative.Shell;
 using System.Collections.Generic;
 using RNDeviceInfo;
 using CodePush.ReactNative;
+using Cl.Json.RNShare;
 
 namespace unipao
 {
@@ -36,6 +37,7 @@ namespace unipao
         {
             new MainReactPackage(),
             new RNDeviceInfoPackage(),
+            new RNSharePackage(),
             codePushReactPackage
         };
     }
