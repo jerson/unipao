@@ -41,6 +41,9 @@
 		2D02E4C91E0B4AEC006451C7 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* upaoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* upaoTests.m */; };
 		312331F94F6644219733E1C0 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8811DEEB499948028A32EF8F /* Zocial.ttf */; };
+		31460F921FF03FA9004F7913 /* libRNShare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 31460F901FF03F73004F7913 /* libRNShare.a */; };
+		31460F941FF03FBD004F7913 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31460F931FF03FBD004F7913 /* Social.framework */; };
+		31460F961FF03FC8004F7913 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31460F951FF03FC8004F7913 /* MessageUI.framework */; };
 		31C3BF7A1FD3C86A00281DAB /* iTunesArtwork@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C3BF771FD3C86800281DAB /* iTunesArtwork@3x.png */; };
 		31C3BF7B1FD3C86A00281DAB /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C3BF781FD3C86900281DAB /* iTunesArtwork@2x.png */; };
 		31C3BF7C1FD3C86A00281DAB /* iTunesArtwork@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C3BF791FD3C86900281DAB /* iTunesArtwork@1x.png */; };
@@ -139,6 +142,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
 			remoteInfo = "upao-tvOS";
+		};
+		31460F8F1FF03F73004F7913 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 31460F5D1FF03F72004F7913 /* RNShare.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNShare;
 		};
 		318D47FC1FD45FCE00C368FB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -449,6 +459,9 @@
 		2D02E4901E0B4A5D006451C7 /* upao-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "upao-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D49BBB6600865B70D97A7A2 /* libPods-upao-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-upao-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E49252E655149C7A2DB7270 /* AppCenterReactNativeAnalytics.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AppCenterReactNativeAnalytics.xcodeproj; path = "../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics.xcodeproj"; sourceTree = "<group>"; };
+		31460F5D1FF03F72004F7913 /* RNShare.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNShare.xcodeproj; path = "../node_modules/react-native-share/ios/RNShare.xcodeproj"; sourceTree = "<group>"; };
+		31460F931FF03FBD004F7913 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		31460F951FF03FC8004F7913 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		31C3BF771FD3C86800281DAB /* iTunesArtwork@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iTunesArtwork@3x.png"; path = "upao/iTunesArtwork@3x.png"; sourceTree = "<group>"; };
 		31C3BF781FD3C86900281DAB /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iTunesArtwork@2x.png"; path = "upao/iTunesArtwork@2x.png"; sourceTree = "<group>"; };
 		31C3BF791FD3C86900281DAB /* iTunesArtwork@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iTunesArtwork@1x.png"; path = "upao/iTunesArtwork@1x.png"; sourceTree = "<group>"; };
@@ -506,6 +519,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31460F961FF03FC8004F7913 /* MessageUI.framework in Frameworks */,
+				31460F941FF03FBD004F7913 /* Social.framework in Frameworks */,
+				31460F921FF03FA9004F7913 /* libRNShare.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -697,6 +713,14 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		31460F5E1FF03F72004F7913 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				31460F901FF03F73004F7913 /* libRNShare.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		318D47F91FD45FCC00C368FB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -810,6 +834,8 @@
 		7EF313A0B5514954A7C4A791 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				31460F951FF03FC8004F7913 /* MessageUI.framework */,
+				31460F931FF03FBD004F7913 /* Social.framework */,
 				FD74EB4F844948F6BEB82CD5 /* libz.tbd */,
 				35BDC9AFBBCD68B816894C6E /* libPods-upao.a */,
 				2D49BBB6600865B70D97A7A2 /* libPods-upao-tvOS.a */,
@@ -823,6 +849,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				31460F5D1FF03F72004F7913 /* RNShare.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -1126,6 +1153,10 @@
 					ProjectRef = F78F1F657A9946D08AD10D3A /* RNDeviceInfo.xcodeproj */;
 				},
 				{
+					ProductGroup = 31460F5E1FF03F72004F7913 /* Products */;
+					ProjectRef = 31460F5D1FF03F72004F7913 /* RNShare.xcodeproj */;
+				},
+				{
 					ProductGroup = 31C3BEAC1FD3C49000281DAB /* Products */;
 					ProjectRef = 9E945E4B61EA4BD188915A5D /* RNVectorIcons.xcodeproj */;
 				},
@@ -1195,6 +1226,13 @@
 			fileType = archive.ar;
 			path = libReact.a;
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		31460F901FF03F73004F7913 /* libRNShare.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNShare.a;
+			remoteRef = 31460F8F1FF03F73004F7913 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		318D47FD1FD45FCE00C368FB /* libRealmReact.a */ = {
