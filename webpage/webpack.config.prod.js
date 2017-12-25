@@ -46,6 +46,11 @@ module.exports = {
             hash:true,
             inject:false
         }),
+        new HtmlWebpackPlugin({
+            template: './CNAME',
+            filename:'CNAME',
+            inject:false
+        }),
         new ExtractTextPlugin({
             filename: 'unipao.css',
         }),
