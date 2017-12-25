@@ -1,6 +1,9 @@
 ﻿{
   "dependencies": {
+    "Microsoft.AppCenter": "1.1.0",
+    "Microsoft.AppCenter.Analytics": "1.1.0",
     "Microsoft.AppCenter.Crashes": "1.1.0",
+    "Microsoft.AppCenter.Push": "1.1.0",
     "Microsoft.NETCore.UniversalWindowsPlatform": "6.0.4"
   },
   "frameworks": {
