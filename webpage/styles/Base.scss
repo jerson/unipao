@@ -15,7 +15,7 @@ body {
   padding: 0;
   margin: 0;
   overflow-x: hidden;
-  font-family: CamphorPro, serif;
+  font-family: CamphorPro , "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
 }
 
@@ -150,9 +150,11 @@ $height: 900px;
   }
   &:before{
     content:'';
-    background-image: linear-gradient(-90deg, darken(#fb820c,0%),#fb820c,darken(#fb820c,5%), lighten(#fb820c,0%));
+    background-image: linear-gradient(-50deg, #fb820c 30%, #ffa145 46%,#ffa145 50%,#fb820c 80%);
+
+    //background-image: linear-gradient(-90deg, darken(#fb820c,0%),#fb820c,darken(#fb820c,5%), lighten(#fb820c,0%));
     background-size: 200% 200%;
-    animation: Gradient 3s ease infinite;
+    animation: Gradient 3s cubic-bezier(0.4, 0, 1, 1) infinite;
     width: 40vw;
     position: absolute;
     left:0;
@@ -170,9 +172,11 @@ $height: 900px;
     //background-size: 200% 200%;
     //animation: Gradient 3s ease infinite;
 
-    background-image: linear-gradient(-45deg, #158ffb 30%, #0e67b6);
-    background-size: 150% 150%;
-    animation: Gradient 3s ease infinite;
+    //background-image: linear-gradient(-45deg, #158ffb 30%, #0e67b6);
+    //background-image: linear-gradient(-45deg, #158ffb 30%, #0e67b6 60%,#158ffb 80%);
+    background-image: linear-gradient(-45deg, #0e67b6 30%, #117ede 60%,#0e67b6 80%);
+    background-size: 200% 200%;
+    animation: Gradient 3s cubic-bezier(0.4, 0, 1, 1) infinite;
     animation-direction: alternate;
 
   }
