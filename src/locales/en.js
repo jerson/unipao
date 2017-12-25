@@ -123,5 +123,9 @@ export default {
     'The latest news from the university so you do not miss anything',
   'Estas listo, ahora solo tienes que iniciar sesión':
     "You're ready, now you just have to sign in",
-  Identificador: 'Identifier'
+  Identificador: 'Identifier',
+  'Somos ex-alumnos de la carrera de ingeniería de software, espero que esta aplicación te sea de utilidad.':
+    'We were students of the software engineering career, I hope this application is useful for you.',
+  'Lee esta noticia en UniPAO': 'Read this news in UniPAO',
+  Compartir: 'Share'
 };

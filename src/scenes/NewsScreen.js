@@ -79,7 +79,7 @@ export default class NewsListScreen extends React.Component {
                   let options = {
                     title: news.TITULO,
                     message: _('Lee esta noticia en UniPAO'),
-                    url: 'http://jerson.me/unipao/',
+                    url: 'http://unipao.com/',
                     subject: _('Compartir')
                   };
                   Share.open(options);

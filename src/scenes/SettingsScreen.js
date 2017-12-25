@@ -45,6 +45,10 @@ export default class SettingsScreen extends React.Component {
     {
       value: 'en',
       label: _('English')
+    },
+    {
+      value: 'pt',
+      label: _('Portuguese')
     }
   ];
 
@@ -124,8 +128,8 @@ export default class SettingsScreen extends React.Component {
         <PreferenceHeader title={_('Acerca de la aplicación')} />
 
         <PreferenceItem
-          title={_('Desarrollador')}
-          description={Config.app.author}
+          title={_('Desarrolladores')}
+          description={'@jerson\n@wilsonvargas'}
         />
 
         <PreferenceItem
