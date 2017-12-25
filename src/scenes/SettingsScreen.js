@@ -136,7 +136,6 @@ export default class SettingsScreen extends React.Component {
           title={_('Versión')}
           description={DeviceInfo.getReadableVersion()}
         />
-        <PreferenceHeader title={_('Feliz Navidad (2017)')} />
       </ScrollView>
     );
   }
