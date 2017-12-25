@@ -2,10 +2,15 @@ import React from 'react';
 import Translator from './src/modules/i18n/Translator';
 import en from './src/locales/en';
 import Loading from './src/components/ui/Loading';
-import Main from './src/Main';
 import Emitter from './src/modules/listener/Emitter';
+import codePush from 'react-native-code-push';
 
 console.disableYellowBox = true;
+let codePushOptions = {
+    installMode: codePush.InstallMode.IMMEDIATE,
+    checkFrequency: codePush.CheckFrequency.ON_APP_START
+};
+
 class App extends React.Component {
 
     state = {
@@ -36,6 +41,7 @@ class App extends React.Component {
         if (!isLoaded) {
             return <Loading margin/>
         }
+        const Main = require('./src/Main').default;
 
         return (
             <Main/>
@@ -43,4 +49,4 @@ class App extends React.Component {
     }
 }
 
-export default App;
+export default codePush(codePushOptions)(App);

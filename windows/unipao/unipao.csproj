@@ -258,9 +258,17 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\node_modules\react-native-code-push\windows\CodePush\CodePush.csproj">
+      <Project>{446a85d9-55eb-4c7d-8b9d-448306c833d6}</Project>
+      <Name>CodePush</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\node_modules\react-native-device-info\windows\RNDeviceInfo\RNDeviceInfo.csproj">
       <Project>{c56790ce-79e5-4d7d-beb7-8403e70bb0e4}</Project>
       <Name>RNDeviceInfo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\node_modules\react-native-share\windows\RNShare\RNShare.csproj">
+      <Project>{4acdd44c-e556-423e-bd74-b4cef3e67ff0}</Project>
+      <Name>RNShare</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\node_modules\react-native-windows\ReactWindows\ReactNative\ReactNative.csproj">
       <Project>{c7673ad5-e3aa-468c-a5fd-fa38154e205c}</Project>
@@ -271,6 +279,20 @@
     <Content Include="ReactAssets\**\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AppCenter">
+      <HintPath>deps\Microsoft.AppCenter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AppCenter.Analytics">
+      <HintPath>deps\Microsoft.AppCenter.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AppCenter.Push">
+      <HintPath>deps\Microsoft.AppCenter.Push.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

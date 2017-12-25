@@ -13,6 +13,9 @@ import PropTypes from 'prop-types';
 import ImageUtil from '../modules/util/ImageUtil';
 import HTMLView from 'react-native-htmlview';
 import LinearGradient from '../components/ui/LinearGradient';
+import Touchable from '../components/ui/Touchable';
+import Share from 'react-native-share';
+import { _ } from '../modules/i18n/Translator';
 
 const TAG = 'NewsListScreen';
 export default class NewsListScreen extends React.Component {
@@ -70,9 +73,22 @@ export default class NewsListScreen extends React.Component {
               ]}
             />
             <View style={styles.infoContainer}>
-              <Text style={[styles.name, Theme.textShadow]}>
-                {news.TITULO.trim()}
-              </Text>
+              <Touchable
+                onPress={() => {
+                  //test
+                  let options = {
+                    title: news.TITULO,
+                    message: _('Lee esta noticia en UniPAO'),
+                    url: 'http://jerson.me/unipao/',
+                    subject: _('Compartir')
+                  };
+                  Share.open(options);
+                }}
+              >
+                <Text style={[styles.name, Theme.textShadow]}>
+                  {news.TITULO.trim()}
+                </Text>
+              </Touchable>
 
               <HTMLView
                 addLineBreaks={false}
