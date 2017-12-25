@@ -1,6 +1,7 @@
 import React from 'react';
 import Translator from './src/modules/i18n/Translator';
 import en from './src/locales/en';
+import pt from './src/locales/pt';
 import Loading from './src/components/ui/Loading';
 import Emitter from './src/modules/listener/Emitter';
 import codePush from 'react-native-code-push';
@@ -26,7 +27,7 @@ class App extends React.Component {
         await Translator.init({
             defaultLocale: 'es',
             translations: {
-                en
+                en, pt
             }
         });
     }
