@@ -20,6 +20,7 @@ import PreferencesStorage from '../modules/storage/PreferencesStorage';
 import Translator, { _ } from '../modules/i18n/Translator';
 import codePush from 'react-native-code-push';
 import DeviceInfo from 'react-native-device-info';
+import DimensionUtil from '../modules/util/DimensionUtil';
 
 export default class SettingsScreen extends React.Component {
   static navigationOptions = {
@@ -85,7 +86,10 @@ export default class SettingsScreen extends React.Component {
 
   render() {
     let minHeight = Dimensions.get('window').height;
-    let paddingTop = Platform.OS === 'ios' ? 20 : 0;
+    let paddingTop =
+      DimensionUtil.getStatusBarPadding() === 0
+        ? DimensionUtil.getStatusBarHeight()
+        : 0;
     return (
       <ScrollView
         style={styles.container}
@@ -135,6 +139,7 @@ export default class SettingsScreen extends React.Component {
           title={_('Versión')}
           description={DeviceInfo.getReadableVersion()}
         />
+        <PreferenceHeader title={_('Feliz Navidad')} />
       </ScrollView>
     );
   }
