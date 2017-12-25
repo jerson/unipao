@@ -205,7 +205,7 @@ export default class LoginScreen extends React.Component {
           onPress={() => {
             this.props.navigation.navigate('About');
           }}
-          label={_('Acerca del desarrollador')}
+          label={_('Acerca de')}
         />
 
         <KeyboardSpacer />

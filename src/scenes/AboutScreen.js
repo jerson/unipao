@@ -52,7 +52,7 @@ export default class AboutScreen extends React.Component {
         <View style={[styles.formContainer]}>
           <Text style={styles.text}>
             {_(
-              'Hola, soy un ex-alumno de la carrera de ingeniería de software, espero que esta aplicación te sea de utilidad.'
+              'Somos un ex-alumnos de la carrera de ingeniería de software, espero que esta aplicación te sea de utilidad.'
             )}
           </Text>
 
@@ -75,7 +75,8 @@ export default class AboutScreen extends React.Component {
           <ViewSpacer />
 
           <Text style={[styles.text, styles.sectionTitle]}>Github:</Text>
-          <Text style={styles.text}>@jerson</Text>
+            <Text style={styles.text}>@jerson</Text>
+            <Text style={styles.text}>@wilsonvargas</Text>
         </View>
 
         <ViewSpacer />

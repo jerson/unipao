@@ -29,6 +29,11 @@ module.exports = {
         new webpack.optimize.OccurrenceOrderPlugin(),
         new HtmlWebpackPlugin({
             template: './index.html'
+        }),
+        new HtmlWebpackPlugin({
+            template: './policy.html',
+            filename:'policy.html',
+            inject:false
         })
     ],
     devServer: {
