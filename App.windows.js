@@ -3,8 +3,7 @@ import Translator from './src/modules/i18n/Translator';
 import en from './src/locales/en';
 import Loading from './src/components/ui/Loading';
 import Emitter from './src/modules/listener/Emitter';
-import codePush from "react-native-code-push";
-import { AppState, Alert } from 'react-native';
+import codePush from 'react-native-code-push';
 
 console.disableYellowBox = true;
 let codePushOptions = {

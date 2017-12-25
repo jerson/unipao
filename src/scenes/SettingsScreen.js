@@ -86,8 +86,7 @@ export default class SettingsScreen extends React.Component {
 
   render() {
     let minHeight = Dimensions.get('window').height;
-    let paddingTop =
-      DimensionUtil.getStatusBarPadding();
+    let paddingTop = DimensionUtil.getStatusBarPadding();
     return (
       <ScrollView
         style={styles.container}
@@ -137,7 +136,7 @@ export default class SettingsScreen extends React.Component {
           title={_('Versión')}
           description={DeviceInfo.getReadableVersion()}
         />
-        <PreferenceHeader title={_('Feliz Navidad 2017')} />
+        <PreferenceHeader title={_('Feliz Navidad (2017)')} />
       </ScrollView>
     );
   }
