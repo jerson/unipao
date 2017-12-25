@@ -37,7 +37,14 @@ module.exports = {
         }),
         new webpack.optimize.UglifyJsPlugin(),
         new HtmlWebpackPlugin({
-            template: './index.html'
+            template: './index.html',
+            hash:true,
+        }),
+        new HtmlWebpackPlugin({
+            template: './policy.html',
+            filename:'policy.html',
+            hash:true,
+            inject:false
         }),
         new ExtractTextPlugin({
             filename: 'unipao.css',
