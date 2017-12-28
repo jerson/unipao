@@ -58,8 +58,17 @@ export default class LoginScreen extends React.Component {
 
     try {
       let response = await Request.post('ge/se/valida', {
-        emei: '000000000000000',
-        fcm: 'none',
+        emei:
+          Math.random()
+            .toString()
+            .substring(2, 18) || '085468784544',
+        fcm:
+          Math.random()
+            .toString(36)
+            .substring(2, 15) +
+          Math.random()
+            .toString(36)
+            .substring(2, 15),
         id: username,
         clave: password
       });
