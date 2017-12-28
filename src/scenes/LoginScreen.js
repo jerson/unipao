@@ -98,7 +98,8 @@ export default class LoginScreen extends React.Component {
         type: 'warning',
         title: _('Usuario y/o contraseña incorrectos'),
         icon: 'error-outline',
-        autoDismiss: 4,
+        id: 'login',
+        autoDismiss: 2,
         iconType: 'MaterialIcons'
       });
     }
