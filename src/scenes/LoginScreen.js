@@ -17,6 +17,8 @@ import InputSwitch from '../components/ui/InputSwitch';
 import SingleStorage from '../modules/storage/SingleStorage';
 import Loading from '../components/ui/Loading';
 import { _ } from '../modules/i18n/Translator';
+import DeviceInfo from 'react-native-device-info';
+import Base64 from 'base-64';
 
 const TAG = 'LoginScreen';
 export default class LoginScreen extends React.Component {
@@ -46,7 +48,6 @@ export default class LoginScreen extends React.Component {
     SingleStorage.remove('password');
     SingleStorage.remove('remember');
   };
-
   login = async () => {
     let username = this.refs.username.getValue();
     let password = this.refs.password.getValue();
@@ -58,17 +59,8 @@ export default class LoginScreen extends React.Component {
 
     try {
       let response = await Request.post('ge/se/valida', {
-        emei:
-          Math.random()
-            .toString()
-            .substring(2, 18) || '085468784544',
-        fcm:
-          Math.random()
-            .toString(36)
-            .substring(2, 15) +
-          Math.random()
-            .toString(36)
-            .substring(2, 15),
+        emei: this.getEmei(),
+        fcm: this.getFCM(),
         id: username,
         clave: password
       });
@@ -106,7 +98,6 @@ export default class LoginScreen extends React.Component {
 
     this.setState({ isLoading: false });
   };
-
   onSuccessLogin = () => {
     RouterUtil.resetTo(this.props.navigation, 'User');
   };
@@ -122,6 +113,32 @@ export default class LoginScreen extends React.Component {
       defaults: { remember, username, password }
     });
   };
+
+  getEmei() {
+    let emei = '9';
+    let uid = DeviceInfo.getUniqueID();
+    uid = (uid || '').toLowerCase();
+    emei += parseInt(uid.substr(0, 6), 16).toString();
+    emei += parseInt(uid.substr(6, 10), 16).toString();
+    emei += parseInt(uid.substr(10, 15), 16).toString();
+    return emei.substr(0, 16) || '000000000000000';
+  }
+
+  getFCM() {
+    let uid = DeviceInfo.getUniqueID();
+    let fcm =
+      uid +
+      parseInt(uid.substr(0, 6), 16).toString() +
+      uid +
+      parseInt(uid.substr(0, 4), 16).toString() +
+      uid +
+      parseInt(uid.substr(4, 8), 16).toString() +
+      uid +
+      parseInt(uid.substr(8, 12), 16).toString() +
+      uid +
+      parseInt(uid.substr(12, 16), 16).toString();
+    return Base64.encode(fcm).replace(new RegExp('=', 'g'), '') || 'none';
+  }
 
   async componentDidMount() {
     Emitter.on('onSuccessLogin', this.onSuccessLogin);
