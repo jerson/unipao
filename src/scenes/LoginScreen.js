@@ -88,10 +88,10 @@ export default class LoginScreen extends React.Component {
     if (!success) {
       this.context.notification.show({
         type: 'warning',
-        title: _('Usuario y/o contraseña incorrectos'),
+        title: _('Usuario y/o contraseña incorrectos, parece que la universidad nos esta bloqueando los accesos, lo solucionaremos pronto'),
         icon: 'error-outline',
         id: 'login',
-        autoDismiss: 2,
+        autoDismiss: 8,
         iconType: 'MaterialIcons'
       });
     }
