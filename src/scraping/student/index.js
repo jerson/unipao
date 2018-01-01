@@ -29,7 +29,7 @@ export default class Student {
     params['btn_valida.x'] = NumberUtils.getRandomInt(5, 25);
     params['btn_valida.y'] = NumberUtils.getRandomInt(5, 25);
 
-    let response = await fetch(`${this.url}/login.aspx`, {
+    let response = await fetch(`${Config.URL}/login.aspx`, {
       method: 'post',
       body: ParamsUtils.getFormData(params)
     });
