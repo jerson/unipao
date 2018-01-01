@@ -40,6 +40,7 @@ export default class CacheStorage {
       schema: [CacheSchema]
     });
   }
+
   static async set(key: string, value: any): Promise<boolean> {
     Log.info(TAG, 'set', key);
     let keyEncoded = this.hashCode(key);

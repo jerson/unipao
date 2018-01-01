@@ -1,6 +1,6 @@
 import LoginScreen from '../scenes/LoginScreen';
 import { StackNavigator, TabNavigator } from 'react-navigation';
-import { Platform, StatusBar, View } from 'react-native';
+import { Platform, View } from 'react-native';
 import React from 'react';
 import AboutScreen from '../scenes/AboutScreen';
 import ProfileScreen from '../scenes/ProfileScreen';

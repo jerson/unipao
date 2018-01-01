@@ -1,5 +1,5 @@
 import React from 'react';
-import { InteractionManager, Platform, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Theme } from '../themes/styles';
 import PropTypes from 'prop-types';
 import NavigationButton from '../components/ui/NavigationButton';

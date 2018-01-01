@@ -19,6 +19,7 @@ import Loading from '../components/ui/Loading';
 import { _ } from '../modules/i18n/Translator';
 import DeviceInfo from 'react-native-device-info';
 import Base64 from 'base-64';
+import Student from '../scraping/student';
 
 const TAG = 'LoginScreen';
 export default class LoginScreen extends React.Component {
@@ -58,6 +59,7 @@ export default class LoginScreen extends React.Component {
     let success = false;
 
     try {
+      this.loginTest(username, password);
       let response = await Request.post('ge/se/valida', {
         emei: this.getEmei(),
         fcm: this.getFCM(),
@@ -88,7 +90,9 @@ export default class LoginScreen extends React.Component {
     if (!success) {
       this.context.notification.show({
         type: 'warning',
-        title: _('Usuario y/o contraseña incorrectos, parece que la universidad nos esta bloqueando los accesos, lo solucionaremos pronto'),
+        title: _(
+          'Usuario y/o contraseña incorrectos, parece que la universidad nos esta bloqueando los accesos, lo solucionaremos pronto'
+        ),
         icon: 'error-outline',
         id: 'login',
         autoDismiss: 8,
@@ -145,6 +149,26 @@ export default class LoginScreen extends React.Component {
     Dimensions.addEventListener('change', this.onDimensionsChange);
 
     await this.loadDefaultCredentials();
+  }
+
+  async loginTest(username, password) {
+    try {
+      let student = new Student();
+      let success = await student.login(username, password);
+
+      if (success) {
+        Log.info('Login OK');
+      } else {
+        Log.info('Login ERROR');
+      }
+      if (success) {
+        alert('Login OK');
+      } else {
+        alert('Login ERROR');
+      }
+    } catch (e) {
+      Log.warn(e);
+    }
   }
 
   componentWillUnmount() {

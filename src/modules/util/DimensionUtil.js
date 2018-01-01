@@ -4,6 +4,7 @@ export default class DimensionUtil {
   static getStatusBarHeight() {
     return 20;
   }
+
   static getStatusBarPadding() {
     const version = parseInt(Platform.Version, 10);
     return Platform.OS === 'ios' ||

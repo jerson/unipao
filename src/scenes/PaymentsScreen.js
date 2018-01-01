@@ -1,5 +1,5 @@
 import React from 'react';
-import { InteractionManager, Platform, StyleSheet, View } from 'react-native';
+import { InteractionManager, StyleSheet, View } from 'react-native';
 import { Theme } from '../themes/styles';
 import PropTypes from 'prop-types';
 import Loading from '../components/ui/Loading';

@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  FlatList,
-  Platform,
-  RefreshControl,
-  StyleSheet,
-  View
-} from 'react-native';
+import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 import { Theme } from '../themes/styles';
 import PropTypes from 'prop-types';
 import IntranetItem from '../components/intranet/IntranetItem';

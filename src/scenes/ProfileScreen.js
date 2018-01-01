@@ -1,9 +1,9 @@
 import React from 'react';
 import {
   Alert,
-  Platform,
   Dimensions,
   Image,
+  Platform,
   ScrollView,
   StatusBar,
   StyleSheet,

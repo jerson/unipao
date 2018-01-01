@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, Platform, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { Theme } from '../themes/styles';
 import PropTypes from 'prop-types';
 import AssistDetailItem from '../components/assist/AssistDetailItem';

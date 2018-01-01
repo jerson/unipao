@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StatusBar, View } from 'react-native';
+import { StatusBar, View } from 'react-native';
 import Request from './modules/network/Request';
 import Config from '../Config';
 import MainRouter from './routers/MainRouter';

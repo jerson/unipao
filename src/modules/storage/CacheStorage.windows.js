@@ -23,6 +23,7 @@ export interface Cache {
   key: string;
   value: string;
 }
+
 const TAG = 'CacheStorageWindows';
 export default class CacheStorageWindows {
   static settings: Settings = { path: 'cache.realm', schemaVersion: 1 };
@@ -32,6 +33,7 @@ export default class CacheStorageWindows {
       this.settings = Object.assign({}, this.settings, settings);
     }
   }
+
   static async set(key: string, value: any): Promise<boolean> {
     if (typeof value === 'undefined') {
       return false;

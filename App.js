@@ -41,7 +41,7 @@ class App extends React.Component {
 
         let {isLoaded} = this.state;
         if (!isLoaded) {
-            return <Loading margin/>
+            return <Loading style={{margin:50,}}/>
         }
         const Main = require('./src/Main').default;
 

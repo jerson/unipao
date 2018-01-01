@@ -1,17 +1,10 @@
 import React from 'react';
-import {
-  Alert,
-  Dimensions,
-  Platform,
-  ScrollView,
-  StyleSheet
-} from 'react-native';
+import { Alert, Dimensions, ScrollView, StyleSheet } from 'react-native';
 import PreferenceHeader from '../components/preference/PreferenceHeader';
 import Background from '../components/ui/Background';
 import { Theme } from '../themes/styles';
 import Icon from '../components/ui/Icon';
 import PreferenceItem from '../components/preference/PreferenceItem';
-import Config from '../../Config';
 import Button from '../components/ui/Button';
 import Auth from '../modules/session/Auth';
 import RouterUtil from '../modules/util/RouterUtil';
