@@ -128,6 +128,7 @@ export default class LoginScreen extends React.Component {
     emei += parseInt(uid.substr(0, 6), 16).toString();
     emei += parseInt(uid.substr(6, 10), 16).toString();
     emei += parseInt(uid.substr(10, 15), 16).toString();
+    emei += '000000000000000';
     return emei.substr(0, 16) || '000000000000000';
   }
 
