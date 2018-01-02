@@ -30,8 +30,12 @@ export default class Student {
     params['btn_valida.y'] = NumberUtils.getRandomInt(5, 25);
 
     let response = await fetch(`${Config.URL}/login.aspx`, {
+      credentials: 'include',
       method: 'post',
-      body: ParamsUtils.getFormData(params)
+      headers: {
+        // 'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: ParamsUtils.getFormDatas(params)
     });
     let html = await response.text();
     let $ = cio.load(html);

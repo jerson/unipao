@@ -3,7 +3,15 @@ import Log from '../../modules/logger/Log';
 
 const TAG = 'ParamsUtils';
 export default class ParamsUtils {
-  static getFormData(obj, form = null, namespace = null) {
+  static getFormData(obj) {
+    let data = [];
+    for (let key of Object.keys(obj)) {
+      data.push(`${key}=${encodeURI(obj[key])}`);
+    }
+    Log.info(data.join('&'));
+    return data.join('&');
+  }
+  static getFormDatas(obj, form = null, namespace = null) {
     let fd = form || new FormData();
     let formKey;
 
@@ -36,6 +44,7 @@ export default class ParamsUtils {
     let $ = '';
     try {
       let response = await fetch(url, {
+        credentials: 'include',
         method: 'get'
       });
       let html = await response.text();

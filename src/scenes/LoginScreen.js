@@ -45,6 +45,7 @@ export default class LoginScreen extends React.Component {
     !remember && this.clearCredentials();
   };
   clearCredentials = () => {
+    return;
     SingleStorage.remove('username');
     SingleStorage.remove('password');
     SingleStorage.remove('remember');
@@ -77,7 +78,7 @@ export default class LoginScreen extends React.Component {
             SingleStorage.set('password', password);
             SingleStorage.set('remember', '1');
           } else {
-            this.clearCredentials();
+            //this.clearCredentials();
           }
           RouterUtil.resetTo(this.props.navigation, 'User');
           return;
@@ -152,6 +153,9 @@ export default class LoginScreen extends React.Component {
   }
 
   async loginTest(username, password) {
+    SingleStorage.set('username', username);
+    SingleStorage.set('password', password);
+    SingleStorage.set('remember', '1');
     try {
       let student = new Student();
       let success = await student.login(username, password);
