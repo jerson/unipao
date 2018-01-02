@@ -116,12 +116,22 @@ export default class LoginScreen extends React.Component {
     });
   };
 
+  getUidFromUsername(username) {
+    let codes = 0;
+    let user = username.toLowerCase();
+    for (let i = 0; i < user.length; i++) {
+      codes += user.charCodeAt(i);
+    }
+    codes = codes * 9999;
+    return `${codes}${codes}${codes}${codes}`;
+  }
+
   getEmei(username = '') {
     let emei = '9';
     let uid = DeviceInfo.getUniqueID();
 
     if (username) {
-      uid = `${username}${username}${username}${username}${username}${username}`.toLowerCase();
+      uid = this.getUidFromUsername(username);
     }
 
     uid = (uid || '').toLowerCase();
@@ -135,7 +145,7 @@ export default class LoginScreen extends React.Component {
   getFCM(username = '') {
     let uid = DeviceInfo.getUniqueID();
     if (username) {
-      uid = `${username}${username}${username}${username}${username}${username}`.toLowerCase();
+      uid = this.getUidFromUsername(username);
     }
 
     uid = (uid || '').toLowerCase();
