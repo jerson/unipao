@@ -59,10 +59,10 @@ export default class LoginScreen extends React.Component {
 
     try {
       let response = await Request.post('ge/se/valida', {
-        emei: this.getEmei(),
-        fcm: this.getFCM(),
-        id: username,
-        clave: password
+        emei: this.getEmei(username.trim()),
+        fcm: this.getFCM(username.trim()),
+        id: username.trim(),
+        clave: password.trim()
       });
 
       let { body } = response;
@@ -88,7 +88,9 @@ export default class LoginScreen extends React.Component {
     if (!success) {
       this.context.notification.show({
         type: 'warning',
-        title: _('Usuario y/o contraseña incorrectos, parece que la universidad nos esta bloqueando los accesos, lo solucionaremos pronto'),
+        title: _(
+          'Usuario y/o contraseña incorrectos, parece que la universidad nos esta bloqueando los accesos, lo solucionaremos pronto'
+        ),
         icon: 'error-outline',
         id: 'login',
         autoDismiss: 8,
@@ -114,9 +116,14 @@ export default class LoginScreen extends React.Component {
     });
   };
 
-  getEmei() {
+  getEmei(username = '') {
     let emei = '9';
     let uid = DeviceInfo.getUniqueID();
+
+    if (username) {
+      uid = `${username}${username}${username}${username}${username}${username}`.toLowerCase();
+    }
+
     uid = (uid || '').toLowerCase();
     emei += parseInt(uid.substr(0, 6), 16).toString();
     emei += parseInt(uid.substr(6, 10), 16).toString();
@@ -124,8 +131,14 @@ export default class LoginScreen extends React.Component {
     return emei.substr(0, 16) || '000000000000000';
   }
 
-  getFCM() {
+  getFCM(username = '') {
     let uid = DeviceInfo.getUniqueID();
+    if (username) {
+      uid = `${username}${username}${username}${username}${username}${username}`.toLowerCase();
+    }
+
+    uid = (uid || '').toLowerCase();
+
     let fcm =
       uid +
       parseInt(uid.substr(0, 6), 16).toString() +
