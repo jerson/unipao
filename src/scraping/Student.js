@@ -1,22 +1,12 @@
-import ParamsUtils from '../utils/ParamsUtils';
-import NumberUtils from '../utils/NumberUtils';
+import ParamsUtils from './utils/ParamsUtils';
+import NumberUtils from './utils/NumberUtils';
 import cio from 'cheerio-without-node-native';
-import Log from '../../modules/logger/Log';
-import Config from '../Config';
-import Profile from './Profile';
+import Log from '../modules/logger/Log';
+import Config from './Config';
 
 const TAG = 'Student';
 export default class Student {
-  intranet;
-  profile;
-  schedule;
-  general;
-
-  constructor() {
-    this.profile = new Profile();
-  }
-
-  async login(username, password) {
+  async login(username: string, password: string): boolean {
     let { $: $p, params } = await ParamsUtils.getParams(Config.URL);
     if ($p('#ctl00_csesion').length) {
       Log.info(TAG, 'ya inicio antes');
@@ -43,6 +33,7 @@ export default class Student {
     let labelError = $('#lbl_error').text();
     if (labelError) {
       Log.info(TAG, labelError);
+      return false;
     }
 
     return $('#ctl00_csesion').length;
