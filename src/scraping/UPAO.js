@@ -3,23 +3,40 @@ import NumberUtils from './utils/NumberUtils';
 import cio from 'cheerio-without-node-native';
 import Log from '../modules/logger/Log';
 import Config from './Config';
+import Profile from './student/Profile';
+import Intranet from './student/Intranet';
+import General from './info/General';
+import Schedule from './info/Schedule';
 
 const TAG = 'UPAO';
 export default class UPAO {
+  static Info = {
+    General,
+    Schedule
+  };
+
+  static Student = {
+    Profile,
+    Intranet
+  };
+
   static async login(username: string, password: string): boolean {
-    let responseHome = await fetch(Config.URL, {
-      credentials: 'include',
-      method: 'get'
-    });
-    let htmlHome = await responseHome.text();
-    let $p = cio.load(htmlHome);
+    let params = {};
+    try {
+      let responseHome = await fetch(Config.URL, {
+        credentials: 'include'
+      });
+      let html = await responseHome.text();
+      let $ = cio.load(html);
 
-    if ($p('#ctl00_csesion').length) {
-      Log.info(TAG, 'ya inicio antes');
-      return true;
+      if ($('#ctl00_csesion').length) {
+        Log.info(TAG, 'ya inicio antes');
+        return true;
+      }
+      params = ParamsUtils.getFormParams($);
+    } catch (e) {
+      Log.info(TAG, 'login', e);
     }
-
-    let params = ParamsUtils.getFormParams($p);
 
     delete params.btn_valida;
     params.txt_id = username;
@@ -27,20 +44,39 @@ export default class UPAO {
     params['btn_valida.x'] = NumberUtils.getRandomInt(5, 25);
     params['btn_valida.y'] = NumberUtils.getRandomInt(5, 25);
 
-    let response = await fetch(`${Config.URL}/login.aspx`, {
-      credentials: 'include',
-      method: 'post',
-      body: ParamsUtils.getFormData(params)
-    });
-    let html = await response.text();
-    let $ = cio.load(html);
+    try {
+      let response = await fetch(`${Config.URL}/login.aspx`, {
+        credentials: 'include',
+        method: 'post',
+        body: ParamsUtils.getFormData(params)
+      });
+      let html = await response.text();
+      let $ = cio.load(html);
 
-    let labelError = $('#lbl_error').text();
-    if (labelError) {
-      Log.info(TAG, labelError);
-      return false;
+      let labelError = $('#lbl_error').text();
+      if (labelError) {
+        Log.info(TAG, labelError);
+        return false;
+      }
+
+      return $('#ctl00_csesion').length;
+    } catch (e) {
+      Log.info(TAG, 'login', e);
     }
 
-    return $('#ctl00_csesion').length;
+    return false;
+  }
+
+  static async logout(): boolean {
+    try {
+      await fetch(`${Config.URL}/cerrar_sesion.aspx`, {
+        credentials: 'include'
+      });
+      return true;
+    } catch (e) {
+      Log.info(TAG, 'logout', e);
+    }
+
+    return false;
   }
 }
