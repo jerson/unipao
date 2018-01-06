@@ -34,10 +34,12 @@ export default class Profile {
         .text();
       nacionality = nacionality === 'None' ? '' : nacionality;
 
-      let etnia = $('#ctl00_ContentPlaceHolder1_ctl00_PCONGEN2_ctl00_cbo_etnia')
+      let ethnic = $(
+        '#ctl00_ContentPlaceHolder1_ctl00_PCONGEN2_ctl00_cbo_etnia'
+      )
         .find('option[selected=selected]')
         .text();
-      etnia = etnia === 'None' ? '' : etnia;
+      ethnic = ethnic === 'None' ? '' : ethnic;
 
       let civilStatus = $(
         '#ctl00_ContentPlaceHolder1_ctl00_PCONGEN2_ctl00_cbo_estado_civil'
@@ -77,7 +79,7 @@ export default class Profile {
         document,
         birthday,
         nacionality,
-        etnia,
+        ethnic,
         civilStatus,
         religion,
         gender
