@@ -1,4 +1,4 @@
 const TAG = 'Album';
 export default class Album {
-  get(id: string) {}
+  static async get(id: string) {}
 }

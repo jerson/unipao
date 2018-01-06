@@ -1,6 +1,6 @@
 const TAG = 'Course';
 export default class Course {
-  getCourse(
+  static async getCourse(
     id: string,
     period: string,
     nrc: string,
@@ -9,7 +9,7 @@ export default class Course {
     campus: string
   ) {}
 
-  getNotes(
+  static async getNotes(
     id: string,
     period: string,
     nrc: string,
@@ -19,7 +19,7 @@ export default class Course {
     subj: string,
     campus: string
   ) {}
-  getAssists(
+  static async getAssists(
     id: string,
     period: string,
     nrc: string,

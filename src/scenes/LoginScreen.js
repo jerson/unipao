@@ -19,7 +19,7 @@ import Loading from '../components/ui/Loading';
 import { _ } from '../modules/i18n/Translator';
 import DeviceInfo from 'react-native-device-info';
 import Base64 from 'base-64';
-import Student from '../scraping/student';
+import UPAO from '../scraping/UPAO';
 
 const TAG = 'LoginScreen';
 export default class LoginScreen extends React.Component {
@@ -157,8 +157,7 @@ export default class LoginScreen extends React.Component {
     SingleStorage.set('password', password);
     SingleStorage.set('remember', '1');
     try {
-      let student = new Student();
-      let success = await student.login(username, password);
+      let success = await UPAO.login(username, password);
 
       if (success) {
         Log.info('Login OK');

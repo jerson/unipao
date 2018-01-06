@@ -1,7 +1,7 @@
 const TAG = 'Schedule';
 export default class Schedule {
-  getLanguagesCourses() {}
-  getCourses() {}
-  getBaseSchedules() {}
-  getBaseCourses() {}
+  static async getLanguagesCourses() {}
+  static async getCourses() {}
+  static async getBaseSchedules() {}
+  static async getBaseCourses() {}
 }

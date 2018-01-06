@@ -1,4 +1,4 @@
 const TAG = 'Schedule';
 export default class Schedule {
-  get(period: string) {}
+  static async get(period: string) {}
 }

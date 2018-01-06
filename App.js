@@ -80,4 +80,4 @@ Push.setListener({
         // }
     }
 });
-export default codePush(codePushOptions)(App);
+export default __DEV__  ? App : codePush(codePushOptions)(App);

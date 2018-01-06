@@ -1,6 +1,6 @@
 const TAG = 'General';
 export default class General {
-  getPeriods() {}
-  getCareers() {}
-  getCareersProfiles() {}
+  static async getPeriods() {}
+  static async getCareers() {}
+  static async getCareersProfiles() {}
 }

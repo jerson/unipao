@@ -4,14 +4,22 @@ import cio from 'cheerio-without-node-native';
 import Log from '../modules/logger/Log';
 import Config from './Config';
 
-const TAG = 'Student';
-export default class Student {
-  async login(username: string, password: string): boolean {
-    let { $: $p, params } = await ParamsUtils.getParams(Config.URL);
+const TAG = 'UPAO';
+export default class UPAO {
+  static async login(username: string, password: string): boolean {
+    let responseHome = await fetch(Config.URL, {
+      credentials: 'include',
+      method: 'get'
+    });
+    let htmlHome = await responseHome.text();
+    let $p = cio.load(htmlHome);
+
     if ($p('#ctl00_csesion').length) {
       Log.info(TAG, 'ya inicio antes');
       return true;
     }
+
+    let params = ParamsUtils.getFormParams($p);
 
     delete params.btn_valida;
     params.txt_id = username;
@@ -22,10 +30,7 @@ export default class Student {
     let response = await fetch(`${Config.URL}/login.aspx`, {
       credentials: 'include',
       method: 'post',
-      headers: {
-        // 'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: ParamsUtils.getFormDatas(params)
+      body: ParamsUtils.getFormData(params)
     });
     let html = await response.text();
     let $ = cio.load(html);
