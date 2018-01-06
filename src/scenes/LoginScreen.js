@@ -20,7 +20,6 @@ import { _ } from '../modules/i18n/Translator';
 import DeviceInfo from 'react-native-device-info';
 import Base64 from 'base-64';
 import UPAO from '../scraping/UPAO';
-import Profile from '../scraping/student/Profile';
 
 const TAG = 'LoginScreen';
 export default class LoginScreen extends React.Component {

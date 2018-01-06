@@ -1,4 +1,3 @@
-import cio from 'cheerio-without-node-native';
 import Log from '../../modules/logger/Log';
 
 const TAG = 'ParamsUtils';
@@ -11,6 +10,7 @@ export default class ParamsUtils {
     Log.info(data.join('&'));
     return data.join('&');
   }
+
   static getFormData(obj, form = null, namespace = null) {
     let fd = form || new FormData();
     let formKey;

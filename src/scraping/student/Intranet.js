@@ -1,5 +1,3 @@
-import Friend from './profile/Friend';
-import Album from './profile/Album';
 import Schedule from './intranet/Schedule';
 import Note from './intranet/Note';
 import Enrollment from './intranet/Enrollment';
@@ -13,7 +11,10 @@ export default class Intranet {
   static Schedule = Schedule;
 
   static async getPayments() {}
+
   static async getLevels() {}
+
   static async getCourses(period: string, level: string) {}
+
   static async getPeriods() {}
 }

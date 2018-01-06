@@ -1,7 +1,6 @@
 import Config from '../Config';
 import Log from '../../modules/logger/Log';
 import cio from 'cheerio-without-node-native';
-import Intranet from './Intranet';
 import Album from './profile/Album';
 import Friend from './profile/Friend';
 

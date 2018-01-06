@@ -19,6 +19,7 @@ export default class Course {
     subj: string,
     campus: string
   ) {}
+
   static async getAssists(
     id: string,
     period: string,
