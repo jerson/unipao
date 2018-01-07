@@ -63,13 +63,13 @@ export default class News {
       let image = $('#ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_Image2').attr(
         'src'
       );
-      let body = $('.opnotici').html();
+      let content = $('.opnotici').html();
 
       let news = {
         title,
         subtitle,
         image,
-        body
+        content
       };
 
       return news;

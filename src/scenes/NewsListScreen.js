@@ -32,6 +32,7 @@ export default class NewsListScreen extends React.Component {
   state = {
     newsList: [],
     page: 1,
+    isLoading: true,
     isRefreshing: false,
     isLoadingMore: false,
     canLoadMore: true
