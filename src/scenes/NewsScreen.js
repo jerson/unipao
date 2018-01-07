@@ -101,7 +101,6 @@ export default class NewsListScreen extends React.Component {
     let { height } = Dimensions.get('window');
     let itemHeight = height / 2;
 
-    console.log(content);
 
     return (
       <ScrollView
