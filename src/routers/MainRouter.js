@@ -56,19 +56,6 @@ const AgendaNavigator = StackNavigator(
 
 const UPAOTabNavigator = TabNavigator(
   {
-    Agenda: {
-      screen: AgendaNavigator,
-      navigationOptions: {
-        tabBarLabel: _('Agenda'),
-        tabBarIcon: ({ tintColor }) => (
-          <Icon
-            name={'calendar'}
-            type={'MaterialCommunityIcons'}
-            style={[Theme.tabTarIcon, { color: tintColor }]}
-          />
-        )
-      }
-    },
     News: {
       screen: NewsNavigator,
       navigationOptions: {
@@ -77,6 +64,19 @@ const UPAOTabNavigator = TabNavigator(
           <Icon
             name={'newspaper-o'}
             type={'FontAwesome'}
+            style={[Theme.tabTarIcon, { color: tintColor }]}
+          />
+        )
+      }
+    },
+    Agenda: {
+      screen: AgendaNavigator,
+      navigationOptions: {
+        tabBarLabel: _('Agenda'),
+        tabBarIcon: ({ tintColor }) => (
+          <Icon
+            name={'calendar'}
+            type={'MaterialCommunityIcons'}
             style={[Theme.tabTarIcon, { color: tintColor }]}
           />
         )
@@ -97,11 +97,7 @@ const UPAONavigator = StackNavigator(
         headerBackTitle: null,
         headerTitleStyle: [Theme.title, Theme.subtitle],
         headerTintColor: Theme.subTintColor,
-        headerStyle: [
-          Theme.navigationBar,
-          Theme.subNavigationBar,
-          Theme.shadowDefault
-        ]
+        headerStyle: [Theme.navigationBar, Theme.subNavigationBar]
       }
     }
   },
