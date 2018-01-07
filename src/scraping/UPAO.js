@@ -1,6 +1,5 @@
 import ParamsUtils from './utils/ParamsUtils';
 import NumberUtils from './utils/NumberUtils';
-import cio from 'cheerio-without-node-native';
 import Log from '../modules/logger/Log';
 import Config from './Config';
 import Profile from './student/Profile';
@@ -8,12 +7,16 @@ import Intranet from './student/Intranet';
 import General from './info/General';
 import Schedule from './info/Schedule';
 import RequestUtil from './utils/RequestUtil';
+import Agenda from './info/Agenda';
+import News from './info/News';
 
 const TAG = 'UPAO';
 export default class UPAO {
   static Info = {
     General,
-    Schedule
+    Schedule,
+    Agenda,
+    News
   };
 
   static Student = {

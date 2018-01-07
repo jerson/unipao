@@ -27,7 +27,7 @@ export default class NewsItem extends React.Component {
   render() {
     let { height } = Dimensions.get('window');
     let { news, index } = this.props;
-    let ago = moment(news.FECHANOTICIA || '').fromNow();
+    let ago = moment(news.date || '').fromNow();
     let itemHeight = height / 3;
     return (
       <View style={[styles.container]}>
@@ -40,7 +40,7 @@ export default class NewsItem extends React.Component {
           <View style={styles.header}>
             <Image
               style={[styles.image, { height: itemHeight }]}
-              source={{ uri: ImageUtil.asset(news.URL1) }}
+              source={{ uri: ImageUtil.asset(news.image) }}
             />
           </View>
           <LinearGradient
@@ -55,7 +55,7 @@ export default class NewsItem extends React.Component {
           />
           <View style={styles.infoContainer}>
             <Text style={[styles.name, Theme.textShadow]}>
-              {news.TITULO.trim()}
+              {news.title.trim()}
             </Text>
             <Text style={[styles.ago, Theme.textShadow]}>
               {_('Publicado')} {ago}

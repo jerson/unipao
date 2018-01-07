@@ -9,6 +9,7 @@ import Loading from '../components/ui/Loading';
 import { _ } from '../modules/i18n/Translator';
 import CacheStorage from '../modules/storage/CacheStorage';
 import DimensionUtil from '../modules/util/DimensionUtil';
+import UPAO from '../scraping/UPAO';
 
 const TAG = 'NewsListScreen';
 export default class NewsListScreen extends React.Component {
@@ -62,11 +63,10 @@ export default class NewsListScreen extends React.Component {
     }
   };
 
-  loadResponse = (body, cacheLoaded = false) => {
+  loadResponse = (data, cacheLoaded = false) => {
     let { page } = this.state;
     let newsList = [];
-    if (body.data) {
-      let data = JSON.parse(body.data);
+    if (data) {
       if (data.length < 1) {
         this.setState({ canLoadMore: false });
       }
@@ -88,25 +88,13 @@ export default class NewsListScreen extends React.Component {
     let { cacheLoaded, page } = this.state;
 
     try {
-      let limit = 10;
-      let start = (page - 1) * limit;
-      let end = start + limit - 1;
-      let response = await Request.post(
-        'pr/listanot',
-        {
-          v_fin: end,
-          v_ini: start
-        },
-        { secure: true }
-      );
-
-      let { body } = response;
-      this.loadResponse(body);
-      CacheStorage.set(this.getCacheKey(), body);
+      let items = await UPAO.Info.News.getList(page);
+      this.loadResponse(items);
+      CacheStorage.set(this.getCacheKey(), items);
     } catch (e) {
       Log.warn(TAG, 'load', e);
       if (!cacheLoaded) {
-        this.loadResponse({});
+        this.loadResponse([]);
       } else {
         this.setState({
           isLoading: false,
@@ -164,7 +152,7 @@ export default class NewsListScreen extends React.Component {
             />
           }
           keyExtractor={item => {
-            return item.IDNOTICIA;
+            return item.id;
           }}
         />
       </View>
