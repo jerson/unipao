@@ -25,6 +25,7 @@ export default class Gallery {
             $('img', value)
               .attr('src')
               .replace('th__', '')
+              .trim()
           ),
           title: $('td > strong', value)
             .text()
@@ -67,8 +68,12 @@ export default class Gallery {
             $('img', value)
               .attr('src')
               .replace('th__', '')
+              .trim()
           ),
-          title: $('img', value).attr('alt')
+          title: $('img', value)
+            .attr('alt')
+            .replace(/\s+/g, ' ')
+            .trim()
         };
 
         images.push(image);
