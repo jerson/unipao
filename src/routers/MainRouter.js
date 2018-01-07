@@ -124,7 +124,7 @@ const UPAONavigator = StackNavigator(
     Home: {
       screen: UPAOTabNavigator,
       navigationOptions: {
-        title: _('UPAO'),
+        title: _('UniPAO'),
         headerBackTitle: null,
         headerTitleStyle: [Theme.title, Theme.subtitle],
         headerTintColor: Theme.subTintColor,
@@ -216,11 +216,11 @@ const UsersTabNavigator = TabNavigator(
         );
       },
       navigationOptions: {
-        tabBarLabel: _('UPAO'),
+        tabBarLabel: _('UniPAO'),
         tabBarIcon: ({ tintColor }) => (
           <Icon
-            name={'calendar'}
-            type={'MaterialCommunityIcons'}
+            name={'university'}
+            type={'FontAwesome'}
             style={[Theme.tabTarIcon, { color: tintColor }]}
           />
         )
@@ -235,7 +235,7 @@ const UsersTabNavigator = TabNavigator(
         );
       },
       navigationOptions: {
-        tabBarLabel: _('E-mail'),
+        tabBarLabel: _('Correo'),
         tabBarIcon: ({ tintColor }) => (
           <Icon
             name={'gmail'}
