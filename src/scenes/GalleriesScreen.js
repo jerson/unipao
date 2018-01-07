@@ -4,21 +4,21 @@ import { Theme } from '../themes/styles';
 import PropTypes from 'prop-types';
 import Request from '../modules/network/Request';
 import Log from '../modules/logger/Log';
-import NewsItem from '../components/news/NewsItem';
+import GalleryItem from '../components/gallery/GalleryItem';
 import Loading from '../components/ui/Loading';
 import { _ } from '../modules/i18n/Translator';
 import CacheStorage from '../modules/storage/CacheStorage';
 import DimensionUtil from '../modules/util/DimensionUtil';
 import UPAO from '../scraping/UPAO';
 
-const TAG = 'NewsListScreen';
-export default class NewsListScreen extends React.Component {
+const TAG = 'GalleriesScreen';
+export default class GalleriesScreen extends React.Component {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
 
   static navigationOptions = {
-    title: _('Últimas noticias'),
+    title: _('Galerías'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
     headerTintColor: Theme.tintColor,
@@ -30,7 +30,7 @@ export default class NewsListScreen extends React.Component {
   };
 
   state = {
-    newsList: [],
+    galleries: [],
     page: 1,
     isLoading: true,
     isRefreshing: false,
@@ -51,7 +51,7 @@ export default class NewsListScreen extends React.Component {
   };
   getCacheKey = () => {
     let { page } = this.state;
-    return `newsList_${page}`;
+    return `galleries_${page}`;
   };
   checkCache = async () => {
     let { page } = this.state;
@@ -66,20 +66,20 @@ export default class NewsListScreen extends React.Component {
 
   loadResponse = (data, cacheLoaded = false) => {
     let { page } = this.state;
-    let newsList = [];
+    let galleries = [];
     if (data) {
       if (data.length < 1) {
         this.setState({ canLoadMore: false });
       }
       if (page === 1) {
-        newsList = data;
+        galleries = data;
       } else {
-        newsList = [...this.state.newsList, ...data];
+        galleries = [...this.state.galleries, ...data];
       }
     }
     this.setState({
       cacheLoaded,
-      newsList,
+      galleries,
       isLoading: false,
       isRefreshing: false,
       isLoadingMore: false
@@ -89,7 +89,7 @@ export default class NewsListScreen extends React.Component {
     let { cacheLoaded, page } = this.state;
 
     try {
-      let items = await UPAO.Info.News.getList(page);
+      let items = await UPAO.Info.Gallery.getList(page);
       this.loadResponse(items);
       CacheStorage.set(this.getCacheKey(), items);
     } catch (e) {
@@ -106,7 +106,7 @@ export default class NewsListScreen extends React.Component {
     }
   };
   renderItem = ({ item, index }) => {
-    return <NewsItem news={item} />;
+    return <GalleryItem gallery={item} />;
   };
   onRefresh = () => {
     this.setState({ isRefreshing: true, page: 1 }, () => {
@@ -134,14 +134,14 @@ export default class NewsListScreen extends React.Component {
   }
 
   render() {
-    let { isLoading, isRefreshing, newsList } = this.state;
+    let { isLoading, isRefreshing, galleries } = this.state;
     let paddingTop = DimensionUtil.getNavigationBarHeight();
     return (
       <View style={[styles.container, { paddingTop }]}>
         {/*<Background />*/}
         {isLoading && <Loading margin />}
         <FlatList
-          data={newsList}
+          data={galleries}
           scrollEnabled={true}
           showsVerticalScrollIndicator={true}
           renderItem={this.renderItem}
@@ -164,6 +164,6 @@ export default class NewsListScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fafafa'
+    backgroundColor: '#fff'
   }
 });

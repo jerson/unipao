@@ -9,6 +9,7 @@ import Schedule from './info/Schedule';
 import RequestUtil from './utils/RequestUtil';
 import Agenda from './info/Agenda';
 import News from './info/News';
+import Gallery from './info/Gallery';
 
 const TAG = 'UPAO';
 export default class UPAO {
@@ -16,7 +17,8 @@ export default class UPAO {
     General,
     Schedule,
     Agenda,
-    News
+    News,
+    Gallery
   };
 
   static Student = {

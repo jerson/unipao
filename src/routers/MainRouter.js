@@ -21,6 +21,8 @@ import IntroScreen from '../scenes/IntroScreen';
 import DimensionUtil from '../modules/util/DimensionUtil';
 import MailScreen from '../scenes/MailScreen';
 import { tabsOptions, tabsOptionsMain, tabsOptionsSub } from './Tabs';
+import GalleriesScreen from '../scenes/GalleriesScreen';
+import GalleryScreen from '../scenes/GalleryScreen';
 
 const NewsNavigator = StackNavigator(
   {
@@ -29,6 +31,23 @@ const NewsNavigator = StackNavigator(
     },
     News: {
       screen: NewsScreen
+    }
+  },
+  {
+    headerMode: 'none',
+    cardStyle: {
+      backgroundColor: '#fff',
+      top: DimensionUtil.getNavigationBarHeight() * -1
+    }
+  }
+);
+const GalleryNavigator = StackNavigator(
+  {
+    Home: {
+      screen: GalleriesScreen
+    },
+    Gallery: {
+      screen: GalleryScreen
     }
   },
   {
@@ -56,6 +75,18 @@ const AgendaNavigator = StackNavigator(
 
 const UPAOTabNavigator = TabNavigator(
   {
+    Gallery: {
+      screen: GalleryNavigator,
+      navigationOptions: {
+        tabBarLabel: _('Fotos'),
+        tabBarIcon: ({ tintColor }) => (
+          <Icon
+            name={'photo'}
+            style={[Theme.tabTarIcon, { color: tintColor }]}
+          />
+        )
+      }
+    },
     News: {
       screen: NewsNavigator,
       navigationOptions: {

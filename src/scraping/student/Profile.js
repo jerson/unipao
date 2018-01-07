@@ -83,7 +83,7 @@ export default class Profile {
 
       return user;
     } catch (e) {
-      Log.info(TAG, 'login', e);
+      Log.info(TAG, 'me', e);
     }
     return null;
   }

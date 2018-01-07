@@ -60,7 +60,7 @@ export const tabsOptionsSub = {
   tabBarOptions: {
     upperCaseLabel: true,
     scrollEnabled: false,
-    activeTintColor: '#0d61ac',
+    activeTintColor: '#f59331',
     inactiveTintColor: '#444',
     style: {
       backgroundColor: '#fff',
@@ -71,7 +71,7 @@ export const tabsOptionsSub = {
       fontWeight: 'normal'
     },
     indicatorStyle: {
-      backgroundColor: '#0d61ac'
+      backgroundColor: '#f59331'
     }
   }
 };

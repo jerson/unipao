@@ -22,8 +22,8 @@ import UPAO from '../scraping/UPAO';
 import Loading from '../components/ui/Loading';
 import NavigationButton from '../components/ui/NavigationButton';
 
-const TAG = 'NewsListScreen';
-export default class NewsListScreen extends React.Component {
+const TAG = 'GalleryScreen';
+export default class GalleryScreen extends React.Component {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
@@ -40,7 +40,7 @@ export default class NewsListScreen extends React.Component {
     ]
   });
   state = {
-    news: null,
+    gallery: null,
     isLoading: true
   };
   load = async () => {
@@ -49,8 +49,8 @@ export default class NewsListScreen extends React.Component {
     await this.loadRequest();
   };
   getCacheKey = () => {
-    let { news } = this.getParams();
-    return `news_${news.id}`;
+    let { gallery } = this.getParams();
+    return `gallery_${gallery.id}`;
   };
   checkCache = async () => {
     try {
@@ -60,19 +60,19 @@ export default class NewsListScreen extends React.Component {
       Log.info(TAG, 'checkCache', e);
     }
   };
-  loadResponse = (news, cacheLoaded = false) => {
+  loadResponse = (gallery, cacheLoaded = false) => {
     this.setState({
       cacheLoaded,
-      news,
+      gallery,
       isLoading: false
     });
   };
   loadRequest = async () => {
-    let { news } = this.getParams();
+    let { gallery } = this.getParams();
     let { cacheLoaded } = this.state;
 
     try {
-      let item = await UPAO.Info.News.get(news.id);
+      let item = await UPAO.Info.Gallery.get(gallery.id);
       this.loadResponse(item);
       CacheStorage.set(this.getCacheKey(), item);
     } catch (e) {
@@ -96,61 +96,44 @@ export default class NewsListScreen extends React.Component {
   }
 
   render() {
-    let { news, isLoading } = this.state;
-    let content = news
-      ? news.content
-          .replace(new RegExp('o:', 'gm'), '')
-          .replace(/(\r\n|\n|\r)/gm, '')
-      : '';
-    let subtitle = news ? news.subtitle : '';
+    let { gallery, isLoading } = this.state;
     let { height } = Dimensions.get('window');
     let itemHeight = height / 2;
-
-    console.log(content);
+    let image =
+      gallery && gallery.images
+        ? gallery.images[gallery.images.length - 1]
+        : null;
+    image = image || {};
     return (
       <ScrollView
         style={[styles.container]}
         showsVerticalScrollIndicator={true}
       >
         {isLoading && <Loading margin />}
-        {news && (
+        {gallery && (
           <View>
             <View style={styles.header}>
               <Image
                 style={[styles.image, { height: itemHeight }]}
-                source={{ uri: ImageUtil.asset(news.image) }}
+                source={{ uri: ImageUtil.asset(image.image) }}
               />
-
+              <LinearGradient
+                colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.9)']}
+                style={[
+                  styles.gradient,
+                  Platform.OS === 'windows' && {
+                    backgroundColor: 'rgba(0,0,0,0.8)'
+                  },
+                  Platform.OS !== 'windows'
+                    ? { minHeight: 130 }
+                    : { minHeight: 90 }
+                ]}
+              />
               <View style={styles.infoContainer}>
-                <Touchable
-                  onPress={() => {
-                    //test
-                    let options = {
-                      title: news.title,
-                      message: _('Lee esta noticia en UniPAO'),
-                      url: 'http://unipao.com/',
-                      subject: _('Compartir')
-                    };
-                    Share.open(options);
-                  }}
-                >
-                  <Text style={[styles.name]}>{news.title}</Text>
-                </Touchable>
-
-                <HTMLView
-                  addLineBreaks={false}
-                  value={'<p>' + subtitle + '</p>'}
-                  stylesheet={stylesSubHTML}
-                />
+                <Text style={[styles.name, Theme.textShadow]}>
+                  {gallery.title}
+                </Text>
               </View>
-            </View>
-
-            <View style={styles.contentContainer}>
-              <HTMLView
-                addLineBreaks={true}
-                value={content}
-                stylesheet={stylesHTML}
-              />
             </View>
           </View>
         )}
@@ -169,21 +152,24 @@ export default class NewsListScreen extends React.Component {
 
 const stylesSubHTML = StyleSheet.create({
   p: {
-    color: '#999',
+    color: 'rgba(255,255,255,0.6)',
     marginTop: 2,
     backgroundColor: 'transparent'
   }
 });
 const stylesHTML = StyleSheet.create({
   p: {
-    color: '#555',
+    color: '#343434',
     marginTop: 2,
     marginBottom: 2,
     textAlign: 'justify'
   },
-  span: {},
+  span: {
+    margin: 0,
+    padding: 0
+  },
   div: {
-    color: '#555',
+    color: '#343434',
     marginTop: 0,
     marginBottom: 0,
     textAlign: 'justify'
@@ -204,7 +190,7 @@ const stylesHTML = StyleSheet.create({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: '#f4f4f4'
   },
   contentContainer: {
     padding: 10,
@@ -217,13 +203,18 @@ const styles = StyleSheet.create({
     bottom: 0
   },
   name: {
-    color: '#444',
-    fontSize: 16,
+    color: 'rgba(255,255,255,0.95)',
+    fontSize: 18,
     backgroundColor: 'transparent'
   },
   header: {},
   infoContainer: {
-    padding: 10
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    padding: 10,
+    paddingBottom: 10
   },
   image: {
     height: 350

@@ -24,10 +24,7 @@ export default class AssistItem extends React.Component {
 
   render() {
     let { assist } = this.props;
-    let disabledText = assist.ESTAINHABILITADO.replace(
-      /(<([^>]+)>)/gi,
-      ''
-    ).trim();
+    let disabledText = assist.ESTAINHABILITADO.replace(/(<([^>]+)>)/gi, '');
     return (
       <Touchable onPress={this.onPress}>
         <View style={[styles.container]}>

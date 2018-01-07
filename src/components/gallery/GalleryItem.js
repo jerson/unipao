@@ -15,8 +15,8 @@ import moment from 'moment';
 import { _ } from '../../modules/i18n/Translator';
 import LinearGradient from '../ui/LinearGradient';
 
-const TAG = 'NewsItem';
-export default class NewsItem extends React.Component {
+const TAG = 'GalleryItem';
+export default class GalleryItem extends React.Component {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
     navigation: PropTypes.object.isRequired
@@ -26,28 +26,34 @@ export default class NewsItem extends React.Component {
 
   render() {
     let { height } = Dimensions.get('window');
-    let { news, index } = this.props;
-    let ago = moment(news.date || '').fromNow();
+    let { gallery, index } = this.props;
     let itemHeight = height / 3;
     return (
       <View style={[styles.container]}>
         <Touchable
-          style={[styles.info, Theme.shadowLarge]}
+          style={styles.info}
           onPress={() => {
-            this.context.navigation.navigate('News', { news });
+            this.context.navigation.navigate('Gallery', { gallery });
           }}
         >
           <View style={styles.header}>
             <Image
               style={[styles.image, { height: itemHeight }]}
-              source={{ uri: ImageUtil.asset(news.image) }}
+              source={{ uri: ImageUtil.asset(gallery.image) }}
             />
           </View>
+          <LinearGradient
+            colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.9)']}
+            style={[
+              styles.gradient,
+              Platform.OS === 'windows' && {
+                backgroundColor: 'rgba(0,0,0,0.8)'
+              },
+              Platform.OS !== 'windows' ? { minHeight: 130 } : { minHeight: 90 }
+            ]}
+          />
           <View style={styles.infoContainer}>
-            <Text style={[styles.name]}>{news.title}</Text>
-            <Text style={[styles.ago]}>
-              {_('Publicado')} {ago}
-            </Text>
+            <Text style={[styles.name, Theme.textShadow]}>{gallery.title}</Text>
           </View>
         </Touchable>
       </View>
@@ -56,9 +62,7 @@ export default class NewsItem extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 10
-  },
+  container: {},
   gradient: {
     position: 'absolute',
     left: 0,
@@ -66,33 +70,29 @@ const styles = StyleSheet.create({
     bottom: 0
   },
   info: {
-    borderRadius: 2,
     flex: 1,
     flexDirection: 'column'
   },
   name: {
-    color: '#666',
-    fontSize: 15,
+    color: 'rgba(255,255,255,0.95)',
+    fontSize: 18,
     backgroundColor: 'transparent'
   },
   ago: {
-    color: '#999',
-    marginTop: 2,
-    fontSize: 12,
+    color: 'rgba(255,255,255,0.55)',
+    fontSize: 14,
     backgroundColor: 'transparent'
   },
   header: {},
   infoContainer: {
-    backgroundColor: '#fff',
-    borderBottomLeftRadius: 2,
-    borderBottomRightRadius: 2,
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
     padding: 5,
-    paddingLeft: 8,
-    paddingBottom: 8
+    paddingBottom: 10
   },
   image: {
-    borderTopLeftRadius: 2,
-    borderTopRightRadius: 2,
     height: 200
   }
 });
