@@ -135,7 +135,7 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             signingConfig signingConfigs.release
         }
-        beta {
+        releaseBeta {
             applicationIdSuffix ".beta"
             resValue 'string', 'app_name', '"UniPAO (Beta)"'
             resValue 'string', 'reactNativeCodePush_androidDeploymentKey', '"RmRrpUrX0YimQRDNRCQ-Nwt4Ulv_ByFuuGgEG"'
