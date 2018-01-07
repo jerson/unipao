@@ -7,11 +7,11 @@ const TAG = 'RequestUtil';
 export default class RequestUtil {
   static async fetch(url, params = {}, checkSession = true) {
     if (url[0] === '/') {
-      url = `${Config.URL}/${url}`;
+      url = `${Config.URL}${url}`;
     }
-    let html = '';
-    // let { checkSession, ...params } = options;
+    let html = '<div></div>';
     try {
+      Log.debug(TAG, 'fetch', url);
       let response = await fetch(url, {
         credentials: 'include',
         ...params

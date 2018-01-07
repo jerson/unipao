@@ -24,7 +24,7 @@ export default class UPAO {
   static async login(username: string, password: string): boolean {
     let params = {};
     try {
-      let $ = RequestUtil.fetch(Config.URL, {}, false);
+      let $ = await RequestUtil.fetch(Config.URL, {}, false);
       if ($('#ctl00_csesion').length) {
         Log.info(TAG, 'ya inicio antes');
         return true;
@@ -41,7 +41,7 @@ export default class UPAO {
     params['btn_valida.y'] = NumberUtils.getRandomInt(5, 25);
 
     try {
-      let $ = RequestUtil.fetch(
+      let $ = await RequestUtil.fetch(
         '/login.aspx',
         {
           method: 'post',

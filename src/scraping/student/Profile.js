@@ -16,7 +16,7 @@ export default class Profile {
 
   static async me() {
     try {
-      let $ = await RequestUtil.fetch(`${Config.URL}/?f=yggpers`);
+      let $ = await RequestUtil.fetch(`/?f=yggpers`);
 
       let $user = $('#ctl00_lbl_usua');
       if (!$user.length) {
