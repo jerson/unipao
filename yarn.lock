@@ -4853,13 +4853,6 @@ react-devtools-core@^2.5.0:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
-react-mixin@^3.0.5:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/react-mixin/-/react-mixin-3.1.1.tgz#68749756bfe32699e561372a4aeecb926db72b7f"
-  dependencies:
-    object-assign "^4.0.1"
-    smart-mixin "^2.0.0"
-
 react-native-animatable@^1.2.3:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.2.4.tgz#b5fb7657e8f6edadbc26697057a327fb920b3039"
@@ -4907,28 +4900,12 @@ react-native-fence-html@^1.0.6:
     htmlparser2 "^3.9.0"
     stream "0.0.2"
 
-react-native-gesture-responder@0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/react-native-gesture-responder/-/react-native-gesture-responder-0.1.1.tgz#802552d8eb7153c0d81a396e98f4b80b404b6798"
-  dependencies:
-    react-timer-mixin "^0.13.3"
-
 react-native-htmlview@^0.12.1:
   version "0.12.1"
   resolved "https://registry.yarnpkg.com/react-native-htmlview/-/react-native-htmlview-0.12.1.tgz#4b987f1f34fae89f7bbd3c478f8f20d601019639"
   dependencies:
     entities "^1.1.1"
     htmlparser2-without-node-native "^3.9.2"
-
-react-native-image-gallery@^2.1.4:
-  version "2.1.4"
-  resolved "https://registry.yarnpkg.com/react-native-image-gallery/-/react-native-image-gallery-2.1.4.tgz#4f208cdf2cada1ddbbde2343fc7197c178133cc7"
-  dependencies:
-    prop-types "^15.6.0"
-    react-mixin "^3.0.5"
-    react-native-gesture-responder "0.1.1"
-    react-native-scroller "0.0.6"
-    react-timer-mixin "^0.13.3"
 
 react-native-image-pan-zoom@^2.0.16:
   version "2.0.16"
@@ -4968,10 +4945,6 @@ react-native-modal@^4.1.1:
   dependencies:
     prop-types "15.5.10"
     react-native-animatable "^1.2.3"
-
-react-native-scroller@0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/react-native-scroller/-/react-native-scroller-0.0.6.tgz#dea8c89bd1ca2d2445fbb6b3a90960df6c1767ff"
 
 react-native-share@^1.0.23:
   version "1.0.23"
@@ -5089,7 +5062,7 @@ react-test-renderer@16.2.0:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
-react-timer-mixin@^0.13.2, react-timer-mixin@^0.13.3:
+react-timer-mixin@^0.13.2:
   version "0.13.3"
   resolved "https://registry.yarnpkg.com/react-timer-mixin/-/react-timer-mixin-0.13.3.tgz#0da8b9f807ec07dc3e854d082c737c65605b3d22"
 
@@ -5662,10 +5635,6 @@ slide@^1.1.5:
 smart-buffer@^1.0.13:
   version "1.1.15"
   resolved "https://registry.yarnpkg.com/smart-buffer/-/smart-buffer-1.1.15.tgz#7f114b5b65fab3e2a35aa775bb12f0d1c649bf16"
-
-smart-mixin@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/smart-mixin/-/smart-mixin-2.0.0.tgz#a34a1055e32a75b30d2b4e3ca323dc99cb53f437"
 
 sntp@1.x.x:
   version "1.0.9"
