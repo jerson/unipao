@@ -104,10 +104,10 @@ export default class ProfileScreen extends React.Component {
           </View>
           <View style={styles.infoContainer}>
             <Text style={[styles.name, styles.id, Theme.textShadow]}>
-              {user.ID}
+              {user.id}
             </Text>
             <Text style={[styles.name, Theme.textShadow]}>
-              {titleize(user.NOMBRE)}
+              {titleize(user.name)}
             </Text>
           </View>
         </View>

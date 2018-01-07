@@ -200,7 +200,7 @@ export default class Request {
       let resBody = await fetchResponse.json();
       let success = typeof resBody.success === 'number' ? resBody.success : -1;
       if (success === 0) {
-        Emitter.emit('onForceLogout', true);
+        // Emitter.emit('onForceLogout', true);
         response = {
           status: 555,
           headers: headers || {},

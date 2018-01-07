@@ -9,10 +9,6 @@ export default class ImageUtil {
   }
 
   static getUserImage(user) {
-    return (
-      user.URL_PERFIL ||
-      user.URL_PERFIL_COORDINADOR ||
-      'https://intermountainhealthcare.org/-/media/images/modules/physician-directory/profile-placeholder.png'
-    );
+    return `https://static.upao.edu.pe/upload/f/${user.id}.jpg`;
   }
 }

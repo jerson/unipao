@@ -1,6 +1,7 @@
 import SingleStorage from '../storage/SingleStorage';
 import Emitter from '../listener/Emitter';
 import Log from '../logger/Log';
+import UPAO from '../../scraping/UPAO';
 
 export interface UserSettings {
   headerName?: string;
@@ -20,8 +21,8 @@ export interface User {
 
 export default class Auth {
   static settings: Settings = {
-    headerName: 'X-APIKey',
-    authPath: 'user/me',
+    headerName: 'X-Auth',
+    authPath: 'me',
     hashToken: ''
   };
   static user: User = null;
@@ -41,16 +42,19 @@ export default class Auth {
     Log.info('[AUTH]', 'checkLogin');
     let data = await SingleStorage.get('user');
     if (data) {
-      return this.login(JSON.parse(data), true);
+      return this.login(true);
     }
   }
 
-  static async login(data: any, emit: boolean = false): Promise<boolean> {
-    Log.info('[AUTH]', 'login', data);
+  static async login(emit: boolean = false): Promise<boolean> {
+    Log.info('[AUTH]', 'login');
     let isOk = false;
     try {
-      isOk = await this.setUser(data);
-      emit && Emitter.emit('onSuccessLogin', this.user);
+      let profile = await UPAO.Student.Profile.me();
+      if (profile) {
+        isOk = await this.setUser(profile);
+        emit && Emitter.emit('onSuccessLogin', this.user);
+      }
     } catch (e) {
       emit && Emitter.emit('onNoLogin', true);
     }
@@ -63,11 +67,11 @@ export default class Auth {
   }
 
   static getAccessToken(): string {
-    return this.user ? this.user['AUTOGEN'] : null;
+    return null;
   }
 
   static getUserId(): string {
-    return this.user ? this.user['ID'] : null;
+    return this.user ? this.user.id : null;
   }
 
   static getUser(): User {
@@ -79,8 +83,9 @@ export default class Auth {
     return SingleStorage.set('user', JSON.stringify(data));
   }
 
-  static logout(): Promise<boolean> {
+  static async logout(): Promise<boolean> {
     Log.info('[AUTH]', 'logout');
+    await UPAO.logout();
     this.user = null;
     Emitter.emit('onNoLogin', true);
     return SingleStorage.remove('user');

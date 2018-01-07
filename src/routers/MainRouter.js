@@ -19,6 +19,7 @@ import AssistDetailScreen from '../scenes/AssistDetailScreen';
 import { _ } from '../modules/i18n/Translator';
 import IntroScreen from '../scenes/IntroScreen';
 import DimensionUtil from '../modules/util/DimensionUtil';
+import MailScreen from '../scenes/MailScreen';
 
 const NewsNavigator = StackNavigator(
   {
@@ -47,6 +48,20 @@ const AgendaNavigator = StackNavigator(
     headerMode: 'float',
     cardStyle: {
       backgroundColor: '#0d61ac',
+      top: DimensionUtil.getNavigationBarHeight() * -1
+    }
+  }
+);
+const MailNavigator = StackNavigator(
+  {
+    Home: {
+      screen: MailScreen
+    }
+  },
+  {
+    headerMode: 'float',
+    cardStyle: {
+      backgroundColor: '#fff',
       top: DimensionUtil.getNavigationBarHeight() * -1
     }
   }
@@ -142,15 +157,34 @@ const UsersTabNavigator = TabNavigator(
         )
       }
     },
+    Mail: {
+      screen: ({ navigation }) => {
+        return (
+          <View style={{ flex: 1 }}>
+            <MailNavigator screenProps={{ tabNavigation: navigation }} />
+          </View>
+        );
+      },
+      navigationOptions: {
+        tabBarLabel: _('E-mail'),
+        tabBarIcon: ({ tintColor }) => (
+          <Icon
+            name={'gmail'}
+            type={'MaterialCommunityIcons'}
+            style={[Theme.tabTarIcon, { color: tintColor }]}
+          />
+        )
+      }
+    },
     Settings: {
       screen: SettingsScreen
     }
   },
   {
     ...TabNavigator.Presets.iOSBottomTabs,
-    lazy: false,
+    lazy: true,
     swipeEnabled: true,
-    animationEnabled: true,
+    animationEnabled: false,
     backBehavior: 'none',
     tabBarOptions: {
       activeTintColor: '#f59331',

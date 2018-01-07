@@ -4,7 +4,6 @@ import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
 import { Theme } from '../themes/styles';
 import PropTypes from 'prop-types';
-import Request from '../modules/network/Request';
 import Log from '../modules/logger/Log';
 import Emitter from '../modules/listener/Emitter';
 import KeyboardSpacer from '../components/ui/KeyboardSpacer';
@@ -45,7 +44,6 @@ export default class LoginScreen extends React.Component {
     !remember && this.clearCredentials();
   };
   clearCredentials = () => {
-    return;
     SingleStorage.remove('username');
     SingleStorage.remove('password');
     SingleStorage.remove('remember');
@@ -60,25 +58,16 @@ export default class LoginScreen extends React.Component {
     let success = false;
 
     try {
-      this.loginTest(username, password);
-      let response = await Request.post('ge/se/valida', {
-        emei: this.getEmei(),
-        fcm: this.getFCM(),
-        id: username,
-        clave: password
-      });
-
-      let { body } = response;
-      if (body.data) {
-        let data = JSON.parse(body.data);
-        success = await Auth.login(data[0]);
+      let valid = await UPAO.login(username, password);
+      if (valid) {
+        success = await Auth.login();
         if (success) {
           if (remember) {
             SingleStorage.set('username', username);
             SingleStorage.set('password', password);
             SingleStorage.set('remember', '1');
           } else {
-            //this.clearCredentials();
+            this.clearCredentials();
           }
           RouterUtil.resetTo(this.props.navigation, 'User');
           return;
@@ -150,31 +139,6 @@ export default class LoginScreen extends React.Component {
     Dimensions.addEventListener('change', this.onDimensionsChange);
 
     await this.loadDefaultCredentials();
-  }
-
-  async loginTest(username, password) {
-    SingleStorage.set('username', username);
-    SingleStorage.set('password', password);
-    SingleStorage.set('remember', '1');
-    try {
-      let success = await UPAO.login(username, password);
-
-      if (success) {
-        Log.info('Login OK');
-      } else {
-        Log.info('Login ERROR');
-      }
-      if (success) {
-        let profile = await UPAO.Student.Profile.me();
-        console.log(profile);
-
-        alert('Login OK');
-      } else {
-        alert('Login ERROR');
-      }
-    } catch (e) {
-      Log.warn(e);
-    }
   }
 
   componentWillUnmount() {
