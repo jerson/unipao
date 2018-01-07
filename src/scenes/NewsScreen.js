@@ -20,6 +20,7 @@ import CacheStorage from '../modules/storage/CacheStorage';
 import Log from '../modules/logger/Log';
 import UPAO from '../scraping/UPAO';
 import Loading from '../components/ui/Loading';
+import NavigationButton from '../components/ui/NavigationButton';
 
 const TAG = 'NewsListScreen';
 export default class NewsListScreen extends React.Component {
@@ -101,7 +102,6 @@ export default class NewsListScreen extends React.Component {
     let { height } = Dimensions.get('window');
     let itemHeight = height / 2;
 
-
     return (
       <ScrollView
         style={[styles.container]}
@@ -162,6 +162,14 @@ export default class NewsListScreen extends React.Component {
             </View>
           </View>
         )}
+
+        <NavigationButton
+          onPress={() => {
+            this.props.navigation.goBack();
+          }}
+          subMenu
+          icon={'arrow-back'}
+        />
       </ScrollView>
     );
   }

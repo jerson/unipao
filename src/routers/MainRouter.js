@@ -20,6 +20,7 @@ import { _ } from '../modules/i18n/Translator';
 import IntroScreen from '../scenes/IntroScreen';
 import DimensionUtil from '../modules/util/DimensionUtil';
 import MailScreen from '../scenes/MailScreen';
+import { tabsOptions, tabsOptionsMain, tabsOptionsSub } from './Tabs';
 
 const NewsNavigator = StackNavigator(
   {
@@ -31,9 +32,9 @@ const NewsNavigator = StackNavigator(
     }
   },
   {
-    headerMode: 'float',
+    headerMode: 'none',
     cardStyle: {
-      backgroundColor: '#0d61ac',
+      backgroundColor: '#fff',
       top: DimensionUtil.getNavigationBarHeight() * -1
     }
   }
@@ -45,10 +46,69 @@ const AgendaNavigator = StackNavigator(
     }
   },
   {
+    headerMode: 'none',
+    cardStyle: {
+      backgroundColor: '#fff',
+      top: DimensionUtil.getNavigationBarHeight() * -1
+    }
+  }
+);
+
+const UPAOTabNavigator = TabNavigator(
+  {
+    Agenda: {
+      screen: AgendaNavigator,
+      navigationOptions: {
+        tabBarLabel: _('Agenda'),
+        tabBarIcon: ({ tintColor }) => (
+          <Icon
+            name={'calendar'}
+            type={'MaterialCommunityIcons'}
+            style={[Theme.tabTarIcon, { color: tintColor }]}
+          />
+        )
+      }
+    },
+    News: {
+      screen: NewsNavigator,
+      navigationOptions: {
+        tabBarLabel: _('Noticias'),
+        tabBarIcon: ({ tintColor }) => (
+          <Icon
+            name={'newspaper-o'}
+            type={'FontAwesome'}
+            style={[Theme.tabTarIcon, { color: tintColor }]}
+          />
+        )
+      }
+    }
+  },
+  {
+    ...tabsOptionsSub
+  }
+);
+
+const UPAONavigator = StackNavigator(
+  {
+    Home: {
+      screen: UPAOTabNavigator,
+      navigationOptions: {
+        title: _('UPAO'),
+        headerBackTitle: null,
+        headerTitleStyle: [Theme.title, Theme.subtitle],
+        headerTintColor: Theme.subTintColor,
+        headerStyle: [
+          Theme.navigationBar,
+          Theme.subNavigationBar,
+          Theme.shadowDefault
+        ]
+      }
+    }
+  },
+  {
     headerMode: 'float',
     cardStyle: {
-      backgroundColor: '#0d61ac',
-      top: DimensionUtil.getNavigationBarHeight() * -1
+      backgroundColor: '#fff'
     }
   }
 );
@@ -119,35 +179,17 @@ const UsersTabNavigator = TabNavigator(
         )
       }
     },
-    NewsList: {
+
+    UPAO: {
       screen: ({ navigation }) => {
         return (
           <View style={{ flex: 1 }}>
-            <NewsNavigator screenProps={{ tabNavigation: navigation }} />
+            <UPAONavigator screenProps={{ tabNavigation: navigation }} />
           </View>
         );
       },
       navigationOptions: {
-        tabBarLabel: _('Noticias'),
-        tabBarIcon: ({ tintColor }) => (
-          <Icon
-            name={'newspaper-o'}
-            type={'FontAwesome'}
-            style={[Theme.tabTarIcon, { color: tintColor }]}
-          />
-        )
-      }
-    },
-    Agenda: {
-      screen: ({ navigation }) => {
-        return (
-          <View style={{ flex: 1 }}>
-            <AgendaNavigator screenProps={{ tabNavigation: navigation }} />
-          </View>
-        );
-      },
-      navigationOptions: {
-        tabBarLabel: _('Agenda'),
+        tabBarLabel: _('UPAO'),
         tabBarIcon: ({ tintColor }) => (
           <Icon
             name={'calendar'}
@@ -180,29 +222,7 @@ const UsersTabNavigator = TabNavigator(
       screen: SettingsScreen
     }
   },
-  {
-    ...TabNavigator.Presets.iOSBottomTabs,
-    lazy: true,
-    swipeEnabled: true,
-    animationEnabled: false,
-    backBehavior: 'none',
-    tabBarOptions: {
-      activeTintColor: '#f59331',
-      labelStyle: {
-        marginTop: Platform.OS === 'ios' ? 15 : 0,
-        marginLeft: 0
-      },
-      style: {
-        borderTopColor: undefined,
-        borderColor: '#d4d4d4',
-        height: 49
-      },
-      tabStyle: {
-        justifyContent: 'flex-end',
-        flexDirection: 'column'
-      }
-    }
-  }
+  { ...tabsOptionsMain }
 );
 
 export default StackNavigator(
@@ -225,7 +245,7 @@ export default StackNavigator(
   {
     headerMode: 'none',
     cardStyle: {
-      backgroundColor: '#0d61ac'
+      backgroundColor: '#fff'
     }
   }
 );
