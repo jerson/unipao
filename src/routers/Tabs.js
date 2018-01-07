@@ -55,6 +55,7 @@ export const tabsOptionsSub = {
   tabBarComponent: TabBarTop,
   tabBarPosition: 'top',
   animationEnabled: true,
+    backBehavior: 'none',
   swipeEnabled: true,
   tabBarOptions: {
     upperCaseLabel: true,
