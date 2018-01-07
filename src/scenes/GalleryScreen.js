@@ -104,8 +104,6 @@ export default class GalleryScreen extends React.Component {
     let images = gallery ? gallery.images || [] : [];
     return (
       <View style={[styles.container, { paddingTop }]}>
-        {isLoading && <Loading margin />}
-
         <Modal
           onBackButtonPress={this.hideGallery}
           onBackdropPress={this.hideGallery}
@@ -162,6 +160,7 @@ export default class GalleryScreen extends React.Component {
             />
           )}
         />
+        {isLoading && <Loading margin />}
 
         {!showGalleryModal && (
           <NavigationButton
