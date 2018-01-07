@@ -7,6 +7,7 @@ import Profile from './student/Profile';
 import Intranet from './student/Intranet';
 import General from './info/General';
 import Schedule from './info/Schedule';
+import RequestUtil from './utils/RequestUtil';
 
 const TAG = 'UPAO';
 export default class UPAO {
@@ -23,12 +24,7 @@ export default class UPAO {
   static async login(username: string, password: string): boolean {
     let params = {};
     try {
-      let responseHome = await fetch(Config.URL, {
-        credentials: 'include'
-      });
-      let html = await responseHome.text();
-      let $ = cio.load(html);
-
+      let $ = RequestUtil.fetch(Config.URL, {}, false);
       if ($('#ctl00_csesion').length) {
         Log.info(TAG, 'ya inicio antes');
         return true;
@@ -45,13 +41,14 @@ export default class UPAO {
     params['btn_valida.y'] = NumberUtils.getRandomInt(5, 25);
 
     try {
-      let response = await fetch(`${Config.URL}/login.aspx`, {
-        credentials: 'include',
-        method: 'post',
-        body: ParamsUtils.getFormData(params)
-      });
-      let html = await response.text();
-      let $ = cio.load(html);
+      let $ = RequestUtil.fetch(
+        '/login.aspx',
+        {
+          method: 'post',
+          body: ParamsUtils.getFormData(params)
+        },
+        false
+      );
 
       let labelError = $('#lbl_error').text();
       if (labelError) {

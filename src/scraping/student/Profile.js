@@ -3,6 +3,7 @@ import Log from '../../modules/logger/Log';
 import cio from 'cheerio-without-node-native';
 import Album from './profile/Album';
 import Friend from './profile/Friend';
+import RequestUtil from '../utils/RequestUtil';
 
 const TAG = 'Profile';
 export default class Profile {
@@ -15,11 +16,7 @@ export default class Profile {
 
   static async me() {
     try {
-      let response = await fetch(`${Config.URL}/?f=yggpers`, {
-        credentials: 'include'
-      });
-      let html = await response.text();
-      let $ = cio.load(html);
+      let $ = await RequestUtil.fetch(`${Config.URL}/?f=yggpers`);
 
       let $user = $('#ctl00_lbl_usua');
       if (!$user.length) {
