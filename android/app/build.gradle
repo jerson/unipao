@@ -126,13 +126,32 @@ android {
             include "armeabi-v7a", "x86"
         }
     }
+
     buildTypes {
         release {
+            resValue 'string', 'app_name', '"UniPAO"'
+            resValue 'string', 'reactNativeCodePush_androidDeploymentKey', '"EC3XX5RnfbbRKUqFxcH4vMP94i3rH15OxeWbf"'
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             signingConfig signingConfigs.release
         }
+        beta {
+            applicationIdSuffix ".beta"
+            resValue 'string', 'app_name', '"UniPAO (Beta)"'
+            resValue 'string', 'reactNativeCodePush_androidDeploymentKey', '"RmRrpUrX0YimQRDNRCQ-Nwt4Ulv_ByFuuGgEG"'
+            minifyEnabled enableProguardInReleaseBuilds
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
+            matchingFallbacks = ['release']
+        }
+        debug {
+            applicationIdSuffix ".debug"
+            resValue 'string', 'app_name', '"UniPAO (Debug)"'
+            resValue 'string', 'reactNativeCodePush_androidDeploymentKey', '"RmRrpUrX0YimQRDNRCQ-Nwt4Ulv_ByFuuGgEG"'
+            //signingConfig signingConfigs.release
+        }
     }
+
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.each { output ->

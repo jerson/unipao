@@ -1,6 +1,6 @@
 {
     "name": "unipao",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "private": true,
     "devDependencies": {
         "babel-preset-react-native-stage-0": "^1.0.1",
@@ -11,7 +11,8 @@
     },
     "scripts": {
         "start": "react-native start",
-        "build:android": "cd android && ./gradlew assembleRelease",
+        "build:android:release": "cd android && ./gradlew assembleRelease",
+        "build:android:beta": "cd android && ./gradlew assembleBeta",
         "build:windows:assets": "react-native bundle --platform windows --entry-file index.js --bundle-output windows\\unipao\\ReactAssets\\index.windows.bundle --assets-dest windows\\unipao\\ReactAssets  --dev false",
         "android": "react-native run-android",
         "ios": "react-native run-ios",
@@ -19,10 +20,14 @@
         "stats:android": "appcenter codepush deployment list -a jeral17/UniPAOAndroid",
         "stats:ios": "appcenter codepush deployment list -a jeral17/UniPAOIOS",
         "stats:windows": "appcenter codepush deployment list -a jeral17/UniPAOWindows",
-        "push:ios": "appcenter codepush release-react --plist-file ios/upao/Info.plist -a jeral17/UniPAOIOS -d Release",
-        "push:android": "appcenter codepush release-react -a jeral17/UniPAOAndroid -d Release",
-        "push:windows": "appcenter codepush release-react -a jeral17/UniPAOWindows -d Release",
-        "push:all": "npm run push:android && npm run push:ios && npm run push:windows",
+        "push:ios:release": "appcenter codepush release-react --plist-file ios/upao/Info.plist -a jeral17/UniPAOIOS -d Release",
+        "push:android:release": "appcenter codepush release-react -a jeral17/UniPAOAndroid -d Release",
+        "push:windows:release": "appcenter codepush release-react -a jeral17/UniPAOWindows -d Release",
+        "push:ios:beta": "appcenter codepush release-react --plist-file ios/upao/Info.plist -a jeral17/UniPAOIOS -d Beta",
+        "push:android:beta": "appcenter codepush release-react -a jeral17/UniPAOAndroid -d Beta",
+        "push:windows:beta": "appcenter codepush release-react -a jeral17/UniPAOWindows -d Beta",
+        "push:all:release": "npm run push:android:release && npm run push:ios:release && npm run push:windows:release",
+        "push:all:beta": "npm run push:android:beta && npm run push:ios:beta && npm run push:windows:beta",
         "test": "node node_modules/jest/bin/jest.js --watch",
         "precommit": "lint-staged",
         "prettier": "prettier --write --single-quote 'src/**/*.js'"
