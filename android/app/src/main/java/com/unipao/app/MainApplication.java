@@ -6,6 +6,7 @@ import com.facebook.react.ReactApplication;
 import io.realm.react.RealmReactPackage;
 import cl.json.RNSharePackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
+import com.microsoft.appcenter.push.Push;
 import com.microsoft.appcenter.reactnative.push.AppCenterReactNativePushPackage;
 import com.microsoft.codepush.react.CodePush;
 import com.microsoft.appcenter.reactnative.crashes.AppCenterReactNativeCrashesPackage;
