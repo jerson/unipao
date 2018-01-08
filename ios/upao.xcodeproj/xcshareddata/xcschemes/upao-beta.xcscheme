@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "UniPAO.app"
+               BuildableName = "upao.app"
                BlueprintName = "upao"
                ReferencedContainer = "container:upao.xcodeproj">
             </BuildableReference>
@@ -72,7 +72,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "UniPAO.app"
+            BuildableName = "upao.app"
             BlueprintName = "upao"
             ReferencedContainer = "container:upao.xcodeproj">
          </BuildableReference>
@@ -81,7 +81,7 @@
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "ReleaseBeta"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       language = ""
@@ -96,7 +96,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "UniPAO.app"
+            BuildableName = "upao.app"
             BlueprintName = "upao"
             ReferencedContainer = "container:upao.xcodeproj">
          </BuildableReference>
@@ -105,7 +105,7 @@
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Release"
+      buildConfiguration = "ReleaseBeta"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
@@ -115,7 +115,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "UniPAO.app"
+            BuildableName = "upao.app"
             BlueprintName = "upao"
             ReferencedContainer = "container:upao.xcodeproj">
          </BuildableReference>
@@ -125,7 +125,7 @@
       buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Release"
+      buildConfiguration = "ReleaseBeta"
       customArchiveName = "upao"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
