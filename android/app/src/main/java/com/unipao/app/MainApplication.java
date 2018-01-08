@@ -66,6 +66,7 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
+    Push.setSenderId("657737990913")
     SoLoader.init(this, /* native exopackage */ false);
   }
 }
