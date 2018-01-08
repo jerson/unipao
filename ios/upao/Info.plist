@@ -3,9 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
-	<key>CFBundleDisplayName</key>
-	<string>UniPAO</string>
+	<string>es</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -23,7 +21,12 @@
 	<key>CFBundleVersion</key>
 	<string>4</string>
 	<key>CodePushDeploymentKey</key>
-	<string>EoqcB7Gfk3R008P2tA0WaFgaAirSHJEYxeWWG</string>
+	<string>$(CODEPUSH_KEY)</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>whatsapp</string>
+		<string>mailto</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -66,10 +69,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>LSApplicationQueriesSchemes</key>
-<array>
-  <string>whatsapp</string>
-  <string>mailto</string>
-</array>
 </dict>
 </plist>
