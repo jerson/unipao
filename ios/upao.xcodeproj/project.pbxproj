@@ -443,7 +443,7 @@
 		0DFB9B86FF8944D8B8A860AB /* libAppCenterReactNative.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAppCenterReactNative.a; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* UniPAO (Debug).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "UniPAO (Debug).app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* upao.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = upao.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = upao/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = upao/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -905,7 +905,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* UniPAO (Debug).app */,
+				13B07F961A680F5B00A75B9A /* upao.app */,
 				00E356EE1AD99517003FC87E /* upaoTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* upao-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* upao-tvOSTests.xctest */,
@@ -979,7 +979,7 @@
 			);
 			name = upao;
 			productName = "Hello World";
-			productReference = 13B07F961A680F5B00A75B9A /* UniPAO (Debug).app */;
+			productReference = 13B07F961A680F5B00A75B9A /* upao.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2D02E47A1E0B4A5D006451C7 /* upao-tvOS */ = {
@@ -1944,6 +1944,7 @@
 			baseConfigurationReference = E80CC23552946E78F463889C /* Pods-upao.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUNDLE_NAME = "UniPAO (Debug)";
 				CODEPUSH_KEY = 0vFjhiKEv0tt_WETPJ6omBM_mYtxH17_OzgVG;
 				CODE_SIGN_ENTITLEMENTS = upao/upao.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1971,7 +1972,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.unipao.app.debug;
-				PRODUCT_NAME = "UniPAO (Debug)";
+				PRODUCT_NAME = upao;
 				PROVISIONING_PROFILE = "dec40455-b56f-4a03-befb-8fc390ddb572";
 				PROVISIONING_PROFILE_SPECIFIER = "UniPAO Debug";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1984,6 +1985,7 @@
 			baseConfigurationReference = 839D38EBE7B5EE76B7A34BF2 /* Pods-upao.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUNDLE_NAME = UniPAO;
 				CODEPUSH_KEY = EoqcB7Gfk3R008P2tA0WaFgaAirSHJEYxeWWG;
 				CODE_SIGN_ENTITLEMENTS = upao/upao.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
@@ -2010,7 +2012,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.unipao.app;
-				PRODUCT_NAME = UniPAO;
+				PRODUCT_NAME = upao;
 				PROVISIONING_PROFILE = "4219edee-711f-4135-808d-6e0a294ad4c1";
 				PROVISIONING_PROFILE_SPECIFIER = UniPAO;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2237,6 +2239,7 @@
 			baseConfigurationReference = 839D38EBE7B5EE76B7A34BF2 /* Pods-upao.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUNDLE_NAME = "UniPAO (Beta)";
 				CODEPUSH_KEY = 0vFjhiKEv0tt_WETPJ6omBM_mYtxH17_OzgVG;
 				CODE_SIGN_ENTITLEMENTS = upao/upao.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
@@ -2264,7 +2267,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.unipao.app.beta;
-				PRODUCT_NAME = "UniPAO (Beta)";
+				PRODUCT_NAME = upao;
 				PROVISIONING_PROFILE = "0ad76d5f-c72a-43ca-849a-fff013954b56";
 				PROVISIONING_PROFILE_SPECIFIER = "UniPAO Beta";
 				TARGETED_DEVICE_FAMILY = "1,2";
