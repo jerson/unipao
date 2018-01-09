@@ -1041,10 +1041,16 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = EKR687JWFU;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
+							};
+							com.apple.GameCenter = {
+								enabled = 0;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 0;
 							};
 							com.apple.Push = {
 								enabled = 1;
@@ -1956,10 +1962,10 @@
 				CODE_SIGN_ENTITLEMENTS = upao/upao.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = EKR687JWFU;
+				DEVELOPMENT_TEAM = "";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
@@ -1981,8 +1987,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.unipao.app.debug;
 				PRODUCT_NAME = upao;
-				PROVISIONING_PROFILE = "dec40455-b56f-4a03-befb-8fc390ddb572";
-				PROVISIONING_PROFILE_SPECIFIER = "UniPAO Debug";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1997,10 +2003,10 @@
 				CODEPUSH_KEY = EoqcB7Gfk3R008P2tA0WaFgaAirSHJEYxeWWG;
 				CODE_SIGN_ENTITLEMENTS = upao/upao.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = EKR687JWFU;
+				DEVELOPMENT_TEAM = "";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
@@ -2022,8 +2028,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.unipao.app;
 				PRODUCT_NAME = upao;
-				PROVISIONING_PROFILE = "4219edee-711f-4135-808d-6e0a294ad4c1";
-				PROVISIONING_PROFILE_SPECIFIER = UniPAO;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -2207,7 +2213,7 @@
 			};
 			name = Release;
 		};
-		31EC12AF2002F4AD005A4985 /* ReleaseBeta */ = {
+		31EB7E792004613E0073F747 /* ReleaseBeta */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -2227,6 +2233,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/Release$(EFFECTIVE_PLATFORM_NAME)";
+				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/Release$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -2244,7 +2251,7 @@
 			};
 			name = ReleaseBeta;
 		};
-		31EC12B02002F4AD005A4985 /* ReleaseBeta */ = {
+		31EB7E7A2004613E0073F747 /* ReleaseBeta */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 839D38EBE7B5EE76B7A34BF2 /* Pods-upao.release.xcconfig */;
 			buildSettings = {
@@ -2253,11 +2260,10 @@
 				CODEPUSH_KEY = 0vFjhiKEv0tt_WETPJ6omBM_mYtxH17_OzgVG;
 				CODE_SIGN_ENTITLEMENTS = upao/upao.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/Release$(EFFECTIVE_PLATFORM_NAME)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = EKR687JWFU;
+				DEVELOPMENT_TEAM = "";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
@@ -2277,16 +2283,17 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PODS_CONFIGURATION_BUILD_DIR = "$PODS_BUILD_DIR/Release$(EFFECTIVE_PLATFORM_NAME)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.unipao.app.beta;
 				PRODUCT_NAME = upao;
-				PROVISIONING_PROFILE = "0ad76d5f-c72a-43ca-849a-fff013954b56";
-				PROVISIONING_PROFILE_SPECIFIER = "UniPAO Beta";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = ReleaseBeta;
 		};
-		31EC12B12002F4AD005A4985 /* ReleaseBeta */ = {
+		31EB7E7B2004613E0073F747 /* ReleaseBeta */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1ED42777B3BDE82C84196282 /* Pods-upaoTests.release.xcconfig */;
 			buildSettings = {
@@ -2333,7 +2340,7 @@
 			};
 			name = ReleaseBeta;
 		};
-		31EC12B22002F4AD005A4985 /* ReleaseBeta */ = {
+		31EB7E7C2004613E0073F747 /* ReleaseBeta */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5691453BC54229989BE884D9 /* Pods-upao-tvOS.release.xcconfig */;
 			buildSettings = {
@@ -2386,7 +2393,7 @@
 			};
 			name = ReleaseBeta;
 		};
-		31EC12B32002F4AD005A4985 /* ReleaseBeta */ = {
+		31EB7E7D2004613E0073F747 /* ReleaseBeta */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1F1FEF2785FA4C2ADD1DCAE0 /* Pods-upao-tvOSTests.release.xcconfig */;
 			buildSettings = {
@@ -2508,7 +2515,7 @@
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
 				00E356F71AD99517003FC87E /* Release */,
-				31EC12B12002F4AD005A4985 /* ReleaseBeta */,
+				31EB7E7B2004613E0073F747 /* ReleaseBeta */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -2518,7 +2525,7 @@
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
 				13B07F951A680F5B00A75B9A /* Release */,
-				31EC12B02002F4AD005A4985 /* ReleaseBeta */,
+				31EB7E7A2004613E0073F747 /* ReleaseBeta */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -2528,7 +2535,7 @@
 			buildConfigurations = (
 				2D02E4971E0B4A5E006451C7 /* Debug */,
 				2D02E4981E0B4A5E006451C7 /* Release */,
-				31EC12B22002F4AD005A4985 /* ReleaseBeta */,
+				31EB7E7C2004613E0073F747 /* ReleaseBeta */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -2538,7 +2545,7 @@
 			buildConfigurations = (
 				2D02E4991E0B4A5E006451C7 /* Debug */,
 				2D02E49A1E0B4A5E006451C7 /* Release */,
-				31EC12B32002F4AD005A4985 /* ReleaseBeta */,
+				31EB7E7D2004613E0073F747 /* ReleaseBeta */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -2548,7 +2555,7 @@
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
 				83CBBA211A601CBA00E9B192 /* Release */,
-				31EC12AF2002F4AD005A4985 /* ReleaseBeta */,
+				31EB7E792004613E0073F747 /* ReleaseBeta */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
