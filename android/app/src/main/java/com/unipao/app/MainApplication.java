@@ -6,6 +6,7 @@ import com.facebook.react.ReactApplication;
 import io.realm.react.RealmReactPackage;
 import cl.json.RNSharePackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
+import com.microsoft.appcenter.push.Push;
 import com.microsoft.appcenter.reactnative.push.AppCenterReactNativePushPackage;
 import com.microsoft.codepush.react.CodePush;
 import com.microsoft.appcenter.reactnative.crashes.AppCenterReactNativeCrashesPackage;
@@ -66,6 +67,7 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
+    Push.setSenderId("657737990913");
     SoLoader.init(this, /* native exopackage */ false);
   }
 }
