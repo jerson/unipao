@@ -55,6 +55,7 @@
         "react-native-code-push": "^5.2.1",
         "react-native-device-info": "^0.13.0",
         "react-native-fence-html": "^1.0.6",
+        "react-native-fs": "^2.9.7",
         "react-native-htmlview": "^0.12.1",
         "react-native-image-zoom-viewer": "^2.0.18",
         "react-native-linear-gradient": "^2.4.0",

@@ -4900,6 +4900,13 @@ react-native-fence-html@^1.0.6:
     htmlparser2 "^3.9.0"
     stream "0.0.2"
 
+react-native-fs@^2.9.7:
+  version "2.9.7"
+  resolved "https://registry.yarnpkg.com/react-native-fs/-/react-native-fs-2.9.7.tgz#29ac2d4728270cec4df63f1c4beb1140f8246049"
+  dependencies:
+    base-64 "^0.1.0"
+    utf8 "^2.1.1"
+
 react-native-htmlview@^0.12.1:
   version "0.12.1"
   resolved "https://registry.yarnpkg.com/react-native-htmlview/-/react-native-htmlview-0.12.1.tgz#4b987f1f34fae89f7bbd3c478f8f20d601019639"
@@ -6275,6 +6282,10 @@ username@^3.0.0:
   dependencies:
     execa "^0.7.0"
     mem "^1.1.0"
+
+utf8@^2.1.1:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/utf8/-/utf8-2.1.2.tgz#1fa0d9270e9be850d9b05027f63519bf46457d96"
 
 util-deprecate@1.0.2, util-deprecate@^1.0.2, util-deprecate@~1.0.1:
   version "1.0.2"

@@ -168,6 +168,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-fs')
     implementation project(':realm')
     implementation project(':react-native-share')
     implementation project(':react-native-device-info')
