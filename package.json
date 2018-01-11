@@ -7,7 +7,9 @@
         "lint-staged": "^6.0.0",
         "prettier": "1.9.2",
         "react-test-renderer": "16.2.0",
-        "rnpm-plugin-windows": "^0.2.8"
+        "rnpm-plugin-windows": "^0.2.8",
+        "bs-platform": "^2.1.0",
+        "bs-react-native": "^0.5.0"
     },
     "scripts": {
         "start": "react-native start",
@@ -25,7 +27,10 @@
         "push:all": "npm run push:android && npm run push:ios && npm run push:windows",
         "test": "node node_modules/jest/bin/jest.js --watch",
         "precommit": "lint-staged",
-        "prettier": "prettier --write --single-quote 'src/**/*.js'"
+        "prettier": "prettier --write --single-quote 'src/**/*.js'",
+        "re-build": "bsb -make-world",
+        "re-start": "bsb -make-world -w",
+        "re-clean": "bsb -clean-world"
     },
     "lint-staged": {
         "*.{js,json,css}": [
@@ -56,6 +61,7 @@
         "react-native-windows": "0.50.0",
         "react-navigation": "^1.0.0-beta.22",
         "realm": "^2.1.1",
+        "reason-react": "^0.3.1",
         "string-format": "^0.5.0",
         "underscore.string": "^3.3.4"
     }

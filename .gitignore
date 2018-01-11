@@ -52,3 +52,6 @@ Config.js
 .project
 .settings
 .classpath
+.merlin
+/lib/
+.bsb.lock

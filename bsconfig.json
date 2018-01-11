@@ -1,0 +1,19 @@
+{
+    "name": "unipao",
+    "reason": { "react-jsx": 2 },
+    "sources": [
+        "re"
+    ],
+    "suffix": ".js",
+    "namespace": true,
+    "package-specs": [{
+        "module": "commonjs",
+        "in-source": true
+    }],
+    "bsc-flags": ["-bs-super-errors"],
+    "bs-dependencies": [
+        "bs-react-native",
+        "reason-react"
+    ],
+    "refmt": 3
+}
