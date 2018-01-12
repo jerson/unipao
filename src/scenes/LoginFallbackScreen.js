@@ -92,7 +92,7 @@ link.media = "screen,print";
 
 var metaTag=document.createElement('meta');
 metaTag.name = "viewport"
-metaTag.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+metaTag.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1"
 document.getElementsByTagName('head')[0].appendChild(metaTag);
 `;
 
@@ -122,7 +122,7 @@ document.getElementsByTagName('head')[0].appendChild(metaTag);
             this.props.navigation.goBack();
           }}
           subMenu
-          style={{ top: Platform.OS==='ios' ? 10 : 5 }}
+          style={{ top: Platform.OS==='ios' ? 14 : 5 }}
           icon={'arrow-back'}
         />
       </View>
