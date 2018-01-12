@@ -18,15 +18,16 @@ export default class Gallery {
       );
 
       $('td > table > tr', $container).each((index, value) => {
+        let imageSmall = ImageUtils.getImageInfo(
+          $('img', value)
+            .attr('src')
+            .trim()
+        );
         let item = {
           url: $('a', value).attr('href'),
           id: $('a', value).attr('href'),
-          image: ImageUtils.getImageInfo(
-            $('img', value)
-              .attr('src')
-              .replace('th__', '')
-              .trim()
-          ),
+          imageSmall,
+          image: imageSmall.replace('th__', ''),
           title: $('td > strong', value)
             .text()
             .replace(/\s+/g, ' ')
@@ -61,15 +62,16 @@ export default class Gallery {
 
       let images = [];
       $('table', $container).each((index, value) => {
+        let imageSmall = ImageUtils.getImageInfo(
+          $('img', value)
+            .attr('src')
+            .trim()
+        );
         let image = {
           url: $('a', value).attr('href'),
           id: $('a', value).attr('href'),
-          image: ImageUtils.getImageInfo(
-            $('img', value)
-              .attr('src')
-              .replace('th__', '')
-              .trim()
-          ),
+          imageSmall,
+          image: imageSmall.replace('th__', ''),
           title: $('img', value)
             .attr('alt')
             .replace(/\s+/g, ' ')

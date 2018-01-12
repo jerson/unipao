@@ -7,6 +7,7 @@ import NavigationButton from '../components/ui/NavigationButton';
 import Loading from '../components/ui/Loading';
 import Log from '../modules/logger/Log';
 import PropTypes from 'prop-types';
+const TAG = 'MailScreen';
 export default class MailScreen extends React.Component {
   static contextTypes = {
     notification: PropTypes.object.isRequired
