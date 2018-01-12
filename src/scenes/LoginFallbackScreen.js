@@ -115,7 +115,7 @@ document.getElementsByTagName( "head" )[0].appendChild( link );
             this.props.navigation.goBack();
           }}
           subMenu
-          style={{ top: 5 }}
+          style={{ top: Platform.OS==='ios' ? 20 : 5 }}
           icon={'arrow-back'}
         />
       </View>
