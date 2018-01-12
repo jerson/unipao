@@ -178,8 +178,8 @@ export default class LoginScreen extends React.Component {
                 containerStyle={styles.inputFirst}
                 style={styles.input}
                 ref={'username'}
-                placeholder={_('Código de alumno')}
-                defaultValue={defaults.username || 'gpardog'}
+                placeholder={_('Código de alumno ó Usuario')}
+                defaultValue={defaults.username}
                 returnKeyType={'next'}
                 autoCorrect={false}
                 autoFocus={true}
@@ -192,7 +192,7 @@ export default class LoginScreen extends React.Component {
                 style={styles.input}
                 ref={'password'}
                 placeholder={_('Contraseña')}
-                defaultValue={defaults.password || '123456Aa'}
+                defaultValue={defaults.password}
                 returnKeyType={'go'}
                 blurOnSubmit={true}
                 onSubmitEditing={this.login}
