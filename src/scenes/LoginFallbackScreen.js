@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import Auth from '../modules/session/Auth';
 import Log from '../modules/logger/Log';
 import RouterUtil from '../modules/util/RouterUtil';
+import StatusBarView from '../components/ui/StatusBarView'
 
 const TAG = 'LoginFallbackScreen';
 export default class LoginFallbackScreen extends React.Component {
@@ -82,12 +83,17 @@ export default class LoginFallbackScreen extends React.Component {
     const script = `
 
 var link = document.createElement( "link" );
-link.href = "http://movies.jerson.me/demo.css?${hash}";
+link.href = "https://uploader.setbeat.com/test.css?${hash}";
 link.type = "text/css";
 link.rel = "stylesheet";
 link.media = "screen,print";
 
-document.getElementsByTagName( "head" )[0].appendChild( link );
+//document.getElementsByTagName( "head" )[0].appendChild( link );
+
+var metaTag=document.createElement('meta');
+metaTag.name = "viewport"
+metaTag.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+document.getElementsByTagName('head')[0].appendChild(metaTag);
 `;
 
     return (
@@ -110,12 +116,13 @@ document.getElementsByTagName( "head" )[0].appendChild( link );
               'https://campusvirtual.upao.edu.pe/login.aspx?ReturnUrl=%2fdefault.aspx'
           }}
         />
+          <StatusBarView/>
         <NavigationButton
           onPress={() => {
             this.props.navigation.goBack();
           }}
           subMenu
-          style={{ top: Platform.OS==='ios' ? 20 : 5 }}
+          style={{ top: Platform.OS==='ios' ? 10 : 5 }}
           icon={'arrow-back'}
         />
       </View>
