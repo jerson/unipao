@@ -28,28 +28,36 @@ export default class UPAO {
 
   static async login(username: string, password: string): boolean {
     let params = {};
+    await RequestUtil.fetch(`/cerrar_sesion.aspx`, {}, false);
     try {
-      let $ = await RequestUtil.fetch(Config.URL, {}, false);
-      if ($('#ctl00_csesion').length) {
-        Log.info(TAG, 'ya inicio antes');
-        return true;
-      }
+      let $ = await RequestUtil.fetch(
+        '/login.aspx?ReturnUrl=%2fdefault.aspx',
+        {},
+        false
+      );
       params = ParamsUtils.getFormParams($);
     } catch (e) {
       Log.info(TAG, 'login', e);
     }
 
     delete params.btn_valida;
-    params.txt_id = username;
-    params.txt_nip = password;
+
+    let keys = Object.keys(params);
+    for (let key of keys) {
+      if (key.indexOf('_id') !== -1) {
+        params[key] = username;
+      } else if (key.indexOf('_nip') !== -1) {
+        params[key] = password;
+      }
+    }
     params['btn_valida.x'] = NumberUtils.getRandomInt(5, 25);
     params['btn_valida.y'] = NumberUtils.getRandomInt(5, 25);
 
     try {
       let $ = await RequestUtil.fetch(
-        '/login.aspx',
+        '/login.aspx?ReturnUrl=%2fdefault.aspx',
         {
-          method: 'post',
+          method: 'POST',
           body: ParamsUtils.getFormData(params)
         },
         false
@@ -60,12 +68,15 @@ export default class UPAO {
         Log.info(TAG, labelError);
         return false;
       }
-
+    } catch (e) {
+      Log.info(TAG, 'login', e);
+    }
+    try {
+      let $ = await RequestUtil.fetch('/', {}, false);
       return $('#ctl00_csesion').length;
     } catch (e) {
       Log.info(TAG, 'login', e);
     }
-
     return false;
   }
 

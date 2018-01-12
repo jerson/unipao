@@ -42,7 +42,10 @@ export default class Auth {
     Log.info('[AUTH]', 'checkLogin');
     let data = await SingleStorage.get('user');
     if (data) {
-      return this.login(true);
+      let user = JSON.parse(data);
+      Emitter.emit('onSuccessLogin', user);
+      this.user = user;
+      //return this.login(true);
     }
   }
 
@@ -75,7 +78,7 @@ export default class Auth {
   }
 
   static getUser(): User {
-    return this.user;
+    return this.user || {};
   }
 
   static setUser(data: any): Promise<boolean> {

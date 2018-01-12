@@ -19,6 +19,14 @@ export default class MailScreen extends React.Component {
     ],
     headerRight: (
       <View style={{ flexDirection: 'row' }}>
+        {navigation &&
+          navigation.state &&
+          navigation.state.params &&
+          navigation.state.params.isLoading && (
+            <View style={{ margin: 15 }}>
+              <Loading />
+            </View>
+          )}
         <NavigationButton
           onPress={() => {
             navigation.state.params.reload();
@@ -31,23 +39,25 @@ export default class MailScreen extends React.Component {
   });
 
   state = {
-    isLoading: false
+    isLoading: true,
+    isReloading: false
   };
 
   reload = () => {
-    this.setState({ isLoading: true }, () => {
-      this.setState({ isLoading: false });
+    this.setState({ isReloading: true }, () => {
+      this.setState({ isReloading: false, isLoading: true });
     });
   };
+  componentDidUpdate(prevProps, prevState) {}
 
   componentDidMount() {
     this.props.navigation.setParams({ reload: this.reload });
   }
 
   render() {
-    let { isLoading } = this.state;
+    let { isLoading, isReloading } = this.state;
 
-    if (isLoading) {
+    if (isReloading) {
       return <Loading margin />;
     }
 
@@ -56,6 +66,14 @@ export default class MailScreen extends React.Component {
       <View style={{ paddingTop, flex: 1 }}>
         <WebView
           style={[styles.container]}
+          onLoadStart={() => {
+            this.setState({ isLoading: true });
+            this.props.navigation.setParams({ isLoading: true });
+          }}
+          onLoadEnd={() => {
+            this.setState({ isLoading: false });
+            this.props.navigation.setParams({ isLoading: false });
+          }}
           source={{ uri: 'https://mail.google.com/a/upao.edu.pe' }}
         />
       </View>
