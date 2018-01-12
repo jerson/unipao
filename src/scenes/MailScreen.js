@@ -1,12 +1,16 @@
 import React from 'react';
-import { StyleSheet, View, WebView } from 'react-native';
+import { Clipboard, Linking, StyleSheet, View, WebView } from 'react-native';
 import { Theme } from '../themes/styles';
 import { _ } from '../modules/i18n/Translator';
 import DimensionUtil from '../modules/util/DimensionUtil';
 import NavigationButton from '../components/ui/NavigationButton';
 import Loading from '../components/ui/Loading';
-
+import Log from '../modules/logger/Log';
+import PropTypes from 'prop-types';
 export default class MailScreen extends React.Component {
+  static contextTypes = {
+    notification: PropTypes.object.isRequired
+  };
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: _('Correo UPAO'),
     headerBackTitle: null,
@@ -48,10 +52,72 @@ export default class MailScreen extends React.Component {
       this.setState({ isReloading: false, isLoading: true });
     });
   };
+  onNavigationStateChange = navState => {
+    let url = navState.url;
+    let lastPart = url.substr(url.lastIndexOf('.') + 1);
+
+    Log.info(TAG, url);
+    switch (lastPart) {
+      case 'ipa':
+      case 'apk':
+      case 'plist':
+      case 'zip':
+      case 'rar':
+      case 'doc':
+      case 'docx':
+      case 'ppt':
+      case 'pptx':
+      case 'xls':
+      case 'xlsx':
+      case 'pdf':
+      case '7zip':
+        this.openRemoteLink(url);
+        break;
+    }
+  };
+
   componentDidUpdate(prevProps, prevState) {}
 
   componentDidMount() {
     this.props.navigation.setParams({ reload: this.reload });
+  }
+
+  openRemoteLink(url) {
+    this.context.notification.show({
+      type: 'warning',
+      id: 'browser',
+      message: _('Abriendo url externa'),
+      icon: 'file-download',
+      autoDismiss: 4,
+      iconType: 'MaterialIcons'
+    });
+    setTimeout(() => {
+      this.openExternalLink(url);
+    }, 2000);
+  }
+
+  async openExternalLink(url) {
+    try {
+      let supported = await Linking.canOpenURL(url);
+
+      if (!supported) {
+        Clipboard.setString(url);
+        this.context.notification.add({
+          id: 'browser',
+          title: _('Error al abrir url'),
+          message: _(
+            'Para continuar, Pega el enlace que ya esta en tu portapapeles a tu navegador'
+          ),
+          icon: 'file-download',
+          level: 'warning',
+          autoDismiss: 5
+        });
+        return;
+      }
+      return Linking.openURL(url);
+    } catch (e) {
+      Log.error('An error occurred', e);
+    }
   }
 
   render() {
@@ -66,6 +132,7 @@ export default class MailScreen extends React.Component {
       <View style={{ paddingTop, flex: 1 }}>
         <WebView
           style={[styles.container]}
+          onNavigationStateChange={this.onNavigationStateChange}
           onLoadStart={() => {
             this.setState({ isLoading: true });
             this.props.navigation.setParams({ isLoading: true });
