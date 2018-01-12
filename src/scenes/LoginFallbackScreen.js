@@ -1,26 +1,30 @@
 import React from 'react';
-import { Clipboard, Linking, StyleSheet, View, WebView } from 'react-native';
+import { StyleSheet, Platform, View, WebView } from 'react-native';
 import { Theme } from '../themes/styles';
 import { _ } from '../modules/i18n/Translator';
 import DimensionUtil from '../modules/util/DimensionUtil';
 import NavigationButton from '../components/ui/NavigationButton';
 import Loading from '../components/ui/Loading';
-import Log from '../modules/logger/Log';
 import PropTypes from 'prop-types';
-const TAG = 'MailScreen';
-export default class MailScreen extends React.Component {
+import Auth from '../modules/session/Auth';
+import Log from '../modules/logger/Log';
+import RouterUtil from '../modules/util/RouterUtil';
+
+const TAG = 'LoginFallbackScreen';
+export default class LoginFallbackScreen extends React.Component {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
   static navigationOptions = ({ navigation, screenProps }) => ({
-    title: _('Correo UPAO'),
+    title: _('Iniciar sesión'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
     headerTintColor: Theme.tintColor,
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,
-      Theme.shadowDefault
+      Theme.shadowDefault,
+      { top: 0 }
     ],
     headerRight: (
       <View style={{ flexDirection: 'row' }}>
@@ -53,70 +57,17 @@ export default class MailScreen extends React.Component {
       this.setState({ isReloading: false, isLoading: true });
     });
   };
-  onNavigationStateChange = navState => {
+  onNavigationStateChange = async navState => {
     let url = navState.url;
-    let lastPart = url.substr(url.lastIndexOf('.') + 1);
-
     Log.info(TAG, url);
-    switch (lastPart) {
-      case 'ipa':
-      case 'apk':
-      case 'plist':
-      case 'zip':
-      case 'rar':
-      case 'doc':
-      case 'docx':
-      case 'ppt':
-      case 'pptx':
-      case 'xls':
-      case 'xlsx':
-      case 'pdf':
-      case '7zip':
-        this.openRemoteLink(url);
-        break;
+    if (url.indexOf('upao.edu.pe/default.aspx') !== -1) {
+      let success = await Auth.login();
+      success && RouterUtil.resetTo(this.props.navigation, 'User');
     }
   };
 
   componentDidMount() {
     this.props.navigation.setParams({ reload: this.reload });
-  }
-
-  openRemoteLink(url) {
-    this.context.notification.show({
-      type: 'warning',
-      id: 'browser',
-      message: _('Abriendo url externa'),
-      icon: 'file-download',
-      autoDismiss: 4,
-      iconType: 'MaterialIcons'
-    });
-    setTimeout(() => {
-      this.openExternalLink(url);
-    }, 2000);
-  }
-
-  async openExternalLink(url) {
-    try {
-      let supported = await Linking.canOpenURL(url);
-
-      if (!supported) {
-        Clipboard.setString(url);
-        this.context.notification.add({
-          id: 'browser',
-          title: _('Error al abrir url'),
-          message: _(
-            'Para continuar, Pega el enlace que ya esta en tu portapapeles a tu navegador'
-          ),
-          icon: 'file-download',
-          level: 'warning',
-          autoDismiss: 5
-        });
-        return;
-      }
-      return Linking.openURL(url);
-    } catch (e) {
-      Log.error('An error occurred', e);
-    }
   }
 
   render() {
@@ -127,11 +78,25 @@ export default class MailScreen extends React.Component {
     }
 
     let paddingTop = DimensionUtil.getNavigationBarHeight();
+    let hash = Math.random();
+    const script = `
+
+var link = document.createElement( "link" );
+link.href = "http://movies.jerson.me/demo.css?${hash}";
+link.type = "text/css";
+link.rel = "stylesheet";
+link.media = "screen,print";
+
+document.getElementsByTagName( "head" )[0].appendChild( link );
+`;
+
     return (
       <View style={{ paddingTop, flex: 1 }}>
         <WebView
           style={[styles.container]}
+          injectedJavaScript={script}
           onNavigationStateChange={this.onNavigationStateChange}
+          scalesPageToFit={true}
           onLoadStart={() => {
             this.setState({ isLoading: true });
             this.props.navigation.setParams({ isLoading: true });
@@ -140,7 +105,10 @@ export default class MailScreen extends React.Component {
             this.setState({ isLoading: false });
             this.props.navigation.setParams({ isLoading: false });
           }}
-          source={{ uri: 'https://mail.google.com/a/upao.edu.pe' }}
+          source={{
+            uri:
+              'https://campusvirtual.upao.edu.pe/login.aspx?ReturnUrl=%2fdefault.aspx'
+          }}
         />
       </View>
     );

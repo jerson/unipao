@@ -146,6 +146,9 @@ export default class LoginScreen extends React.Component {
     Dimensions.removeEventListener('change', this.onDimensionsChange);
   }
 
+  loginFallback = () => {
+    this.props.navigation.navigate('LoginFallback');
+  };
   render() {
     let { height } = Dimensions.get('window');
     let { isLoading, loadedCredentials, defaults } = this.state;
@@ -215,6 +218,15 @@ export default class LoginScreen extends React.Component {
           type={'primary'}
           onPress={this.login}
           label={_('Iniciar sesión')}
+          icon={'user'}
+          iconType={'FontAwesome'}
+        />
+
+        <Button
+          isLoading={isLoading}
+          type={'info'}
+          onPress={this.loginFallback}
+          label={_('Iniciar sesión en Web')}
           icon={'user'}
           iconType={'FontAwesome'}
         />

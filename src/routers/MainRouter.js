@@ -23,6 +23,7 @@ import MailScreen from '../scenes/MailScreen';
 import { tabsOptions, tabsOptionsMain, tabsOptionsSub } from './Tabs';
 import GalleriesScreen from '../scenes/GalleriesScreen';
 import GalleryScreen from '../scenes/GalleryScreen';
+import LoginFallbackScreen from '../scenes/LoginFallbackScreen';
 
 const NewsNavigator = StackNavigator(
   {
@@ -256,6 +257,9 @@ export default StackNavigator(
   {
     Login: {
       screen: LoginScreen
+    },
+    LoginFallback: {
+      screen: LoginFallbackScreen
     },
     About: {
       screen: AboutScreen
