@@ -1,7 +1,6 @@
 import ParamsUtils from './utils/ParamsUtils';
 import NumberUtils from './utils/NumberUtils';
 import Log from '../modules/logger/Log';
-import Config from './Config';
 import Profile from './student/Profile';
 import Intranet from './student/Intranet';
 import General from './info/General';
@@ -55,7 +54,7 @@ export default class UPAO {
 
     try {
       let $ = await RequestUtil.fetch(
-        '/login.aspx?ReturnUrl=%2fdefault.aspx',
+        '/login.aspx',
         {
           method: 'POST',
           body: ParamsUtils.getFormData(params)
@@ -82,9 +81,7 @@ export default class UPAO {
 
   static async logout(): boolean {
     try {
-      await fetch(`${Config.URL}/cerrar_sesion.aspx`, {
-        credentials: 'include'
-      });
+      await RequestUtil.fetch(`/cerrar_sesion.aspx`, {}, false);
       return true;
     } catch (e) {
       Log.info(TAG, 'logout', e);
