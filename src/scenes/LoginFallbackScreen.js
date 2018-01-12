@@ -91,7 +91,7 @@ document.getElementsByTagName( "head" )[0].appendChild( link );
 `;
 
     return (
-      <View style={{ paddingTop, flex: 1 }}>
+      <View style={{ flex: 1 }}>
         <WebView
           style={[styles.container]}
           injectedJavaScript={script}
@@ -109,6 +109,14 @@ document.getElementsByTagName( "head" )[0].appendChild( link );
             uri:
               'https://campusvirtual.upao.edu.pe/login.aspx?ReturnUrl=%2fdefault.aspx'
           }}
+        />
+        <NavigationButton
+          onPress={() => {
+            this.props.navigation.goBack();
+          }}
+          subMenu
+          style={{ top: 5 }}
+          icon={'arrow-back'}
         />
       </View>
     );
