@@ -6,7 +6,8 @@ export default class StatusBarView extends React.Component {
     if (Platform.OS !== 'ios') {
       return null;
     }
-    return <View style={styles.container} />;
+    let { style, ...props } = this.props;
+    return <View style={[styles.container, style]} />;
   }
 }
 

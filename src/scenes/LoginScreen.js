@@ -185,7 +185,6 @@ export default class LoginScreen extends React.Component {
                 defaultValue={defaults.username}
                 returnKeyType={'next'}
                 autoCorrect={false}
-                autoFocus={true}
                 blurOnSubmit={false}
                 onSubmitEditing={() => this.refs.password.focus()}
               />
@@ -225,9 +224,9 @@ export default class LoginScreen extends React.Component {
         <Button
           type={'info'}
           onPress={this.loginFallback}
-          label={_('Iniciar sesión en Web')}
-          icon={'user'}
-          iconType={'FontAwesome'}
+          label={_('Iniciar sesión usando la web')}
+          icon={'link-external'}
+          iconType={'Octicons'}
         />
 
         <ViewSpacer size={'large'} />

@@ -93,10 +93,7 @@ export default class LoginFallbackScreen extends React.Component {
 // link.rel = "stylesheet";
 // link.media = "screen,print";
 // document.getElementsByTagName( "head" )[0].appendChild( link );
-// var metaTag=document.createElement('meta');
-// metaTag.name = "viewport"
-// metaTag.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1"
-// document.getElementsByTagName('head')[0].appendChild(metaTag);
+
 </script>
 
 `);
@@ -141,6 +138,11 @@ try{
 
 `;
 
+    const scriptIOS = `
+var metaTag=document.createElement('meta');
+metaTag.name = "viewport"
+metaTag.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1"
+document.getElementsByTagName('head')[0].appendChild(metaTag);`;
     return (
       <View style={{ flex: 1 }}>
         <WebView
@@ -148,7 +150,7 @@ try{
           javaScriptEnabled={true}
           domStorageEnabled={true}
           javaScriptEnabledAndroid
-          injectedJavaScript={script}
+          injectedJavaScript={script + (Platform.OS === 'ios' ? scriptIOS : '')}
           onNavigationStateChange={this.onNavigationStateChange}
           scalesPageToFit={true}
           onLoadStart={() => {
@@ -165,13 +167,13 @@ try{
           }}
         />
 
-        <StatusBarView />
+        <StatusBarView style={{ backgroundColor: '#0d61ac' }} />
         <NavigationButton
           onPress={() => {
             this.props.navigation.goBack();
           }}
           subMenu
-          style={{ top: Platform.OS === 'ios' ? 14 : 5 }}
+          style={{ top: Platform.OS === 'ios' ? 20 : 5 }}
           icon={'arrow-back'}
         />
       </View>
