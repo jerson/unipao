@@ -7,7 +7,8 @@ import { _ } from '../modules/i18n/Translator';
 import DimensionUtil from '../modules/util/DimensionUtil';
 import { tabsOptions, tabsOptionsSub } from '../routers/Tabs';
 import { TabNavigator } from 'react-navigation';
-const Level = View;
+import LevelScreen from './intranet/LevelScreen';
+
 const TAG = 'IntranetScreen';
 export default class IntranetScreen extends React.Component {
   static contextTypes = {
@@ -43,7 +44,7 @@ const LevelsTab = TabNavigator(
   {
     UG: {
       screen: ({ navigation, screenProps }) => {
-        return <Level level={'UG'} />;
+        return <LevelScreen level={'UG'} />;
       },
       navigationOptions: ({ navigation, screenProps }) => {
         return {
@@ -53,7 +54,7 @@ const LevelsTab = TabNavigator(
     },
     GR: {
       screen: ({ navigation, screenProps }) => {
-        return <Level level={'GR'} />;
+        return <LevelScreen level={'GR'} />;
       },
       navigationOptions: ({ navigation, screenProps }) => {
         return {
@@ -63,7 +64,7 @@ const LevelsTab = TabNavigator(
     },
     UT: {
       screen: ({ navigation, screenProps }) => {
-        return <Level level={'UT'} />;
+        return <LevelScreen level={'UT'} />;
       },
       navigationOptions: ({ navigation, screenProps }) => {
         return {
@@ -73,7 +74,7 @@ const LevelsTab = TabNavigator(
     },
     UB: {
       screen: ({ navigation, screenProps }) => {
-        return <Level level={'UB'} />;
+        return <LevelScreen level={'UB'} />;
       },
       navigationOptions: ({ navigation, screenProps }) => {
         return {

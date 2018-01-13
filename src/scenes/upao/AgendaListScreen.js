@@ -10,6 +10,7 @@ import moment from 'moment';
 import { _ } from '../../modules/i18n/Translator';
 import CacheStorage from '../../modules/storage/CacheStorage';
 import DimensionUtil from '../../modules/util/DimensionUtil';
+import UPAO from '../../scraping/UPAO';
 
 const TAG = 'AgendaListScreen';
 export default class AgendaListScreen extends React.Component {
@@ -58,12 +59,10 @@ export default class AgendaListScreen extends React.Component {
     }
   };
 
-  loadResponse = (body, cacheLoaded = false) => {
-    let data = [];
+  loadResponse = (data, cacheLoaded = false) => {
     let exist = false;
     let i = 0;
-    if (body.data) {
-      data = JSON.parse(body.data);
+    if (data) {
       exist = false;
       for (let item of data) {
         let isToday = this.isToday(item);
@@ -95,22 +94,13 @@ export default class AgendaListScreen extends React.Component {
     let { cacheLoaded, month, year } = this.state;
 
     try {
-      let response = await Request.post(
-        'pr/listagenda',
-        {
-          v_mes: month,
-          v_anno: year
-        },
-        { secure: true }
-      );
-
-      let { body } = response;
-      this.loadResponse(body);
-      CacheStorage.set(this.getCacheKey(), body);
+      let items = await UPAO.Info.Agenda.getList(1);
+      this.loadResponse(items);
+      CacheStorage.set(this.getCacheKey(), items);
     } catch (e) {
       Log.warn(TAG, 'load', e);
       if (!cacheLoaded) {
-        this.loadResponse({});
+        this.loadResponse([]);
       } else {
         this.setState({ isLoading: false, isRefreshing: false });
       }
@@ -119,7 +109,7 @@ export default class AgendaListScreen extends React.Component {
 
   isToday = item => {
     let { month, year } = this.state;
-    let day = parseInt(item.DIA1 || item.FECHAFINAL, 10);
+    let day = parseInt(item.dayOfMonth, 10);
     let date = `${day}/${month}/${year}`;
     return date === moment().format('DD/MM/YYYY');
   };

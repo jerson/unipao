@@ -14,12 +14,8 @@ export default class AgendaItem extends React.Component {
 
   render() {
     let { agenda, index, isToday } = this.props;
-    let content = agenda.CONTENIDO.replace(/(\r\n|\n|\r)/gm, '')
-      .replace(/(<([^>]+)>)/gi, '')
-      .trim();
-    let day = (agenda.DIA1 || '').trim();
-    let dayMonth = (agenda.FECHAFINAL || '').trim();
-    let dayName = (agenda.FECHAFINAL1 || '').trim();
+    let day = agenda.dayOfMonth;
+    let dayName = agenda.dayName;
 
     return (
       <View style={[styles.container, isToday && styles.today]}>
@@ -39,15 +35,11 @@ export default class AgendaItem extends React.Component {
           </View>
 
           <View style={styles.titleContainer}>
-            <Text style={[styles.name]}>{agenda.TITULO.trim()}</Text>
-            <Text style={[styles.subtitle]}>{agenda.DESC_ORG.trim()}</Text>
+            <Text style={[styles.name]}>{agenda.title}</Text>
+            <Text style={[styles.property]}>{agenda.property}</Text>
+            <Text style={[styles.subtitle]}>{agenda.description}</Text>
           </View>
         </View>
-        <HTMLView
-          addLineBreaks={false}
-          value={'<p>' + content + '</p>'}
-          stylesheet={stylesHTML}
-        />
       </View>
     );
   }
@@ -114,18 +106,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
     backgroundColor: 'transparent'
   },
+  property: {
+    color: 'rgba(0,0,0,0.35)',
+    fontSize: 14,
+    backgroundColor: 'transparent'
+  },
 
   subtitle: {
     color: 'rgba(0,0,0,0.55)',
-    fontSize: 13,
+    fontSize: 12,
     backgroundColor: 'transparent'
-  }
-});
-
-const stylesHTML = StyleSheet.create({
-  p: {
-    color: '#555',
-    marginTop: 2,
-    marginBottom: 2
   }
 });

@@ -14,6 +14,10 @@ export const Theme = {
     borderWidth: 0,
     borderBottomWidth: 0,
     borderColor: 'transparent',
+    paddingTop: 0,
+    paddingBottom: 0,
+    marginTop: 0,
+    marginBottom: 0,
     height: DimensionUtil.getNavigationBarHeight(),
     shadowRadius: 4,
     shadowOffset: {

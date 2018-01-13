@@ -15,6 +15,6 @@ export default class DimensionUtil {
   }
 
   static getNavigationBarHeight() {
-    return Platform.OS === 'ios' ? 65 : 60;
+    return Platform.OS === 'ios' ? 60 : 60;
   }
 }
