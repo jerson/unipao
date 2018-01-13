@@ -32,54 +32,43 @@ export default class Intranet {
       return null;
     }
 
+    let $content = $(
+      '#ctl00_ContentPlaceHolder1_ctl00_MENUYA21_lbl_menu_right'
+    );
     let code = '';
     switch (level) {
       case 'UG':
-        code = $('#mnuya_pregrado').attr('onclick') || '';
+        code = $('#mnuya_pregrado', $content).attr('onclick') || '';
         code = code
           .replace("javascript:mnuya_load_yaahist('", '')
           .replace("');", '');
-        params = {
-          f: 'YAAHIST',
-          a: 'INI_HISTORIAL',
-          codigo_uno: code
-        };
         break;
       case 'GR':
-        code = $('#mnuya_postgrado').attr('onclick') || '';
+        code = $('#mnuya_postgrado', $content).attr('onclick') || '';
         code = code
           .replace("javascript:mnuya_load_yaahist('", '')
           .replace("');", '');
-        params = {
-          f: 'YAAHIST',
-          a: 'INI_HISTORIAL',
-          codigo_uno: code
-        };
         break;
       case 'UT':
-        code = $('#mnuya_cgt').attr('onclick') || '';
+        code = $('#mnuya_cgt', $content).attr('onclick') || '';
         code = code
           .replace("javascript:mnuya_load_yaahist('", '')
           .replace("');", '');
-        params = {
-          f: 'YAAHIST',
-          a: 'INI_HISTORIAL',
-          codigo_uno: code
-        };
         break;
       case 'UB':
-        code = $('#mnuya_idiomas').attr('onclick') || '';
+        code = $('#mnuya_idiomas', $content).attr('onclick') || '';
         code = code
           .replace("javascript:mnuya_load_yaahist('", '')
           .replace("');", '');
-        params = {
-          f: 'YAAHIST',
-          a: 'INI_HISTORIAL',
-          codigo_uno: code
-        };
         break;
     }
+    params = {
+      f: 'YAAHIST',
+      a: 'INI_HISTORIAL',
+      codigo_uno: code
+    };
 
+    Log.info(params);
     try {
       let $ = await RequestUtil.fetch('/controlador/cargador.aspx', {
         method: 'POST',
@@ -92,12 +81,12 @@ export default class Intranet {
           if (!periods[index]) {
             periods[index] = {};
           }
-          console.log($(value).html());
           periods[index].period = $(value)
             .text()
             .trim();
         }
       );
+
       $(' > table > tr:nth-of-type(n+2) > td[align=center]', $content).each(
         (index, value) => {
           if (!periods[index]) {
@@ -116,9 +105,24 @@ export default class Intranet {
             if (!level) {
               return;
             }
+            let image = $(
+              'div:nth-child(1) > table > tr > td:nth-child(2) > img',
+              value
+            ).attr('src');
+            let nrc = $(
+              'div:nth-child(1) > table > tr > td:nth-child(2) > span:nth-child(2)',
+              value
+            ).text();
+            let name = $(
+              'div:nth-child(1) > table > tr > td:nth-child(2) > span:nth-child(3)',
+              value
+            ).text();
 
             let item = {
-              level
+              level,
+              image,
+              nrc,
+              name
             };
 
             items.push(item);
@@ -126,9 +130,6 @@ export default class Intranet {
           periods[index].items = items;
         }
       );
-
-      console.log($.html());
-
       return periods;
     } catch (e) {
       Log.info(TAG, 'getHistoryCourses', e);

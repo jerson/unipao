@@ -22,8 +22,8 @@ export default class RequestUtil {
     }
     let $ = cio.load(html);
 
-    if (checkSession && $('#txt_nip').length) {
-      Log.warn(TAG, 'fetch', 'sesion desconectada');
+    if (checkSession && $('input[name*=txt_nip]').length) {
+      Log.warn(TAG, 'fetch', 'sesion desconectada', url);
       Emitter.emit('onForceLogout', true);
     }
 
