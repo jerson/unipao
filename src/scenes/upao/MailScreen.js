@@ -140,7 +140,13 @@ export default class MailScreen extends React.Component {
             this.setState({ isLoading: false });
             this.props.navigation.setParams({ isLoading: false });
           }}
-          source={{ uri: 'https://mail.google.com/a/upao.edu.pe' }}
+          source={{
+            uri: 'https://mail.google.com/a/upao.edu.pe',
+            headers: {
+              'User-Agent':
+                'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.62 Mobile Safari/537.36'
+            }
+          }}
         />
       </View>
     );
