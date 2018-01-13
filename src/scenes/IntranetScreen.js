@@ -51,37 +51,37 @@ const LevelsTab = TabNavigator(
           tabBarLabel: _('Pregrado')
         };
       }
-    },
-    GR: {
-      screen: ({ navigation, screenProps }) => {
-        return <LevelScreen level={'GR'} />;
-      },
-      navigationOptions: ({ navigation, screenProps }) => {
-        return {
-          tabBarLabel: _('Postgrado')
-        };
-      }
-    },
-    UT: {
-      screen: ({ navigation, screenProps }) => {
-        return <LevelScreen level={'UT'} />;
-      },
-      navigationOptions: ({ navigation, screenProps }) => {
-        return {
-          tabBarLabel: _('Gente que trabaja')
-        };
-      }
-    },
-    UB: {
-      screen: ({ navigation, screenProps }) => {
-        return <LevelScreen level={'UB'} />;
-      },
-      navigationOptions: ({ navigation, screenProps }) => {
-        return {
-          tabBarLabel: _('Centro de idiomas')
-        };
-      }
     }
+    // GR: {
+    //   screen: ({ navigation, screenProps }) => {
+    //     return <LevelScreen level={'GR'} />;
+    //   },
+    //   navigationOptions: ({ navigation, screenProps }) => {
+    //     return {
+    //       tabBarLabel: _('Postgrado')
+    //     };
+    //   }
+    // },
+    // UT: {
+    //   screen: ({ navigation, screenProps }) => {
+    //     return <LevelScreen level={'UT'} />;
+    //   },
+    //   navigationOptions: ({ navigation, screenProps }) => {
+    //     return {
+    //       tabBarLabel: _('Gente que trabaja')
+    //     };
+    //   }
+    // },
+    // UB: {
+    //   screen: ({ navigation, screenProps }) => {
+    //     return <LevelScreen level={'UB'} />;
+    //   },
+    //   navigationOptions: ({ navigation, screenProps }) => {
+    //     return {
+    //       tabBarLabel: _('Centro de idiomas')
+    //     };
+    //   }
+    // }
   },
   {
     ...tabsOptionsSub,

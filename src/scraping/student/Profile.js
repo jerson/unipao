@@ -69,7 +69,7 @@ export default class Profile {
         .replace(/\s+/g, ' ')
         .trim();
       let id = $('#ctl00_hdid').attr('value');
-      let user = {
+      return {
         id,
         name,
         document,
@@ -80,8 +80,6 @@ export default class Profile {
         religion,
         gender
       };
-
-      return user;
     } catch (e) {
       Log.info(TAG, 'me', e);
     }

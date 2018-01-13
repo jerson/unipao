@@ -12,6 +12,7 @@ import AlertMessage from '../../components/ui/AlertMessage';
 import { _ } from '../../modules/i18n/Translator';
 import CacheStorage from '../../modules/storage/CacheStorage';
 import DimensionUtil from '../../modules/util/DimensionUtil';
+import UPAO from '../../scraping/UPAO';
 
 const TAG = 'LevelScreen';
 export default class LevelScreen extends React.Component {
@@ -67,8 +68,8 @@ export default class LevelScreen extends React.Component {
     await this.loadRequest();
   };
   getCacheKey = () => {
-    let { period } = this.state;
-    return `assists_${period.PERIODO || '_'}`;
+    let { level } = this.props;
+    return `assists_${level || '_'}`;
   };
   checkCache = async () => {
     try {
@@ -95,17 +96,12 @@ export default class LevelScreen extends React.Component {
     let { cacheLoaded, period } = this.state;
 
     try {
-      let response = await Request.post(
-        'av/ej/asistencia',
-        {
-          periodo: period.PERIODO
-        },
-        { secure: true }
-      );
+      let { level } = this.props;
+      let data = await UPAO.Student.Intranet.getHistoryCourses(level);
 
-      let { body } = response;
-      this.loadResponse(body);
-      CacheStorage.set(this.getCacheKey(), body);
+      console.log(data);
+      this.loadResponse({});
+      CacheStorage.set(this.getCacheKey(), {});
     } catch (e) {
       Log.warn(TAG, 'load', e);
       if (!cacheLoaded) {
