@@ -210,14 +210,6 @@ const styles = StyleSheet.create({
     minHeight: 80,
     justifyContent: 'center'
   },
-  gradient: {
-    opacity: 0,
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    height: 80
-  },
   optionsLeft: {
     position: 'absolute',
     left: 5,

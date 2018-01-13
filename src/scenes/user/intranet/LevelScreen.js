@@ -1,18 +1,15 @@
 import React from 'react';
-import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
-import { Theme } from '../../themes/styles';
+import { RefreshControl, SectionList, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
-import NavigationButton from '../../components/ui/NavigationButton';
-import Loading from '../../components/ui/Loading';
-import Log from '../../modules/logger/Log';
-import Request from '../../modules/network/Request';
-import AssistItem from '../../components/assist/AssistItem';
-import PeriodModal from '../../components/period/PeriodModal';
-import AlertMessage from '../../components/ui/AlertMessage';
-import { _ } from '../../modules/i18n/Translator';
-import CacheStorage from '../../modules/storage/CacheStorage';
-import DimensionUtil from '../../modules/util/DimensionUtil';
-import UPAO from '../../scraping/UPAO';
+import Loading from '../../../components/ui/Loading';
+import Log from '../../../modules/logger/Log';
+import AlertMessage from '../../../components/ui/AlertMessage';
+import { _ } from '../../../modules/i18n/Translator';
+import CacheStorage from '../../../modules/storage/CacheStorage';
+import DimensionUtil from '../../../modules/util/DimensionUtil';
+import UPAO from '../../../scraping/UPAO';
+import PeriodHeader from '../../../components/period/PeriodHeader';
+import CourseItem from '../../../components/course/CourseItem';
 
 const TAG = 'LevelScreen';
 export default class LevelScreen extends React.Component {
@@ -20,38 +17,18 @@ export default class LevelScreen extends React.Component {
     notification: PropTypes.object.isRequired
   };
 
-  static navigationOptions = ({ navigation, screenProps }) => ({
-    title: _('Intranet'),
-    headerBackTitle: null,
-    headerTitleStyle: [Theme.title, Theme.subtitle],
-    headerTintColor: Theme.subTintColor,
-    headerStyle: [
-      Theme.navigationBar,
-      Theme.subNavigationBar,
-      Theme.shadowDefault
-    ],
-    headerRight: (
-      <View style={{ flexDirection: 'row' }}>
-        <NavigationButton
-          onPress={() => {
-            navigation.state.params.reload();
-          }}
-          icon={'refresh'}
-          iconType={'MaterialIcons'}
-        />
-      </View>
-    )
-  });
-
   state = {
     isLoading: false,
     period: null,
     isRefreshing: false,
-    assists: []
+    sections: []
   };
 
   renderItem = ({ item, index }) => {
-    return <AssistItem assist={item} />;
+    return <CourseItem course={item} />;
+  };
+  renderHeader = ({ section }) => {
+    return <PeriodHeader courses={section.data} title={section.title} />;
   };
   onChangePeriod = period => {
     this.setState({ period }, () => {
@@ -69,7 +46,7 @@ export default class LevelScreen extends React.Component {
   };
   getCacheKey = () => {
     let { level } = this.props;
-    return `assists_${level || '_'}`;
+    return `level_${level || '_'}`;
   };
   checkCache = async () => {
     try {
@@ -80,33 +57,40 @@ export default class LevelScreen extends React.Component {
     }
   };
 
-  loadResponse = (body, cacheLoaded = false) => {
-    let assists = [];
-    if (body.data) {
-      assists = JSON.parse(body.data);
+  loadResponse = (data, cacheLoaded = false) => {
+    let sections = [];
+    if (data) {
+      sections = data;
     }
     this.setState({
       cacheLoaded,
-      assists,
+      sections,
       isLoading: false,
       isRefreshing: false
     });
   };
   loadRequest = async () => {
-    let { cacheLoaded, period } = this.state;
+    let { cacheLoaded } = this.state;
 
     try {
       let { level } = this.props;
-      let data = await UPAO.Student.Intranet.getHistoryCourses(level);
+      let periods = await UPAO.Student.Intranet.getHistoryCourses(level);
 
-      console.log(data);
-      this.loadResponse({});
-      CacheStorage.set(this.getCacheKey(), {});
+      let sections = (periods || []).map(period => {
+        return {
+          title: period.period,
+          data: period.courses
+        };
+      });
+
+      console.log(sections);
+      this.loadResponse(sections);
+      CacheStorage.set(this.getCacheKey(), sections);
     } catch (e) {
       Log.warn(TAG, 'load', e);
       if (!cacheLoaded) {
         Log.info(TAG, 'loadRequest', '!cacheLoaded');
-        this.loadResponse({});
+        this.loadResponse([]);
       } else {
         Log.info(TAG, 'loadRequest', 'cacheLoaded');
         this.setState({ isLoading: false, isRefreshing: false });
@@ -126,24 +110,19 @@ export default class LevelScreen extends React.Component {
     });
   };
 
-  getParams() {
-    let { state } = this.props.navigation;
-    return state.params || {};
-  }
-
   componentDidMount() {
-    // this.props.navigation.setParams({ reload: this.reload });
+    this.load();
   }
 
   render() {
     let paddingTop = DimensionUtil.getNavigationBarHeight();
-    let { assists, period, isLoading, isRefreshing } = this.state;
+    let { sections, isLoading, isRefreshing } = this.state;
 
     return (
       <View style={[styles.container]}>
         {/*<Background/>*/}
         {!isLoading &&
-          assists.length < 1 && (
+          sections.length < 1 && (
             <AlertMessage
               type={'warning'}
               title={_('No se econtró registro de asistencias')}
@@ -151,10 +130,12 @@ export default class LevelScreen extends React.Component {
           )}
         {isLoading && <Loading margin />}
         {!isLoading && (
-          <FlatList
+          <SectionList
+            sections={sections}
+            stickySectionHeadersEnabled
             showsVerticalScrollIndicator={true}
-            data={assists}
             renderItem={this.renderItem}
+            renderSectionHeader={this.renderHeader}
             refreshControl={
               <RefreshControl
                 refreshing={isRefreshing}

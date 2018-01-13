@@ -1,5 +1,5 @@
 import React from 'react';
-import { TabBarTop, TabBarBottom, TabNavigator } from 'react-navigation';
+import { TabBarTop, TabNavigator } from 'react-navigation';
 import { Theme } from '../themes/styles';
 import { Platform } from 'react-native';
 

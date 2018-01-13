@@ -1,15 +1,14 @@
 import React from 'react';
 import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
-import { Theme } from '../../themes/styles';
+import { Theme } from '../../../themes/styles';
 import PropTypes from 'prop-types';
-import Request from '../../modules/network/Request';
-import Log from '../../modules/logger/Log';
-import NewsItem from '../../components/news/NewsItem';
-import Loading from '../../components/ui/Loading';
-import { _ } from '../../modules/i18n/Translator';
-import CacheStorage from '../../modules/storage/CacheStorage';
-import DimensionUtil from '../../modules/util/DimensionUtil';
-import UPAO from '../../scraping/UPAO';
+import Log from '../../../modules/logger/Log';
+import NewsItem from '../../../components/news/NewsItem';
+import Loading from '../../../components/ui/Loading';
+import { _ } from '../../../modules/i18n/Translator';
+import CacheStorage from '../../../modules/storage/CacheStorage';
+import DimensionUtil from '../../../modules/util/DimensionUtil';
+import UPAO from '../../../scraping/UPAO';
 
 const TAG = 'NewsListScreen';
 export default class NewsListScreen extends React.Component {

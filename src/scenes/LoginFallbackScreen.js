@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Platform, View, WebView } from 'react-native';
+import { Platform, StyleSheet, View, WebView } from 'react-native';
 import { Theme } from '../themes/styles';
 import { _ } from '../modules/i18n/Translator';
 import DimensionUtil from '../modules/util/DimensionUtil';
@@ -7,9 +7,9 @@ import NavigationButton from '../components/ui/NavigationButton';
 import Loading from '../components/ui/Loading';
 import PropTypes from 'prop-types';
 import Auth from '../modules/session/Auth';
-import Log from '../modules/logger/Log';
 import RouterUtil from '../modules/util/RouterUtil';
 import StatusBarView from '../components/ui/StatusBarView';
+import cio from 'cheerio-without-node-native';
 
 const TAG = 'LoginFallbackScreen';
 export default class LoginFallbackScreen extends React.Component {
@@ -49,6 +49,7 @@ export default class LoginFallbackScreen extends React.Component {
   });
 
   state = {
+    html: '',
     isLoading: true,
     isReloading: false
   };
@@ -57,18 +58,58 @@ export default class LoginFallbackScreen extends React.Component {
     this.setState({ isReloading: true }, () => {
       this.setState({ isReloading: false, isLoading: true });
     });
+    // this.load();
   };
   onNavigationStateChange = async navState => {
     let url = navState.url;
-    Log.info(TAG, url);
     if (url.indexOf('upao.edu.pe/default.aspx') !== -1) {
       let success = await Auth.login();
       success && RouterUtil.resetTo(this.props.navigation, 'User');
     }
   };
+  load = async () => {
+    this.setState({ isLoading: true });
+
+    try {
+      let response = await fetch(
+        'https://campusvirtual.upao.edu.pe/login.aspx?ReturnUrl=%2fdefault.aspx'
+      );
+      let html = await response.text();
+      let $ = cio.load(html);
+      $('iframe')
+        .parent()
+        .html('');
+      $('a')
+        .parent()
+        .html('');
+      $('body').append(`
+       <script>
+    
+
+// var hash = Math.random();
+// var link = document.createElement( "link" );
+// link.href = "https://uploader.setbeat.com/test.css?"+hash;
+// link.type = "text/css";
+// link.rel = "stylesheet";
+// link.media = "screen,print";
+// document.getElementsByTagName( "head" )[0].appendChild( link );
+// var metaTag=document.createElement('meta');
+// metaTag.name = "viewport"
+// metaTag.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1"
+// document.getElementsByTagName('head')[0].appendChild(metaTag);
+</script>
+
+`);
+
+      this.setState({ isLoading: false, isReloading: false, html: $.html() });
+    } catch (e) {
+      this.setState({ isLoading: false, isReloading: false });
+    }
+  };
 
   componentDidMount() {
     this.props.navigation.setParams({ reload: this.reload });
+    // this.load();
   }
 
   render() {
@@ -79,27 +120,34 @@ export default class LoginFallbackScreen extends React.Component {
     }
 
     let paddingTop = DimensionUtil.getNavigationBarHeight();
-    let hash = Math.random();
     const script = `
 
-var link = document.createElement( "link" );
-link.href = "https://uploader.setbeat.com/test.css?${hash}";
-link.type = "text/css";
-link.rel = "stylesheet";
-link.media = "screen,print";
 
-//document.getElementsByTagName( "head" )[0].appendChild( link );
+try{
+    var element = document.getElementsByTagName("iframe"), index;
+    
+    for (index = element.length - 1; index >= 0; index--) {
+       element[index].parentNode.parentNode.removeChild(element[index].parentNode); 
+    }
+    
+    var element2 = document.getElementsByTagName("a"), index;
+    for (index = element2.length - 1; index >= 0; index--) {
+      element2[index].parentNode.parentNode.removeChild(element2[index].parentNode);
+    }
+}catch(e){
+}
 
-var metaTag=document.createElement('meta');
-metaTag.name = "viewport"
-metaTag.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1"
-document.getElementsByTagName('head')[0].appendChild(metaTag);
+
+
 `;
 
     return (
       <View style={{ flex: 1 }}>
         <WebView
           style={[styles.container]}
+          javaScriptEnabled={true}
+          domStorageEnabled={true}
+          javaScriptEnabledAndroid
           injectedJavaScript={script}
           onNavigationStateChange={this.onNavigationStateChange}
           scalesPageToFit={true}
@@ -116,6 +164,7 @@ document.getElementsByTagName('head')[0].appendChild(metaTag);
               'https://campusvirtual.upao.edu.pe/login.aspx?ReturnUrl=%2fdefault.aspx'
           }}
         />
+
         <StatusBarView />
         <NavigationButton
           onPress={() => {

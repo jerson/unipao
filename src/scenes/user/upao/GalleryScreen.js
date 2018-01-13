@@ -1,16 +1,16 @@
 import React from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { Theme } from '../../themes/styles';
+import { Theme } from '../../../themes/styles';
 import PropTypes from 'prop-types';
-import CacheStorage from '../../modules/storage/CacheStorage';
-import Log from '../../modules/logger/Log';
-import UPAO from '../../scraping/UPAO';
-import Loading from '../../components/ui/Loading';
-import NavigationButton from '../../components/ui/NavigationButton';
-import DimensionUtil from '../../modules/util/DimensionUtil';
-import GalleryImage from '../../components/gallery/GalleryImage';
+import CacheStorage from '../../../modules/storage/CacheStorage';
+import Log from '../../../modules/logger/Log';
+import UPAO from '../../../scraping/UPAO';
+import Loading from '../../../components/ui/Loading';
+import NavigationButton from '../../../components/ui/NavigationButton';
+import DimensionUtil from '../../../modules/util/DimensionUtil';
+import GalleryImage from '../../../components/gallery/GalleryImage';
 import ImageViewer from 'react-native-image-zoom-viewer';
-import Modal from '../../components/ui/Modal';
+import Modal from '../../../components/ui/Modal';
 
 const TAG = 'GalleryScreen';
 export default class GalleryScreen extends React.Component {
@@ -176,51 +176,12 @@ export default class GalleryScreen extends React.Component {
   }
 }
 
-const stylesSubHTML = StyleSheet.create({
-  p: {
-    color: 'rgba(255,255,255,0.6)',
-    marginTop: 2,
-    backgroundColor: 'transparent'
-  }
-});
-const stylesHTML = StyleSheet.create({
-  p: {
-    color: '#343434',
-    marginTop: 2,
-    marginBottom: 2,
-    textAlign: 'justify'
-  },
-  span: {
-    margin: 0,
-    padding: 0
-  },
-  div: {
-    color: '#343434',
-    marginTop: 0,
-    marginBottom: 0,
-    textAlign: 'justify'
-  },
-  ul: {
-    marginTop: 5,
-    marginBottom: 5
-  },
-  ol: {
-    marginTop: 5,
-    marginBottom: 5
-  },
-  strong: {
-    color: '#111',
-    fontWeight: 'bold'
-  }
-});
+const stylesSubHTML = StyleSheet.create({});
+const stylesHTML = StyleSheet.create({});
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000'
-  },
-  contentContainer: {
-    padding: 10,
-    paddingTop: 0
   },
   imageTitle: {
     color: 'rgba(255,255,255,0.95)',
@@ -241,8 +202,5 @@ const styles = StyleSheet.create({
     paddingTop: 0,
     height: 60,
     paddingLeft: 60
-  },
-  image: {
-    height: 350
   }
 });

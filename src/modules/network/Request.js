@@ -1,6 +1,5 @@
 import Auth from '../session/Auth';
 import Log from '../logger/Log';
-import Emitter from '../listener/Emitter';
 
 export interface UserSettings {
   baseUrl: string;

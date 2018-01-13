@@ -1,17 +1,17 @@
 import React from 'react';
 import { InteractionManager, StyleSheet, View } from 'react-native';
-import { Theme } from '../../themes/styles';
+import { Theme } from '../../../themes/styles';
 import PropTypes from 'prop-types';
-import Loading from '../../components/ui/Loading';
-import Log from '../../modules/logger/Log';
-import Request from '../../modules/network/Request';
+import Loading from '../../../components/ui/Loading';
+import Log from '../../../modules/logger/Log';
+import Request from '../../../modules/network/Request';
 import { TabNavigator } from 'react-navigation';
-import PaymentList from '../../components/payment/PaymentList';
-import { _ } from '../../modules/i18n/Translator';
-import { tabsOptions } from '../../routers/Tabs';
-import NavigationButton from '../../components/ui/NavigationButton';
-import CacheStorage from '../../modules/storage/CacheStorage';
-import DimensionUtil from '../../modules/util/DimensionUtil';
+import PaymentList from '../../../components/payment/PaymentList';
+import { _ } from '../../../modules/i18n/Translator';
+import { tabsOptions } from '../../../routers/Tabs';
+import NavigationButton from '../../../components/ui/NavigationButton';
+import CacheStorage from '../../../modules/storage/CacheStorage';
+import DimensionUtil from '../../../modules/util/DimensionUtil';
 
 const TAG = 'PaymentsScreen';
 export default class PaymentsScreen extends React.Component {

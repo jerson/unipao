@@ -1,16 +1,15 @@
 import React from 'react';
 import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
-import { Theme } from '../../themes/styles';
+import { Theme } from '../../../themes/styles';
 import PropTypes from 'prop-types';
-import Request from '../../modules/network/Request';
-import Log from '../../modules/logger/Log';
-import Loading from '../../components/ui/Loading';
-import AgendaItem from '../../components/agenda/AgendaItem';
+import Log from '../../../modules/logger/Log';
+import Loading from '../../../components/ui/Loading';
+import AgendaItem from '../../../components/agenda/AgendaItem';
 import moment from 'moment';
-import { _ } from '../../modules/i18n/Translator';
-import CacheStorage from '../../modules/storage/CacheStorage';
-import DimensionUtil from '../../modules/util/DimensionUtil';
-import UPAO from '../../scraping/UPAO';
+import { _ } from '../../../modules/i18n/Translator';
+import CacheStorage from '../../../modules/storage/CacheStorage';
+import DimensionUtil from '../../../modules/util/DimensionUtil';
+import UPAO from '../../../scraping/UPAO';
 
 const TAG = 'AgendaListScreen';
 export default class AgendaListScreen extends React.Component {

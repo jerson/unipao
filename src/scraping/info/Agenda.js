@@ -1,6 +1,5 @@
 import Log from '../../modules/logger/Log';
 import RequestUtil from '../utils/RequestUtil';
-import moment from 'moment';
 
 const TAG = 'Agenda';
 export default class Agenda {

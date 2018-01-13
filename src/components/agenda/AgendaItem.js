@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
-import HTMLView from 'react-native-htmlview';
 import { _ } from '../../modules/i18n/Translator';
 
 const TAG = 'AgendaItem';

@@ -5,7 +5,6 @@ import Course from './intranet/Course';
 import RequestUtil from '../utils/RequestUtil';
 import Log from '../../modules/logger/Log';
 import ParamsUtils from '../utils/ParamsUtils';
-import moment from 'moment/moment';
 
 const TAG = 'Intranet';
 export default class Intranet {
@@ -112,12 +111,19 @@ export default class Intranet {
             let nrc = $(
               'div:nth-child(1) > table > tr > td:nth-child(2) > span:nth-child(2)',
               value
-            ).text();
+            )
+              .text()
+              .trim();
             let name = $(
               'div:nth-child(1) > table > tr > td:nth-child(2) > span:nth-child(3)',
               value
-            ).text();
+            )
+              .text()
+              .trim();
 
+            if (!name) {
+              return;
+            }
             let item = {
               level,
               image,
@@ -127,7 +133,7 @@ export default class Intranet {
 
             items.push(item);
           });
-          periods[index].items = items;
+          periods[index].courses = items;
         }
       );
       return periods;

@@ -107,6 +107,9 @@ export default class LoginScreen extends React.Component {
       defaults: { remember, username, password }
     });
   };
+  loginFallback = () => {
+    this.props.navigation.navigate('LoginFallback');
+  };
 
   getEmei() {
     let emei = '9';
@@ -146,9 +149,6 @@ export default class LoginScreen extends React.Component {
     Dimensions.removeEventListener('change', this.onDimensionsChange);
   }
 
-  loginFallback = () => {
-    this.props.navigation.navigate('LoginFallback');
-  };
   render() {
     let { height } = Dimensions.get('window');
     let { isLoading, loadedCredentials, defaults } = this.state;
