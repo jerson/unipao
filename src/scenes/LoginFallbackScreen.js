@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import Auth from '../modules/session/Auth';
 import Log from '../modules/logger/Log';
 import RouterUtil from '../modules/util/RouterUtil';
-import StatusBarView from '../components/ui/StatusBarView'
+import StatusBarView from '../components/ui/StatusBarView';
 
 const TAG = 'LoginFallbackScreen';
 export default class LoginFallbackScreen extends React.Component {
@@ -116,13 +116,13 @@ document.getElementsByTagName('head')[0].appendChild(metaTag);
               'https://campusvirtual.upao.edu.pe/login.aspx?ReturnUrl=%2fdefault.aspx'
           }}
         />
-          <StatusBarView/>
+        <StatusBarView />
         <NavigationButton
           onPress={() => {
             this.props.navigation.goBack();
           }}
           subMenu
-          style={{ top: Platform.OS==='ios' ? 14 : 5 }}
+          style={{ top: Platform.OS === 'ios' ? 14 : 5 }}
           icon={'arrow-back'}
         />
       </View>

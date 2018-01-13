@@ -1,15 +1,13 @@
 import React from 'react';
-import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Theme } from '../themes/styles';
 import PropTypes from 'prop-types';
-import IntranetItem from '../components/intranet/IntranetItem';
-import NavigationButton from '../components/ui/NavigationButton';
-import IntranetHeader from '../components/intranet/IntranetHeader';
 import Loading from '../components/ui/Loading';
-import PeriodModal from '../components/period/PeriodModal';
 import { _ } from '../modules/i18n/Translator';
 import DimensionUtil from '../modules/util/DimensionUtil';
-
+import { tabsOptions } from '../routers/Tabs';
+import { TabNavigator } from 'react-navigation';
+const Level = View;
 const TAG = 'IntranetScreen';
 export default class IntranetScreen extends React.Component {
   static contextTypes = {
@@ -25,167 +23,81 @@ export default class IntranetScreen extends React.Component {
       Theme.navigationBar,
       Theme.subNavigationBar,
       Theme.shadowDefault
-    ],
-    headerRight: (
-      <NavigationButton
-        onPress={() => {
-          navigation.state.params.reload();
-        }}
-        icon={'refresh'}
-        iconType={'MaterialIcons'}
-      />
-    )
+    ]
   });
 
   state = {
-    isLoading: true,
-    isRefreshing: false,
-    career: null,
-    periods: [],
-    items: [
-      {
-        route: 'Schedule',
-        name: _('Mi Horario'),
-        icon: 'schedule',
-        iconType: 'MaterialIcons'
-      },
-      {
-        route: 'Assists',
-        name: _('Asistencias'),
-        icon: 'calendar-check-o',
-        iconType: 'FontAwesome'
-      },
-      {
-        route: 'Enrollment',
-        name: _('Ficha de matrícula'),
-        icon: 'results-demographics',
-        iconType: 'Foundation'
-      },
-      {
-        route: 'Payments',
-        name: _('Estado de cuenta'),
-        icon: 'monetization-on',
-        iconType: 'MaterialIcons'
-      },
-      {
-        route: '',
-        name: _('Notas por componentes'),
-        icon: 'bar-graph',
-        disabled: true,
-        iconType: 'Entypo'
-      },
-      {
-        route: '',
-        name: _('Reporte de Notas'),
-        icon: 'line-graph',
-        disabled: true,
-        iconType: 'Entypo'
-      },
-      {
-        route: '',
-        name: _('Mis cursos'),
-        icon: 'page-copy',
-        disabled: true,
-        iconType: 'Foundation'
-      },
-      {
-        route: '',
-        name: _('Sílabos'),
-        icon: 'book-open-page-variant',
-        disabled: true,
-        iconType: 'MaterialCommunityIcons'
-      }
-    ]
+    isLoading: false
   };
-
-  renderItem = ({ item, index }) => {
-    return (
-      <IntranetItem
-        onChooseItem={() => {
-          this.onChooseItem(item);
-        }}
-        intranet={item}
-        index={index}
-      />
-    );
-  };
-  onChooseCareer = career => {
-    if (career) {
-      this.setState({ career });
-    }
-  };
-  onLoadPeriods = periods => {
-    if (periods && periods.length > 0) {
-      this.setState({ periods, isLoading: false, isRefreshing: false });
-    }
-  };
-
-  onChooseItem = item => {
-    let { career, periods } = this.state;
-
-    if (!career) {
-      this.context.notification.show({
-        type: 'warning',
-        id: 'intranet',
-        title: _('No has elegido una carrera'),
-        icon: 'error-outline',
-        autoDismiss: 4,
-        iconType: 'MaterialIcons'
-      });
-      return;
-    }
-    let period = periods.find(period => {
-      return period.NIVEL === career.NIVEL;
-    });
-    this.props.navigation.navigate(item.route, { career, period });
-  };
-
-  reload = () => {
-    this.onRefresh();
-  };
-  onRefresh = () => {
-    this.setState({ isRefreshing: true }, () => {
-      this.refs.periods.load();
-    });
-  };
-  renderHeader = () => {
-    return <IntranetHeader onChooseCareer={this.onChooseCareer} />;
-  };
-
-  componentDidMount() {
-    this.props.navigation.setParams({ reload: this.reload });
-  }
 
   render() {
+    let { isLoading } = this.state;
     let paddingTop = DimensionUtil.getNavigationBarHeight();
-    let { items, isRefreshing, isLoading } = this.state;
     return (
       <View style={[styles.container, { paddingTop }]}>
-        <PeriodModal ref={'periods'} onLoaded={this.onLoadPeriods} />
         {/*<Background/>*/}
         {isLoading && <Loading margin />}
-
-        {!isLoading && (
-          <FlatList
-            showsVerticalScrollIndicator={true}
-            data={items}
-            ListHeaderComponent={this.renderHeader}
-            renderItem={this.renderItem}
-            refreshControl={
-              <RefreshControl
-                refreshing={isRefreshing}
-                onRefresh={this.onRefresh}
-              />
-            }
-            keyExtractor={(item, index) => {
-              return index;
-            }}
-          />
-        )}
+        {!isLoading && <LevelsTab />}
       </View>
     );
   }
 }
+
+const LevelsTab = TabNavigator(
+  {
+    UG: {
+      screen: ({ navigation, screenProps }) => {
+        return <Level level={'UG'} />;
+      },
+      navigationOptions: ({ navigation, screenProps }) => {
+        return {
+          tabBarLabel: _('Pregrado')
+        };
+      }
+    },
+    GR: {
+      screen: ({ navigation, screenProps }) => {
+        return <Level level={'GR'} />;
+      },
+      navigationOptions: ({ navigation, screenProps }) => {
+        return {
+          tabBarLabel: _('Postgrado')
+        };
+      }
+    },
+    UT: {
+      screen: ({ navigation, screenProps }) => {
+        return <Level level={'UT'} />;
+      },
+      navigationOptions: ({ navigation, screenProps }) => {
+        return {
+          tabBarLabel: _('Gente que trabaja')
+        };
+      }
+    },
+    UB: {
+      screen: ({ navigation, screenProps }) => {
+        return <Level level={'UB'} />;
+      },
+      navigationOptions: ({ navigation, screenProps }) => {
+        return {
+          tabBarLabel: _('Centro de idiomas')
+        };
+      }
+    }
+  },
+  {
+    ...tabsOptions,
+    tabBarOptions: {
+      ...tabsOptions.tabBarOptions,
+      tabStyle: {
+        flexDirection: 'row',
+        width: 130,
+        padding: 0
+      }
+    }
+  }
+);
 
 const styles = StyleSheet.create({
   container: {
