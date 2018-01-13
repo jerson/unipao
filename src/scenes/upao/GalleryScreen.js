@@ -1,16 +1,16 @@
 import React from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { Theme } from '../themes/styles';
+import { Theme } from '../../themes/styles';
 import PropTypes from 'prop-types';
-import CacheStorage from '../modules/storage/CacheStorage';
-import Log from '../modules/logger/Log';
-import UPAO from '../scraping/UPAO';
-import Loading from '../components/ui/Loading';
-import NavigationButton from '../components/ui/NavigationButton';
-import DimensionUtil from '../modules/util/DimensionUtil';
-import GalleryImage from '../components/gallery/GalleryImage';
+import CacheStorage from '../../modules/storage/CacheStorage';
+import Log from '../../modules/logger/Log';
+import UPAO from '../../scraping/UPAO';
+import Loading from '../../components/ui/Loading';
+import NavigationButton from '../../components/ui/NavigationButton';
+import DimensionUtil from '../../modules/util/DimensionUtil';
+import GalleryImage from '../../components/gallery/GalleryImage';
 import ImageViewer from 'react-native-image-zoom-viewer';
-import Modal from '../components/ui/Modal';
+import Modal from '../../components/ui/Modal';
 
 const TAG = 'GalleryScreen';
 export default class GalleryScreen extends React.Component {

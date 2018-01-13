@@ -1,17 +1,17 @@
 import React from 'react';
 import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
-import { Theme } from '../themes/styles';
+import { Theme } from '../../themes/styles';
 import PropTypes from 'prop-types';
-import NavigationButton from '../components/ui/NavigationButton';
-import Loading from '../components/ui/Loading';
-import Log from '../modules/logger/Log';
-import Request from '../modules/network/Request';
-import AssistItem from '../components/assist/AssistItem';
-import PeriodModal from '../components/period/PeriodModal';
-import AlertMessage from '../components/ui/AlertMessage';
-import { _ } from '../modules/i18n/Translator';
-import CacheStorage from '../modules/storage/CacheStorage';
-import DimensionUtil from '../modules/util/DimensionUtil';
+import NavigationButton from '../../components/ui/NavigationButton';
+import Loading from '../../components/ui/Loading';
+import Log from '../../modules/logger/Log';
+import Request from '../../modules/network/Request';
+import AssistItem from '../../components/assist/AssistItem';
+import PeriodModal from '../../components/period/PeriodModal';
+import AlertMessage from '../../components/ui/AlertMessage';
+import { _ } from '../../modules/i18n/Translator';
+import CacheStorage from '../../modules/storage/CacheStorage';
+import DimensionUtil from '../../modules/util/DimensionUtil';
 
 const TAG = 'AssistsScreen';
 export default class AssistsScreen extends React.Component {

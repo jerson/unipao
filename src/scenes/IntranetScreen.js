@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Loading from '../components/ui/Loading';
 import { _ } from '../modules/i18n/Translator';
 import DimensionUtil from '../modules/util/DimensionUtil';
-import { tabsOptions } from '../routers/Tabs';
+import { tabsOptions, tabsOptionsSub } from '../routers/Tabs';
 import { TabNavigator } from 'react-navigation';
 const Level = View;
 const TAG = 'IntranetScreen';
@@ -19,11 +19,7 @@ export default class IntranetScreen extends React.Component {
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
     headerTintColor: Theme.tintColor,
-    headerStyle: [
-      Theme.navigationBar,
-      Theme.subNavigationBar,
-      Theme.shadowDefault
-    ]
+    headerStyle: [Theme.navigationBar, Theme.subNavigationBar]
   });
 
   state = {
@@ -87,14 +83,10 @@ const LevelsTab = TabNavigator(
     }
   },
   {
-    ...tabsOptions,
+    ...tabsOptionsSub,
     tabBarOptions: {
-      ...tabsOptions.tabBarOptions,
-      tabStyle: {
-        flexDirection: 'row',
-        width: 130,
-        padding: 0
-      }
+      ...tabsOptionsSub.tabBarOptions,
+      scrollEnabled: true
     }
   }
 );

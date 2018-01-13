@@ -1,11 +1,11 @@
 import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { Theme } from '../themes/styles';
+import { Theme } from '../../themes/styles';
 import PropTypes from 'prop-types';
-import AssistDetailItem from '../components/assist/AssistDetailItem';
-import AssistHeader from '../components/assist/AssistHeader';
-import { _ } from '../modules/i18n/Translator';
-import DimensionUtil from '../modules/util/DimensionUtil';
+import AssistDetailItem from '../../components/assist/AssistDetailItem';
+import AssistHeader from '../../components/assist/AssistHeader';
+import { _ } from '../../modules/i18n/Translator';
+import DimensionUtil from '../../modules/util/DimensionUtil';
 
 const TAG = 'AssistDetailScreen';
 export default class AssistDetailScreen extends React.Component {

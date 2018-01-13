@@ -8,19 +8,19 @@ import {
   Text,
   View
 } from 'react-native';
-import { Theme } from '../themes/styles';
+import { Theme } from '../../themes/styles';
 import PropTypes from 'prop-types';
-import ImageUtil from '../modules/util/ImageUtil';
+import ImageUtil from '../../modules/util/ImageUtil';
 import HTMLView from 'react-native-htmlview';
-import LinearGradient from '../components/ui/LinearGradient';
-import Touchable from '../components/ui/Touchable';
+import LinearGradient from '../../components/ui/LinearGradient';
+import Touchable from '../../components/ui/Touchable';
 import Share from 'react-native-share';
-import { _ } from '../modules/i18n/Translator';
-import CacheStorage from '../modules/storage/CacheStorage';
-import Log from '../modules/logger/Log';
-import UPAO from '../scraping/UPAO';
-import Loading from '../components/ui/Loading';
-import NavigationButton from '../components/ui/NavigationButton';
+import { _ } from '../../modules/i18n/Translator';
+import CacheStorage from '../../modules/storage/CacheStorage';
+import Log from '../../modules/logger/Log';
+import UPAO from '../../scraping/UPAO';
+import Loading from '../../components/ui/Loading';
+import NavigationButton from '../../components/ui/NavigationButton';
 
 const TAG = 'NewsListScreen';
 export default class NewsListScreen extends React.Component {

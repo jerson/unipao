@@ -223,7 +223,6 @@ export default class LoginScreen extends React.Component {
         />
 
         <Button
-          isLoading={isLoading}
           type={'info'}
           onPress={this.loginFallback}
           label={_('Iniciar sesión en Web')}
