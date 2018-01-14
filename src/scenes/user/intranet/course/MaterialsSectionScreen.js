@@ -103,7 +103,8 @@ export default class MaterialsSectionScreen extends React.Component {
             style={[styles.container]}
             openInternally={['campusvirtual.upao.edu.pe']}
             source={{
-              html
+              html,
+              baseUrl: Config.URL
             }}
           />
         )}
