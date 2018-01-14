@@ -83,7 +83,6 @@ export default class LevelScreen extends React.Component {
         };
       });
 
-      console.log(sections);
       this.loadResponse(sections);
       CacheStorage.set(this.getCacheKey(), sections);
     } catch (e) {

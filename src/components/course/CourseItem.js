@@ -13,7 +13,6 @@ export default class CourseItem extends React.Component {
 
   onPress = () => {
     let { course } = this.props;
-    console.log(this.props);
     this.props.navigation.navigate('Course', { course });
   };
 
