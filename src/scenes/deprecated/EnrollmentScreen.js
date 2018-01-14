@@ -1,18 +1,18 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Theme } from '../../../themes/styles';
+import { Theme } from '../../themes/styles';
 import PropTypes from 'prop-types';
-import NavigationButton from '../../../components/ui/NavigationButton';
-import Loading from '../../../components/ui/Loading';
-import Log from '../../../modules/logger/Log';
-import Request from '../../../modules/network/Request';
-import EnrollmentList from '../../../components/enrollment/EnrollmentList';
+import NavigationButton from '../../components/ui/NavigationButton';
+import Loading from '../../components/ui/Loading';
+import Log from '../../modules/logger/Log';
+import Request from '../../modules/network/Request';
+import EnrollmentList from '../../components/enrollment/EnrollmentList';
 import { TabNavigator } from 'react-navigation';
-import { tabsOptions } from '../../../routers/Tabs';
-import PeriodModal from '../../../components/period/PeriodModal';
-import { _ } from '../../../modules/i18n/Translator';
-import CacheStorage from '../../../modules/storage/CacheStorage';
-import DimensionUtil from '../../../modules/util/DimensionUtil';
+import { tabsOptions } from '../../routers/Tabs';
+import PeriodModal from '../../components/period/PeriodModal';
+import { _ } from '../../modules/i18n/Translator';
+import CacheStorage from '../../modules/storage/CacheStorage';
+import DimensionUtil from '../../modules/util/DimensionUtil';
 
 const TAG = 'EnrollmentScreen';
 export default class EnrollmentScreen extends React.Component {

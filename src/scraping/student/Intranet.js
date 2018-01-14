@@ -23,12 +23,13 @@ export default class Intranet {
 
   static async getHistoryCourses(level: string) {
     let params = {};
+    let periods = [];
     let $;
     try {
       $ = await RequestUtil.fetch('/aulavirtual.aspx?f=YAAHIST&r=A');
     } catch (e) {
       Log.info(TAG, 'getHistoryCourses', e);
-      return null;
+      return periods;
     }
 
     let $content = $(
@@ -67,14 +68,12 @@ export default class Intranet {
       codigo_uno: code
     };
 
-    Log.info(params);
     try {
       let $ = await RequestUtil.fetch('/controlador/cargador.aspx', {
         method: 'POST',
         body: ParamsUtils.getFormData(params)
       });
       let $content = $('#lst_historial_inig');
-      let periods = [];
       $(' > table > tr:nth-of-type(n+2) > td:nth-child(2)', $content).each(
         (index, value) => {
           if (!periods[index]) {
@@ -154,10 +153,9 @@ export default class Intranet {
           periods[index].courses = items;
         }
       );
-      return periods;
     } catch (e) {
       Log.info(TAG, 'getHistoryCourses', e);
-      return null;
     }
+    return periods;
   }
 }
