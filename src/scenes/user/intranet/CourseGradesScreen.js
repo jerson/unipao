@@ -1,18 +1,13 @@
 import React from 'react';
-import { Platform, StyleSheet, View, WebView } from 'react-native';
+import { StyleSheet, View, WebView } from 'react-native';
 import { Theme } from '../../../themes/styles';
 import { _ } from '../../../modules/i18n/Translator';
 import DimensionUtil from '../../../modules/util/DimensionUtil';
 import NavigationButton from '../../../components/ui/NavigationButton';
 import Loading from '../../../components/ui/Loading';
 import PropTypes from 'prop-types';
-import Auth from '../../../modules/session/Auth';
-import RouterUtil from '../../../modules/util/RouterUtil';
-import StatusBarView from '../../../components/ui/StatusBarView';
-import cio from 'cheerio-without-node-native';
-import RequestUtil from '../../../scraping/utils/RequestUtil';
-import ParamsUtils from '../../../scraping/utils/ParamsUtils';
 import Config from '../../../scraping/Config';
+import UPAO from '../../../scraping/UPAO';
 
 const TAG = 'CourseGradesScreen';
 export default class CourseGradesScreen extends React.Component {
@@ -50,43 +45,28 @@ export default class CourseGradesScreen extends React.Component {
 
   load = async () => {
     this.setState({ isLoading: true });
-    let { course } = this.getParams();
 
     try {
-      let params = {
-        f: 'YAAHIST',
-        a: 'SHOW_NOTAS',
-        valor: course.code,
-        codigo: course.id
-      };
-
-      console.log(params);
-      let $ = await RequestUtil.fetch('/controlador/cargador.aspx', {
-        method: 'POST',
-        body: ParamsUtils.getFormData(params)
-      });
-
-      let html = $.html();
-      console.log(html);
+      let { course } = this.getParams();
+      let html = await UPAO.Student.Intranet.Course.getGradesHTML(course);
       this.setState({ isLoading: false, isReloading: false, html });
     } catch (e) {
       console.log(e);
       this.setState({ isLoading: false, isReloading: false });
     }
   };
+  reload = () => {
+    this.onRefresh();
+  };
+  onRefresh = () => {
+    this.load();
+  };
 
   getParams() {
     let { state } = this.props.navigation;
     return state.params || {};
   }
-  reload = () => {
-    this.onRefresh();
-  };
-  onRefresh = () => {
-    this.setState({ isRefreshing: true }, () => {
-      this.load();
-    });
-  };
+
   componentDidMount() {
     this.props.navigation.setParams({ reload: this.reload });
     this.load();
@@ -94,7 +74,7 @@ export default class CourseGradesScreen extends React.Component {
 
   render() {
     let paddingTop = DimensionUtil.getNavigationBarHeight();
-    let { html, isRefreshing, isLoading } = this.state;
+    let { html, isLoading } = this.state;
 
     return (
       <View style={[styles.container, { paddingTop }]}>

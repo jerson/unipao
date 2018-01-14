@@ -2,8 +2,6 @@ import React from 'react';
 import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 import { Theme } from '../../../themes/styles';
 import PropTypes from 'prop-types';
-import AssistDetailItem from '../../../components/assist/AssistDetailItem';
-import AssistHeader from '../../../components/assist/AssistHeader';
 import { _ } from '../../../modules/i18n/Translator';
 import DimensionUtil from '../../../modules/util/DimensionUtil';
 import CourseOptionItem from '../../../components/course/CourseOptionItem';
@@ -107,18 +105,11 @@ export default class CourseScreen extends React.Component {
     let { course } = this.getParams();
     return <CourseHeader course={course} />;
   };
-
-  getParams() {
-    let { state } = this.props.navigation;
-    return state.params || {};
-  }
-
   load = () => {
     this.setState({ isLoading: true }, () => {
       this.setState({ isLoading: false, isRefreshing: false });
     });
   };
-
   reload = () => {
     this.onRefresh();
   };
@@ -127,6 +118,12 @@ export default class CourseScreen extends React.Component {
       this.load();
     });
   };
+
+  getParams() {
+    let { state } = this.props.navigation;
+    return state.params || {};
+  }
+
   componentDidMount() {
     this.props.navigation.setParams({ reload: this.reload });
     this.load();

@@ -169,6 +169,7 @@ export default class Course {
         }
 
         items.push({
+          id: url,
           url,
           name
         });
@@ -228,6 +229,7 @@ export default class Course {
 
     return items;
   }
+
   static async getForumSections(course: any) {
     let items = [];
     try {
@@ -251,6 +253,7 @@ export default class Course {
 
     return items;
   }
+
   static async getJobsSections(course: any) {
     let items = [];
     try {
@@ -274,6 +277,7 @@ export default class Course {
 
     return items;
   }
+
   static async getExamsSections(course: any) {
     let items = [];
     try {
@@ -297,6 +301,7 @@ export default class Course {
 
     return items;
   }
+
   static parseSections($) {
     let items = [];
 

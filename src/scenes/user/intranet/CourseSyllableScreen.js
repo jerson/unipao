@@ -1,116 +1,126 @@
 import React from 'react';
-import { Platform, StyleSheet, View, WebView } from 'react-native';
+import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 import { Theme } from '../../../themes/styles';
-import { _ } from '../../../modules/i18n/Translator';
-import DimensionUtil from '../../../modules/util/DimensionUtil';
-import NavigationButton from '../../../components/ui/NavigationButton';
-import Loading from '../../../components/ui/Loading';
 import PropTypes from 'prop-types';
-import Auth from '../../../modules/session/Auth';
-import RouterUtil from '../../../modules/util/RouterUtil';
-import StatusBarView from '../../../components/ui/StatusBarView';
-import cio from 'cheerio-without-node-native';
-import RequestUtil from '../../../scraping/utils/RequestUtil';
-import ParamsUtils from '../../../scraping/utils/ParamsUtils';
-import Config from '../../../scraping/Config';
+import Log from '../../../modules/logger/Log';
+import Loading from '../../../components/ui/Loading';
+import { _ } from '../../../modules/i18n/Translator';
+import CacheStorage from '../../../modules/storage/CacheStorage';
+import DimensionUtil from '../../../modules/util/DimensionUtil';
+import UPAO from '../../../scraping/UPAO';
+import SyllableItem from '../../../components/syllable/SyllableItem';
 
 const TAG = 'CourseSyllableScreen';
 export default class CourseSyllableScreen extends React.Component {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
-  static navigationOptions = ({ navigation, screenProps }) => ({
+
+  static navigationOptions = {
+    title: _('Silabos del curso'),
     headerBackTitle: null,
-    title: _('Silabo del curso'),
     headerTitleStyle: [Theme.title, Theme.subtitle],
     headerTintColor: Theme.subTintColor,
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,
       Theme.shadowDefault
-    ],
-    headerRight: (
-      <View style={{ flexDirection: 'row' }}>
-        <NavigationButton
-          onPress={() => {
-            navigation.state.params.reload();
-          }}
-          icon={'refresh'}
-          iconType={'MaterialIcons'}
-        />
-      </View>
-    )
-  });
+    ]
+  };
 
   state = {
-    html: '',
-    isLoading: true,
-    isReloading: false
+    items: [],
+    isLoading: false,
+    isRefreshing: false
   };
 
   load = async () => {
-    this.setState({ isLoading: true });
+    let { isRefreshing } = this.state;
+
+    if (!isRefreshing) {
+      this.setState({ isLoading: true, cacheLoaded: false });
+      await this.checkCache();
+    }
+    await this.loadRequest();
+  };
+  getCacheKey = () => {
     let { course } = this.getParams();
-
+    return `course_syllables_${course.id || '_'}`;
+  };
+  checkCache = async () => {
     try {
-      let params = {
-        f: 'YAAHIST',
-        a: 'SHOW_SILABO',
-        valor: course.code,
-        codigo: course.id
-      };
-
-      console.log(params);
-      let $ = await RequestUtil.fetch('/controlador/cargador.aspx', {
-        method: 'POST',
-        body: ParamsUtils.getFormData(params)
-      });
-
-      let html = $.html();
-      console.log(html);
-      this.setState({ isLoading: false, isReloading: false, html });
+      let data = await CacheStorage.get(this.getCacheKey());
+      data && this.loadResponse(data, true);
     } catch (e) {
-      console.log(e);
-      this.setState({ isLoading: false, isReloading: false });
+      Log.info(TAG, 'checkCache', e);
     }
   };
 
-  getParams() {
-    let { state } = this.props.navigation;
-    return state.params || {};
-  }
-  reload = () => {
-    this.onRefresh();
+  loadResponse = (items, cacheLoaded = false) => {
+    this.setState({
+      items,
+      cacheLoaded,
+      isLoading: false,
+      isRefreshing: false
+    });
+  };
+  loadRequest = async () => {
+    let { cacheLoaded } = this.state;
+
+    try {
+      let { course } = this.getParams();
+      let items = await UPAO.Student.Intranet.Course.getSyllables(course);
+      this.loadResponse(items);
+      CacheStorage.set(this.getCacheKey(), items);
+    } catch (e) {
+      Log.warn(TAG, 'load', e);
+      if (!cacheLoaded) {
+        this.loadResponse([]);
+      } else {
+        this.setState({ isLoading: false, isRefreshing: false });
+      }
+    }
+  };
+  renderItem = ({ item, index }) => {
+    return <SyllableItem syllable={item} />;
   };
   onRefresh = () => {
     this.setState({ isRefreshing: true }, () => {
       this.load();
     });
   };
+
+  getParams() {
+    let { state } = this.props.navigation;
+    return state.params || {};
+  }
+
   componentDidMount() {
-    this.props.navigation.setParams({ reload: this.reload });
     this.load();
   }
 
   render() {
+    let { isLoading, isRefreshing, items } = this.state;
     let paddingTop = DimensionUtil.getNavigationBarHeight();
-    let { html, isRefreshing, isLoading } = this.state;
-
     return (
       <View style={[styles.container, { paddingTop }]}>
+        {/*<Background />*/}
         {isLoading && <Loading margin />}
-        {!isLoading && (
-          <WebView
-            style={[styles.container]}
-            javaScriptEnabled
-            domStorageEnabled
-            scalesPageToFit={true}
-            source={{
-              html,
-              baseUrl: Config.URL
-            }}
-          />
-        )}
+        <FlatList
+          ref={'list'}
+          data={items}
+          showsVerticalScrollIndicator={true}
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefreshing}
+              onRefresh={this.onRefresh}
+            />
+          }
+          renderItem={this.renderItem}
+          keyExtractor={(item, index) => {
+            return index;
+          }}
+        />
       </View>
     );
   }
@@ -118,6 +128,7 @@ export default class CourseSyllableScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: '#fff'
   }
 });

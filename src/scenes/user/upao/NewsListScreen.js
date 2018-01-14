@@ -151,7 +151,7 @@ export default class NewsListScreen extends React.Component {
               onRefresh={this.onRefresh}
             />
           }
-          keyExtractor={item => {
+          keyExtractor={(item, index) => {
             return item.id;
           }}
         />

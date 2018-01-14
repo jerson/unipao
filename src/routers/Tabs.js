@@ -54,6 +54,7 @@ export const tabsOptionsMain = {
 export const tabsOptionsSub = {
   tabBarComponent: TabBarTop,
   tabBarPosition: 'top',
+  lazy: true,
   animationEnabled: true,
   backBehavior: 'none',
   swipeEnabled: true,

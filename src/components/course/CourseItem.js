@@ -2,7 +2,6 @@ import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
 import Touchable from '../ui/Touchable';
-import { _ } from '../../modules/i18n/Translator';
 
 const TAG = 'CourseItem';
 export default class CourseItem extends React.Component {
@@ -78,11 +77,6 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     flex: 1
   },
-  info: {
-    flexDirection: 'row',
-    flex: 1,
-    paddingLeft: 5
-  },
   title: {
     fontSize: 13,
     color: '#555'
@@ -92,13 +86,5 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: '#ff9e30',
     fontWeight: 'bold'
-  },
-  percentLabel: {
-    fontSize: 14,
-    color: '#666'
-  },
-  right: {
-    alignItems: 'center',
-    justifyContent: 'center'
   }
 });

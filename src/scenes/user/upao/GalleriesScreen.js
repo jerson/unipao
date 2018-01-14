@@ -151,7 +151,7 @@ export default class GalleriesScreen extends React.Component {
               onRefresh={this.onRefresh}
             />
           }
-          keyExtractor={item => {
+          keyExtractor={(item, index) => {
             return item.id;
           }}
         />

@@ -212,22 +212,26 @@ export default class LoginScreen extends React.Component {
           </View>
         )}
 
-        <Button
-          isLoading={isLoading}
-          type={'primary'}
-          onPress={this.login}
-          label={_('Iniciar sesión')}
-          icon={'user'}
-          iconType={'FontAwesome'}
-        />
+        {loadedCredentials && (
+          <Button
+            isLoading={isLoading}
+            type={'primary'}
+            onPress={this.login}
+            label={_('Iniciar sesión')}
+            icon={'user'}
+            iconType={'FontAwesome'}
+          />
+        )}
 
-        <Button
-          type={'info'}
-          onPress={this.loginFallback}
-          label={_('Iniciar sesión usando la web')}
-          icon={'link-external'}
-          iconType={'Octicons'}
-        />
+        {loadedCredentials && (
+          <Button
+            type={'info'}
+            onPress={this.loginFallback}
+            label={_('Iniciar sesión usando la web')}
+            icon={'link-external'}
+            iconType={'Octicons'}
+          />
+        )}
 
         <ViewSpacer size={'large'} />
         <Button

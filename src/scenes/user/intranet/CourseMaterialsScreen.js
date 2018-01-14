@@ -1,18 +1,17 @@
 import React from 'react';
-import { Platform, StyleSheet, View, WebView } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Theme } from '../../../themes/styles';
 import { _ } from '../../../modules/i18n/Translator';
 import DimensionUtil from '../../../modules/util/DimensionUtil';
 import NavigationButton from '../../../components/ui/NavigationButton';
 import Loading from '../../../components/ui/Loading';
 import PropTypes from 'prop-types';
-import Auth from '../../../modules/session/Auth';
-import RouterUtil from '../../../modules/util/RouterUtil';
-import StatusBarView from '../../../components/ui/StatusBarView';
-import cio from 'cheerio-without-node-native';
-import RequestUtil from '../../../scraping/utils/RequestUtil';
-import ParamsUtils from '../../../scraping/utils/ParamsUtils';
-import Config from '../../../scraping/Config';
+import { TabNavigator } from 'react-navigation';
+import { tabsOptions } from '../../../routers/Tabs';
+import Log from '../../../modules/logger/Log';
+import CacheStorage from '../../../modules/storage/CacheStorage';
+import UPAO from '../../../scraping/UPAO';
+import MaterialsSectionScreen from './course/MaterialsSectionScreen';
 
 const TAG = 'CourseMaterialsScreen';
 export default class CourseMaterialsScreen extends React.Component {
@@ -47,46 +46,100 @@ export default class CourseMaterialsScreen extends React.Component {
     isLoading: true,
     isReloading: false
   };
-
   load = async () => {
-    this.setState({ isLoading: true });
+    this.setState({ isLoading: true, cacheLoaded: false });
+    await this.checkCache();
+    await this.loadRequest();
+  };
+  getCacheKey = () => {
     let { course } = this.getParams();
+    return `materials_sections_${course.id || '_'}`;
+  };
+  checkCache = async () => {
+    try {
+      let data = await CacheStorage.get(this.getCacheKey());
+      data && this.loadResponse(data, true);
+    } catch (e) {
+      Log.info(TAG, 'checkCache', e);
+    }
+  };
+  loadResponse = (data, cacheLoaded = false) => {
+    let tabs = {};
+
+    if (data) {
+      for (let item of data) {
+        if (!tabs[item.name]) {
+          tabs[item.name] = {
+            screen: ({ navigation, screenProps }) => {
+              return <MaterialsSectionScreen section={item} />;
+            },
+            navigationOptions: ({ navigation, screenProps }) => {
+              return {
+                tabBarLabel: item.name
+              };
+            }
+          };
+        }
+      }
+    }
+
+    let totalTabs = Object.keys(tabs);
+    if (totalTabs.length < 1) {
+      tabs = {
+        NO: {
+          screen: ({ navigation, screenProps }) => {
+            return <MaterialsSectionScreen section={{}} />;
+          },
+          navigationOptions: ({ navigation, screenProps }) => {
+            return {
+              tabBarLabel: _('No se encontraron datos')
+            };
+          }
+        }
+      };
+    }
+    let Tabs = TabNavigator(tabs, {
+      ...tabsOptions,
+      tabBarOptions: {
+        ...tabsOptions.tabBarOptions,
+        scrollEnabled: false
+      }
+    });
+    this.setState({
+      cacheLoaded,
+      tabs: Tabs,
+      isLoading: false
+    });
+  };
+  loadRequest = async () => {
+    let { cacheLoaded } = this.state;
 
     try {
-      let params = {
-        f: 'YAAHIST',
-        a: 'SECC_MATERIAL',
-        valor: course.code,
-        codigo: course.id
-      };
+      let { course } = this.getParams();
+      let sections = await UPAO.Student.Intranet.Course.getMaterialsSections(
+        course
+      );
 
-      console.log(params);
-      let $ = await RequestUtil.fetch('/controlador/cargador.aspx', {
-        method: 'POST',
-        body: ParamsUtils.getFormData(params)
-      });
-
-      let html = $.html();
-      console.log(html);
-      this.setState({ isLoading: false, isReloading: false, html });
+      this.loadResponse(sections);
+      CacheStorage.set(this.getCacheKey(), sections);
     } catch (e) {
-      console.log(e);
-      this.setState({ isLoading: false, isReloading: false });
+      Log.warn(TAG, 'load', e);
+      if (!cacheLoaded) {
+        this.loadResponse([]);
+      } else {
+        this.setState({ isLoading: false });
+      }
     }
+  };
+  reload = () => {
+    this.load();
   };
 
   getParams() {
     let { state } = this.props.navigation;
     return state.params || {};
   }
-  reload = () => {
-    this.onRefresh();
-  };
-  onRefresh = () => {
-    this.setState({ isRefreshing: true }, () => {
-      this.load();
-    });
-  };
+
   componentDidMount() {
     this.props.navigation.setParams({ reload: this.reload });
     this.load();
@@ -94,23 +147,13 @@ export default class CourseMaterialsScreen extends React.Component {
 
   render() {
     let paddingTop = DimensionUtil.getNavigationBarHeight();
-    let { html, isRefreshing, isLoading } = this.state;
+    let { tabs, isLoading } = this.state;
+    let Tabs = tabs;
 
     return (
       <View style={[styles.container, { paddingTop }]}>
         {isLoading && <Loading margin />}
-        {!isLoading && (
-          <WebView
-            style={[styles.container]}
-            javaScriptEnabled
-            domStorageEnabled
-            scalesPageToFit={true}
-            source={{
-              html,
-              baseUrl: Config.URL
-            }}
-          />
-        )}
+        {!isLoading && Tabs && <Tabs />}
       </View>
     );
   }
