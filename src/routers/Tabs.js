@@ -9,6 +9,7 @@ export const tabsOptions = {
   backBehavior: 'none',
   animationEnabled: true,
   swipeEnabled: true,
+  lazy: true,
   tabBarOptions: {
     upperCaseLabel: true,
     scrollEnabled: true,

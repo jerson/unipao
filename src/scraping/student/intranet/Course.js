@@ -22,7 +22,7 @@ export default class Course {
         { tag: 'Course.getExamsHTML', checkSession: true }
       );
 
-      html = $.html();
+      html = this.sanitizeHTML($.html());
     } catch (e) {
       console.log(e);
       Log.info(TAG, 'getExamsHTML', e);
@@ -49,7 +49,7 @@ export default class Course {
         { tag: 'Course.getJobsHTML', checkSession: true }
       );
 
-      html = $.html();
+      html = this.sanitizeHTML($.html());
     } catch (e) {
       console.log(e);
       Log.info(TAG, 'getJobsHTML', e);
@@ -76,13 +76,17 @@ export default class Course {
         { tag: 'Course.getAssistsHTML', checkSession: true }
       );
 
-      html = $.html();
+      html = this.sanitizeHTML($.html());
     } catch (e) {
       console.log(e);
       Log.info(TAG, 'getAssistsHTML', e);
     }
 
     return html;
+  }
+
+  static sanitizeHTML(html) {
+    return html.replace(new RegExp('\\|', 'gi'), '%257C');
   }
 
   static async getMaterialsHTML(section: any) {
@@ -103,7 +107,13 @@ export default class Course {
         { tag: 'Course.getMaterialsHTML', checkSession: true }
       );
 
-      html = $.html();
+      $('a').each((index, item) => {
+        $(item)
+          .attr('download', 'download')
+          .attr('target', '_blank');
+      });
+
+      html = this.sanitizeHTML($.html());
     } catch (e) {
       console.log(e);
       Log.info(TAG, 'getMaterialsHTML', e);
@@ -130,7 +140,7 @@ export default class Course {
         { tag: 'Course.getForumHTML', checkSession: true }
       );
 
-      html = $.html();
+      html = this.sanitizeHTML($.html());
     } catch (e) {
       console.log(e);
       Log.info(TAG, 'getForumHTML', e);

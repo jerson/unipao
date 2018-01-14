@@ -101,9 +101,9 @@ export default class MaterialsSectionScreen extends React.Component {
         {!isLoading && (
           <WebViewDownloader
             style={[styles.container]}
+            openInternally={['campusvirtual.upao.edu.pe']}
             source={{
-              html,
-              baseUrl: Config.URL
+              html
             }}
           />
         )}

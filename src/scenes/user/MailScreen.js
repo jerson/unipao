@@ -102,7 +102,7 @@ export default class MailScreen extends React.Component {
 
       if (!supported) {
         Clipboard.setString(url);
-        this.context.notification.add({
+        this.context.notification.show({
           id: 'browser',
           title: _('Error al abrir url'),
           message: _(

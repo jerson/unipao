@@ -3,6 +3,7 @@ package com.unipao.app;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.ovoenergy.customwebview.CustomWebViewPackage;
 import com.rnfs.RNFSPackage;
 import io.realm.react.RealmReactPackage;
 import cl.json.RNSharePackage;
@@ -41,6 +42,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new CustomWebViewPackage(),
             new RNFSPackage(),
             new RealmReactPackage(),
             new RNSharePackage(),

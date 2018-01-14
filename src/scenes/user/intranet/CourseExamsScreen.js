@@ -23,11 +23,7 @@ export default class CourseExamsScreen extends React.Component {
     title: _('Examenes del curso'),
     headerTitleStyle: [Theme.title, Theme.subtitle],
     headerTintColor: Theme.subTintColor,
-    headerStyle: [
-      Theme.navigationBar,
-      Theme.subNavigationBar,
-      Theme.shadowDefault
-    ],
+    headerStyle: [Theme.navigationBar, Theme.subNavigationBar],
     headerRight: (
       <View style={{ flexDirection: 'row' }}>
         <NavigationButton

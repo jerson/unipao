@@ -17,7 +17,12 @@ export default class WebViewDownloader extends React.Component {
   };
   onNavigationStateChange = navState => {
     let url = navState.url;
+    if (url.indexOf('http') !== 0) {
+      return;
+    }
     let lastPart = url.substr(url.lastIndexOf('.') + 1);
+
+    Log.warn(TAG, 'onNavigationStateChange', url);
 
     let { onNavigationStateChange } = this.props;
     if (typeof onNavigationStateChange === 'function') {
@@ -29,7 +34,6 @@ export default class WebViewDownloader extends React.Component {
       return;
     }
 
-    Log.info(TAG, url);
     switch (lastPart) {
       case 'ipa':
       case 'apk':
@@ -69,16 +73,17 @@ export default class WebViewDownloader extends React.Component {
 
       if (!supported) {
         Clipboard.setString(url);
-        this.context.notification.add({
-          id: 'browser',
-          title: _('Error al abrir url'),
-          message: _(
-            'Para continuar, Pega el enlace que ya esta en tu portapapeles a tu navegador'
-          ),
-          icon: 'file-download',
-          level: 'warning',
-          autoDismiss: 5
-        });
+        this.context.notification &&
+          this.context.notification.show({
+            id: 'browser',
+            title: _('Error al abrir url'),
+            message: _(
+              'Para continuar, Pega el enlace que ya esta en tu portapapeles a tu navegador'
+            ),
+            icon: 'file-download',
+            level: 'warning',
+            autoDismiss: 5
+          });
         return;
       }
       return Linking.openURL(url);
@@ -89,6 +94,7 @@ export default class WebViewDownloader extends React.Component {
 
   render() {
     let { onNavigationStateChange, ...props } = this.props;
+
     return (
       <WebView
         style={[styles.container]}
