@@ -8,6 +8,7 @@ import UPAO from '../../../../scraping/UPAO';
 import Loading from '../../../../components/ui/Loading';
 import Config from '../../../../scraping/Config';
 import NavigationButton from '../../../../components/ui/NavigationButton';
+import WebViewDownloader from '../../../../components/ui/WebViewDownloader';
 
 const TAG = 'JobsSectionScreen';
 export default class JobsSectionScreen extends React.Component {
@@ -98,11 +99,8 @@ export default class JobsSectionScreen extends React.Component {
       <View style={[styles.container]}>
         {isLoading && <Loading margin />}
         {!isLoading && (
-          <WebView
+          <WebViewDownloader
             style={[styles.container]}
-            javaScriptEnabled
-            domStorageEnabled
-            scalesPageToFit={true}
             source={{
               html,
               baseUrl: Config.URL

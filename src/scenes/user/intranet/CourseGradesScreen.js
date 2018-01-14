@@ -12,6 +12,7 @@ import Log from '../../../modules/logger/Log';
 import CacheStorage from '../../../modules/storage/CacheStorage';
 import { TabNavigator } from 'react-navigation';
 import { tabsOptions } from '../../../routers/Tabs';
+import WebViewDownloader from '../../../components/ui/WebViewDownloader';
 
 const TAG = 'CourseGradesScreen';
 export default class CourseGradesScreen extends React.Component {
@@ -116,11 +117,8 @@ export default class CourseGradesScreen extends React.Component {
       <View style={[styles.container, { paddingTop }]}>
         {isLoading && <Loading margin />}
         {!isLoading && (
-          <WebView
+          <WebViewDownloader
             style={[styles.container]}
-            javaScriptEnabled
-            domStorageEnabled
-            scalesPageToFit={true}
             source={{
               html,
               baseUrl: Config.URL

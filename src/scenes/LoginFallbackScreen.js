@@ -149,8 +149,8 @@ document.getElementsByTagName('head')[0].appendChild(metaTag);`;
       <View style={{ flex: 1 }}>
         <WebView
           style={[styles.container]}
-          javaScriptEnabled={true}
-          domStorageEnabled={true}
+          javaScriptEnabled
+          domStorageEnabled
           javaScriptEnabledAndroid
           injectedJavaScript={script + (Platform.OS === 'ios' ? scriptIOS : '')}
           onNavigationStateChange={this.onNavigationStateChange}

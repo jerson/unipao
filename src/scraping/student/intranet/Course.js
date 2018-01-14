@@ -158,9 +158,10 @@ export default class Course {
         { tag: 'Course.getGradesHTML', checkSession: true }
       );
 
-      html = `<table>${$('table')
+      let table = $('table')
         .first()
-        .html()}</table>`;
+        .html();
+      html = table ? `<table>${table}</table>` : '';
     } catch (e) {
       console.log(e);
       Log.info(TAG, 'getGradesHTML', e);
