@@ -112,14 +112,12 @@ export default class NewsListScreen extends React.Component {
       this.load();
     });
   };
-
   loadNext = () => {
     let page = this.state.page + 1;
     this.setState({ isLoadingMore: true, page }, () => {
       this.load();
     });
   };
-
   onEndReached = () => {
     let { isLoadingMore, canLoadMore, isLoading } = this.state;
     if (!canLoadMore || isLoadingMore || isLoading) {
@@ -127,6 +125,10 @@ export default class NewsListScreen extends React.Component {
     }
     this.loadNext();
   };
+
+  componentWillUnmount() {
+    UPAO.abort('News.getList');
+  }
 
   componentDidMount() {
     this.load();

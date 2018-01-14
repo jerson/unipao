@@ -84,6 +84,10 @@ export default class AssistsSectionScreen extends React.Component {
     }
   };
 
+  componentWillUnmount() {
+    UPAO.abort('Course.getAssistsHTML');
+  }
+
   componentDidMount() {
     this.load();
   }

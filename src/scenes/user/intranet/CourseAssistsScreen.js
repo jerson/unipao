@@ -135,6 +135,10 @@ export default class CourseAssistsScreen extends React.Component {
     this.load();
   };
 
+  componentWillUnmount() {
+    UPAO.abort('Course.getAssistsSections');
+  }
+
   getParams() {
     let { state } = this.props.navigation;
     return state.params || {};

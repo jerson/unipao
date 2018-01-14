@@ -84,6 +84,10 @@ export default class MaterialsSectionScreen extends React.Component {
     }
   };
 
+  componentWillUnmount() {
+    UPAO.abort('Course.getMaterialsHTML');
+  }
+
   componentDidMount() {
     this.load();
   }

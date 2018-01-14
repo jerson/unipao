@@ -97,7 +97,6 @@ export default class LevelScreen extends React.Component {
       }
     }
   };
-
   reload = () => {
     this.onRefresh();
   };
@@ -109,6 +108,10 @@ export default class LevelScreen extends React.Component {
       this.load();
     });
   };
+
+  componentWillUnmount() {
+    UPAO.abort('Course.getHistoryCourses');
+  }
 
   componentDidMount() {
     this.load();

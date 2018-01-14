@@ -90,6 +90,10 @@ export default class CourseSyllableScreen extends React.Component {
     });
   };
 
+  componentWillUnmount() {
+    UPAO.abort('Course.getSyllables');
+  }
+
   getParams() {
     let { state } = this.props.navigation;
     return state.params || {};

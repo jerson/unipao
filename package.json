@@ -52,6 +52,7 @@
         "pubsub-js": "^1.5.7",
         "react": "16.2.0",
         "react-native": "^0.51.0",
+        "react-native-cancelable-fetch": "^0.1.1",
         "react-native-code-push": "^5.2.1",
         "react-native-device-info": "^0.13.0",
         "react-native-fence-html": "^1.0.6",

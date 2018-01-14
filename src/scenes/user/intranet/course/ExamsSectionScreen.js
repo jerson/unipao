@@ -88,6 +88,10 @@ export default class ExamsSectionScreen extends React.Component {
     this.load();
   }
 
+  componentWillUnmount() {
+    UPAO.abort('Course.getExamsHTML');
+  }
+
   render() {
     let { html, isRefreshing, isLoading } = this.state;
     return (

@@ -4859,6 +4859,10 @@ react-native-animatable@^1.2.3:
   dependencies:
     prop-types "^15.5.10"
 
+react-native-cancelable-fetch@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-cancelable-fetch/-/react-native-cancelable-fetch-0.1.1.tgz#aab030b44b426f19d558cebe1cd910397572380d"
+
 react-native-code-push@^5.2.1:
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/react-native-code-push/-/react-native-code-push-5.2.1.tgz#b96cabf4be74e0caac8d55d1126aa48dba695490"

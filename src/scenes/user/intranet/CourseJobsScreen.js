@@ -133,6 +133,10 @@ export default class CourseJobsScreen extends React.Component {
     this.load();
   };
 
+  componentWillUnmount() {
+    UPAO.abort('Course.getJobsSections');
+  }
+
   getParams() {
     let { state } = this.props.navigation;
     return state.params || {};

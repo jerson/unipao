@@ -135,6 +135,10 @@ export default class CourseForumScreen extends React.Component {
     this.load();
   };
 
+  componentWillUnmount() {
+    UPAO.abort('Course.getForumSections');
+  }
+
   getParams() {
     let { state } = this.props.navigation;
     return state.params || {};

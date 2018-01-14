@@ -9,7 +9,7 @@ export default class Agenda {
       let $ = await RequestUtil.fetch(
         'http://www.upao.edu.pe/actualidad/?mod=mod_act&s=age&Page=' + page,
         {},
-        false
+        { tag: 'Agenda.getList', checkSession: false }
       );
 
       let $container = $('#ctl00_ContentPlaceHolder1_ctl00_ctl00_cont');

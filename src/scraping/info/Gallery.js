@@ -10,7 +10,7 @@ export default class Gallery {
       let $ = await RequestUtil.fetch(
         'http://www.upao.edu.pe/actualidad/?mod=mod_act&s=ima&Page=' + page,
         {},
-        false
+        { tag: 'Gallery.getList', checkSession: false }
       );
 
       let $container = $(
@@ -48,7 +48,7 @@ export default class Gallery {
       let $ = await RequestUtil.fetch(
         'http://www.upao.edu.pe/actualidad/' + id,
         {},
-        false
+        { tag: 'Agenda.get', checkSession: false }
       );
       let title = $('.menu_cen div > b > span')
         .text()

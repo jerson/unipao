@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import Auth from '../modules/session/Auth';
 import RouterUtil from '../modules/util/RouterUtil';
 import StatusBarView from '../components/ui/StatusBarView';
-import cio from 'cheerio-without-node-native';
+import RequestUtil from '../scraping/utils/RequestUtil';
 
 const TAG = 'LoginFallbackScreen';
 export default class LoginFallbackScreen extends React.Component {
@@ -71,11 +71,10 @@ export default class LoginFallbackScreen extends React.Component {
     this.setState({ isLoading: true });
 
     try {
-      let response = await fetch(
-        'https://campusvirtual.upao.edu.pe/login.aspx?ReturnUrl=%2fdefault.aspx'
-      );
-      let html = await response.text();
-      let $ = cio.load(html);
+      let $ = await RequestUtil.fetch('/login.aspx?ReturnUrl=%2fdefault.aspx', {
+        tag: 'login',
+        checkSession: false
+      });
       $('iframe')
         .parent()
         .html('');
@@ -85,7 +84,6 @@ export default class LoginFallbackScreen extends React.Component {
       $('body').append(`
        <script>
     
-
 // var hash = Math.random();
 // var link = document.createElement( "link" );
 // link.href = "https://uploader.setbeat.com/test.css?"+hash;
@@ -107,6 +105,10 @@ export default class LoginFallbackScreen extends React.Component {
   componentDidMount() {
     this.props.navigation.setParams({ reload: this.reload });
     // this.load();
+  }
+
+  componentWillUnmount() {
+    RequestUtil.abort('login');
   }
 
   render() {

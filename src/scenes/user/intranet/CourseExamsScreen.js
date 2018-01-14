@@ -135,6 +135,10 @@ export default class CourseExamsScreen extends React.Component {
     this.load();
   };
 
+  componentWillUnmount() {
+    UPAO.abort('Course.getExamsSections');
+  }
+
   getParams() {
     let { state } = this.props.navigation;
     return state.params || {};

@@ -135,6 +135,10 @@ export default class CourseMaterialsScreen extends React.Component {
     this.load();
   };
 
+  componentWillUnmount() {
+    UPAO.abort('Course.getMaterialsSections');
+  }
+
   getParams() {
     let { state } = this.props.navigation;
     return state.params || {};

@@ -48,6 +48,7 @@ export default class LoginScreen extends React.Component {
     SingleStorage.remove('password');
     SingleStorage.remove('remember');
   };
+
   login = async () => {
     let username = this.refs.username.getValue();
     let password = this.refs.password.getValue();
@@ -147,6 +148,7 @@ export default class LoginScreen extends React.Component {
   componentWillUnmount() {
     Emitter.off(this.onSuccessLogin);
     Dimensions.removeEventListener('change', this.onDimensionsChange);
+    UPAO.abort('login');
   }
 
   render() {

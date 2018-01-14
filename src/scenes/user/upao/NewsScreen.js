@@ -85,6 +85,10 @@ export default class NewsListScreen extends React.Component {
     }
   };
 
+  componentWillUnmount() {
+    UPAO.abort('News.get');
+  }
+
   getParams() {
     let { state } = this.props.navigation;
     return state.params || {};

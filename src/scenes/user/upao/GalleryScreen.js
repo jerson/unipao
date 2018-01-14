@@ -88,6 +88,10 @@ export default class GalleryScreen extends React.Component {
     this.setState({ showGalleryModal: false });
   };
 
+  componentWillUnmount() {
+    UPAO.abort('Gallery.get');
+  }
+
   getParams() {
     let { state } = this.props.navigation;
     return state.params || {};

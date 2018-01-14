@@ -13,10 +13,14 @@ export default class Course {
         valor: section.code
       };
 
-      let $ = await RequestUtil.fetch('/controlador/cargador.aspx', {
-        method: 'POST',
-        body: ParamsUtils.getFormData(params)
-      });
+      let $ = await RequestUtil.fetch(
+        '/controlador/cargador.aspx',
+        {
+          method: 'POST',
+          body: ParamsUtils.getFormData(params)
+        },
+        { tag: 'Course.getExamsHTML', checkSession: true }
+      );
 
       html = $.html();
     } catch (e) {
@@ -36,10 +40,14 @@ export default class Course {
         valor: section.code
       };
 
-      let $ = await RequestUtil.fetch('/controlador/cargador.aspx', {
-        method: 'POST',
-        body: ParamsUtils.getFormData(params)
-      });
+      let $ = await RequestUtil.fetch(
+        '/controlador/cargador.aspx',
+        {
+          method: 'POST',
+          body: ParamsUtils.getFormData(params)
+        },
+        { tag: 'Course.getJobsHTML', checkSession: true }
+      );
 
       html = $.html();
     } catch (e) {
@@ -59,10 +67,14 @@ export default class Course {
         valor: section.code
       };
 
-      let $ = await RequestUtil.fetch('/controlador/cargador.aspx', {
-        method: 'POST',
-        body: ParamsUtils.getFormData(params)
-      });
+      let $ = await RequestUtil.fetch(
+        '/controlador/cargador.aspx',
+        {
+          method: 'POST',
+          body: ParamsUtils.getFormData(params)
+        },
+        { tag: 'Course.getAssistsHTML', checkSession: true }
+      );
 
       html = $.html();
     } catch (e) {
@@ -82,10 +94,14 @@ export default class Course {
         valor: section.code
       };
 
-      let $ = await RequestUtil.fetch('/controlador/cargador.aspx', {
-        method: 'POST',
-        body: ParamsUtils.getFormData(params)
-      });
+      let $ = await RequestUtil.fetch(
+        '/controlador/cargador.aspx',
+        {
+          method: 'POST',
+          body: ParamsUtils.getFormData(params)
+        },
+        { tag: 'Course.getMaterialsHTML', checkSession: true }
+      );
 
       html = $.html();
     } catch (e) {
@@ -105,10 +121,14 @@ export default class Course {
         valor: section.code
       };
 
-      let $ = await RequestUtil.fetch('/controlador/cargador.aspx', {
-        method: 'POST',
-        body: ParamsUtils.getFormData(params)
-      });
+      let $ = await RequestUtil.fetch(
+        '/controlador/cargador.aspx',
+        {
+          method: 'POST',
+          body: ParamsUtils.getFormData(params)
+        },
+        { tag: 'Course.getForumHTML', checkSession: true }
+      );
 
       html = $.html();
     } catch (e) {
@@ -129,12 +149,18 @@ export default class Course {
         codigo: course.id
       };
 
-      let $ = await RequestUtil.fetch('/controlador/cargador.aspx', {
-        method: 'POST',
-        body: ParamsUtils.getFormData(params)
-      });
+      let $ = await RequestUtil.fetch(
+        '/controlador/cargador.aspx',
+        {
+          method: 'POST',
+          body: ParamsUtils.getFormData(params)
+        },
+        { tag: 'Course.getGradesHTML', checkSession: true }
+      );
 
-      html = $.html();
+      html = `<table>${$('table')
+        .first()
+        .html()}</table>`;
     } catch (e) {
       console.log(e);
       Log.info(TAG, 'getGradesHTML', e);
@@ -153,10 +179,14 @@ export default class Course {
         codigo: course.id
       };
 
-      let $ = await RequestUtil.fetch('/controlador/cargador.aspx', {
-        method: 'POST',
-        body: ParamsUtils.getFormData(params)
-      });
+      let $ = await RequestUtil.fetch(
+        '/controlador/cargador.aspx',
+        {
+          method: 'POST',
+          body: ParamsUtils.getFormData(params)
+        },
+        { tag: 'Course.getSyllables', checkSession: true }
+      );
 
       $('table a').each((index, value) => {
         let url = $(value).attr('href') || '';
@@ -192,10 +222,14 @@ export default class Course {
         codigo: course.id
       };
 
-      let $ = await RequestUtil.fetch('/controlador/cargador.aspx', {
-        method: 'POST',
-        body: ParamsUtils.getFormData(params)
-      });
+      let $ = await RequestUtil.fetch(
+        '/controlador/cargador.aspx',
+        {
+          method: 'POST',
+          body: ParamsUtils.getFormData(params)
+        },
+        { tag: 'Course.getMaterialsSections', checkSession: true }
+      );
 
       items = this.parseSections($);
     } catch (e) {
@@ -216,10 +250,14 @@ export default class Course {
         codigo: course.id
       };
 
-      let $ = await RequestUtil.fetch('/controlador/cargador.aspx', {
-        method: 'POST',
-        body: ParamsUtils.getFormData(params)
-      });
+      let $ = await RequestUtil.fetch(
+        '/controlador/cargador.aspx',
+        {
+          method: 'POST',
+          body: ParamsUtils.getFormData(params)
+        },
+        { tag: 'Course.getAssistsSections', checkSession: true }
+      );
 
       items = this.parseSections($);
     } catch (e) {
@@ -240,10 +278,14 @@ export default class Course {
         codigo: course.id
       };
 
-      let $ = await RequestUtil.fetch('/controlador/cargador.aspx', {
-        method: 'POST',
-        body: ParamsUtils.getFormData(params)
-      });
+      let $ = await RequestUtil.fetch(
+        '/controlador/cargador.aspx',
+        {
+          method: 'POST',
+          body: ParamsUtils.getFormData(params)
+        },
+        { tag: 'Course.getForumSections', checkSession: true }
+      );
 
       items = this.parseSections($);
     } catch (e) {
@@ -264,10 +306,14 @@ export default class Course {
         codigo: course.id
       };
 
-      let $ = await RequestUtil.fetch('/controlador/cargador.aspx', {
-        method: 'POST',
-        body: ParamsUtils.getFormData(params)
-      });
+      let $ = await RequestUtil.fetch(
+        '/controlador/cargador.aspx',
+        {
+          method: 'POST',
+          body: ParamsUtils.getFormData(params)
+        },
+        { tag: 'Course.getJobsSections', checkSession: true }
+      );
 
       items = this.parseSections($);
     } catch (e) {
@@ -288,10 +334,14 @@ export default class Course {
         codigo: course.id
       };
 
-      let $ = await RequestUtil.fetch('/controlador/cargador.aspx', {
-        method: 'POST',
-        body: ParamsUtils.getFormData(params)
-      });
+      let $ = await RequestUtil.fetch(
+        '/controlador/cargador.aspx',
+        {
+          method: 'POST',
+          body: ParamsUtils.getFormData(params)
+        },
+        { tag: 'Course.getExamsSections', checkSession: true }
+      );
 
       items = this.parseSections($);
     } catch (e) {

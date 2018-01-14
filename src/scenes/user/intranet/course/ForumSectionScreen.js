@@ -84,6 +84,10 @@ export default class ForumSectionScreen extends React.Component {
     }
   };
 
+  componentWillUnmount() {
+    UPAO.abort('Course.getForumHTML');
+  }
+
   componentDidMount() {
     this.load();
   }

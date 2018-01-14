@@ -14,7 +14,11 @@ export default class Profile {
 
   static async me() {
     try {
-      let $ = await RequestUtil.fetch(`/?f=yggpers`);
+      let $ = await RequestUtil.fetch(
+        `/?f=yggpers`,
+        {},
+        { tag: 'Profile.getPublic', checkSession: true }
+      );
 
       let $user = $('#ctl00_lbl_usua');
       if (!$user.length) {

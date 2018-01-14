@@ -84,6 +84,10 @@ export default class JobsSectionScreen extends React.Component {
     }
   };
 
+  componentWillUnmount() {
+    UPAO.abort('Course.getJobsHTML');
+  }
+
   componentDidMount() {
     this.load();
   }

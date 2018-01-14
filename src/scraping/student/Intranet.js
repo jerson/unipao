@@ -26,7 +26,11 @@ export default class Intranet {
     let periods = [];
     let $;
     try {
-      $ = await RequestUtil.fetch('/aulavirtual.aspx?f=YAAHIST&r=A');
+      $ = await RequestUtil.fetch(
+        '/aulavirtual.aspx?f=YAAHIST&r=A',
+        {},
+        { tag: 'Intranet.getHistoryCourses', checkSession: true }
+      );
     } catch (e) {
       Log.info(TAG, 'getHistoryCourses', e);
       return periods;
@@ -69,10 +73,14 @@ export default class Intranet {
     };
 
     try {
-      let $ = await RequestUtil.fetch('/controlador/cargador.aspx', {
-        method: 'POST',
-        body: ParamsUtils.getFormData(params)
-      });
+      let $ = await RequestUtil.fetch(
+        '/controlador/cargador.aspx',
+        {
+          method: 'POST',
+          body: ParamsUtils.getFormData(params)
+        },
+        { tag: 'Intranet.getHistoryCourses', checkSession: true }
+      );
       let $content = $('#lst_historial_inig');
       $(' > table > tr:nth-of-type(n+2) > td:nth-child(2)', $content).each(
         (index, value) => {

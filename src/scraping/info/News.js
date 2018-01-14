@@ -10,7 +10,8 @@ export default class News {
       let $ = await RequestUtil.fetch(
         'http://www.upao.edu.pe/actualidad/?mod=mod_act&s=not&Page=' + page,
         {},
-        false
+
+        { tag: 'News.getList', checkSession: false }
       );
 
       let $container = $('.centro1');
@@ -51,7 +52,7 @@ export default class News {
       let $ = await RequestUtil.fetch(
         'http://www.upao.edu.pe/actualidad/' + id,
         {},
-        false
+        { tag: 'News.get', checkSession: false }
       );
 
       let title = $(

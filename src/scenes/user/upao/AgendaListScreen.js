@@ -105,7 +105,6 @@ export default class AgendaListScreen extends React.Component {
       }
     }
   };
-
   isToday = item => {
     let { month, year } = this.state;
     let day = parseInt(item.dayOfMonth, 10);
@@ -121,6 +120,10 @@ export default class AgendaListScreen extends React.Component {
       this.load();
     });
   };
+
+  componentWillUnmount() {
+    UPAO.abort('Agenda.getList');
+  }
 
   componentDidMount() {
     this.load();
