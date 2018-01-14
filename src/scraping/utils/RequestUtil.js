@@ -28,10 +28,16 @@ export default class RequestUtil {
     }
     let $ = cio.load(html);
 
-    if (options.checkSession && $('input[name*=txt_nip]').length) {
-      Log.warn(TAG, 'fetch', 'sesion desconectada', url);
-      Emitter.emit('onForceLogout', true);
-      throw new Error('Session desconectada');
+    if (options.checkSession) {
+      let loginMessage = ($('a[href="login.aspx"]').text() || '').trim();
+      if ($('input[name*=txt_nip]').length) {
+        Log.warn(TAG, 'fetch', 'sesion desconectada', url);
+        Emitter.emit('onForceLogout', true);
+        throw new Error('Session desconectada');
+      } else if (loginMessage === 'aquí') {
+        Emitter.emit('onForceLogout', true);
+        throw new Error('Session desconectada modal');
+      }
     }
 
     return $;
