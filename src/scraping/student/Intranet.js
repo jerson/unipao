@@ -22,7 +22,6 @@ export default class Intranet {
   static async getPeriods() {}
 
   static async getHistoryCourses(level: string) {
-    let params = {};
     let periods = [];
     let $;
     try {
@@ -33,7 +32,7 @@ export default class Intranet {
       );
     } catch (e) {
       Log.info(TAG, 'getHistoryCourses', e);
-      return periods;
+      throw e;
     }
 
     let $content = $(
@@ -66,7 +65,7 @@ export default class Intranet {
           .replace("');", '');
         break;
     }
-    params = {
+    let params = {
       f: 'YAAHIST',
       a: 'INI_HISTORIAL',
       codigo_uno: code
@@ -163,6 +162,7 @@ export default class Intranet {
       );
     } catch (e) {
       Log.info(TAG, 'getHistoryCourses', e);
+      throw e;
     }
     return periods;
   }

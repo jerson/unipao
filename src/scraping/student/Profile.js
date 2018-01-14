@@ -13,6 +13,7 @@ export default class Profile {
   static async getPublic(id: string) {}
 
   static async me() {
+    let item = null;
     try {
       let $ = await RequestUtil.fetch(
         `/?f=yggpers`,
@@ -71,7 +72,7 @@ export default class Profile {
         .replace(/\s+/g, ' ')
         .trim();
       let id = $('#ctl00_hdid').attr('value');
-      return {
+      item = {
         id,
         name,
         document,
@@ -84,7 +85,8 @@ export default class Profile {
       };
     } catch (e) {
       Log.info(TAG, 'me', e);
+      throw e;
     }
-    return null;
+    return item;
   }
 }

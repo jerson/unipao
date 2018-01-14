@@ -24,8 +24,8 @@ export default class Course {
 
       html = this.sanitizeHTML($.html());
     } catch (e) {
-      console.log(e);
-      Log.info(TAG, 'getExamsHTML', e);
+      Log.warn(TAG, 'getExamsHTML', e);
+      throw e;
     }
 
     return html;
@@ -51,8 +51,8 @@ export default class Course {
 
       html = this.sanitizeHTML($.html());
     } catch (e) {
-      console.log(e);
       Log.info(TAG, 'getJobsHTML', e);
+      throw e;
     }
 
     return html;
@@ -78,8 +78,8 @@ export default class Course {
 
       html = this.sanitizeHTML($.html());
     } catch (e) {
-      console.log(e);
       Log.info(TAG, 'getAssistsHTML', e);
+      throw e;
     }
 
     return html;
@@ -115,8 +115,8 @@ export default class Course {
 
       html = this.sanitizeHTML($.html());
     } catch (e) {
-      console.log(e);
       Log.info(TAG, 'getMaterialsHTML', e);
+      throw e;
     }
 
     return html;
@@ -142,8 +142,8 @@ export default class Course {
 
       html = this.sanitizeHTML($.html());
     } catch (e) {
-      console.log(e);
       Log.info(TAG, 'getForumHTML', e);
+      throw e;
     }
 
     return html;
@@ -173,8 +173,8 @@ export default class Course {
         .html();
       html = table ? `<table>${table}</table>` : '';
     } catch (e) {
-      console.log(e);
       Log.info(TAG, 'getGradesHTML', e);
+      throw e;
     }
 
     return html;
@@ -216,8 +216,8 @@ export default class Course {
         });
       });
     } catch (e) {
-      console.log(e);
       Log.info(TAG, 'getSyllables', e);
+      throw e;
     }
 
     return items;
@@ -244,8 +244,8 @@ export default class Course {
 
       items = this.parseSections($);
     } catch (e) {
-      console.log(e);
       Log.info(TAG, 'getMaterialsSections', e);
+      throw e;
     }
 
     return items;
@@ -272,8 +272,8 @@ export default class Course {
 
       items = this.parseSections($);
     } catch (e) {
-      console.log(e);
       Log.info(TAG, 'getAssistsSections', e);
+      throw e;
     }
 
     return items;
@@ -300,8 +300,8 @@ export default class Course {
 
       items = this.parseSections($);
     } catch (e) {
-      console.log(e);
       Log.info(TAG, 'getForumSections', e);
+      throw e;
     }
 
     return items;
@@ -328,8 +328,8 @@ export default class Course {
 
       items = this.parseSections($);
     } catch (e) {
-      console.log(e);
       Log.info(TAG, 'getJobsSections', e);
+      throw e;
     }
 
     return items;
@@ -356,8 +356,8 @@ export default class Course {
 
       items = this.parseSections($);
     } catch (e) {
-      console.log(e);
       Log.info(TAG, 'getExamsSections', e);
+      throw e;
     }
 
     return items;

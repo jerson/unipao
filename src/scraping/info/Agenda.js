@@ -37,8 +37,8 @@ export default class Agenda {
       });
     } catch (e) {
       Log.info(TAG, 'getList', e);
+      throw e;
     }
-
     return items;
   }
 }

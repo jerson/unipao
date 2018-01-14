@@ -88,7 +88,11 @@ export default class Auth {
 
   static async logout(): Promise<boolean> {
     Log.info('[AUTH]', 'logout');
-    await UPAO.logout();
+    try {
+      await UPAO.logout();
+    } catch (e) {
+      Log.warn('[AUTH]', 'logout', e);
+    }
     this.user = null;
     Emitter.emit('onNoLogin', true);
     return SingleStorage.remove('user');

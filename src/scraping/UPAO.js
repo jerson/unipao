@@ -26,12 +26,19 @@ export default class UPAO {
   };
 
   static async login(username: string, password: string): boolean {
+    let ok = false;
     let params = {};
-    await RequestUtil.fetch(
-      `/cerrar_sesion.aspx`,
-      {},
-      { tag: 'login', checkSession: false }
-    );
+
+    try {
+      await RequestUtil.fetch(
+        `/cerrar_sesion.aspx`,
+        {},
+        { tag: 'login', checkSession: false }
+      );
+    } catch (e) {
+      Log.info(TAG, 'login', e);
+    }
+
     try {
       let $ = await RequestUtil.fetch(
         '/login.aspx?ReturnUrl=%2fdefault.aspx',
@@ -41,6 +48,7 @@ export default class UPAO {
       params = ParamsUtils.getFormParams($);
     } catch (e) {
       Log.info(TAG, 'login', e);
+      throw e;
     }
 
     delete params.btn_valida;
@@ -69,10 +77,11 @@ export default class UPAO {
       let labelError = $('#lbl_error').text();
       if (labelError) {
         Log.info(TAG, labelError);
-        return false;
+        return ok;
       }
     } catch (e) {
       Log.info(TAG, 'login', e);
+      throw e;
     }
     try {
       let $ = await RequestUtil.fetch(
@@ -80,26 +89,29 @@ export default class UPAO {
         {},
         { tag: 'login', checkSession: false }
       );
-      return $('#ctl00_csesion').length;
+      ok = $('#ctl00_csesion').length;
     } catch (e) {
       Log.info(TAG, 'login', e);
+      throw e;
     }
-    return false;
+    return ok;
   }
 
   static async logout(): boolean {
+    let ok = false;
     try {
       await RequestUtil.fetch(
         `/cerrar_sesion.aspx`,
         {},
         { tag: 'logout', checkSession: false }
       );
-      return true;
+      ok = true;
     } catch (e) {
       Log.info(TAG, 'logout', e);
+      throw e;
     }
 
-    return false;
+    return ok;
   }
 
   static abort(tag): boolean {

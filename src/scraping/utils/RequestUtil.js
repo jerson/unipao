@@ -31,6 +31,7 @@ export default class RequestUtil {
     if (options.checkSession && $('input[name*=txt_nip]').length) {
       Log.warn(TAG, 'fetch', 'sesion desconectada', url);
       Emitter.emit('onForceLogout', true);
+      throw new Error('Session desconectada');
     }
 
     return $;

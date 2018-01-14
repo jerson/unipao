@@ -38,12 +38,14 @@ export default class Gallery {
       });
     } catch (e) {
       Log.info(TAG, 'getList', e);
+      throw e;
     }
 
     return items;
   }
 
   static async get(id: string) {
+    let item = null;
     try {
       let $ = await RequestUtil.fetch(
         'http://www.upao.edu.pe/actualidad/' + id,
@@ -81,15 +83,16 @@ export default class Gallery {
         images.push(image);
       });
 
-      return {
+      item = {
         id,
         title,
         images
       };
     } catch (e) {
       Log.info(TAG, 'get', e);
+      throw e;
     }
 
-    return null;
+    return item;
   }
 }
