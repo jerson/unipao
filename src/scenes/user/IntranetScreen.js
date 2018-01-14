@@ -29,12 +29,15 @@ export default class IntranetScreen extends React.Component {
 
   render() {
     let { isLoading } = this.state;
+    let { navigation } = this.props;
     let paddingTop = DimensionUtil.getNavigationBarHeight();
     return (
       <View style={[styles.container, { paddingTop }]}>
         {/*<Background/>*/}
         {isLoading && <Loading margin />}
-        {!isLoading && <LevelsTab />}
+        {!isLoading && (
+          <LevelsTab screenProps={{ topNavigation: navigation }} />
+        )}
       </View>
     );
   }
@@ -44,7 +47,9 @@ const LevelsTab = TabNavigator(
   {
     UG: {
       screen: ({ navigation, screenProps }) => {
-        return <LevelScreen level={'UG'} />;
+        return (
+          <LevelScreen level={'UG'} navigation={screenProps.topNavigation} />
+        );
       },
       navigationOptions: ({ navigation, screenProps }) => {
         return {
@@ -54,7 +59,9 @@ const LevelsTab = TabNavigator(
     },
     GR: {
       screen: ({ navigation, screenProps }) => {
-        return <LevelScreen level={'GR'} />;
+        return (
+          <LevelScreen level={'GR'} navigation={screenProps.topNavigation} />
+        );
       },
       navigationOptions: ({ navigation, screenProps }) => {
         return {
@@ -64,7 +71,9 @@ const LevelsTab = TabNavigator(
     },
     UT: {
       screen: ({ navigation, screenProps }) => {
-        return <LevelScreen level={'UT'} />;
+        return (
+          <LevelScreen level={'UT'} navigation={screenProps.topNavigation} />
+        );
       },
       navigationOptions: ({ navigation, screenProps }) => {
         return {
@@ -74,7 +83,9 @@ const LevelsTab = TabNavigator(
     },
     UB: {
       screen: ({ navigation, screenProps }) => {
-        return <LevelScreen level={'UB'} />;
+        return (
+          <LevelScreen level={'UB'} navigation={screenProps.topNavigation} />
+        );
       },
       navigationOptions: ({ navigation, screenProps }) => {
         return {

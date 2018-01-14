@@ -32,10 +32,12 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     backgroundColor: '#0d61ac',
-    padding: 5
+    padding: 8
   },
   title: {
-    color: 'rgba(255,255,255,0.8)'
+    color: 'rgba(255,255,255,0.8)',
+    // fontWeight:'bold',
+    fontSize: 16
   },
   primary: {
     flex: 1,

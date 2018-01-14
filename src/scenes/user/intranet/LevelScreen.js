@@ -25,7 +25,7 @@ export default class LevelScreen extends React.Component {
   };
 
   renderItem = ({ item, index }) => {
-    return <CourseItem course={item} />;
+    return <CourseItem course={item} navigation={this.props.navigation} />;
   };
   renderHeader = ({ section }) => {
     return <PeriodHeader courses={section.data} title={section.title} />;
@@ -125,7 +125,7 @@ export default class LevelScreen extends React.Component {
           sections.length < 1 && (
             <AlertMessage
               type={'warning'}
-              title={_('No se econtró registro de asistencias')}
+              title={_('No se encontraron datos')}
             />
           )}
         {isLoading && <Loading margin />}

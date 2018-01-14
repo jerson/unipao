@@ -4,19 +4,16 @@ import PropTypes from 'prop-types';
 import Touchable from '../ui/Touchable';
 import { _ } from '../../modules/i18n/Translator';
 
-const TAG = 'CourseItem';
-export default class CourseItem extends React.Component {
+const TAG = 'CourseHeader';
+export default class CourseHeader extends React.Component {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
+    navigation: PropTypes.object.isRequired
   };
 
   state = {};
 
-  onPress = () => {
-    let { course } = this.props;
-    console.log(this.props);
-    this.props.navigation.navigate('Course', { course });
-  };
+  onPress = () => {};
 
   render() {
     let { course } = this.props;

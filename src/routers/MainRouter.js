@@ -24,6 +24,14 @@ import { tabsOptionsMain, tabsOptionsSub } from './Tabs';
 import GalleriesScreen from '../scenes/user/upao/GalleriesScreen';
 import GalleryScreen from '../scenes/user/upao/GalleryScreen';
 import LoginFallbackScreen from '../scenes/LoginFallbackScreen';
+import CourseScreen from '../scenes/user/intranet/CourseScreen';
+import CourseMaterialsScreen from '../scenes/user/intranet/CourseMaterialsScreen';
+import CourseSyllableScreen from '../scenes/user/intranet/CourseSyllableScreen';
+import CourseAssistsScreen from '../scenes/user/intranet/CourseAssistsScreen';
+import CourseGradesScreen from '../scenes/user/intranet/CourseGradesScreen';
+import CourseForumScreen from '../scenes/user/intranet/CourseForumScreen';
+import CourseExamsScreen from '../scenes/user/intranet/CourseExamsScreen';
+import CourseJobsScreen from '../scenes/user/intranet/CourseJobsScreen';
 
 const NewsNavigator = StackNavigator(
   {
@@ -159,6 +167,30 @@ const IntranetNavigator = StackNavigator(
     Home: {
       screen: IntranetScreen
     },
+    Course: {
+      screen: CourseScreen
+    },
+    CourseMaterials: {
+      screen: CourseMaterialsScreen
+    },
+    CourseSyllable: {
+      screen: CourseSyllableScreen
+    },
+    CourseAssists: {
+      screen: CourseAssistsScreen
+    },
+    CourseGrades: {
+      screen: CourseGradesScreen
+    },
+    CourseForum: {
+      screen: CourseForumScreen
+    },
+    CourseJobs: {
+      screen: CourseJobsScreen
+    },
+    CourseExams: {
+      screen: CourseExamsScreen
+    },
     Schedule: {
       screen: ScheduleScreen
     },
@@ -178,7 +210,7 @@ const IntranetNavigator = StackNavigator(
   {
     headerMode: 'float',
     cardStyle: {
-      backgroundColor: '#0d61ac',
+      backgroundColor: '#fff',
       top: DimensionUtil.getNavigationBarHeight() * -1
     }
   }

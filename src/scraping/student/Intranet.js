@@ -104,6 +104,17 @@ export default class Intranet {
             if (!level) {
               return;
             }
+
+            let name = $(
+              'div:nth-child(1) > table > tr > td:nth-child(2) > span:nth-child(3)',
+              value
+            )
+              .text()
+              .trim();
+            if (!name) {
+              return;
+            }
+
             let image = $(
               'div:nth-child(1) > table > tr > td:nth-child(2) > img',
               value
@@ -114,17 +125,24 @@ export default class Intranet {
             )
               .text()
               .trim();
-            let name = $(
-              'div:nth-child(1) > table > tr > td:nth-child(2) > span:nth-child(3)',
-              value
-            )
-              .text()
+
+            let $first = $('.yaahist_btn_colora', value).first();
+
+            let codeString = $first ? $first.attr('onclick') || '' : '';
+            let idString = $first ? $first.attr('id') || '' : '';
+
+            let id = idString
+              .replace('idlstcrse_', '')
+              .replace('_sil', '')
+              .trim();
+            let parts = codeString.split(",'_sil','");
+            let code = (parts[parts.length - 1] || '')
+              .replace("');", '')
               .trim();
 
-            if (!name) {
-              return;
-            }
             let item = {
+              id,
+              code,
               level,
               image,
               nrc,
