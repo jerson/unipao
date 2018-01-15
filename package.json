@@ -12,7 +12,7 @@
     "scripts": {
         "start": "react-native start",
         "build:android:release": "cd android && ./gradlew assembleRelease",
-        "build:android:beta": "cd android && ./gradlew assembleBeta",
+        "build:android:beta": "cd android && ./gradlew assembleReleaseBeta",
         "build:windows:assets": "react-native bundle --platform windows --entry-file index.js --bundle-output windows\\unipao\\ReactAssets\\index.windows.bundle --assets-dest windows\\unipao\\ReactAssets  --dev false",
         "android": "react-native run-android",
         "ios": "react-native run-ios",
