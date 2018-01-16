@@ -154,6 +154,7 @@ try{
     '    font-weight: normal !important;\\n' +
     '    max-width: 280px;\\n' +
     '    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.08) !important;\\n' +
+    '    box-shadow: 0 0 10px rgba(0,0,0,0.08) !important;\\n' +
     '    font-family: Roboto,Helvetica,Arial; !important;\\n' +
     '} '+
     'img {' +
