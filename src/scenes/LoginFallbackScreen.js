@@ -134,10 +134,6 @@ try{
       element3[index3].parentNode.removeChild(element3[index3]);
     }
     
-    var element2 = document.getElementsByTagName("a"), index2;
-    for (index2 = element2.length - 1; index2 >= 0; index2--) {
-      element2[index2].parentNode.parentNode.removeChild(element2[index2].parentNode);
-    }
     
     var hash = Math.random();
     var link = document.createElement( "link" );
@@ -149,27 +145,25 @@ try{
         
 
     var style = document.createElement( "style" );
-    style.innerHTML = 'table, td, tr, div {\\n' +
+    style.innerHTML = 'table, td, tr, div {' +
     '    width: auto !important;\\n' +
     '    text-align: center !important;\\n' +
     '    margin: 0 auto !important;\\n' +
     '    background: none !important;\\n' +
-    '}\\n' +
-    '\\n' +
-    '#e_pie,.e_cab,map,div[style*=Orange], div[style*=orange] {\\n' +
-    '\\tdisplay: none !important\\n' +
-    '}\\n' +
-    '\\n' +
-    'body{\\n' +
-    '\\tdisplay: flex !important;\\n' +
+    '} ' +
+    '#e_pie,.e_cab,map,div[style*=Orange], div[style*=orange] {' +
+    '    display: none !important\\n' +
+    '} ' +
+    'body{' +
+    '    display: flex !important;\\n' +
     '    align-items: center !important;\\n' +
     '    justify-content: center !important;\\n' +
     '    flex: 1 !important;\\n' +
     '    height: 100vh !important;\\n' +
     '    min-height: 100px !important;\\n' +
     '    background: #fff !important;\\n' +
-    '}\\n' +
-    'input[type=text], input[type=password] {\\n' +
+    '}' +
+    'input[type=text], input[type=password] {' +
     '    background: #fafafa !important;\\n' +
     '    padding: 4px !important;\\n' +
     '    border: 1px solid #d4d4d4 !important;\\n' +
