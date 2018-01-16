@@ -123,6 +123,45 @@ document.getElementsByTagName( "head" )[0].appendChild( link );
 
 
 try{
+        
+    var style = document.createElement( "style" );
+    style.innerHTML = 'table, td, tr, div {' +
+    '    width: auto !important;\\n' +
+    '    text-align: center !important;\\n' +
+    '    margin: 0 auto !important;\\n' +
+    '    background: none !important;\\n' +
+    '    font-family: Roboto,Helvetica,Arial; !important;\\n' +
+    '} ' +
+    '#e_pie,.e_cab,map,div[style*=Orange], div[style*=orange] {' +
+    '    display: none !important\\n' +
+    '} ' +
+    'body{' +
+    '    display: flex !important;\\n' +
+    '    align-items: center !important;\\n' +
+    '    justify-content: center !important;\\n' +
+    '    flex: 1 !important;\\n' +
+    '    height: 100vh !important;\\n' +
+    '    min-height: 100px !important;\\n' +
+    '    background: #fff !important;\\n' +
+    '}' +
+    'input[type=text], input[type=password] {' +
+    '    background: #fff !important;\\n' +
+    '    padding: 4px !important;\\n' +
+    '    border: 1px solid #d4d4d4 !important;\\n' +
+    '    border-radius: 4px !important;\\n' +
+    '    padding-left: 10px !important;\\n' +
+    '    font-size: 16px !important;\\n' +
+    '    font-weight: normal !important;\\n' +
+    '    max-width: 280px;\\n' +
+    '    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.08) !important;\\n' +
+    '    font-family: Roboto,Helvetica,Arial; !important;\\n' +
+    '} '+
+    'img {' +
+    '  width: 100% !important;\\n' +
+    '}';
+    document.getElementsByTagName( "head" )[0].appendChild( style );
+    
+    
     var element = document.getElementsByTagName("iframe"), index;
     for (index = element.length - 1; index >= 0; index--) {
        element[index].parentNode.parentNode.removeChild(element[index].parentNode); 
@@ -142,37 +181,7 @@ try{
     link.rel = "stylesheet";
     link.media = "screen,print";
     document.getElementsByTagName( "head" )[0].appendChild( link );
-        
-
-    var style = document.createElement( "style" );
-    style.innerHTML = 'table, td, tr, div {' +
-    '    width: auto !important;\\n' +
-    '    text-align: center !important;\\n' +
-    '    margin: 0 auto !important;\\n' +
-    '    background: none !important;\\n' +
-    '} ' +
-    '#e_pie,.e_cab,map,div[style*=Orange], div[style*=orange] {' +
-    '    display: none !important\\n' +
-    '} ' +
-    'body{' +
-    '    display: flex !important;\\n' +
-    '    align-items: center !important;\\n' +
-    '    justify-content: center !important;\\n' +
-    '    flex: 1 !important;\\n' +
-    '    height: 100vh !important;\\n' +
-    '    min-height: 100px !important;\\n' +
-    '    background: #fff !important;\\n' +
-    '}' +
-    'input[type=text], input[type=password] {' +
-    '    background: #fafafa !important;\\n' +
-    '    padding: 4px !important;\\n' +
-    '    border: 1px solid #d4d4d4 !important;\\n' +
-    '    border-radius: 4px !important;\\n' +
-    '    padding-left: 10px !important;\\n' +
-    '    font-size: 16px !important;\\n' +
-    '    font-weight: normal !important;\\n' +
-    '}';
-    document.getElementsByTagName( "head" )[0].appendChild( style );
+    
 }catch(e){
 }
 
@@ -181,10 +190,12 @@ try{
 `;
 
     const scriptIOS = `
-var metaTag=document.createElement('meta');
-metaTag.name = "viewport"
-metaTag.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1"
-document.getElementsByTagName('head')[0].appendChild(metaTag);`;
+   
+    var metaTag=document.createElement('meta');
+    metaTag.name = "viewport"
+    metaTag.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    document.getElementsByTagName('head')[0].appendChild(metaTag);
+    `;
     return (
       <View style={styles.container}>
         <WebViewDownloader
