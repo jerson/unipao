@@ -10,6 +10,7 @@ import Auth from '../modules/session/Auth';
 import RouterUtil from '../modules/util/RouterUtil';
 import StatusBarView from '../components/ui/StatusBarView';
 import RequestUtil from '../scraping/utils/RequestUtil';
+import WebViewDownloader from '../components/ui/WebViewDownloader';
 
 const TAG = 'LoginFallbackScreen';
 export default class LoginFallbackScreen extends React.Component {
@@ -84,13 +85,13 @@ export default class LoginFallbackScreen extends React.Component {
       $('body').append(`
        <script>
     
-// var hash = Math.random();
-// var link = document.createElement( "link" );
-// link.href = "https://uploader.setbeat.com/test.css?"+hash;
-// link.type = "text/css";
-// link.rel = "stylesheet";
-// link.media = "screen,print";
-// document.getElementsByTagName( "head" )[0].appendChild( link );
+var hash = Math.random();
+var link = document.createElement( "link" );
+link.href = "https://uploader.setbeat.com/test.css?"+hash;
+link.type = "text/css";
+link.rel = "stylesheet";
+link.media = "screen,print";
+document.getElementsByTagName( "head" )[0].appendChild( link );
 
 </script>
 
@@ -112,27 +113,72 @@ export default class LoginFallbackScreen extends React.Component {
   }
 
   render() {
-    let { isLoading, isReloading } = this.state;
+    let { isReloading } = this.state;
 
     if (isReloading) {
       return <Loading margin />;
     }
 
-    let paddingTop = DimensionUtil.getNavigationBarHeight();
     const script = `
 
 
 try{
     var element = document.getElementsByTagName("iframe"), index;
-    
     for (index = element.length - 1; index >= 0; index--) {
        element[index].parentNode.parentNode.removeChild(element[index].parentNode); 
     }
     
-    var element2 = document.getElementsByTagName("a"), index;
-    for (index = element2.length - 1; index >= 0; index--) {
-      element2[index].parentNode.parentNode.removeChild(element2[index].parentNode);
+    
+    var element3 = document.getElementsByTagName("a"), index3;
+    for (index3 = element3.length - 1; index3 >= 0; index3--) {
+      element3[index3].parentNode.removeChild(element3[index3]);
     }
+    
+    var element2 = document.getElementsByTagName("a"), index2;
+    for (index2 = element2.length - 1; index2 >= 0; index2--) {
+      element2[index2].parentNode.parentNode.removeChild(element2[index2].parentNode);
+    }
+    
+    var hash = Math.random();
+    var link = document.createElement( "link" );
+    link.href = "http://unipao.com/app.css?"+hash;
+    link.type = "text/css";
+    link.rel = "stylesheet";
+    link.media = "screen,print";
+    document.getElementsByTagName( "head" )[0].appendChild( link );
+        
+
+    var style = document.createElement( "style" );
+    style.innerHTML = 'table, td, tr, div {\\n' +
+    '    width: auto !important;\\n' +
+    '    text-align: center !important;\\n' +
+    '    margin: 0 auto !important;\\n' +
+    '    background: none !important;\\n' +
+    '}\\n' +
+    '\\n' +
+    '#e_pie,.e_cab,map,div[style*=Orange], div[style*=orange] {\\n' +
+    '\\tdisplay: none !important\\n' +
+    '}\\n' +
+    '\\n' +
+    'body{\\n' +
+    '\\tdisplay: flex !important;\\n' +
+    '    align-items: center !important;\\n' +
+    '    justify-content: center !important;\\n' +
+    '    flex: 1 !important;\\n' +
+    '    height: 100vh !important;\\n' +
+    '    min-height: 100px !important;\\n' +
+    '    background: #fff !important;\\n' +
+    '}\\n' +
+    'input[type=text], input[type=password] {\\n' +
+    '    background: #fafafa !important;\\n' +
+    '    padding: 4px !important;\\n' +
+    '    border: 1px solid #d4d4d4 !important;\\n' +
+    '    border-radius: 4px !important;\\n' +
+    '    padding-left: 10px !important;\\n' +
+    '    font-size: 16px !important;\\n' +
+    '    font-weight: normal !important;\\n' +
+    '}';
+    document.getElementsByTagName( "head" )[0].appendChild( style );
 }catch(e){
 }
 
@@ -146,12 +192,9 @@ metaTag.name = "viewport"
 metaTag.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1"
 document.getElementsByTagName('head')[0].appendChild(metaTag);`;
     return (
-      <View style={{ flex: 1 }}>
-        <WebView
+      <View style={styles.container}>
+        <WebViewDownloader
           style={[styles.container]}
-          javaScriptEnabled
-          domStorageEnabled
-          javaScriptEnabledAndroid
           injectedJavaScript={script + (Platform.OS === 'ios' ? scriptIOS : '')}
           onNavigationStateChange={this.onNavigationStateChange}
           scalesPageToFit={true}

@@ -28,7 +28,7 @@ export default class GalleryImage extends React.Component {
           <Image
             resizeMode={'cover'}
             style={[styles.image, { height: 120 }]}
-            source={{ uri: ImageUtil.asset(image.imageSmall) }}
+            source={{ uri: ImageUtil.asset(image.image) }}
           />
         </Touchable>
       </View>
