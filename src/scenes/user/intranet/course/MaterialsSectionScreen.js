@@ -94,7 +94,99 @@ export default class MaterialsSectionScreen extends React.Component {
   }
 
   render() {
-    let { html, isRefreshing, isLoading } = this.state;
+    let { html: content, isRefreshing, isLoading } = this.state;
+    let html = `
+<html>
+<head>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+	<title></title>
+	<style>
+	* {
+    font-size: 13px !important;
+    font-family: Roboto,Helvetica,Arial,serif;
+    border: none !important;
+    color: #444 !important;
+    width: auto !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    /* padding: 0 !important; */
+}
+
+img {
+    display: none;
+}
+
+div[style*="width:95%"] {
+    margin-top: 10px !important;
+    padding-left: 8px !important;
+    border-top: 1px solid #efefef !important;
+    padding-top: 10px;
+    padding-right: 8px !important;
+}
+
+span[style*="color:#0A60BB"] {
+    color: #666 !important;
+    font-size: 12px !important;
+}
+
+div[style*="color:#666666"] {
+    color: #ff7a00 !important;
+}
+
+table tr > td:nth-child(1) {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+span[style*="font-size:10px;font-weight:normal;color:#CCCCCC;"] {
+    color: #999 !important;
+    font-size: 11px !important;
+    margin-top: 5px !important;
+}
+
+table tr {
+    display: flex;
+    flex: 1;
+    width: 100% !important;
+}
+
+table {
+    width: 100% !important;
+}
+
+div[style*="width:90%"] {
+    padding-right: 8px !important;
+    padding-left: 4px !important;
+}
+
+span[style*="color:#00CC66"] {
+    color: #00CC66 !important;
+    font-size: 22px !important;
+}
+
+div[style*="border-radius:10px 10px 10px 10px"] {
+    padding: 8px !important;
+    padding-top: 0 !important;
+    margin: 0 !important;
+}
+
+*[onclick] {
+    display: none !important;
+}
+body,html{
+    margin:0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+</style>
+</head>
+<body>
+${content}
+</body>
+</html>
+    `;
     return (
       <View style={[styles.container]}>
         {isLoading && <Loading margin />}
