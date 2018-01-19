@@ -84,6 +84,6 @@ const styles = StyleSheet.create({
   percent: {
     fontSize: 11,
     color: '#999',
-      fontWeight: 'normal'
+    fontWeight: 'normal'
   }
 });

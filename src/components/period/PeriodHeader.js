@@ -18,8 +18,11 @@ export default class PeriodHeader extends React.Component {
       <View style={[styles.container]}>
         <View style={[styles.header]}>
           <View style={styles.primary}>
-              <Text style={styles.title}>{_('Periodo')}{': '}</Text>
-              <Text style={styles.subtitle}>{title}</Text>
+            <Text style={styles.title}>
+              {_('Periodo')}
+              {': '}
+            </Text>
+            <Text style={styles.subtitle}>{title}</Text>
           </View>
         </View>
       </View>
@@ -36,19 +39,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#0d61ac',
     padding: 12
   },
-    title: {
-        color: 'rgba(255,255,255,0.5)',
-        fontWeight:'400',
-        fontSize: 14
-    },
-    subtitle: {
-        color: '#fff',
-        fontWeight:'400',
-        fontSize: 14
-    },
+  title: {
+    color: 'rgba(255,255,255,0.5)',
+    fontWeight: '400',
+    fontSize: 14
+  },
+  subtitle: {
+    color: '#fff',
+    fontWeight: '400',
+    fontSize: 14
+  },
   primary: {
     flex: 1,
-      flexDirection:'row',
+    flexDirection: 'row',
     justifyContent: 'center'
   }
 });

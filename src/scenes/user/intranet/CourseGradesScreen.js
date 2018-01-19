@@ -183,7 +183,6 @@ ${content}
 </html>
     `;
 
-    console.log(content);
     return (
       <View style={[styles.container, { paddingTop }]}>
         {isLoading && <Loading margin />}

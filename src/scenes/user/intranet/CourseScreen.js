@@ -23,19 +23,19 @@ export default class CourseScreen extends React.Component {
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,
-        {backgroundColor:'transparent'}
+      { backgroundColor: 'transparent' }
       // Theme.shadowDefault
-    ],
-    headerRight: (
-      <NavigationButton
-        onPress={() => {
-          navigation.state.params.reload();
-        }}
-        active
-        icon={'refresh'}
-        iconType={'MaterialIcons'}
-      />
-    )
+    ]
+    // headerRight: (
+    //   <NavigationButton
+    //     onPress={() => {
+    //       navigation.state.params.reload();
+    //     }}
+    //     active
+    //     icon={'refresh'}
+    //     iconType={'MaterialIcons'}
+    //   />
+    // )
   });
 
   state = {
@@ -69,8 +69,8 @@ export default class CourseScreen extends React.Component {
       {
         route: 'CourseForum',
         name: _('Foro'),
-          icon: 'forum',
-          iconType: 'MaterialIcons'
+        icon: 'forum',
+        iconType: 'MaterialIcons'
       },
       {
         route: 'CourseJobs',
@@ -135,7 +135,7 @@ export default class CourseScreen extends React.Component {
     let { items, isRefreshing, isLoading } = this.state;
 
     return (
-      <View style={[styles.container ]}>
+      <View style={[styles.container]}>
         {isLoading && <Loading margin />}
 
         {!isLoading && (

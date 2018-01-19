@@ -6,7 +6,15 @@ import { Theme } from '../../themes/styles';
 
 export default class NavigationButton extends React.Component {
   render() {
-    let { icon, iconType, subMenu,active, style, onPress, ...props } = this.props;
+    let {
+      icon,
+      iconType,
+      subMenu,
+      active,
+      style,
+      onPress,
+      ...props
+    } = this.props;
 
     return (
       <Touchable
@@ -19,7 +27,7 @@ export default class NavigationButton extends React.Component {
             styles.icon,
             subMenu && styles.subMenuIcon,
             subMenu && Theme.textShadow,
-              active && styles.subMenuIcon,
+            active && styles.subMenuIcon
           ]}
           name={icon}
           type={iconType}
