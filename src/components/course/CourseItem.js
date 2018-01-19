@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   },
   percent: {
     fontSize: 11,
-    color: '#ff9e30',
-    fontWeight: 'bold'
+    color: '#999',
+      fontWeight: 'normal'
   }
 });

@@ -16,20 +16,22 @@ export default class CourseScreen extends React.Component {
   };
 
   static navigationOptions = ({ navigation, screenProps }) => ({
-    title: _('Curso'),
+    title: '',
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
-    headerTintColor: Theme.subTintColor,
+    headerTintColor: Theme.tintColor,
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,
-      Theme.shadowDefault
+        {backgroundColor:'transparent'}
+      // Theme.shadowDefault
     ],
     headerRight: (
       <NavigationButton
         onPress={() => {
           navigation.state.params.reload();
         }}
+        active
         icon={'refresh'}
         iconType={'MaterialIcons'}
       />
@@ -43,44 +45,44 @@ export default class CourseScreen extends React.Component {
       {
         route: 'CourseSyllable',
         name: _('Silabo'),
-        icon: 'schedule',
-        iconType: 'MaterialIcons'
+        icon: 'file-document',
+        iconType: 'MaterialCommunityIcons'
       },
       {
         route: 'CourseMaterials',
         name: _('Material'),
-        icon: 'calendar-check-o',
-        iconType: 'FontAwesome'
+        icon: 'archive',
+        iconType: 'MaterialIcons'
       },
       {
         route: 'CourseAssists',
         name: _('Asistencia'),
-        icon: 'results-demographics',
-        iconType: 'Foundation'
+        icon: 'calendar-today',
+        iconType: 'MaterialCommunityIcons'
       },
       {
         route: 'CourseGrades',
         name: _('Notas'),
-        icon: 'monetization-on',
+        icon: 'grade',
         iconType: 'MaterialIcons'
       },
       {
         route: 'CourseForum',
         name: _('Foro'),
-        icon: 'monetization-on',
-        iconType: 'MaterialIcons'
+          icon: 'forum',
+          iconType: 'MaterialIcons'
       },
       {
         route: 'CourseJobs',
         name: _('Trabajo'),
-        icon: 'monetization-on',
-        iconType: 'MaterialIcons'
+        icon: 'archive',
+        iconType: 'Entypo'
       },
       {
         route: 'CourseExams',
         name: _('Examenes'),
-        icon: 'monetization-on',
-        iconType: 'MaterialIcons'
+        icon: 'ios-paper',
+        iconType: 'Ionicons'
       }
     ]
   };
@@ -130,11 +132,10 @@ export default class CourseScreen extends React.Component {
   }
 
   render() {
-    let paddingTop = DimensionUtil.getNavigationBarHeight();
     let { items, isRefreshing, isLoading } = this.state;
 
     return (
-      <View style={[styles.container, { paddingTop }]}>
+      <View style={[styles.container ]}>
         {isLoading && <Loading margin />}
 
         {!isLoading && (

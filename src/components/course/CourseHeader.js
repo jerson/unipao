@@ -2,6 +2,9 @@ import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
 import Touchable from '../ui/Touchable';
+import DimensionUtil from '../../modules/util/DimensionUtil';
+import {Theme} from '../../themes/styles';
+import LinearGradient from '../ui/LinearGradient';
 
 const TAG = 'CourseHeader';
 export default class CourseHeader extends React.Component {
@@ -15,10 +18,15 @@ export default class CourseHeader extends React.Component {
   onPress = () => {};
 
   render() {
+      let paddingTop = DimensionUtil.getStatusBarPadding();
     let { course } = this.props;
     return (
       <Touchable onPress={this.onPress}>
-        <View style={[styles.container]}>
+        <View style={[styles.container,{paddingTop:paddingTop+5}]}>
+            <LinearGradient
+                colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)']}
+                style={styles.background}
+            />
           <View style={styles.imageContainer}>
             <Image
               style={styles.imagePlaceholder}
@@ -34,8 +42,8 @@ export default class CourseHeader extends React.Component {
           </View>
 
           <View style={[styles.infoContainer]}>
-            <Text style={styles.title}>{course.name}</Text>
-            <Text style={styles.percent}>{course.nrc}</Text>
+            <Text style={[styles.title,Theme.textShadow]}>{course.name}</Text>
+            <Text style={[styles.subtitle,Theme.textShadow]}>{course.nrc}</Text>
           </View>
         </View>
       </Touchable>
@@ -44,12 +52,21 @@ export default class CourseHeader extends React.Component {
 }
 
 const styles = StyleSheet.create({
+    background: {
+        alignItems: 'center',
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        height:100,
+        bottom: 0
+    },
   container: {
-    backgroundColor: '#fff',
+    backgroundColor: '#0d61ac',
     borderColor: '#f4f4f4',
     borderBottomWidth: 1,
     padding: 10,
-    flexDirection: 'row',
+      paddingBottom:20,
+    // flexDirection: 'row',
     alignItems: 'center'
   },
   imageContainer: {
@@ -59,29 +76,30 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   image: {
-    width: 50,
-    height: 50,
-    borderRadius: 50 / 2
+    width: 100,
+    height:100,
+    borderRadius: 100 / 2
   },
   imagePlaceholder: {
     position: 'absolute',
     left: 0,
-    width: 50,
-    height: 50,
-    borderRadius: 50 / 2
+    width: 100,
+    height: 100,
+    borderRadius: 100 / 2
   },
   infoContainer: {
     paddingLeft: 5,
-    flex: 1
+      alignItems:'center'
+    // flex: 1
   },
   title: {
-    fontSize: 13,
-    color: '#555'
+    fontSize: 16,
+    color: '#fff'
     // fontWeight: 'bold'
   },
-  percent: {
-    fontSize: 11,
-    color: '#ff9e30',
+    subtitle: {
+    fontSize: 12,
+    color: 'rgba(255,255,255,0.5)',
     fontWeight: 'bold'
   }
 });

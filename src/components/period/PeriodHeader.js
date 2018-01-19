@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
+import { _ } from '../../modules/i18n/Translator';
 
 const TAG = 'PeriodHeader';
 export default class PeriodHeader extends React.Component {
@@ -17,7 +18,8 @@ export default class PeriodHeader extends React.Component {
       <View style={[styles.container]}>
         <View style={[styles.header]}>
           <View style={styles.primary}>
-            <Text style={styles.title}>{title}</Text>
+              <Text style={styles.title}>{_('Periodo')}{': '}</Text>
+              <Text style={styles.subtitle}>{title}</Text>
           </View>
         </View>
       </View>
@@ -32,15 +34,21 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     backgroundColor: '#0d61ac',
-    padding: 8
+    padding: 12
   },
-  title: {
-    color: 'rgba(255,255,255,0.8)',
-    // fontWeight:'bold',
-    fontSize: 16
-  },
+    title: {
+        color: 'rgba(255,255,255,0.5)',
+        fontWeight:'400',
+        fontSize: 14
+    },
+    subtitle: {
+        color: '#fff',
+        fontWeight:'400',
+        fontSize: 14
+    },
   primary: {
     flex: 1,
-    alignItems: 'center'
+      flexDirection:'row',
+    justifyContent: 'center'
   }
 });

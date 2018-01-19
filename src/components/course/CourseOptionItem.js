@@ -55,10 +55,10 @@ export default class CourseOptionItem extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fafafa',
+    backgroundColor: '#fff',
     padding: 5,
     borderBottomWidth: 1,
-    borderColor: '#f1f1f1',
+    borderColor: '#fafafa',
     flexDirection: 'row',
     alignItems: 'center',
     height: 58
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   icon: {
-    fontSize: 30,
+    fontSize: 28,
     padding: 5,
     width: 50,
     color: '#f59331',

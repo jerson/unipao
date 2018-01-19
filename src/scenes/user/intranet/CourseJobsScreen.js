@@ -20,7 +20,7 @@ export default class CourseJobsScreen extends React.Component {
   };
   static navigationOptions = ({ navigation, screenProps }) => ({
     headerBackTitle: null,
-    title: _('Asistencias del curso'),
+    title: _('Trabajos del curso'),
     headerTitleStyle: [Theme.title, Theme.subtitle],
     headerTintColor: Theme.subTintColor,
     headerStyle: [Theme.navigationBar, Theme.subNavigationBar],
