@@ -77,6 +77,7 @@ export default class Gallery {
           title: $('img', value)
             .attr('alt')
             .replace(/\s+/g, ' ')
+            .replace(/(<([^>]+)>)/gi, '')
             .trim()
         };
 

@@ -46,7 +46,7 @@ export default class AgendaItem extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#fafafa',
     padding: 10,
     borderBottomWidth: 1,
     borderColor: '#f1f1f1'

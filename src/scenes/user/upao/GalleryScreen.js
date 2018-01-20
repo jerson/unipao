@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Theme } from '../../../themes/styles';
 import PropTypes from 'prop-types';
 import CacheStorage from '../../../modules/storage/CacheStorage';
@@ -7,14 +7,12 @@ import Log from '../../../modules/logger/Log';
 import UPAO from '../../../scraping/UPAO';
 import Loading from '../../../components/ui/Loading';
 import NavigationButton from '../../../components/ui/NavigationButton';
-import DimensionUtil from '../../../modules/util/DimensionUtil';
 import GalleryImage from '../../../components/gallery/GalleryImage';
-import ImageViewer from 'react-native-image-zoom-viewer';
-import Modal from '../../../components/ui/Modal';
 import FlexibleGrid from '../../../components/ui/FlexibleGrid';
+import GalleryModal from '../../../components/gallery/GalleryModal';
 
 const TAG = 'GalleryScreen';
-export default class GalleryScreen extends React.Component {
+export default class GalleryScreen extends React.PureComponent {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
@@ -106,48 +104,27 @@ export default class GalleryScreen extends React.Component {
     let { gallery: galleryParams } = this.getParams();
     let { gallery, isLoading, galleryIndex, showGalleryModal } = this.state;
     let images = gallery ? gallery.images || [] : [];
+
     return (
       <View style={[styles.container]}>
-        <Modal
-          onBackButtonPress={this.hideGallery}
-          onBackdropPress={this.hideGallery}
-          visible={showGalleryModal}
-          style={{ margin: 0 }}
-          transparent={true}
-        >
-          <ImageViewer
-            saveToLocalByLongPress={false}
-            imageUrls={images.map(image => {
-              return { url: image.image };
-            })}
+        {showGalleryModal && (
+          <GalleryModal
+            images={images}
             index={galleryIndex}
-            renderFooter={currentIndex => {
-              let image = images[currentIndex];
-              if (!image) {
-                return null;
-              }
-              return (
-                <Text style={[styles.imageTitle, Theme.textShadow]}>
-                  {image.title}
-                </Text>
-              );
-            }}
+            onBackButtonPress={this.hideGallery}
+            onBackdropPress={this.hideGallery}
+            visible
           />
-
-          <NavigationButton
-            onPress={this.hideGallery}
-            subMenu
-            icon={'arrow-back'}
-          />
-        </Modal>
+        )}
+        {isLoading && <Loading margin />}
         <FlexibleGrid
           itemWidth={150}
           itemMargin={2}
-          data={images || []}
+          data={images}
           ListHeaderComponent={() => {
             return (
               <View style={styles.header}>
-                <Text style={[styles.name, Theme.textShadow]}>
+                <Text numberOfLines={2} style={[styles.name, Theme.textShadow]}>
                   {galleryParams.title}
                 </Text>
               </View>
@@ -163,7 +140,6 @@ export default class GalleryScreen extends React.Component {
             />
           )}
         />
-        {isLoading && <Loading margin />}
 
         {!showGalleryModal && (
           <NavigationButton
@@ -179,20 +155,10 @@ export default class GalleryScreen extends React.Component {
   }
 }
 
-const stylesSubHTML = StyleSheet.create({});
-const stylesHTML = StyleSheet.create({});
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000'
-  },
-  imageTitle: {
-    color: 'rgba(255,255,255,0.95)',
-    fontSize: 14,
-    backgroundColor: 'transparent',
-    margin: 30,
-    bottom: 80,
-    marginBottom: 50
+    backgroundColor: '#222'
   },
   name: {
     color: 'rgba(255,255,255,0.95)',
