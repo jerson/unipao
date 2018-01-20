@@ -37,11 +37,7 @@ export default class GalleryImage extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 2,
-
-    flex: 1
-  },
+  container: {},
   image: {
     height: 200
   }

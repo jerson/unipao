@@ -11,6 +11,7 @@ import DimensionUtil from '../../../modules/util/DimensionUtil';
 import GalleryImage from '../../../components/gallery/GalleryImage';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import Modal from '../../../components/ui/Modal';
+import FlexibleGrid from '../../../components/ui/FlexibleGrid';
 
 const TAG = 'GalleryScreen';
 export default class GalleryScreen extends React.Component {
@@ -139,11 +140,10 @@ export default class GalleryScreen extends React.Component {
             icon={'arrow-back'}
           />
         </Modal>
-
-        <FlatList
-          style={{ margin: 2 }}
+        <FlexibleGrid
+          itemWidth={150}
+          itemMargin={2}
           data={images || []}
-          numColumns={2}
           ListHeaderComponent={() => {
             return (
               <View style={styles.header}>

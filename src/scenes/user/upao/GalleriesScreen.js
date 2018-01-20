@@ -9,6 +9,7 @@ import { _ } from '../../../modules/i18n/Translator';
 import CacheStorage from '../../../modules/storage/CacheStorage';
 import DimensionUtil from '../../../modules/util/DimensionUtil';
 import UPAO from '../../../scraping/UPAO';
+import FlexibleGrid from '../../../components/ui/FlexibleGrid';
 
 const TAG = 'GalleriesScreen';
 export default class GalleriesScreen extends React.Component {
@@ -140,7 +141,9 @@ export default class GalleriesScreen extends React.Component {
       <View style={[styles.container]}>
         {/*<Background />*/}
         {isLoading && <Loading margin />}
-        <FlatList
+        <FlexibleGrid
+          itemWidth={200}
+          itemMargin={0}
           data={galleries}
           scrollEnabled={true}
           showsVerticalScrollIndicator={true}
