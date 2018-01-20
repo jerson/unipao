@@ -4,13 +4,12 @@ import { Theme } from '../../themes/styles';
 import PropTypes from 'prop-types';
 import Loading from '../../components/ui/Loading';
 import { _ } from '../../modules/i18n/Translator';
-import DimensionUtil from '../../modules/util/DimensionUtil';
 import { tabsOptionsSub } from '../../routers/Tabs';
 import { TabNavigator } from 'react-navigation';
 import LevelScreen from './intranet/LevelScreen';
 
 const TAG = 'IntranetScreen';
-export default class IntranetScreen extends React.Component {
+export default class IntranetScreen extends React.PureComponent {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
@@ -24,12 +23,108 @@ export default class IntranetScreen extends React.Component {
   });
 
   state = {
-    isLoading: false
+    isLoading: true,
+    width: 300
   };
 
+  onDimensionsChange = ({ window, screen }) => {
+    this.setState({ width: window.width, isLoading: false });
+  };
+
+  componentDidMount() {
+    Dimensions.addEventListener('change', this.onDimensionsChange);
+    this.onDimensionsChange({ window: Dimensions.get('window') });
+  }
+
+  componentWillUnmount() {
+    Dimensions.removeEventListener('change', this.onDimensionsChange);
+  }
+
   render() {
-    let { isLoading } = this.state;
+    let { isLoading, width } = this.state;
     let { navigation } = this.props;
+
+    const LevelsTab = TabNavigator(
+      {
+        UG: {
+          screen: ({ navigation, screenProps }) => {
+            return (
+              <LevelScreen
+                level={'UG'}
+                navigation={screenProps.topNavigation}
+              />
+            );
+          },
+          navigationOptions: ({ navigation, screenProps }) => {
+            return {
+              tabBarLabel: _('Pregrado')
+            };
+          }
+        },
+        GR: {
+          screen: ({ navigation, screenProps }) => {
+            return (
+              <LevelScreen
+                level={'GR'}
+                navigation={screenProps.topNavigation}
+              />
+            );
+          },
+          navigationOptions: ({ navigation, screenProps }) => {
+            return {
+              tabBarLabel: _('Postgrado')
+            };
+          }
+        },
+        UT: {
+          screen: ({ navigation, screenProps }) => {
+            return (
+              <LevelScreen
+                level={'UT'}
+                navigation={screenProps.topNavigation}
+              />
+            );
+          },
+          navigationOptions: ({ navigation, screenProps }) => {
+            return {
+              tabBarLabel: _('G. que trabaja')
+            };
+          }
+        },
+        UB: {
+          screen: ({ navigation, screenProps }) => {
+            return (
+              <LevelScreen
+                level={'UB'}
+                navigation={screenProps.topNavigation}
+              />
+            );
+          },
+          navigationOptions: ({ navigation, screenProps }) => {
+            return {
+              tabBarLabel: _('Centro de idiomas')
+            };
+          }
+        }
+      },
+      {
+        ...tabsOptionsSub,
+        tabBarOptions: {
+          ...tabsOptionsSub.tabBarOptions,
+          scrollEnabled: width < 400,
+          tabStyle:
+            width < 400
+              ? {
+                  flexDirection: 'row',
+                  width: 120,
+                  padding: 0,
+                  paddingBottom: 5,
+                  paddingTop: 6
+                }
+              : { flexDirection: 'row' }
+        }
+      }
+    );
     return (
       <View style={[styles.container]}>
         {/*<Background/>*/}
@@ -41,77 +136,6 @@ export default class IntranetScreen extends React.Component {
     );
   }
 }
-
-let { width } = Dimensions.get('window');
-const LevelsTab = TabNavigator(
-  {
-    UG: {
-      screen: ({ navigation, screenProps }) => {
-        return (
-          <LevelScreen level={'UG'} navigation={screenProps.topNavigation} />
-        );
-      },
-      navigationOptions: ({ navigation, screenProps }) => {
-        return {
-          tabBarLabel: _('Pregrado')
-        };
-      }
-    },
-    GR: {
-      screen: ({ navigation, screenProps }) => {
-        return (
-          <LevelScreen level={'GR'} navigation={screenProps.topNavigation} />
-        );
-      },
-      navigationOptions: ({ navigation, screenProps }) => {
-        return {
-          tabBarLabel: _('Postgrado')
-        };
-      }
-    },
-    UT: {
-      screen: ({ navigation, screenProps }) => {
-        return (
-          <LevelScreen level={'UT'} navigation={screenProps.topNavigation} />
-        );
-      },
-      navigationOptions: ({ navigation, screenProps }) => {
-        return {
-          tabBarLabel: _('G. que trabaja')
-        };
-      }
-    },
-    UB: {
-      screen: ({ navigation, screenProps }) => {
-        return (
-          <LevelScreen level={'UB'} navigation={screenProps.topNavigation} />
-        );
-      },
-      navigationOptions: ({ navigation, screenProps }) => {
-        return {
-          tabBarLabel: _('Centro de idiomas')
-        };
-      }
-    }
-  },
-  {
-    ...tabsOptionsSub,
-    tabBarOptions: {
-      ...tabsOptionsSub.tabBarOptions,
-      scrollEnabled: width < 600,
-      tabStyle:
-        width < 600
-          ? {
-              flexDirection: 'row',
-              width: 120,
-              padding: 0,
-              paddingBottom: 5,
-              paddingTop: 6
-            }
-          : { flexDirection: 'row' }
-    }
-  }
-);
 
 const styles = StyleSheet.create({
   container: {

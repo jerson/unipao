@@ -112,32 +112,6 @@ export default class LoginScreen extends React.Component {
     this.props.navigation.navigate('LoginFallback');
   };
 
-  getEmei() {
-    let emei = '9';
-    let uid = DeviceInfo.getUniqueID();
-    uid = (uid || '').toLowerCase();
-    emei += parseInt(uid.substr(0, 6), 16).toString();
-    emei += parseInt(uid.substr(6, 10), 16).toString();
-    emei += parseInt(uid.substr(10, 15), 16).toString();
-    return emei.substr(0, 16) || '000000000000000';
-  }
-
-  getFCM() {
-    let uid = DeviceInfo.getUniqueID();
-    let fcm =
-      uid +
-      parseInt(uid.substr(0, 6), 16).toString() +
-      uid +
-      parseInt(uid.substr(0, 4), 16).toString() +
-      uid +
-      parseInt(uid.substr(4, 8), 16).toString() +
-      uid +
-      parseInt(uid.substr(8, 12), 16).toString() +
-      uid +
-      parseInt(uid.substr(12, 16), 16).toString();
-    return Base64.encode(fcm).replace(new RegExp('=', 'g'), '') || 'none';
-  }
-
   async componentDidMount() {
     Emitter.on('onSuccessLogin', this.onSuccessLogin);
     Dimensions.addEventListener('change', this.onDimensionsChange);
