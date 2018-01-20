@@ -34,7 +34,7 @@ export default class Main extends React.Component {
         'Sessión terminada, tal vez has iniciado sesión otro dispositivo/navegador o pasaste un tiempo inactivo'
       ),
       icon: 'error-outline',
-      autoDismiss: 4,
+      autoDismiss: 8,
       iconType: 'MaterialIcons'
     });
 

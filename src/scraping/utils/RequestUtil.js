@@ -14,14 +14,6 @@ export default class RequestUtil {
     let tag = options.tag || url;
     try {
       Log.debug(TAG, 'fetch', tag, url);
-      // if (Platform.OS === 'windows') {
-      //   let response = await fetch(url, {
-      //     redirect: 'follow',
-      //     credentials: 'include',
-      //     ...params
-      //   });
-      //   html = await response.text();
-      // } else {
       let response = await fetchCancelable(
         url,
         {
@@ -32,7 +24,6 @@ export default class RequestUtil {
         tag
       );
       html = await response.text();
-      // }
     } catch (e) {
       Log.error(TAG, 'fetch', e);
     }
