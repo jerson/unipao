@@ -2,8 +2,8 @@ import cio from 'cheerio-without-node-native';
 import Log from '../../modules/logger/Log';
 import Emitter from '../../modules/listener/Emitter';
 import Config from '../Config';
-import fetch from 'react-native-cancelable-fetch';
-
+import fetchCancelable from 'react-native-cancelable-fetch';
+import { Platform } from 'react-native';
 const TAG = 'RequestUtil';
 export default class RequestUtil {
   static async fetch(url, params = {}, options = { checkSession: true }) {
@@ -14,15 +14,23 @@ export default class RequestUtil {
     let tag = options.tag || url;
     try {
       Log.debug(TAG, 'fetch', tag, url);
-      let response = await fetch(
-        url,
-        {
+      if (Platform.OS === 'windows') {
+        let response = await fetch(url, {
           credentials: 'include',
           ...params
-        },
-        tag
-      );
-      html = await response.text();
+        });
+        html = await response.text();
+      } else {
+        let response = await fetchCancelable(
+          url,
+          {
+            credentials: 'include',
+            ...params
+          },
+          tag
+        );
+        html = await response.text();
+      }
     } catch (e) {
       Log.error(TAG, 'fetch', e);
     }
@@ -46,7 +54,7 @@ export default class RequestUtil {
   static abort(tag) {
     try {
       Log.debug(TAG, 'abort', tag);
-      fetch.abort(tag);
+      fetchCancelable.abort(tag);
     } catch (e) {
       Log.warn(TAG, 'abort', e);
     }
