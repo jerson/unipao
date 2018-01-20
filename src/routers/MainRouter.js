@@ -31,6 +31,7 @@ import CourseGradesScreen from '../scenes/user/intranet/CourseGradesScreen';
 import CourseForumScreen from '../scenes/user/intranet/CourseForumScreen';
 import CourseExamsScreen from '../scenes/user/intranet/CourseExamsScreen';
 import CourseJobsScreen from '../scenes/user/intranet/CourseJobsScreen';
+import GalleryPhotoScreen from '../scenes/user/upao/GalleryPhotoScreen';
 
 const NewsNavigator = StackNavigator(
   {
@@ -56,6 +57,9 @@ const GalleryNavigator = StackNavigator(
     },
     Gallery: {
       screen: GalleryScreen
+    },
+    Photo: {
+      screen: GalleryPhotoScreen
     }
   },
   {

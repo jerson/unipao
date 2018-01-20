@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import { Theme } from '../../../themes/styles';
 import PropTypes from 'prop-types';
 import CacheStorage from '../../../modules/storage/CacheStorage';
@@ -78,10 +78,18 @@ export default class GalleryScreen extends React.PureComponent {
     }
   };
   toogleGallery = index => {
-    this.setState({
-      showGalleryModal: !this.state.showGalleryModal,
-      galleryIndex: index
-    });
+    let { gallery } = this.state;
+    let images = gallery ? gallery.images || [] : [];
+
+    if (Platform.OS === 'windows') {
+      let image = images[index];
+      image && this.props.navigation.navigate('Photo', { image });
+    } else {
+      this.setState({
+        showGalleryModal: !this.state.showGalleryModal,
+        galleryIndex: index
+      });
+    }
   };
   hideGallery = () => {
     this.setState({ showGalleryModal: false });
