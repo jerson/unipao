@@ -161,7 +161,7 @@ export default class GalleryModal extends React.PureComponent {
         <NavigationButton
           onPress={onBackButtonPress}
           subMenu
-          style={{ paddingTop: Platform.OS === 'ios' ? 30 : 0 }}
+          style={{ top: Platform.OS === 'ios' ? 20 : 5 }}
           icon={'arrow-back'}
         />
       </Modal>
