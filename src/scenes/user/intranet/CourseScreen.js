@@ -7,6 +7,7 @@ import DimensionUtil from '../../../modules/util/DimensionUtil';
 import CourseOptionItem from '../../../components/course/CourseOptionItem';
 import CourseHeader from '../../../components/course/CourseHeader';
 import Loading from '../../../components/ui/Loading';
+import NavigationButton from '../../../components/ui/NavigationButton';
 
 const TAG = 'CourseScreen';
 export default class CourseScreen extends React.Component {
@@ -24,7 +25,8 @@ export default class CourseScreen extends React.Component {
       Theme.subNavigationBar,
       { backgroundColor: 'transparent' }
       // Theme.shadowDefault
-    ]
+    ],
+    header: null
     // headerRight: (
     //   <NavigationButton
     //     onPress={() => {
@@ -155,6 +157,13 @@ export default class CourseScreen extends React.Component {
             }}
           />
         )}
+        <NavigationButton
+          onPress={() => {
+            this.props.navigation.goBack();
+          }}
+          subMenu
+          icon={'arrow-back'}
+        />
       </View>
     );
   }

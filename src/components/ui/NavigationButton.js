@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     width: 50,
     zIndex: 10,
-    backgroundColor: 'rgba(0,0,0,0.5)'
+    backgroundColor: 'rgba(0,0,0,0.2)'
   },
   subMenuIcon: {
     color: '#fff'
