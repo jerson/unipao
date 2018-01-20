@@ -9,9 +9,9 @@ export default class DimensionUtil {
     const version = parseInt(Platform.Version, 10);
     return Platform.OS === 'ios' ||
       Platform.OS === 'windows' ||
-      (Platform.OS === 'android' && version >= 21)
-      ? this.getStatusBarHeight()
-      : 0;
+      (Platform.OS === 'android' && version < 21)
+      ? 0
+      : this.getStatusBarHeight();
   }
 
   static getNavigationBarHeight() {

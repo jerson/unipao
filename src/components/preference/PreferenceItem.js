@@ -25,7 +25,9 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingRight: 10,
     paddingBottom: 10,
-    paddingLeft: 10
+    paddingLeft: 10,
+    borderBottomWidth: 1,
+    borderColor: 'rgba(0,0,0,0.03)'
   },
   infoContainer: {
     backgroundColor: 'transparent',
@@ -39,12 +41,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 14,
     fontWeight: 'normal',
-    color: '#fff'
+    color: '#555'
   },
 
   description: {
     fontSize: 13,
     fontWeight: 'normal',
-    color: 'rgba(255,255,255,0.6)'
+    color: 'rgba(0,0,0,0.4)'
   }
 });

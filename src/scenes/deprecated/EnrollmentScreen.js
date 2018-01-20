@@ -186,11 +186,10 @@ export default class EnrollmentScreen extends React.Component {
   }
 
   render() {
-    let paddingTop = DimensionUtil.getNavigationBarHeight();
     let { careers, period, tabs, isLoading } = this.state;
     let EnrollmentTabs = tabs;
     return (
-      <View style={[styles.container, { paddingTop }]}>
+      <View style={[styles.container]}>
         {period && (
           <PeriodModal
             ref={'periods'}

@@ -146,12 +146,11 @@ export default class CourseMaterialsScreen extends React.Component {
   }
 
   render() {
-    let paddingTop = DimensionUtil.getNavigationBarHeight();
     let { tabs, isLoading } = this.state;
     let Tabs = tabs;
 
     return (
-      <View style={[styles.container, { paddingTop }]}>
+      <View style={[styles.container]}>
         {isLoading && <Loading margin />}
         {!isLoading && Tabs && <Tabs />}
       </View>

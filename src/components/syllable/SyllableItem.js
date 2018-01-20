@@ -60,7 +60,10 @@ export default class SyllableItem extends React.Component {
   render() {
     let { syllable } = this.props;
     let url = syllable.url || '';
-    url = url.replace('https://static.upao.edu.pe/upload/silabo/', '');
+    url = url
+      .replace('static.upao.edu.pe/upload/silabo/', '')
+      .replace('https://', '')
+      .replace('http://', '');
 
     return (
       <Touchable onPress={this.onPress}>

@@ -105,9 +105,8 @@ export default class CourseSyllableScreen extends React.Component {
 
   render() {
     let { isLoading, isRefreshing, items } = this.state;
-    let paddingTop = DimensionUtil.getNavigationBarHeight();
     return (
-      <View style={[styles.container, { paddingTop }]}>
+      <View style={[styles.container]}>
         {/*<Background />*/}
         {isLoading && <Loading margin />}
         <FlatList

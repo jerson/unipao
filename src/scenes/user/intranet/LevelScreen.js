@@ -117,7 +117,6 @@ export default class LevelScreen extends React.Component {
   }
 
   render() {
-    let paddingTop = DimensionUtil.getNavigationBarHeight();
     let { sections, isLoading, isRefreshing } = this.state;
 
     return (

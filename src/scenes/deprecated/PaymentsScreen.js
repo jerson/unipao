@@ -112,9 +112,8 @@ export default class PaymentsScreen extends React.Component {
 
   render() {
     let { paymentsGroups, isLoading } = this.state;
-    let paddingTop = DimensionUtil.getNavigationBarHeight();
     return (
-      <View style={[styles.container, { paddingTop }]}>
+      <View style={[styles.container]}>
         {/*<Background/>*/}
         {isLoading && <Loading margin />}
         {!isLoading && <PaymentsTab screenProps={{ paymentsGroups }} />}

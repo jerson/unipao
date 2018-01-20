@@ -42,7 +42,6 @@ export default class AssistDetailScreen extends React.Component {
   }
 
   render() {
-    let paddingTop = DimensionUtil.getNavigationBarHeight();
     let { assist } = this.getParams();
 
     return (
@@ -50,7 +49,6 @@ export default class AssistDetailScreen extends React.Component {
         <FlatList
           showsVerticalScrollIndicator={true}
           data={assist.DETALLE || []}
-          contentContainerStyle={[{ paddingTop }]}
           renderItem={this.renderItem}
           ListHeaderComponent={this.renderHeader}
           keyExtractor={(item, index) => {

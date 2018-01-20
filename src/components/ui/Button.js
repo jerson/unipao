@@ -125,12 +125,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'center',
-    borderRadius: 25,
+    borderRadius: 20,
     margin: 4,
     padding: 12,
     paddingLeft: 20,
     paddingRight: 20,
-    height: 44
+    height: 40
   },
   smallSize: {
     padding: 6,

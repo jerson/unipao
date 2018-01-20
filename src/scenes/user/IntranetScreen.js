@@ -30,9 +30,8 @@ export default class IntranetScreen extends React.Component {
   render() {
     let { isLoading } = this.state;
     let { navigation } = this.props;
-    let paddingTop = DimensionUtil.getNavigationBarHeight();
     return (
-      <View style={[styles.container, { paddingTop }]}>
+      <View style={[styles.container]}>
         {/*<Background/>*/}
         {isLoading && <Loading margin />}
         {!isLoading && (

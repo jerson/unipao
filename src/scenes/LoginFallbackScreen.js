@@ -25,8 +25,7 @@ export default class LoginFallbackScreen extends React.Component {
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,
-      Theme.shadowDefault,
-      { top: 0 }
+      Theme.shadowDefault
     ],
     headerRight: (
       <View style={{ flexDirection: 'row' }}>

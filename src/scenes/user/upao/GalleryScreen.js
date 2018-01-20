@@ -104,10 +104,9 @@ export default class GalleryScreen extends React.Component {
   render() {
     let { gallery: galleryParams } = this.getParams();
     let { gallery, isLoading, galleryIndex, showGalleryModal } = this.state;
-    let paddingTop = DimensionUtil.getNavigationBarHeight();
     let images = gallery ? gallery.images || [] : [];
     return (
-      <View style={[styles.container, { paddingTop }]}>
+      <View style={[styles.container]}>
         <Modal
           onBackButtonPress={this.hideGallery}
           onBackdropPress={this.hideGallery}

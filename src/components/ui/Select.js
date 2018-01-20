@@ -93,10 +93,10 @@ const styles = StyleSheet.create({
   selected: {
     padding: 10,
     paddingLeft: 20,
-    borderColor: 'rgba(0,0,0,0.1)',
-    borderWidth: 1,
+    // borderColor: 'rgba(0,0,0,0.1)',
+    // borderWidth: 1,
     borderRadius: 20,
-    backgroundColor: 'rgba(0,0,0,0.1)',
+    backgroundColor: 'rgba(0,0,0,0.3)',
     overflow: 'visible',
     flexDirection: 'row',
     justifyContent: 'center',

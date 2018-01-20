@@ -131,9 +131,8 @@ export default class AgendaListScreen extends React.Component {
 
   render() {
     let { isLoading, isRefreshing, agendaList } = this.state;
-    let paddingTop = DimensionUtil.getNavigationBarHeight();
     return (
-      <View style={[styles.container, { paddingTop }]}>
+      <View style={[styles.container]}>
         {/*<Background />*/}
         {isLoading && <Loading margin />}
         <FlatList

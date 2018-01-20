@@ -152,11 +152,10 @@ export default class AssistsScreen extends React.Component {
   }
 
   render() {
-    let paddingTop = DimensionUtil.getNavigationBarHeight();
     let { assists, period, isLoading, isRefreshing } = this.state;
 
     return (
-      <View style={[styles.container, { paddingTop }]}>
+      <View style={[styles.container]}>
         {period && (
           <PeriodModal
             ref={'periods'}

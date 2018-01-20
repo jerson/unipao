@@ -7,7 +7,6 @@ import DimensionUtil from '../../../modules/util/DimensionUtil';
 import CourseOptionItem from '../../../components/course/CourseOptionItem';
 import CourseHeader from '../../../components/course/CourseHeader';
 import Loading from '../../../components/ui/Loading';
-import NavigationButton from '../../../components/ui/NavigationButton';
 
 const TAG = 'CourseScreen';
 export default class CourseScreen extends React.Component {
@@ -133,6 +132,7 @@ export default class CourseScreen extends React.Component {
 
   render() {
     let { items, isRefreshing, isLoading } = this.state;
+    let paddingTop = DimensionUtil.getNavigationBarHeight();
 
     return (
       <View style={[styles.container]}>

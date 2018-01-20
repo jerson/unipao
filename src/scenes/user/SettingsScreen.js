@@ -16,16 +16,17 @@ import DeviceInfo from 'react-native-device-info';
 import DimensionUtil from '../../modules/util/DimensionUtil';
 
 export default class SettingsScreen extends React.Component {
-  static navigationOptions = {
-    tabBarLabel: _('Ajustes'),
-    tabBarIcon: ({ tintColor }) => (
-      <Icon
-        name={'settings'}
-        type={'MaterialCommunityIcons'}
-        style={[Theme.tabTarIcon, { color: tintColor }]}
-      />
-    )
-  };
+  static navigationOptions = ({ navigation, screenProps }) => ({
+    title: _('Ajustes'),
+    headerBackTitle: null,
+    headerTitleStyle: [Theme.title, Theme.subtitle],
+    headerTintColor: Theme.tintColor,
+    headerStyle: [
+      Theme.navigationBar,
+      Theme.subNavigationBar,
+      Theme.shadowDefault
+    ]
+  });
   static localeValues = [
     {
       value: 'auto',
@@ -83,15 +84,14 @@ export default class SettingsScreen extends React.Component {
 
   render() {
     let minHeight = Dimensions.get('window').height;
-    let paddingTop = DimensionUtil.getStatusBarPadding();
     return (
       <ScrollView
         style={styles.container}
-        contentContainerStyle={[{ minHeight, paddingTop }]}
+        contentContainerStyle={[{ minHeight }]}
         keyboardShouldPersistTaps={'handled'}
         showsVerticalScrollIndicator={true}
       >
-        <Background />
+        {/*<Background />*/}
         <PreferenceHeader title={_('General')} />
 
         <PreferenceItemSelect
@@ -113,6 +113,7 @@ export default class SettingsScreen extends React.Component {
           <Button
             onPress={this.logout}
             label={_('Salir')}
+            type={'primary'}
             icon={'log-out'}
             iconType={'Entypo'}
           />
@@ -139,5 +140,7 @@ export default class SettingsScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {}
+  container: {
+    backgroundColor: '#fafafa'
+  }
 });

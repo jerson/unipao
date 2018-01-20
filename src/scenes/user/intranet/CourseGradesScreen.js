@@ -110,7 +110,6 @@ export default class CourseGradesScreen extends React.Component {
   }
 
   render() {
-    let paddingTop = DimensionUtil.getNavigationBarHeight();
     let { html: content, isLoading } = this.state;
     let html = `
 <html>
@@ -184,7 +183,7 @@ ${content}
     `;
 
     return (
-      <View style={[styles.container, { paddingTop }]}>
+      <View style={[styles.container]}>
         {isLoading && <Loading margin />}
         {!isLoading && (
           <WebViewDownloader

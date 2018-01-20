@@ -45,8 +45,8 @@ const NewsNavigator = StackNavigator(
   {
     headerMode: 'none',
     cardStyle: {
-      backgroundColor: '#fff',
-      top: DimensionUtil.getNavigationBarHeight() * -1
+      //backgroundColor: '#fff',
+      //top: DimensionUtil.getNavigationBarHeight() * -1
     }
   }
 );
@@ -62,8 +62,8 @@ const GalleryNavigator = StackNavigator(
   {
     headerMode: 'none',
     cardStyle: {
-      backgroundColor: '#fff',
-      top: DimensionUtil.getNavigationBarHeight() * -1
+      // backgroundColor: '#fff',
+      //  top: DimensionUtil.getNavigationBarHeight() * -1
     }
   }
 );
@@ -76,8 +76,8 @@ const AgendaNavigator = StackNavigator(
   {
     headerMode: 'none',
     cardStyle: {
-      backgroundColor: '#fff',
-      top: DimensionUtil.getNavigationBarHeight() * -1
+      // backgroundColor: '#fff',
+      // top: DimensionUtil.getNavigationBarHeight() * -1
     }
   }
 );
@@ -142,9 +142,9 @@ const UPAONavigator = StackNavigator(
     }
   },
   {
-    headerMode: 'float',
+    //headerMode: 'float',
     cardStyle: {
-      backgroundColor: '#fff'
+      //backgroundColor: 'red'
     }
   }
 );
@@ -155,13 +155,29 @@ const MailNavigator = StackNavigator(
     }
   },
   {
-    headerMode: 'float',
+    //headerMode: 'float',
     cardStyle: {
-      backgroundColor: '#fff',
-      top: DimensionUtil.getNavigationBarHeight() * -1
+      // backgroundColor: '#fff',
+      // top: DimensionUtil.getNavigationBarHeight() * -1
     }
   }
 );
+
+const SettingsNavigator = StackNavigator(
+  {
+    Home: {
+      screen: SettingsScreen
+    }
+  },
+  {
+    //headerMode: 'float',
+    cardStyle: {
+      //  backgroundColor: '#fff',
+      //  top: DimensionUtil.getNavigationBarHeight() * -1
+    }
+  }
+);
+
 const IntranetNavigator = StackNavigator(
   {
     Home: {
@@ -208,10 +224,10 @@ const IntranetNavigator = StackNavigator(
     }
   },
   {
-    headerMode: 'float',
+    // headerMode: 'float',
     cardStyle: {
-      backgroundColor: '#fff',
-      top: DimensionUtil.getNavigationBarHeight() * -1
+      //backgroundColor: '#fff',
+      // top: DimensionUtil.getNavigationBarHeight() * -1
     }
   }
 );
@@ -279,7 +295,23 @@ const UsersTabNavigator = TabNavigator(
       }
     },
     Settings: {
-      screen: SettingsScreen
+      screen: ({ navigation }) => {
+        return (
+          <View style={{ flex: 1 }}>
+            <SettingsNavigator screenProps={{ tabNavigation: navigation }} />
+          </View>
+        );
+      },
+      navigationOptions: {
+        tabBarLabel: _('Ajustes'),
+        tabBarIcon: ({ tintColor }) => (
+          <Icon
+            name={'settings'}
+            type={'MaterialCommunityIcons'}
+            style={[Theme.tabTarIcon, { color: tintColor }]}
+          />
+        )
+      }
     }
   },
   { ...tabsOptionsMain }

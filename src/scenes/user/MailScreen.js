@@ -67,9 +67,8 @@ export default class MailScreen extends React.Component {
       return <Loading margin />;
     }
 
-    let paddingTop = DimensionUtil.getNavigationBarHeight();
     return (
-      <View style={[styles.container, { paddingTop }]}>
+      <View style={[styles.container]}>
         <WebViewDownloader
           style={[styles.container]}
           onLoadStart={() => {
