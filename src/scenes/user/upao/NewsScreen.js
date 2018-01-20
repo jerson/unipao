@@ -116,7 +116,7 @@ export default class NewsListScreen extends React.Component {
       >
         {isLoading && <Loading margin />}
         {news && (
-          <View>
+          <View style={styles.content}>
             <View style={styles.header}>
               <Image
                 style={[styles.image, { height: itemHeight }]}
@@ -217,7 +217,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     backgroundColor: 'transparent'
   },
-  header: {},
+  content: {
+    maxWidth: 600,
+    alignSelf: 'center'
+  },
   infoContainer: {
     padding: 10
   },

@@ -37,16 +37,16 @@ export default class GalleryItem extends React.Component {
             style={[
               styles.gradient,
               Platform.OS === 'windows' && {
-                backgroundColor: 'rgba(0,0,0,0.8)'
-              },
-              Platform.OS !== 'windows' ? { minHeight: 130 } : { minHeight: 90 }
+                backgroundColor: 'rgba(0,0,0,0.3)'
+              }
             ]}
-          />
-          <View style={styles.infoContainer}>
-            <Text style={[styles.name, Theme.textShadow]} numberOfLines={2}>
-              {gallery.title}
-            </Text>
-          </View>
+          >
+            <View style={styles.infoContainer}>
+              <Text style={[styles.name, Theme.textShadow]} numberOfLines={2}>
+                {gallery.title}
+              </Text>
+            </View>
+          </LinearGradient>
         </Touchable>
       </View>
     );
@@ -72,10 +72,6 @@ const styles = StyleSheet.create({
   },
   header: {},
   infoContainer: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
     padding: 5,
     paddingBottom: 10
   },
