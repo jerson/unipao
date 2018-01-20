@@ -48,7 +48,12 @@ export default class GalleryModal extends React.PureComponent {
         </ImageZoom>
         <LinearGradient
           colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.8)']}
-          style={styles.background}
+          style={[
+              styles.background,
+              Platform.OS === 'windows' && {
+                  backgroundColor: 'rgba(0,0,0,0.3)'
+              }
+          ]}
         >
           <View style={styles.content}>
             <Text style={[styles.imageTitle, Theme.textShadow]}>
