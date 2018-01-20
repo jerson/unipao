@@ -31,7 +31,7 @@ export default class Main extends React.Component {
     this.noti.show({
       type: 'warning',
       title: _(
-        'Sessión cerrada, no puedes conectarte en dos dispositivos a la vez'
+        'Sessión cerrada, esto puede ser porque has iniciado sesión en la web o en otro dispositivo, inicia nuevamente para continuar'
       ),
       icon: 'error-outline',
       autoDismiss: 4,
