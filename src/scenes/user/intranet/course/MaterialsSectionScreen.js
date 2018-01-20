@@ -178,7 +178,7 @@ div[style*="border-radius:10px 10px 10px 10px"] {
 body,html{
     margin:0 !important;
     padding: 0 !important;
-    overflow: hidden !important;
+    overflow: auto !important;
 }
 </style>
 </head>

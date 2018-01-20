@@ -172,7 +172,7 @@ table  tr > td:first-child {
 body,html{
     margin:0 !important;
     padding: 0 !important;
-    overflow: hidden !important;
+    overflow: auto !important;
 }
 </style>
 </head>
