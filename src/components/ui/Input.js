@@ -94,8 +94,8 @@ const styles = StyleSheet.create({
     marginTop: 4,
     marginBottom: 10,
     backgroundColor: '#fff',
-    // borderColor: '#f9f9f9',
-    // borderWidth: 1,
+    borderColor: '#f9f9f9',
+    borderWidth: 1,
     borderRadius: 6
   },
   inputContainerError: {
@@ -110,8 +110,8 @@ const styles = StyleSheet.create({
     fontSize: 13,
     padding: 4,
     marginTop: Platform.OS === 'windows' ? 6 : 0,
-    // borderWidth: 0,
-    // borderColor: 'transparent',
+    borderWidth: 0,
+    borderColor: 'transparent',
     paddingLeft: 10,
     paddingRight: 10
   },
