@@ -66,6 +66,7 @@ export const tabsOptionsSub = {
     inactiveTintColor: '#444',
     style: {
       backgroundColor: '#fff',
+      padding: 1,
       ...Theme.shadowDefault
     },
     labelStyle: {

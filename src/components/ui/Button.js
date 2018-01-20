@@ -109,11 +109,7 @@ export default class Button extends React.Component {
           ))}
 
         {label && (
-          <Text
-            style={[styles.text, Theme.textShadow, textStyle, textSizeStyle]}
-          >
-            {label}
-          </Text>
+          <Text style={[styles.text, textStyle, textSizeStyle]}>{label}</Text>
         )}
       </Touchable>
     );

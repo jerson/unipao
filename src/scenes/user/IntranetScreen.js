@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import { Theme } from '../../themes/styles';
 import PropTypes from 'prop-types';
 import Loading from '../../components/ui/Loading';
@@ -42,6 +42,7 @@ export default class IntranetScreen extends React.Component {
   }
 }
 
+let { width } = Dimensions.get('window');
 const LevelsTab = TabNavigator(
   {
     UG: {
@@ -76,7 +77,7 @@ const LevelsTab = TabNavigator(
       },
       navigationOptions: ({ navigation, screenProps }) => {
         return {
-          tabBarLabel: _('Gente que trabaja')
+          tabBarLabel: _('G. que trabaja')
         };
       }
     },
@@ -97,7 +98,17 @@ const LevelsTab = TabNavigator(
     ...tabsOptionsSub,
     tabBarOptions: {
       ...tabsOptionsSub.tabBarOptions,
-      scrollEnabled: true
+      scrollEnabled: width < 600,
+      tabStyle:
+        width < 600
+          ? {
+              flexDirection: 'row',
+              width: 120,
+              padding: 0,
+              paddingBottom: 5,
+              paddingTop: 6
+            }
+          : { flexDirection: 'row' }
     }
   }
 );

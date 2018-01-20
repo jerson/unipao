@@ -14,6 +14,8 @@ export default class PeriodHeader extends React.Component {
 
   render() {
     let { title, courses } = this.props;
+    let part1 = title.slice(0, 4);
+    let part2 = title.slice(4, 7);
     return (
       <View style={[styles.container]}>
         <View style={[styles.header]}>
@@ -22,7 +24,11 @@ export default class PeriodHeader extends React.Component {
               {_('Periodo')}
               {': '}
             </Text>
-            <Text style={styles.subtitle}>{title}</Text>
+            <Text style={styles.subtitle}>
+              {part1}
+              {' - '}
+              {part2}
+            </Text>
           </View>
         </View>
       </View>
@@ -32,21 +38,23 @@ export default class PeriodHeader extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'column'
+    flexDirection: 'column',
+    borderColor: '#f4f4f4',
+    borderBottomWidth: 1
   },
   header: {
     flexDirection: 'row',
-    backgroundColor: '#0d61ac',
+    backgroundColor: '#fafafa',
     padding: 12
   },
   title: {
-    color: 'rgba(255,255,255,0.5)',
+    color: '#999',
     fontWeight: '400',
     fontSize: 14
   },
   subtitle: {
-    color: '#fff',
-    fontWeight: '400',
+    color: '#f59331',
+    fontWeight: 'bold',
     fontSize: 14
   },
   primary: {

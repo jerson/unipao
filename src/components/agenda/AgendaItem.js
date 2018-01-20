@@ -49,7 +49,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#f9f9f9',
     padding: 10,
     borderBottomWidth: 1,
-    minHeight: 120,
     borderColor: '#f1f1f1'
   },
   todayIcon: {
@@ -102,18 +101,18 @@ const styles = StyleSheet.create({
 
   name: {
     color: 'rgba(0,0,0,0.95)',
-    fontSize: 16,
+    fontSize: 14,
     backgroundColor: 'transparent'
   },
   property: {
     color: 'rgba(0,0,0,0.35)',
-    fontSize: 14,
+    fontSize: 12,
     backgroundColor: 'transparent'
   },
 
   subtitle: {
     color: 'rgba(0,0,0,0.55)',
-    fontSize: 12,
+    fontSize: 11,
     backgroundColor: 'transparent'
   }
 });

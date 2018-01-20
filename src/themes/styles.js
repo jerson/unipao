@@ -18,31 +18,31 @@ export const Theme = {
     paddingBottom: 0,
     marginTop: 0,
     marginBottom: 0,
-    height: DimensionUtil.getNavigationBarHeight(),
+    // height: DimensionUtil.getNavigationBarHeight(),
     shadowRadius: 4,
     shadowOffset: {
       height: 2,
       width: 2
     },
-    backgroundColor: 'rgba(13,97,172,0.77)'
+    backgroundColor: '#fff'
   },
   subNavigationBar: {
-    backgroundColor: 'rgba(255,255,255,0.9)'
+    backgroundColor: '#fff'
   },
   subtitle: {
     color: '#444'
   },
   title: {
     color: '#fff',
-    fontSize: isAndroid ? 18 : 16,
+    fontSize: isAndroid ? 16 : 16,
     padding: 0,
-    fontWeight: '400',
-    textShadowColor: 'rgba(0,0,0,0.1)',
-    textShadowRadius: 8,
-    textShadowOffset: {
-      height: 1,
-      width: 0
-    }
+    fontWeight: '400'
+    // textShadowColor: 'rgba(0,0,0,0.1)',
+    // textShadowRadius: 8,
+    // textShadowOffset: {
+    //   height: 1,
+    //   width: 0
+    // }
   },
   noShadow: {
     elevation: 0,

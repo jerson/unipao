@@ -98,7 +98,7 @@ export default class SelectModal extends React.Component {
           </ScrollView>
 
           <View>
-            <Button label={_('Cancelar')} onPress={onCancel} type={'default'} />
+            <Button label={_('Cancelar')} onPress={onCancel} type={'primary'} />
           </View>
         </View>
       </Modal>

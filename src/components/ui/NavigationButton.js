@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   },
   subMenu: {
     position: 'absolute',
-    top: 60,
+    top: 3,
     left: 0,
     margin: 5,
     borderRadius: 4,

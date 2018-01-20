@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Icon from './Icon';
 import Touchable from './Touchable';
 import SelectModal from './SelectModal';
+import { Theme } from '../../themes/styles';
 
 export default class Select extends React.Component {
   state = {
@@ -67,8 +68,8 @@ export default class Select extends React.Component {
 
     return (
       <View>
-        <Touchable style={styles.selectedContainer} onPress={this.toggle}>
-          <View style={styles.selected}>
+        <Touchable style={[styles.selectedContainer]} onPress={this.toggle}>
+          <View style={[styles.selected, Theme.shadowDefault]}>
             <Text style={styles.label}>{this.state.selectedLabel}</Text>
             <Icon style={styles.icon} name="arrow-drop-down" />
           </View>
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
     // borderColor: 'rgba(0,0,0,0.1)',
     // borderWidth: 1,
     borderRadius: 20,
-    backgroundColor: 'rgba(0,0,0,0.3)',
+    backgroundColor: '#999',
     overflow: 'visible',
     flexDirection: 'row',
     justifyContent: 'center',

@@ -84,18 +84,6 @@ const AgendaNavigator = StackNavigator(
 
 const UPAOTabNavigator = TabNavigator(
   {
-    Gallery: {
-      screen: GalleryNavigator,
-      navigationOptions: {
-        tabBarLabel: _('Fotos'),
-        tabBarIcon: ({ tintColor }) => (
-          <Icon
-            name={'photo'}
-            style={[Theme.tabTarIcon, { color: tintColor }]}
-          />
-        )
-      }
-    },
     News: {
       screen: NewsNavigator,
       navigationOptions: {
@@ -104,6 +92,18 @@ const UPAOTabNavigator = TabNavigator(
           <Icon
             name={'newspaper-o'}
             type={'FontAwesome'}
+            style={[Theme.tabTarIcon, { color: tintColor }]}
+          />
+        )
+      }
+    },
+    Gallery: {
+      screen: GalleryNavigator,
+      navigationOptions: {
+        tabBarLabel: _('Fotos'),
+        tabBarIcon: ({ tintColor }) => (
+          <Icon
+            name={'photo'}
             style={[Theme.tabTarIcon, { color: tintColor }]}
           />
         )
@@ -133,7 +133,7 @@ const UPAONavigator = StackNavigator(
     Home: {
       screen: UPAOTabNavigator,
       navigationOptions: {
-        title: _('UniPAO'),
+        title: _('Actualidad'),
         headerBackTitle: null,
         headerTitleStyle: [Theme.title, Theme.subtitle],
         headerTintColor: Theme.subTintColor,
@@ -265,10 +265,10 @@ const UsersTabNavigator = TabNavigator(
         );
       },
       navigationOptions: {
-        tabBarLabel: _('UniPAO'),
+        tabBarLabel: _('Actualidad'),
         tabBarIcon: ({ tintColor }) => (
           <Icon
-            name={'university'}
+            name={'newspaper-o'}
             type={'FontAwesome'}
             style={[Theme.tabTarIcon, { color: tintColor }]}
           />
