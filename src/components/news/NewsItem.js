@@ -17,10 +17,9 @@ export default class NewsItem extends React.Component {
   state = {};
 
   render() {
-    let { height } = Dimensions.get('window');
     let { news, index } = this.props;
     let ago = moment(news.date || '').fromNow();
-    let itemHeight = height / 3;
+    let itemHeight = 200;
     return (
       <View style={[styles.container]}>
         <Touchable
@@ -36,7 +35,9 @@ export default class NewsItem extends React.Component {
             />
           </View>
           <View style={styles.infoContainer}>
-            <Text style={[styles.name]}>{news.title}</Text>
+            <Text style={[styles.name]} numberOfLines={2}>
+              {news.title}
+            </Text>
             <Text style={[styles.ago]}>
               {_('Publicado')} {ago}
             </Text>

@@ -142,7 +142,7 @@ export default class GalleriesScreen extends React.Component {
         {/*<Background />*/}
         {isLoading && <Loading margin />}
         <FlexibleGrid
-          itemWidth={200}
+          itemWidth={300}
           itemMargin={0}
           data={galleries}
           scrollEnabled={true}

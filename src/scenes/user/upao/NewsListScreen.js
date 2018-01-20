@@ -142,7 +142,7 @@ export default class NewsListScreen extends React.Component {
         {/*<Background />*/}
         {isLoading && <Loading margin />}
         <FlexibleGrid
-          itemWidth={200}
+          itemWidth={250}
           itemMargin={0}
           data={newsList}
           scrollEnabled={true}

@@ -23,9 +23,8 @@ export default class GalleryItem extends React.Component {
   state = {};
 
   render() {
-    let { height } = Dimensions.get('window');
     let { gallery, index } = this.props;
-    let itemHeight = height / 3;
+    let itemHeight = 200;
     return (
       <View style={[styles.container]}>
         <Touchable
@@ -51,7 +50,9 @@ export default class GalleryItem extends React.Component {
             ]}
           />
           <View style={styles.infoContainer}>
-            <Text style={[styles.name, Theme.textShadow]}>{gallery.title}</Text>
+            <Text style={[styles.name, Theme.textShadow]} numberOfLines={2}>
+              {gallery.title}
+            </Text>
           </View>
         </Touchable>
       </View>
