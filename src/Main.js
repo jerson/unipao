@@ -31,7 +31,7 @@ export default class Main extends React.Component {
     this.noti.show({
       type: 'warning',
       title: _(
-        'Sessión cerrada, esto puede ser porque has iniciado sesión en la web o en otro dispositivo, inicia nuevamente para continuar'
+        'Sessión terminada, tal vez has iniciado sesión otro dispositivo/navegador o pasaste un tiempo inactivo'
       ),
       icon: 'error-outline',
       autoDismiss: 4,

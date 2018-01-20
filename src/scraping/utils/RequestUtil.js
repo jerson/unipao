@@ -14,37 +14,39 @@ export default class RequestUtil {
     let tag = options.tag || url;
     try {
       Log.debug(TAG, 'fetch', tag, url);
-      if (Platform.OS === 'windows') {
-        let response = await fetch(url, {
+      // if (Platform.OS === 'windows') {
+      //   let response = await fetch(url, {
+      //     redirect: 'follow',
+      //     credentials: 'include',
+      //     ...params
+      //   });
+      //   html = await response.text();
+      // } else {
+      let response = await fetchCancelable(
+        url,
+        {
+          redirect: 'follow',
           credentials: 'include',
           ...params
-        });
-        html = await response.text();
-      } else {
-        let response = await fetchCancelable(
-          url,
-          {
-            credentials: 'include',
-            ...params
-          },
-          tag
-        );
-        html = await response.text();
-      }
+        },
+        tag
+      );
+      html = await response.text();
+      // }
     } catch (e) {
       Log.error(TAG, 'fetch', e);
     }
     let $ = cio.load(html);
 
     if (options.checkSession) {
-      let loginMessage = ($('a[href="login.aspx"]').text() || '').trim();
+      let loginMessage = ($('a[href*="login.aspx"]').text() || '').trim();
       if ($('input[name*=txt_nip]').length) {
         Log.warn(TAG, 'fetch', 'sesion desconectada', url);
         Emitter.emit('onForceLogout', true);
         throw new Error('Session desconectada');
-      } else if (loginMessage === 'aquí') {
+      } else if (loginMessage === 'aquí' || loginMessage === 'here') {
         Emitter.emit('onForceLogout', true);
-        throw new Error('Session desconectada modal');
+        throw new Error('Session desconectada modal/redirect');
       }
     }
 
