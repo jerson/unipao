@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Theme } from '../themes/styles';
 import { _ } from '../modules/i18n/Translator';
 import NavigationButton from '../components/ui/NavigationButton';
@@ -216,7 +216,12 @@ try{
           }}
         />
 
-        <StatusBarView style={{ backgroundColor: '#0d61ac' }} />
+        <StatusBar
+          backgroundColor="#0d61ac"
+          translucent
+          animated
+          barStyle="dark-content"
+        />
         <NavigationButton
           onPress={() => {
             this.props.navigation.goBack();

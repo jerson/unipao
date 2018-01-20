@@ -140,7 +140,7 @@ export default class GalleryModal extends React.PureComponent {
           backgroundColor="#222"
           translucent
           animated
-          barStyle="dark-content"
+          barStyle="light-content"
         />
         <FlatList
           ref={'list'}
@@ -161,7 +161,7 @@ export default class GalleryModal extends React.PureComponent {
         <NavigationButton
           onPress={onBackButtonPress}
           subMenu
-          style={{ paddingTop: Platform.OS === 'ios' ? 20 : 0 }}
+          style={{ paddingTop: Platform.OS === 'ios' ? 30 : 0 }}
           icon={'arrow-back'}
         />
       </Modal>

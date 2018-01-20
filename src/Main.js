@@ -95,7 +95,6 @@ export default class Main extends React.Component {
           barStyle="light-content"
         />
         <MainRouter ref={'navigation'} />
-        <StatusBarView />
         <MessageCenter
           ref={ref => {
             this.noti = ref;
