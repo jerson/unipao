@@ -91,11 +91,7 @@ export default class Auth {
     this.user = null;
     Emitter.emit('onNoLogin', true);
     await SingleStorage.remove('user');
-    try {
-      await UPAO.logout();
-    } catch (e) {
-      Log.warn('[AUTH]', 'logout', e);
-    }
+    UPAO.logout();
     return true;
   }
 }

@@ -108,7 +108,6 @@ export default class UPAO {
       ok = true;
     } catch (e) {
       Log.info(TAG, 'logout', e);
-      throw e;
     }
 
     return ok;
