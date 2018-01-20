@@ -29,7 +29,7 @@ namespace unipao
 
         protected override string JavaScriptMainModuleName => "index";
 
-#if BUNDLE
+#if BUNDLE && !BETA
         protected override string JavaScriptBundleFile
         {
             get
@@ -39,7 +39,7 @@ namespace unipao
             }
         }
 #endif
-#if BUNDLE_BETA
+#if BUNDLE && BETA
         protected override string JavaScriptBundleFile
         {
             get
