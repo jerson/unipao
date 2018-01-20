@@ -39,6 +39,16 @@ namespace unipao
             }
         }
 #endif
+#if BUNDLE_BETA
+        protected override string JavaScriptBundleFile
+        {
+            get
+            {
+                codePushReactPackage = new CodePushReactPackage("Dlh6vjlsq-c6LLqWwosvYvukmRg2r15FOMg4G", this);
+                return codePushReactPackage.GetJavaScriptBundleFile();
+            }
+        }
+#endif
 
         protected override List<IReactPackage> Packages => new List<IReactPackage>
         {
