@@ -1,5 +1,11 @@
 import React from 'react';
-import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
+import {
+  FlatList,
+  Platform,
+  RefreshControl,
+  StyleSheet,
+  View
+} from 'react-native';
 import { Theme } from '../../../themes/styles';
 import PropTypes from 'prop-types';
 import { _ } from '../../../modules/i18n/Translator';
@@ -162,6 +168,7 @@ export default class CourseScreen extends React.Component {
             this.props.navigation.goBack();
           }}
           subMenu
+          style={{ top: Platform.OS === 'ios' ? 20 : 5 }}
           icon={'arrow-back'}
         />
       </View>

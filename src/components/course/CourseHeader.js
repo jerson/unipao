@@ -1,5 +1,12 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import {
+  Image,
+  Platform,
+  Platform,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
 import PropTypes from 'prop-types';
 import Touchable from '../ui/Touchable';
 import DimensionUtil from '../../modules/util/DimensionUtil';
@@ -22,7 +29,12 @@ export default class CourseHeader extends React.Component {
     let { course } = this.props;
     return (
       <Touchable onPress={this.onPress}>
-        <View style={[styles.container, { paddingTop: paddingTop + 5 }]}>
+        <View
+          style={[
+            styles.container,
+            { paddingTop: Platform.OS === 'ios' ? 30 : 10 }
+          ]}
+        >
           <LinearGradient
             colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)']}
             style={styles.background}
