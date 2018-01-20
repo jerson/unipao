@@ -124,7 +124,6 @@ export default class GalleryScreen extends React.PureComponent {
             visible
           />
         )}
-        {isLoading && <Loading margin />}
         <FlexibleGrid
           itemWidth={150}
           itemMargin={2}
@@ -149,6 +148,7 @@ export default class GalleryScreen extends React.PureComponent {
             />
           )}
         />
+        {isLoading && <Loading margin />}
 
         {!showGalleryModal && (
           <NavigationButton

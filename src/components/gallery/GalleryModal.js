@@ -49,10 +49,10 @@ export default class GalleryModal extends React.PureComponent {
         <LinearGradient
           colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.8)']}
           style={[
-              styles.background,
-              Platform.OS === 'windows' && {
-                  backgroundColor: 'rgba(0,0,0,0.3)'
-              }
+            styles.background,
+            Platform.OS === 'windows' && {
+              backgroundColor: 'rgba(0,0,0,0.3)'
+            }
           ]}
         >
           <View style={styles.content}>

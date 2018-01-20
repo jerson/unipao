@@ -110,53 +110,51 @@ export default class NewsListScreen extends React.Component {
     let itemHeight = height / 2;
 
     return (
-      <ScrollView
-        style={[styles.container]}
-        showsVerticalScrollIndicator={true}
-      >
-        {isLoading && <Loading margin />}
-        {news && (
-          <View style={styles.content}>
-            <View style={styles.header}>
-              <Image
-                style={[styles.image, { height: itemHeight }]}
-                source={{ uri: ImageUtil.asset(news.image) }}
-              />
+      <View style={[styles.container]}>
+        <ScrollView style={[styles.scroll]} showsVerticalScrollIndicator={true}>
+          {isLoading && <Loading margin />}
+          {news && (
+            <View style={styles.content}>
+              <View style={styles.header}>
+                <Image
+                  style={[styles.image, { height: itemHeight }]}
+                  source={{ uri: ImageUtil.asset(news.image) }}
+                />
 
-              <View style={styles.infoContainer}>
-                <Touchable
-                  onPress={() => {
-                    //test
-                    let options = {
-                      title: news.title,
-                      message: _('Lee esta noticia en UniPAO'),
-                      url: 'http://unipao.com/',
-                      subject: _('Compartir')
-                    };
-                    Share.open(options);
-                  }}
-                >
-                  <Text style={[styles.name]}>{news.title}</Text>
-                </Touchable>
+                <View style={styles.infoContainer}>
+                  <Touchable
+                    onPress={() => {
+                      //test
+                      let options = {
+                        title: news.title,
+                        message: _('Lee esta noticia en UniPAO'),
+                        url: 'http://unipao.com/',
+                        subject: _('Compartir')
+                      };
+                      Share.open(options);
+                    }}
+                  >
+                    <Text style={[styles.name]}>{news.title}</Text>
+                  </Touchable>
 
+                  <HTMLView
+                    addLineBreaks={false}
+                    value={'<p>' + subtitle + '</p>'}
+                    stylesheet={stylesSubHTML}
+                  />
+                </View>
+              </View>
+
+              <View style={styles.contentContainer}>
                 <HTMLView
-                  addLineBreaks={false}
-                  value={'<p>' + subtitle + '</p>'}
-                  stylesheet={stylesSubHTML}
+                  addLineBreaks={true}
+                  value={content}
+                  stylesheet={stylesHTML}
                 />
               </View>
             </View>
-
-            <View style={styles.contentContainer}>
-              <HTMLView
-                addLineBreaks={true}
-                value={content}
-                stylesheet={stylesHTML}
-              />
-            </View>
-          </View>
-        )}
-
+          )}
+        </ScrollView>
         <NavigationButton
           onPress={() => {
             this.props.navigation.goBack();
@@ -164,7 +162,7 @@ export default class NewsListScreen extends React.Component {
           subMenu
           icon={'arrow-back'}
         />
-      </ScrollView>
+      </View>
     );
   }
 }
@@ -205,6 +203,10 @@ const stylesHTML = StyleSheet.create({
 });
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    backgroundColor: '#fff'
+  },
+  scroll: {
     flex: 1,
     backgroundColor: '#fff'
   },

@@ -1,5 +1,12 @@
 import React from 'react';
-import {Dimensions, Image, Platform, StyleSheet, Text, View} from 'react-native';
+import {
+  Dimensions,
+  Image,
+  Platform,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
 import { Theme } from '../../../themes/styles';
 import PropTypes from 'prop-types';
 import NavigationButton from '../../../components/ui/NavigationButton';
@@ -76,10 +83,10 @@ export default class GalleryPhotoScreen extends React.PureComponent {
         <LinearGradient
           colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.8)']}
           style={[
-              styles.background,
-              Platform.OS === 'windows' && {
-                  backgroundColor: 'rgba(0,0,0,0.3)'
-              }
+            styles.background,
+            Platform.OS === 'windows' && {
+              backgroundColor: 'rgba(0,0,0,0.8)'
+            }
           ]}
         >
           <View style={styles.content}>
