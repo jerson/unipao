@@ -12,7 +12,6 @@ import { tabsOptions } from '../../routers/Tabs';
 import ScheduleList from '../../components/schedule/ScheduleList';
 import PeriodModal from '../../components/period/PeriodModal';
 import CacheStorage from '../../modules/storage/CacheStorage';
-import DimensionUtil from '../../modules/util/DimensionUtil';
 
 const TAG = 'ScheduleScreen';
 export default class ScheduleScreen extends React.Component {

@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  Clipboard,
-  Linking,
-  Platform,
-  StyleSheet,
-  WebView
-} from 'react-native';
+import { Clipboard, Linking, StyleSheet, WebView } from 'react-native';
 import Log from '../../modules/logger/Log';
 import { _ } from '../../modules/i18n/Translator';
 import PropTypes from 'prop-types';

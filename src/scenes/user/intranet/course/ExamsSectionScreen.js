@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, WebView } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Theme } from '../../../../themes/styles';
 import PropTypes from 'prop-types';
 import CacheStorage from '../../../../modules/storage/CacheStorage';

@@ -1,8 +1,7 @@
 import React from 'react';
-import { Platform, StyleSheet, View, WebView } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import { Theme } from '../themes/styles';
 import { _ } from '../modules/i18n/Translator';
-import DimensionUtil from '../modules/util/DimensionUtil';
 import NavigationButton from '../components/ui/NavigationButton';
 import Loading from '../components/ui/Loading';
 import PropTypes from 'prop-types';

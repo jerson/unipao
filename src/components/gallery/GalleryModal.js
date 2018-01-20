@@ -9,11 +9,8 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { Theme } from '../../themes/styles';
-import { ImageViewer } from 'react-native-image-zoom-viewer';
 import NavigationButton from '../ui/NavigationButton';
 import Modal from '../ui/Modal';
-import { _ } from '../../modules/i18n/Translator';
-import Button from '../ui/Button';
 import LinearGradient from '../ui/LinearGradient';
 import ImageZoom from 'react-native-image-pan-zoom';
 
@@ -124,6 +121,7 @@ export default class GalleryModal extends React.Component {
       }, 100);
     });
   }
+
   render() {
     let { images, onBackButtonPress, ...props } = this.props;
 

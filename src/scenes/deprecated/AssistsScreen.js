@@ -11,7 +11,6 @@ import PeriodModal from '../../components/period/PeriodModal';
 import AlertMessage from '../../components/ui/AlertMessage';
 import { _ } from '../../modules/i18n/Translator';
 import CacheStorage from '../../modules/storage/CacheStorage';
-import DimensionUtil from '../../modules/util/DimensionUtil';
 
 const TAG = 'AssistsScreen';
 export default class AssistsScreen extends React.Component {

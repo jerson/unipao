@@ -18,7 +18,6 @@ import EnrollmentScreen from '../scenes/deprecated/EnrollmentScreen';
 import AssistDetailScreen from '../scenes/deprecated/AssistDetailScreen';
 import { _ } from '../modules/i18n/Translator';
 import IntroScreen from '../scenes/IntroScreen';
-import DimensionUtil from '../modules/util/DimensionUtil';
 import MailScreen from '../scenes/user/MailScreen';
 import { tabsOptionsMain, tabsOptionsSub } from './Tabs';
 import GalleriesScreen from '../scenes/user/upao/GalleriesScreen';

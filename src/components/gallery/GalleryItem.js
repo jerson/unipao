@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Dimensions,
-  Image,
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import { Image, Platform, StyleSheet, Text, View } from 'react-native';
 import Touchable from '../ui/Touchable';
 import PropTypes from 'prop-types';
 import ImageUtil from '../../modules/util/ImageUtil';

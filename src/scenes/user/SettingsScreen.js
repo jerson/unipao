@@ -1,9 +1,7 @@
 import React from 'react';
 import { Alert, Dimensions, ScrollView, StyleSheet } from 'react-native';
 import PreferenceHeader from '../../components/preference/PreferenceHeader';
-import Background from '../../components/ui/Background';
 import { Theme } from '../../themes/styles';
-import Icon from '../../components/ui/Icon';
 import PreferenceItem from '../../components/preference/PreferenceItem';
 import Button from '../../components/ui/Button';
 import Auth from '../../modules/session/Auth';
@@ -13,7 +11,6 @@ import PreferencesStorage from '../../modules/storage/PreferencesStorage';
 import Translator, { _ } from '../../modules/i18n/Translator';
 import codePush from 'react-native-code-push';
 import DeviceInfo from 'react-native-device-info';
-import DimensionUtil from '../../modules/util/DimensionUtil';
 
 export default class SettingsScreen extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({

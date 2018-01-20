@@ -11,7 +11,6 @@ import { _ } from '../../modules/i18n/Translator';
 import { tabsOptions } from '../../routers/Tabs';
 import NavigationButton from '../../components/ui/NavigationButton';
 import CacheStorage from '../../modules/storage/CacheStorage';
-import DimensionUtil from '../../modules/util/DimensionUtil';
 
 const TAG = 'PaymentsScreen';
 export default class PaymentsScreen extends React.Component {

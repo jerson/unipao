@@ -16,8 +16,6 @@ import InputSwitch from '../components/ui/InputSwitch';
 import SingleStorage from '../modules/storage/SingleStorage';
 import Loading from '../components/ui/Loading';
 import { _ } from '../modules/i18n/Translator';
-import DeviceInfo from 'react-native-device-info';
-import Base64 from 'base-64';
 import UPAO from '../scraping/UPAO';
 
 const TAG = 'LoginScreen';

@@ -12,7 +12,6 @@ import { tabsOptions } from '../../routers/Tabs';
 import PeriodModal from '../../components/period/PeriodModal';
 import { _ } from '../../modules/i18n/Translator';
 import CacheStorage from '../../modules/storage/CacheStorage';
-import DimensionUtil from '../../modules/util/DimensionUtil';
 
 const TAG = 'EnrollmentScreen';
 export default class EnrollmentScreen extends React.Component {

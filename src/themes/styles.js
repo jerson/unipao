@@ -1,5 +1,4 @@
 import { Platform } from 'react-native';
-import DimensionUtil from '../modules/util/DimensionUtil';
 
 let isAndroid = Platform.OS === 'android';
 

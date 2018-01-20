@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  Clipboard,
-  Linking,
-  Platform,
-  StyleSheet,
-  WebView
-} from 'react-native';
-import Log from '../../modules/logger/Log';
-import { _ } from '../../modules/i18n/Translator';
+import { StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import CustomWebView from 'react-native-custom-android-webview';
 
