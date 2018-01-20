@@ -121,6 +121,7 @@ export default class GalleryScreen extends React.PureComponent {
           itemWidth={150}
           itemMargin={2}
           data={images}
+          showsVerticalScrollIndicator={true}
           ListHeaderComponent={() => {
             return (
               <View style={styles.header}>

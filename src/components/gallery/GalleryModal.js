@@ -151,7 +151,7 @@ export default class GalleryModal extends React.PureComponent {
           pagingEnabled
           onScroll={this.onScroll}
           scrollEventThrottle={800}
-          showsHorizontalScrollIndicator={false}
+          showsHorizontalScrollIndicator={true}
           renderItem={this.renderItem}
           keyExtractor={(item, index) => {
             return index;

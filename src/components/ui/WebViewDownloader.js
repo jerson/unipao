@@ -96,6 +96,7 @@ export default class WebViewDownloader extends React.Component {
         domStorageEnabled
         javaScriptEnabledAndroid
         scalesPageToFit={false}
+        scrollEnabled={true}
         onNavigationStateChange={this.onNavigationStateChange}
         {...props}
       />

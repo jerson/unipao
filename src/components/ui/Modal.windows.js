@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   modal: {
     alignItems: 'center',
     justifyContent: 'center',
-    zIndex: 1000,
-    elevation: 100
+    zIndex: 9000,
+    elevation: 9000
   }
 });
