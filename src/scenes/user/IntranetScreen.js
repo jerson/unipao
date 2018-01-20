@@ -44,6 +44,14 @@ export default class IntranetScreen extends React.PureComponent {
     let { isLoading, width } = this.state;
     let { navigation } = this.props;
 
+    if (isLoading) {
+      return (
+        <View style={[styles.container]}>
+          <Loading margin />
+        </View>
+      );
+    }
+
     const LevelsTab = TabNavigator(
       {
         UG: {
