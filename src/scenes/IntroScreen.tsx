@@ -1,14 +1,42 @@
 import * as React from 'react';
-import { Dimensions, FlatList, StyleSheet, View } from 'react-native';
+import {
+  Dimensions,
+  FlatList,
+  ListRenderItemInfo,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  StyleSheet,
+  View
+} from 'react-native';
 import IntroItem from '../components/intro/IntroItem';
 import Button from '../components/ui/Button';
 import { _ } from '../modules/i18n/Translator';
 import RouterUtil from '../modules/util/RouterUtil';
 import Background from '../components/ui/Background';
 import LinearGradient from '../components/ui/LinearGradient';
+import { NavigationScreenProp } from 'react-navigation';
 
-export default class IntroScreen extends React.Component {
-  state = {
+export interface IntroScreenProps {
+  navigation: NavigationScreenProp<null, null>;
+}
+
+export interface IntroPage {
+  title: string;
+  description: string;
+  imageHeader?: any;
+}
+
+export interface State {
+  currentPage: number;
+  width: number;
+  pages: IntroPage[];
+}
+
+export default class IntroScreen<ItemT> extends React.Component<
+  IntroScreenProps,
+  State
+> {
+  state: State = {
     currentPage: 0,
     width: Dimensions.get('window').width,
     pages: [
@@ -38,7 +66,9 @@ export default class IntroScreen extends React.Component {
     ]
   };
 
-  renderItem = ({ item, index }) => {
+  list: FlatList<ItemT>;
+
+  renderItem = ({ item, index }: ListRenderItemInfo<ItemT>) => {
     let { width } = this.state;
     return <IntroItem item={item} width={width} index={index} />;
   };
@@ -48,8 +78,8 @@ export default class IntroScreen extends React.Component {
     let page = currentPage;
     page--;
     page = page < 0 ? 0 : page;
-    this.refs.list &&
-      this.refs.list.scrollToOffset({
+    this.list &&
+      this.list.scrollToOffset({
         offset: page * width
       });
   };
@@ -59,8 +89,8 @@ export default class IntroScreen extends React.Component {
     let page = currentPage;
     page++;
     page = page >= pages.length ? 0 : page;
-    this.refs.list &&
-      this.refs.list.scrollToOffset({
+    this.list &&
+      this.list.scrollToOffset({
         offset: page * width
       });
   };
@@ -69,8 +99,11 @@ export default class IntroScreen extends React.Component {
     RouterUtil.resetTo(this.props.navigation, 'Login');
   };
 
-  onScroll = e => {
+  onScroll = (e?: NativeSyntheticEvent<NativeScrollEvent>) => {
     let { pages, currentPage } = this.state;
+    if (!e) {
+      return;
+    }
     let contentOffset = e.nativeEvent.contentOffset;
     let viewSize = e.nativeEvent.layoutMeasurement;
     let newPage = Math.round(contentOffset.x / viewSize.width);
@@ -91,8 +124,8 @@ export default class IntroScreen extends React.Component {
 
   componentDidMount() {
     setTimeout(() => {
-      this.refs.list &&
-        this.refs.list.scrollToOffset({
+      this.list &&
+        this.list.scrollToOffset({
           offset: 1
         });
     }, 100);
@@ -105,7 +138,9 @@ export default class IntroScreen extends React.Component {
       <View style={{ flex: 1 }}>
         <Background />
         <FlatList
-          ref={'list'}
+          ref={(ref: any) => {
+            this.list = ref;
+          }}
           data={pages}
           style={{ flex: 1 }}
           horizontal

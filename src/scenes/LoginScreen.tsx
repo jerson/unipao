@@ -33,7 +33,7 @@ import {
   NavigationStackScreenOptions
 } from 'react-navigation';
 
-export interface LoginScreenProps extends PreferenceItemProps {
+export interface LoginScreenProps {
   navigation: NavigationScreenProp<null, null>;
 }
 

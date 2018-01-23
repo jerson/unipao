@@ -16,7 +16,7 @@ import {
   NavigationState
 } from 'react-navigation';
 
-export interface LoginFallbackScreenProps extends PreferenceItemProps {
+export interface LoginFallbackScreenProps {
   navigation: NavigationScreenProp<null, null>;
 }
 
@@ -127,7 +127,11 @@ document.getElementsByTagName( "head" )[0].appendChild( link );
 
 `);
 
-      this.setState({ isLoading: false, isReloading: false, html: $.html() });
+      this.setState({
+        isLoading: false,
+        isReloading: false,
+        html: $('html').html()
+      });
     } catch (e) {
       this.setState({ isLoading: false, isReloading: false });
     }
