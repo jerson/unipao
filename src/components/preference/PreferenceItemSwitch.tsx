@@ -4,63 +4,65 @@ import Storage from '../../modules/storage/PreferencesStorage';
 import PreferenceItem, { PreferenceItemProps } from './PreferenceItem';
 import Log from '../../modules/logger/Log';
 
-
-export interface PreferenceItemSwitchProps  extends PreferenceItemProps {
-    onChange:(value:boolean)=>void;
-    name:string;
+export interface PreferenceItemSwitchProps extends PreferenceItemProps {
+  onChange: (value: boolean) => void;
+  name: string;
 }
 
 export interface State {
-    value:boolean
+  value: boolean;
 }
 
-export default class PreferenceItemSwitch extends React.Component<PreferenceItemSwitchProps,State> {
-    state:State = {
-        value: false
-    };
+export default class PreferenceItemSwitch extends React.Component<
+  PreferenceItemSwitchProps,
+  State
+> {
+  state: State = {
+    value: false
+  };
 
-    onChange = (value:boolean) => {
-        let {onChange} = this.props;
-        this.setState({value});
-        if (typeof onChange === 'function') {
-            onChange(value);
-        }
-    };
+  onChange = (value: boolean) => {
+    let { onChange } = this.props;
+    this.setState({ value });
+    if (typeof onChange === 'function') {
+      onChange(value);
+    }
+  };
 
-    updateStorage() {
-        Storage.set(this.props.name, this.state.value);
+  updateStorage() {
+    Storage.set(this.props.name, this.state.value);
+  }
+
+  componentDidUpdate(prevProps: PreferenceItemSwitchProps, prevState: State) {
+    if (this.state.value !== prevState.value) {
+      this.updateStorage();
+    }
+  }
+
+  getDefaultValue(): boolean {
+    return !!Storage.getDefault(this.props.name);
+  }
+
+  async componentDidMount() {
+    let defaultValue = this.getDefaultValue();
+    let value = defaultValue;
+    try {
+      let data = await Storage.get(this.props.name);
+      value = typeof data === 'boolean' ? data : defaultValue;
+    } catch (e) {
+      Log.warn(e);
     }
 
-    componentDidUpdate(prevProps:PreferenceItemSwitchProps, prevState:State) {
-        if (this.state.value !== prevState.value) {
-            this.updateStorage();
-        }
-    }
+    this.setState({ value });
+  }
 
-    getDefaultValue():boolean {
-        return !!Storage.getDefault(this.props.name);
-    }
+  render() {
+    let { onChange, ...props } = this.props;
 
-    async componentDidMount() {
-        let defaultValue = this.getDefaultValue();
-        let value = defaultValue;
-        try {
-            let data = await Storage.get(this.props.name);
-            value = typeof data === 'boolean' ? data : defaultValue;
-        } catch (e) {
-            Log.warn(e);
-        }
-
-        this.setState({value});
-    }
-
-    render() {
-        let {onChange, ...props} = this.props;
-
-        return (
-            <PreferenceItem {...props}>
-                <Switch onValueChange={this.onChange} value={this.state.value}/>
-            </PreferenceItem>
-        );
-    }
+    return (
+      <PreferenceItem {...props}>
+        <Switch onValueChange={this.onChange} value={this.state.value} />
+      </PreferenceItem>
+    );
+  }
 }

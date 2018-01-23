@@ -1,104 +1,113 @@
 import * as React from 'react';
-import {Clipboard, Linking, NavState, Platform, StyleSheet, WebView, WebViewProperties} from 'react-native';
+import {
+  Clipboard,
+  Linking,
+  NavState,
+  Platform,
+  StyleSheet,
+  WebView,
+  WebViewProperties
+} from 'react-native';
 import Log from '../../modules/logger/Log';
-import {_} from '../../modules/i18n/Translator';
+import { _ } from '../../modules/i18n/Translator';
 import * as PropTypes from 'prop-types';
 
 export interface WebViewDownloaderProps extends WebViewProperties {
-    injectedJavaScript?: string;
-    onNavigationStateChange?: (event: NavState) => void;
+  injectedJavaScript?: string;
+  onNavigationStateChange?: (event: NavState) => void;
 }
 
-export interface State {
-}
+export interface State {}
 
 const TAG = 'WebViewDownloader';
-export default class WebViewDownloader extends React.Component<WebViewDownloaderProps,
-    State> {
-    static contextTypes = {
-        notification: PropTypes.object.isRequired
-    };
-    onNavigationStateChange = (navState: NavState) => {
-        let url = navState.url || '';
-        if (url.indexOf('http') !== 0) {
-            return;
-        }
-        let lastPart = url.substr(url.lastIndexOf('.') + 1);
+export default class WebViewDownloader extends React.Component<
+  WebViewDownloaderProps,
+  State
+> {
+  static contextTypes = {
+    notification: PropTypes.object.isRequired
+  };
+  onNavigationStateChange = (navState: NavState) => {
+    let url = navState.url || '';
+    if (url.indexOf('http') !== 0) {
+      return;
+    }
+    let lastPart = url.substr(url.lastIndexOf('.') + 1);
 
-        Log.warn(TAG, 'onNavigationStateChange', url);
+    Log.warn(TAG, 'onNavigationStateChange', url);
 
-        let {onNavigationStateChange} = this.props;
-        if (typeof onNavigationStateChange === 'function') {
-            onNavigationStateChange(navState);
-        }
+    let { onNavigationStateChange } = this.props;
+    if (typeof onNavigationStateChange === 'function') {
+      onNavigationStateChange(navState);
+    }
 
-        if (url.indexOf('adjunto.aspx?cod=') !== -1) {
-            this.openRemoteLink(url);
-            return;
-        }
+    if (url.indexOf('adjunto.aspx?cod=') !== -1) {
+      this.openRemoteLink(url);
+      return;
+    }
 
-        switch (lastPart) {
-            case 'ipa':
-            case 'apk':
-            case 'plist':
-            case 'zip':
-            case 'rar':
-            case 'doc':
-            case 'docx':
-            case 'ppt':
-            case 'pptx':
-            case 'xls':
-            case 'xlsx':
-            case 'pdf':
-            case '7zip':
-                this.openRemoteLink(url);
-                break;
-        }
-    };
+    switch (lastPart) {
+      case 'ipa':
+      case 'apk':
+      case 'plist':
+      case 'zip':
+      case 'rar':
+      case 'doc':
+      case 'docx':
+      case 'ppt':
+      case 'pptx':
+      case 'xls':
+      case 'xlsx':
+      case 'pdf':
+      case '7zip':
+        this.openRemoteLink(url);
+        break;
+    }
+  };
 
-    openRemoteLink(url: string) {
-        this.context.notification.show({
-            type: 'warning',
+  openRemoteLink(url: string) {
+    this.context.notification.show({
+      type: 'warning',
+      id: 'browser',
+      message: _('Abriendo url externa'),
+      icon: 'file-download',
+      autoDismiss: 4,
+      iconType: 'MaterialIcons'
+    });
+    setTimeout(() => {
+      this.openExternalLink(url);
+    }, 2000);
+  }
+
+  async openExternalLink(url: string) {
+    try {
+      let supported = await Linking.canOpenURL(url);
+
+      if (!supported) {
+        Clipboard.setString(url);
+        this.context.notification &&
+          this.context.notification.show({
             id: 'browser',
-            message: _('Abriendo url externa'),
+            title: _('Error al abrir url'),
+            message: _(
+              'Para continuar, Pega el enlace que ya esta en tu portapapeles a tu navegador'
+            ),
             icon: 'file-download',
-            autoDismiss: 4,
-            iconType: 'MaterialIcons'
-        });
-        setTimeout(() => {
-            this.openExternalLink(url);
-        }, 2000);
+            level: 'warning',
+            autoDismiss: 5
+          });
+        return;
+      }
+      return Linking.openURL(url);
+    } catch (e) {
+      Log.error('An error occurred', e);
     }
+  }
 
-    async openExternalLink(url: string) {
-        try {
-            let supported = await Linking.canOpenURL(url);
+  render() {
+    let { injectedJavaScript, onNavigationStateChange, ...props } = this.props;
 
-            if (!supported) {
-                Clipboard.setString(url);
-                this.context.notification &&
-                this.context.notification.show({
-                    id: 'browser',
-                    title: _('Error al abrir url'),
-                    message: _(
-                        'Para continuar, Pega el enlace que ya esta en tu portapapeles a tu navegador'
-                    ),
-                    icon: 'file-download',
-                    level: 'warning',
-                    autoDismiss: 5
-                });
-                return;
-            }
-            return Linking.openURL(url);
-        } catch (e) {
-            Log.error('An error occurred', e);
-        }
-    }
-
-    render() {
-        let {injectedJavaScript, onNavigationStateChange, ...props} = this.props;
-
-        const script = `
+    const script = `
 
 
 try{
@@ -170,7 +179,7 @@ try{
 
 `;
 
-        const scriptIOS = `
+    const scriptIOS = `
    
     if (window.location.href.indexOf('upao.edu.pe/login.aspx')!==-1){   
       var metaTag=document.createElement('meta');
@@ -180,27 +189,27 @@ try{
     }
     `;
 
-        return (
-            <WebView
-                style={[styles.container]}
-                injectedJavaScript={
-                    script +
-                    (Platform.OS === 'ios' ? scriptIOS : '') +
-                    (injectedJavaScript || '')
-                }
-                javaScriptEnabled
-                domStorageEnabled
-                scalesPageToFit={false}
-                scrollEnabled={true}
-                onNavigationStateChange={this.onNavigationStateChange}
-                {...props}
-            />
-        );
-    }
+    return (
+      <WebView
+        style={[styles.container]}
+        injectedJavaScript={
+          script +
+          (Platform.OS === 'ios' ? scriptIOS : '') +
+          (injectedJavaScript || '')
+        }
+        javaScriptEnabled
+        domStorageEnabled
+        scalesPageToFit={false}
+        scrollEnabled={true}
+        onNavigationStateChange={this.onNavigationStateChange}
+        {...props}
+      />
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    }
+  container: {
+    flex: 1
+  }
 });

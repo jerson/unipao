@@ -1,3 +1,5 @@
+/// <reference path="../../node_modules/@types/jquery/index.d.ts" />
+
 declare var __DEV__: boolean;
 declare const module: any;
 

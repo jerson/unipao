@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {Theme} from '../../../../themes/styles';
+import { StyleSheet, View } from 'react-native';
+import { Theme } from '../../../../themes/styles';
 import * as PropTypes from 'prop-types';
 import CacheStorage from '../../../../modules/storage/CacheStorage';
 import Log from '../../../../modules/logger/Log';
@@ -12,90 +12,90 @@ import WebViewDownloader from '../../../../components/ui/WebViewDownloader';
 
 const TAG = 'MaterialsSectionScreen';
 export default class MaterialsSectionScreen extends React.Component {
-    static contextTypes = {
-        notification: PropTypes.object.isRequired
-    };
+  static contextTypes = {
+    notification: PropTypes.object.isRequired
+  };
 
-    static navigationOptions = ({navigation, screenProps}) => ({
-        title: '',
-        headerBackTitle: null,
-        headerTitleStyle: [Theme.title, Theme.subtitle],
-        headerTintColor: Theme.subTintColor,
-        headerStyle: [
-            Theme.navigationBar,
-            Theme.subNavigationBar,
-            Theme.shadowDefault
-        ],
-        headerRight: (
-            <View style={{flexDirection: 'row'}}>
-                <NavigationButton
-                    onPress={() => {
-                        navigation.state.params.reload();
-                    }}
-                    icon={'refresh'}
-                    iconType={'MaterialIcons'}
-                />
-            </View>
-        )
+  static navigationOptions = ({ navigation, screenProps }) => ({
+    title: '',
+    headerBackTitle: null,
+    headerTitleStyle: [Theme.title, Theme.subtitle],
+    headerTintColor: Theme.subTintColor,
+    headerStyle: [
+      Theme.navigationBar,
+      Theme.subNavigationBar,
+      Theme.shadowDefault
+    ],
+    headerRight: (
+      <View style={{ flexDirection: 'row' }}>
+        <NavigationButton
+          onPress={() => {
+            navigation.state.params.reload();
+          }}
+          icon={'refresh'}
+          iconType={'MaterialIcons'}
+        />
+      </View>
+    )
+  });
+  state = {
+    isLoading: true
+  };
+  load = async () => {
+    this.setState({ isLoading: true, cacheLoaded: false });
+    await this.checkCache();
+    await this.loadRequest();
+  };
+  getCacheKey = () => {
+    let { section } = this.props;
+    return `materials_section_${section.id}`;
+  };
+  checkCache = async () => {
+    try {
+      let data = await CacheStorage.get(this.getCacheKey());
+      data && this.loadResponse(data, true);
+    } catch (e) {
+      Log.info(TAG, 'checkCache', e);
+    }
+  };
+  loadResponse = (html, cacheLoaded = false) => {
+    this.setState({
+      cacheLoaded,
+      html,
+      isLoading: false
     });
-    state = {
-        isLoading: true
-    };
-    load = async () => {
-        this.setState({isLoading: true, cacheLoaded: false});
-        await this.checkCache();
-        await this.loadRequest();
-    };
-    getCacheKey = () => {
-        let {section} = this.props;
-        return `materials_section_${section.id}`;
-    };
-    checkCache = async () => {
-        try {
-            let data = await CacheStorage.get(this.getCacheKey());
-            data && this.loadResponse(data, true);
-        } catch (e) {
-            Log.info(TAG, 'checkCache', e);
-        }
-    };
-    loadResponse = (html, cacheLoaded = false) => {
+  };
+  loadRequest = async () => {
+    let { section } = this.props;
+    let { cacheLoaded } = this.state;
+
+    try {
+      let item = await UPAO.Student.Intranet.Course.getMaterialsHTML(section);
+      this.loadResponse(item);
+      CacheStorage.set(this.getCacheKey(), item);
+    } catch (e) {
+      Log.warn(TAG, 'load', e);
+      if (!cacheLoaded) {
+        this.loadResponse(null);
+      } else {
         this.setState({
-            cacheLoaded,
-            html,
-            isLoading: false
+          isLoading: false
         });
-    };
-    loadRequest = async () => {
-        let {section} = this.props;
-        let {cacheLoaded} = this.state;
-
-        try {
-            let item = await UPAO.Student.Intranet.Course.getMaterialsHTML(section);
-            this.loadResponse(item);
-            CacheStorage.set(this.getCacheKey(), item);
-        } catch (e) {
-            Log.warn(TAG, 'load', e);
-            if (!cacheLoaded) {
-                this.loadResponse(null);
-            } else {
-                this.setState({
-                    isLoading: false
-                });
-            }
-        }
-    };
-
-    componentWillUnmount() {
-        UPAO.abort('Course.getMaterialsHTML');
+      }
     }
+  };
 
-    componentDidMount() {
-        this.load();
-    }
+  componentWillUnmount() {
+    UPAO.abort('Course.getMaterialsHTML');
+  }
 
-    render() {
-        let {html: content, isRefreshing, isLoading} = this.state;
-        let html = `
+  componentDidMount() {
+    this.load();
+  }
+
+  render() {
+    let { html: content, isRefreshing, isLoading } = this.state;
+    let html = `
 <html>
 <head>
     <meta name="viewport"
@@ -187,27 +187,27 @@ ${content}
 </body>
 </html>
     `;
-        return (
-            <View style={[styles.container]}>
-                {isLoading && <Loading margin/>}
-                {!isLoading && (
-                    <WebViewDownloader
-                        style={[styles.container]}
-                        openInternally={['campusvirtual.upao.edu.pe']}
-                        source={{
-                            html,
-                            baseUrl: Config.URL
-                        }}
-                    />
-                )}
-            </View>
-        );
-    }
+    return (
+      <View style={[styles.container]}>
+        {isLoading && <Loading margin />}
+        {!isLoading && (
+          <WebViewDownloader
+            style={[styles.container]}
+            openInternally={['campusvirtual.upao.edu.pe']}
+            source={{
+              html,
+              baseUrl: Config.URL
+            }}
+          />
+        )}
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#ffff'
-    }
+  container: {
+    flex: 1,
+    backgroundColor: '#ffff'
+  }
 });

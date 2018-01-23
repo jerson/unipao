@@ -1,14 +1,10 @@
 const TAG = 'Schedule';
 export default class Schedule {
-    static async getLanguagesCourses() {
-    }
+  static async getLanguagesCourses() {}
 
-    static async getCourses() {
-    }
+  static async getCourses() {}
 
-    static async getBaseSchedules() {
-    }
+  static async getBaseSchedules() {}
 
-    static async getBaseCourses() {
-    }
+  static async getBaseCourses() {}
 }

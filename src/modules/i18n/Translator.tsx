@@ -2,7 +2,7 @@ import PreferencesStorage from '../storage/PreferencesStorage';
 import Emitter from '../listener/Emitter';
 import en from './locales/en';
 import Log from '../logger/Log';
-import {getDefaultLocale} from './Detector';
+import { getDefaultLocale } from './Detector';
 import 'moment/locale/es';
 import 'moment/locale/pt';
 import 'moment/locale/fr';
@@ -13,93 +13,93 @@ const moment = require('moment');
 const format = require('string-format');
 
 export interface UserSettings {
-    translations: Translations;
-    defaultLocale?: string;
+  translations: Translations;
+  defaultLocale?: string;
 }
 
 export interface Settings {
-    translations: Translations;
-    defaultLocale: string;
+  translations: Translations;
+  defaultLocale: string;
 }
 
 export type TranslationText = string | number;
 
 export interface Locale {
-    [key: string]: string;
+  [key: string]: string;
 }
 
 export interface Params {
-    [key: string]: TranslationText;
+  [key: string]: TranslationText;
 }
 
 export interface Translations {
-    [key: string]: Locale;
+  [key: string]: Locale;
 }
 
 export function _(key: string, params: Params = {}): string {
-    return Translator.translate(key, params);
+  return Translator.translate(key, params);
 }
 
 export default class Translator {
-    static settings: Settings = {
-        translations: {en},
-        defaultLocale: 'en'
-    };
-    static locale;
+  static settings: Settings = {
+    translations: { en },
+    defaultLocale: 'en'
+  };
+  static locale;
 
-    static async init(settings: UserSettings) {
-        this.locale = this.getSystemLocale();
-        if (settings) {
-            this.settings = Object.assign({}, this.settings, settings);
-        }
-
-        try {
-            let locale = await this.getUserLocale();
-            this.setLocale(locale);
-        } catch (e) {
-            Log.debug('[TRANSLATOR]', e);
-        }
+  static async init(settings: UserSettings) {
+    this.locale = this.getSystemLocale();
+    if (settings) {
+      this.settings = Object.assign({}, this.settings, settings);
     }
 
-    static setLocale(locale: string): void {
-        this.locale = locale === 'auto' ? this.getSystemLocale() : locale;
-        if (this.locale === 'en') {
-            moment.locale('en-ie');
-        } else {
-            moment.locale(this.locale);
-        }
-        Emitter.emit('onLocaleChange', this.locale);
+    try {
+      let locale = await this.getUserLocale();
+      this.setLocale(locale);
+    } catch (e) {
+      Log.debug('[TRANSLATOR]', e);
     }
+  }
 
-    static getLocale(): string {
-        return this.locale;
+  static setLocale(locale: string): void {
+    this.locale = locale === 'auto' ? this.getSystemLocale() : locale;
+    if (this.locale === 'en') {
+      moment.locale('en-ie');
+    } else {
+      moment.locale(this.locale);
     }
+    Emitter.emit('onLocaleChange', this.locale);
+  }
 
-    static translate(text: string, params: Params = {}): string {
-        if (!text) {
-            return '';
-        }
-        let translated = text;
-        if (this.settings.translations[this.locale]) {
-            translated = this.settings.translations[this.locale][text];
-        }
-        translated = translated ? translated : text;
-        return format(translated, params);
-    }
+  static getLocale(): string {
+    return this.locale;
+  }
 
-    static async getUserLocale(): Promise<string> {
-        try {
-            let data = await PreferencesStorage.get('locale');
-            let locale = data.toString();
-            return locale ? locale : this.getSystemLocale();
-        } catch (e) {
-            return this.getSystemLocale();
-        }
+  static translate(text: string, params: Params = {}): string {
+    if (!text) {
+      return '';
     }
+    let translated = text;
+    if (this.settings.translations[this.locale]) {
+      translated = this.settings.translations[this.locale][text];
+    }
+    translated = translated ? translated : text;
+    return format(translated, params);
+  }
 
-    static getSystemLocale(): string {
-        let initialLocale = getDefaultLocale();
-        let locale = initialLocale.split('-');
-        return locale[0] ? locale[0] : this.settings.defaultLocale;
+  static async getUserLocale(): Promise<string> {
+    try {
+      let data = await PreferencesStorage.get('locale');
+      let locale = data.toString();
+      return locale ? locale : this.getSystemLocale();
+    } catch (e) {
+      return this.getSystemLocale();
     }
+  }
+
+  static getSystemLocale(): string {
+    let initialLocale = getDefaultLocale();
+    let locale = initialLocale.split('-');
+    return locale[0] ? locale[0] : this.settings.defaultLocale;
+  }
 }

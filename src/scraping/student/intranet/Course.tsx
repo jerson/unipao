@@ -4,397 +4,397 @@ import Log from '../../../modules/logger/Log';
 
 const TAG = 'Course';
 export default class Course {
-    static async getExamsHTML(section: any) {
-        let html = '';
-        try {
-            let params = {
-                f: 'YAAHIST',
-                a: 'BODY_EXAMEN',
-                valor: section.code
-            };
+  static async getExamsHTML(section: any) {
+    let html = '';
+    try {
+      let params = {
+        f: 'YAAHIST',
+        a: 'BODY_EXAMEN',
+        valor: section.code
+      };
 
-            let $ = await RequestUtil.fetch(
-                '/controlador/cargador.aspx',
-                {
-                    method: 'POST',
-                    body: ParamsUtils.getFormData(params)
-                },
-                {tag: 'Course.getExamsHTML', checkSession: true}
-            );
+      let $ = await RequestUtil.fetch(
+        '/controlador/cargador.aspx',
+        {
+          method: 'POST',
+          body: ParamsUtils.getFormData(params)
+        },
+        { tag: 'Course.getExamsHTML', checkSession: true }
+      );
 
-            html = this.sanitizeHTML($.html());
-        } catch (e) {
-            Log.warn(TAG, 'getExamsHTML', e);
-            throw e;
-        }
-
-        return html;
+      html = this.sanitizeHTML($.html());
+    } catch (e) {
+      Log.warn(TAG, 'getExamsHTML', e);
+      throw e;
     }
 
-    static async getJobsHTML(section: any) {
-        let html = '';
-        try {
-            let params = {
-                f: 'YAAHIST',
-                a: 'BODY_TRABAJO',
-                valor: section.code
-            };
+    return html;
+  }
 
-            let $ = await RequestUtil.fetch(
-                '/controlador/cargador.aspx',
-                {
-                    method: 'POST',
-                    body: ParamsUtils.getFormData(params)
-                },
-                {tag: 'Course.getJobsHTML', checkSession: true}
-            );
+  static async getJobsHTML(section: any) {
+    let html = '';
+    try {
+      let params = {
+        f: 'YAAHIST',
+        a: 'BODY_TRABAJO',
+        valor: section.code
+      };
 
-            html = this.sanitizeHTML($.html());
-        } catch (e) {
-            Log.info(TAG, 'getJobsHTML', e);
-            throw e;
-        }
+      let $ = await RequestUtil.fetch(
+        '/controlador/cargador.aspx',
+        {
+          method: 'POST',
+          body: ParamsUtils.getFormData(params)
+        },
+        { tag: 'Course.getJobsHTML', checkSession: true }
+      );
 
-        return html;
+      html = this.sanitizeHTML($.html());
+    } catch (e) {
+      Log.info(TAG, 'getJobsHTML', e);
+      throw e;
     }
 
-    static async getAssistsHTML(section: any) {
-        let html = '';
-        try {
-            let params = {
-                f: 'YAAHIST',
-                a: 'BODY_ASISTENCIA',
-                valor: section.code
-            };
+    return html;
+  }
 
-            let $ = await RequestUtil.fetch(
-                '/controlador/cargador.aspx',
-                {
-                    method: 'POST',
-                    body: ParamsUtils.getFormData(params)
-                },
-                {tag: 'Course.getAssistsHTML', checkSession: true}
-            );
+  static async getAssistsHTML(section: any) {
+    let html = '';
+    try {
+      let params = {
+        f: 'YAAHIST',
+        a: 'BODY_ASISTENCIA',
+        valor: section.code
+      };
 
-            html = this.sanitizeHTML($.html());
-        } catch (e) {
-            Log.info(TAG, 'getAssistsHTML', e);
-            throw e;
-        }
+      let $ = await RequestUtil.fetch(
+        '/controlador/cargador.aspx',
+        {
+          method: 'POST',
+          body: ParamsUtils.getFormData(params)
+        },
+        { tag: 'Course.getAssistsHTML', checkSession: true }
+      );
 
-        return html;
+      html = this.sanitizeHTML($.html());
+    } catch (e) {
+      Log.info(TAG, 'getAssistsHTML', e);
+      throw e;
     }
 
-    static sanitizeHTML(html:string) {
-        return html;
-        // return html.replace(new RegExp('\\|', 'gi'), '%257C');
+    return html;
+  }
+
+  static sanitizeHTML(html: string) {
+    return html;
+    // return html.replace(new RegExp('\\|', 'gi'), '%257C');
+  }
+
+  static async getMaterialsHTML(section: any) {
+    let html = '';
+    try {
+      let params = {
+        f: 'YAAHIST',
+        a: 'BODY_MATERIAL',
+        valor: section.code
+      };
+
+      let $ = await RequestUtil.fetch(
+        '/controlador/cargador.aspx',
+        {
+          method: 'POST',
+          body: ParamsUtils.getFormData(params)
+        },
+        { tag: 'Course.getMaterialsHTML', checkSession: true }
+      );
+
+      $('a').each((index, item) => {
+        $(item)
+          .attr('download', 'download')
+          .attr('target', '_blank');
+      });
+
+      html = this.sanitizeHTML($.html());
+    } catch (e) {
+      Log.info(TAG, 'getMaterialsHTML', e);
+      throw e;
     }
 
-    static async getMaterialsHTML(section: any) {
-        let html = '';
-        try {
-            let params = {
-                f: 'YAAHIST',
-                a: 'BODY_MATERIAL',
-                valor: section.code
-            };
+    return html;
+  }
 
-            let $ = await RequestUtil.fetch(
-                '/controlador/cargador.aspx',
-                {
-                    method: 'POST',
-                    body: ParamsUtils.getFormData(params)
-                },
-                {tag: 'Course.getMaterialsHTML', checkSession: true}
-            );
+  static async getForumHTML(section: any) {
+    let html = '';
+    try {
+      let params = {
+        f: 'YAAHIST',
+        a: 'BODY_FORO',
+        valor: section.code
+      };
 
-            $('a').each((index, item) => {
-                $(item)
-                    .attr('download', 'download')
-                    .attr('target', '_blank');
-            });
+      let $ = await RequestUtil.fetch(
+        '/controlador/cargador.aspx',
+        {
+          method: 'POST',
+          body: ParamsUtils.getFormData(params)
+        },
+        { tag: 'Course.getForumHTML', checkSession: true }
+      );
 
-            html = this.sanitizeHTML($.html());
-        } catch (e) {
-            Log.info(TAG, 'getMaterialsHTML', e);
-            throw e;
-        }
-
-        return html;
+      html = this.sanitizeHTML($.html());
+    } catch (e) {
+      Log.info(TAG, 'getForumHTML', e);
+      throw e;
     }
 
-    static async getForumHTML(section: any) {
-        let html = '';
-        try {
-            let params = {
-                f: 'YAAHIST',
-                a: 'BODY_FORO',
-                valor: section.code
-            };
+    return html;
+  }
 
-            let $ = await RequestUtil.fetch(
-                '/controlador/cargador.aspx',
-                {
-                    method: 'POST',
-                    body: ParamsUtils.getFormData(params)
-                },
-                {tag: 'Course.getForumHTML', checkSession: true}
-            );
+  static async getGradesHTML(course: any) {
+    let html = '';
+    try {
+      let params = {
+        f: 'YAAHIST',
+        a: 'SHOW_NOTAS',
+        valor: course.code,
+        codigo: course.id
+      };
 
-            html = this.sanitizeHTML($.html());
-        } catch (e) {
-            Log.info(TAG, 'getForumHTML', e);
-            throw e;
-        }
+      let $ = await RequestUtil.fetch(
+        '/controlador/cargador.aspx',
+        {
+          method: 'POST',
+          body: ParamsUtils.getFormData(params)
+        },
+        { tag: 'Course.getGradesHTML', checkSession: true }
+      );
 
-        return html;
+      let table = $('table')
+        .first()
+        .html();
+      html = table ? `<table>${table}</table>` : '';
+    } catch (e) {
+      Log.info(TAG, 'getGradesHTML', e);
+      throw e;
     }
 
-    static async getGradesHTML(course: any) {
-        let html = '';
-        try {
-            let params = {
-                f: 'YAAHIST',
-                a: 'SHOW_NOTAS',
-                valor: course.code,
-                codigo: course.id
-            };
+    return html;
+  }
 
-            let $ = await RequestUtil.fetch(
-                '/controlador/cargador.aspx',
-                {
-                    method: 'POST',
-                    body: ParamsUtils.getFormData(params)
-                },
-                {tag: 'Course.getGradesHTML', checkSession: true}
-            );
+  static async getSyllables(course: any) {
+    let items = [];
+    try {
+      let params = {
+        f: 'YAAHIST',
+        a: 'SHOW_SILABO',
+        valor: course.code,
+        codigo: course.id
+      };
 
-            let table = $('table')
-                .first()
-                .html();
-            html = table ? `<table>${table}</table>` : '';
-        } catch (e) {
-            Log.info(TAG, 'getGradesHTML', e);
-            throw e;
+      let $ = await RequestUtil.fetch(
+        '/controlador/cargador.aspx',
+        {
+          method: 'POST',
+          body: ParamsUtils.getFormData(params)
+        },
+        { tag: 'Course.getSyllables', checkSession: true }
+      );
+
+      $('table a').each((index, value) => {
+        let url = $(value).attr('href') || '';
+        let name = $(value)
+          .text()
+          .trim();
+
+        if (url.indexOf('.pdf') === -1) {
+          return;
         }
 
-        return html;
-    }
-
-    static async getSyllables(course: any) {
-        let items = [];
-        try {
-            let params = {
-                f: 'YAAHIST',
-                a: 'SHOW_SILABO',
-                valor: course.code,
-                codigo: course.id
-            };
-
-            let $ = await RequestUtil.fetch(
-                '/controlador/cargador.aspx',
-                {
-                    method: 'POST',
-                    body: ParamsUtils.getFormData(params)
-                },
-                {tag: 'Course.getSyllables', checkSession: true}
-            );
-
-            $('table a').each((index, value) => {
-                let url = $(value).attr('href') || '';
-                let name = $(value)
-                    .text()
-                    .trim();
-
-                if (url.indexOf('.pdf') === -1) {
-                    return;
-                }
-
-                items.push({
-                    id: url,
-                    url,
-                    name
-                });
-            });
-        } catch (e) {
-            Log.info(TAG, 'getSyllables', e);
-            throw e;
-        }
-
-        return items;
-    }
-
-    static async getMaterialsSections(course: any) {
-        let items = [];
-        try {
-            let params = {
-                f: 'YAAHIST',
-                a: 'SECC_MATERIAL',
-                valor: course.code,
-                codigo: course.id
-            };
-
-            let $ = await RequestUtil.fetch(
-                '/controlador/cargador.aspx',
-                {
-                    method: 'POST',
-                    body: ParamsUtils.getFormData(params)
-                },
-                {tag: 'Course.getMaterialsSections', checkSession: true}
-            );
-
-            items = this.parseSections($);
-        } catch (e) {
-            Log.info(TAG, 'getMaterialsSections', e);
-            throw e;
-        }
-
-        return items;
-    }
-
-    static async getAssistsSections(course: any) {
-        let items = [];
-        try {
-            let params = {
-                f: 'YAAHIST',
-                a: 'SECC_ASISTENCIAS',
-                valor: course.code,
-                codigo: course.id
-            };
-
-            let $ = await RequestUtil.fetch(
-                '/controlador/cargador.aspx',
-                {
-                    method: 'POST',
-                    body: ParamsUtils.getFormData(params)
-                },
-                {tag: 'Course.getAssistsSections', checkSession: true}
-            );
-
-            items = this.parseSections($);
-        } catch (e) {
-            Log.info(TAG, 'getAssistsSections', e);
-            throw e;
-        }
-
-        return items;
-    }
-
-    static async getForumSections(course: any) {
-        let items = [];
-        try {
-            let params = {
-                f: 'YAAHIST',
-                a: 'SECC_FORO',
-                valor: course.code,
-                codigo: course.id
-            };
-
-            let $ = await RequestUtil.fetch(
-                '/controlador/cargador.aspx',
-                {
-                    method: 'POST',
-                    body: ParamsUtils.getFormData(params)
-                },
-                {tag: 'Course.getForumSections', checkSession: true}
-            );
-
-            items = this.parseSections($);
-        } catch (e) {
-            Log.info(TAG, 'getForumSections', e);
-            throw e;
-        }
-
-        return items;
-    }
-
-    static async getJobsSections(course: any) {
-        let items = [];
-        try {
-            let params = {
-                f: 'YAAHIST',
-                a: 'SECC_TRABAJO',
-                valor: course.code,
-                codigo: course.id
-            };
-
-            let $ = await RequestUtil.fetch(
-                '/controlador/cargador.aspx',
-                {
-                    method: 'POST',
-                    body: ParamsUtils.getFormData(params)
-                },
-                {tag: 'Course.getJobsSections', checkSession: true}
-            );
-
-            items = this.parseSections($);
-        } catch (e) {
-            Log.info(TAG, 'getJobsSections', e);
-            throw e;
-        }
-
-        return items;
-    }
-
-    static async getExamsSections(course: any) {
-        let items = [];
-        try {
-            let params = {
-                f: 'YAAHIST',
-                a: 'SECC_EXAMEN',
-                valor: course.code,
-                codigo: course.id
-            };
-
-            let $ = await RequestUtil.fetch(
-                '/controlador/cargador.aspx',
-                {
-                    method: 'POST',
-                    body: ParamsUtils.getFormData(params)
-                },
-                {tag: 'Course.getExamsSections', checkSession: true}
-            );
-
-            items = this.parseSections($);
-        } catch (e) {
-            Log.info(TAG, 'getExamsSections', e);
-            throw e;
-        }
-
-        return items;
-    }
-
-    static parseSections($) {
-        let items = [];
-
-        if (!$) {
-            return items;
-        }
-        $('.yaahist_mtrl').each((index, value) => {
-            let id = $(value).attr('id') || '';
-            let codeString = $(value).attr('onclick') || '';
-
-            let parts = codeString.split('\',\'');
-            let code = (parts[1] || '').replace('\');', '').trim();
-            let teacher = $('table > tr > td:nth-child(3) > div:nth-child(1)', value)
-                .text()
-                .trim();
-            let nrc = $('table > tr > td:nth-child(3) > div:nth-child(2)', value)
-                .text()
-                .replace('NRC:', '')
-                .trim();
-            let name = $('table > tr > td:nth-child(3) > div:nth-child(3)', value)
-                .text()
-                .trim();
-            items.push({
-                id,
-                code,
-                name,
-                nrc,
-                teacher
-            });
+        items.push({
+          id: url,
+          url,
+          name
         });
-
-        return items;
+      });
+    } catch (e) {
+      Log.info(TAG, 'getSyllables', e);
+      throw e;
     }
+
+    return items;
+  }
+
+  static async getMaterialsSections(course: any) {
+    let items = [];
+    try {
+      let params = {
+        f: 'YAAHIST',
+        a: 'SECC_MATERIAL',
+        valor: course.code,
+        codigo: course.id
+      };
+
+      let $ = await RequestUtil.fetch(
+        '/controlador/cargador.aspx',
+        {
+          method: 'POST',
+          body: ParamsUtils.getFormData(params)
+        },
+        { tag: 'Course.getMaterialsSections', checkSession: true }
+      );
+
+      items = this.parseSections($);
+    } catch (e) {
+      Log.info(TAG, 'getMaterialsSections', e);
+      throw e;
+    }
+
+    return items;
+  }
+
+  static async getAssistsSections(course: any) {
+    let items = [];
+    try {
+      let params = {
+        f: 'YAAHIST',
+        a: 'SECC_ASISTENCIAS',
+        valor: course.code,
+        codigo: course.id
+      };
+
+      let $ = await RequestUtil.fetch(
+        '/controlador/cargador.aspx',
+        {
+          method: 'POST',
+          body: ParamsUtils.getFormData(params)
+        },
+        { tag: 'Course.getAssistsSections', checkSession: true }
+      );
+
+      items = this.parseSections($);
+    } catch (e) {
+      Log.info(TAG, 'getAssistsSections', e);
+      throw e;
+    }
+
+    return items;
+  }
+
+  static async getForumSections(course: any) {
+    let items = [];
+    try {
+      let params = {
+        f: 'YAAHIST',
+        a: 'SECC_FORO',
+        valor: course.code,
+        codigo: course.id
+      };
+
+      let $ = await RequestUtil.fetch(
+        '/controlador/cargador.aspx',
+        {
+          method: 'POST',
+          body: ParamsUtils.getFormData(params)
+        },
+        { tag: 'Course.getForumSections', checkSession: true }
+      );
+
+      items = this.parseSections($);
+    } catch (e) {
+      Log.info(TAG, 'getForumSections', e);
+      throw e;
+    }
+
+    return items;
+  }
+
+  static async getJobsSections(course: any) {
+    let items = [];
+    try {
+      let params = {
+        f: 'YAAHIST',
+        a: 'SECC_TRABAJO',
+        valor: course.code,
+        codigo: course.id
+      };
+
+      let $ = await RequestUtil.fetch(
+        '/controlador/cargador.aspx',
+        {
+          method: 'POST',
+          body: ParamsUtils.getFormData(params)
+        },
+        { tag: 'Course.getJobsSections', checkSession: true }
+      );
+
+      items = this.parseSections($);
+    } catch (e) {
+      Log.info(TAG, 'getJobsSections', e);
+      throw e;
+    }
+
+    return items;
+  }
+
+  static async getExamsSections(course: any) {
+    let items = [];
+    try {
+      let params = {
+        f: 'YAAHIST',
+        a: 'SECC_EXAMEN',
+        valor: course.code,
+        codigo: course.id
+      };
+
+      let $ = await RequestUtil.fetch(
+        '/controlador/cargador.aspx',
+        {
+          method: 'POST',
+          body: ParamsUtils.getFormData(params)
+        },
+        { tag: 'Course.getExamsSections', checkSession: true }
+      );
+
+      items = this.parseSections($);
+    } catch (e) {
+      Log.info(TAG, 'getExamsSections', e);
+      throw e;
+    }
+
+    return items;
+  }
+
+  static parseSections($) {
+    let items = [];
+
+    if (!$) {
+      return items;
+    }
+    $('.yaahist_mtrl').each((index, value) => {
+      let id = $(value).attr('id') || '';
+      let codeString = $(value).attr('onclick') || '';
+
+      let parts = codeString.split("','");
+      let code = (parts[1] || '').replace("');", '').trim();
+      let teacher = $('table > tr > td:nth-child(3) > div:nth-child(1)', value)
+        .text()
+        .trim();
+      let nrc = $('table > tr > td:nth-child(3) > div:nth-child(2)', value)
+        .text()
+        .replace('NRC:', '')
+        .trim();
+      let name = $('table > tr > td:nth-child(3) > div:nth-child(3)', value)
+        .text()
+        .trim();
+      items.push({
+        id,
+        code,
+        name,
+        nrc,
+        teacher
+      });
+    });
+
+    return items;
+  }
 }

@@ -8,43 +8,43 @@ import codePush from 'react-native-code-push';
 
 console.disableYellowBox = true;
 let codePushOptions = {
-    installMode: codePush.InstallMode.IMMEDIATE,
-    checkFrequency: codePush.CheckFrequency.ON_APP_START
+  installMode: codePush.InstallMode.IMMEDIATE,
+  checkFrequency: codePush.CheckFrequency.ON_APP_START
 };
 
 class App extends React.Component {
-    state = {
-        isLoaded: false
-    };
+  state = {
+    isLoaded: false
+  };
 
-    onLocaleChange = () => {
-        this.setState({isLoaded: true});
-    };
+  onLocaleChange = () => {
+    this.setState({ isLoaded: true });
+  };
 
-    async componentDidMount() {
-        Emitter.on('onLocaleChange', this.onLocaleChange);
-        await Translator.init({
-            defaultLocale: 'es',
-            translations: {
-                en,
-                pt
-            }
-        });
+  async componentDidMount() {
+    Emitter.on('onLocaleChange', this.onLocaleChange);
+    await Translator.init({
+      defaultLocale: 'es',
+      translations: {
+        en,
+        pt
+      }
+    });
+  }
+
+  componentWillMount() {
+    Emitter.off(this.onLocaleChange);
+  }
+
+  render() {
+    let { isLoaded } = this.state;
+    if (!isLoaded) {
+      return <Loading margin />;
     }
+    const Main = require('./Main').default;
 
-    componentWillMount() {
-        Emitter.off(this.onLocaleChange);
-    }
-
-    render() {
-        let {isLoaded} = this.state;
-        if (!isLoaded) {
-            return <Loading margin/>;
-        }
-        const Main = require('./Main').default;
-
-        return <Main/>;
-    }
+    return <Main />;
+  }
 }
 
 export default (__DEV__ ? App : codePush(codePushOptions)(App));
