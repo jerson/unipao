@@ -2,15 +2,10 @@
     "name": "unipao",
     "version": "1.0.0",
     "private": true,
-    "devDependencies": {
-        "babel-preset-react-native-stage-0": "^1.0.1",
-        "lint-staged": "^6.0.0",
-        "prettier": "1.9.2",
-        "react-test-renderer": "16.2.0",
-        "rnpm-plugin-windows": "^0.2.8"
-    },
     "scripts": {
         "start": "react-native start",
+        "build": "npm run tslint && tsc",
+        "watch": "npm run tslint && tsc --watch",
         "build:android:release": "cd android && ./gradlew assembleRelease",
         "build:android:beta": "cd android && ./gradlew assembleReleaseBeta",
         "build:windows:assets": "react-native bundle --platform windows --entry-file index.js --bundle-output windows\\unipao\\ReactAssets\\index.windows.bundle --assets-dest windows\\unipao\\ReactAssets  --dev false",
@@ -30,13 +25,33 @@
         "push:all:beta": "npm run push:android:beta && npm run push:ios:beta && npm run push:windows:beta",
         "test": "node node_modules/jest/bin/jest.js --watch",
         "precommit": "lint-staged",
-        "prettier": "prettier --write --single-quote 'src/**/*.js'"
+        "tslint": "tslint --project tsconfig.json -r tslint.json -r ./node_modules/tslint-microsoft-contrib --fix || true",
+        "prettier": "prettier --write --single-quote 'src/**/*.tsx'",
+        "format": "npm run prettier && npm run tslint"
     },
     "lint-staged": {
         "*.{js,json,css}": [
             "prettier --write",
             "git add"
         ]
+    },
+    "devDependencies": {
+        "@types/prop-types": "^15.5.2",
+        "@types/pubsub-js": "^1.5.18",
+        "@types/react": "^16.0.34",
+        "@types/react-native": "^0.52.2",
+        "@types/react-navigation": "^1.0.28",
+        "@types/realm": "^1.13.0",
+        "babel-preset-react-native-stage-0": "^1.0.1",
+        "lint-staged": "^6.0.0",
+        "prettier": "1.9.2",
+        "react-native-typescript-transformer": "^1.2.3",
+        "react-test-renderer": "16.2.0",
+        "rnpm-plugin-windows": "^0.2.8",
+        "tslint": "^5.9.1",
+        "tslint-microsoft-contrib": "^5.0.2",
+        "tsutils": "^2.19.1",
+        "typescript": "^2.6.2"
     },
     "dependencies": {
         "appcenter": "^1.1.0",
