@@ -3,17 +3,26 @@ import {StyleSheet, Text, View} from 'react-native';
 import * as PropTypes from 'prop-types';
 import {_} from '../../modules/i18n/Translator';
 
+
+export interface PeriodHeaderProps   {
+    title:string;
+}
+
+export interface State {
+    
+}
+
 const TAG = 'PeriodHeader';
-export default class PeriodHeader extends React.Component {
+export default class PeriodHeader extends React.Component<PeriodHeaderProps,State> {
     static contextTypes = {
         notification: PropTypes.object.isRequired,
         navigation: PropTypes.object.isRequired
     };
 
-    state = {};
+    state:State = {};
 
     render() {
-        let {title, courses} = this.props;
+        let {title} = this.props;
         let part1 = title.slice(0, 4);
         let part2 = title.slice(4, 7);
         return (

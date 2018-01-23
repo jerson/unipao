@@ -7,16 +7,32 @@ import Request from '../../modules/network/Request';
 import Log from '../../modules/logger/Log';
 import CacheStorage from '../../modules/storage/CacheStorage';
 
+
+
+export interface PeriodModalProps   {
+    onChange:(value:string)=>void;
+    onLoaded:(periods: any[])=>void;
+}
+
+export interface State {
+    isLoading: boolean,
+    showModal: boolean,
+    cacheLoaded:boolean,
+    periods: any[],
+    period: any
+}
+
 const TAG = 'PeriodModal';
-export default class PeriodModal extends React.PureComponent {
+export default class PeriodModal extends React.PureComponent<PeriodModalProps,State> {
     static contextTypes = {
         notification: PropTypes.object.isRequired,
         navigation: PropTypes.object.isRequired
     };
 
-    state = {
+    state:State = {
         isLoading: true,
         showModal: false,
+        cacheLoaded:false,
         periods: [],
         period: {}
     };
@@ -30,7 +46,7 @@ export default class PeriodModal extends React.PureComponent {
     toggle = () => {
         this.setState({showModal: !this.state.showModal});
     };
-    onChange = value => {
+    onChange = (value:string) => {
         let {periods} = this.state;
         let {onChange} = this.props;
         let period = periods.find(period => {
@@ -61,7 +77,7 @@ export default class PeriodModal extends React.PureComponent {
         }
     };
 
-    loadResponse = (body, cacheLoaded = false) => {
+    loadResponse = (body:any, cacheLoaded = false) => {
         let {onLoaded} = this.props;
         if (body.data) {
             let periods = JSON.parse(body.data);
@@ -70,7 +86,7 @@ export default class PeriodModal extends React.PureComponent {
             //   let value2 = this.parseLevelSort(b.NIVEL);
             //   return value1 < value2;
             // });
-            periods.sort((a, b) => {
+            periods.sort((a:any, b:any) => {
                 let value1 = parseFloat(a.PERIODO);
                 let value2 = parseFloat(b.PERIODO);
                 return value1 < value2;
@@ -107,7 +123,7 @@ export default class PeriodModal extends React.PureComponent {
         }
     };
 
-    parseLevelSort = level => {
+    parseLevelSort = (level:string) => {
         switch (level) {
             case 'GR':
                 return 0;
@@ -123,7 +139,7 @@ export default class PeriodModal extends React.PureComponent {
         }
     };
 
-    parseLevel = level => {
+    parseLevel = (level:string) => {
         switch (level) {
             case 'GR':
                 return _('Postgrado');
@@ -163,7 +179,8 @@ export default class PeriodModal extends React.PureComponent {
                                 value: period.PERIODO,
                                 label: period.PERIODO,
                                 icon: 'timelapse',
-                                iconType: 'MaterialCommunityIcons',
+                                //iconType: 'MaterialCommunityIcons',
+
                                 subtitle: this.parseLevel(period.NIVEL)
                             };
                         })}

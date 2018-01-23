@@ -1,15 +1,28 @@
 import * as React from 'react';
 import Select from '../ui/Select';
 import Storage from '../../modules/storage/PreferencesStorage';
-import PreferenceItem from './PreferenceItem';
+import PreferenceItem, { PreferenceItemProps } from './PreferenceItem';
 import Log from '../../modules/logger/Log';
+import { InputSelectOption } from 'components/ui/InputSelect';
 
-export default class PreferenceItemSelect extends React.Component {
-    state = {
+
+export interface PreferenceItemSelectProps  extends PreferenceItemProps {
+    onChange:(value:string)=>void;
+    values:InputSelectOption[]
+    name:string;
+}
+
+export interface State {
+    value:string
+}
+
+
+export default class PreferenceItemSelect extends React.Component<PreferenceItemSelectProps,State> {
+    state:State = {
         value: ''
     };
 
-    onChange = value => {
+    onChange = (value:string) => {
         let {onChange} = this.props;
         if (value !== this.state.value) {
             this.setState({value}, () => {
@@ -21,28 +34,29 @@ export default class PreferenceItemSelect extends React.Component {
     };
 
     updateStorage() {
-        let {name, value} = this.props;
+        let {name} = this.props;
+        let { value} = this.state;
         Storage.set(name, value);
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps:PreferenceItemSelectProps, prevState:State) {
         if (this.state.value !== prevState.value && prevState.value) {
             this.updateStorage();
         }
     }
 
     getDefaultValue() {
-        return Storage.getDefault(this.props.name);
+        return Storage.getDefault(this.props.name).toString();
     }
 
     async componentDidMount() {
         let defaultValue = this.getDefaultValue();
-        let value = this.props.value;
+        let value = defaultValue;
 
         if (!value) {
             try {
                 let data = await Storage.get(this.props.name);
-                value = data ? data : defaultValue;
+                value = data ? data.toString() : defaultValue;
             } catch (e) {
                 Log.warn(e);
                 value = defaultValue;

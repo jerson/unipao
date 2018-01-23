@@ -12,8 +12,7 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Zocial from 'react-native-vector-icons/Zocial';
 import {StyleProp, TextStyle} from 'react-native';
 
-export type IconType =
-    | 'MaterialIcons'
+export type IconType = 'MaterialIcons'
     | 'MaterialCommunityIcons'
     | 'Feather'
     | 'SimpleLineIcons'

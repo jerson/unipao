@@ -4,8 +4,17 @@ import * as PropTypes from 'prop-types';
 import PaymentItem from './PaymentItem';
 import PaymentHeader from './PaymentHeader';
 
+
+export interface PaymentListProps   {
+    payments:any[];
+}
+
+export interface State {
+    
+}
+
 const TAG = 'PaymentList';
-export default class PaymentList extends React.PureComponent {
+export default class PaymentList extends React.PureComponent<PaymentListProps,State> {
     static contextTypes = {
         notification: PropTypes.object.isRequired,
         navigation: PropTypes.object.isRequired
@@ -13,7 +22,7 @@ export default class PaymentList extends React.PureComponent {
 
     state = {};
 
-    renderItem = ({item}) => {
+    renderItem = ({item}:any) => {
         return <PaymentItem payment={item}/>;
     };
 

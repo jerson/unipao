@@ -1,7 +1,17 @@
 import * as React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
-export default class PreferenceItem extends React.Component {
+
+export interface PreferenceItemProps {
+    description?:string;
+    title:string;
+}
+
+export interface State { 
+
+}
+
+export default class PreferenceItem extends React.Component<PreferenceItemProps,State> {
     render() {
         return (
             <View style={styles.container}>

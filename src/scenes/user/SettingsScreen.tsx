@@ -66,7 +66,7 @@ export default class SettingsScreen extends React.Component {
             }
         ]);
     };
-    onChangeLocale = async locale => {
+    onChangeLocale = async (locale:string) => {
         await PreferencesStorage.set('locale', locale);
         Translator.setLocale(locale);
         codePush.restartApp(false);

@@ -20,7 +20,7 @@ export default class ProfileScreen extends React.Component {
     static navigationOptions = {
         tabBarLabel: _('Perfíl'),
         tabBarIcon: ({tintColor}) => (
-            <Icon
+            <Icon 
                 name={'user'}
                 type={'FontAwesome'}
                 style={[Theme.tabTarIcon, {color: tintColor}]}
