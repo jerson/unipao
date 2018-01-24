@@ -2,7 +2,7 @@ import SingleStorage from '../storage/SingleStorage';
 import Emitter from '../listener/Emitter';
 import Log from '../logger/Log';
 import UPAO from '../../scraping/UPAO';
-import { UserProfile } from '../../scraping/student/Profile';
+import { ProfileModel } from '../../scraping/student/Profile';
 
 export interface UserSettings {
   headerName?: string;
@@ -22,7 +22,7 @@ export default class Auth {
     authPath: 'me',
     hashToken: ''
   };
-  static user?: UserProfile;
+  static user?: ProfileModel;
 
   static async init(settings?: UserSettings) {
     if (settings) {
@@ -73,11 +73,11 @@ export default class Auth {
     return this.user ? this.user.id.toString() : '';
   }
 
-  static getUser(): UserProfile | undefined {
+  static getUser(): ProfileModel | undefined {
     return this.user;
   }
 
-  static setUser(data: UserProfile): Promise<boolean> {
+  static setUser(data: ProfileModel): Promise<boolean> {
     this.user = data;
     return SingleStorage.set('user', JSON.stringify(data));
   }

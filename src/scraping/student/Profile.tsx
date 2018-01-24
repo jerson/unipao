@@ -3,7 +3,7 @@ import Album from './profile/Album';
 import Friend from './profile/Friend';
 import RequestUtil from '../utils/RequestUtil';
 
-export interface UserProfile {
+export interface ProfileModel {
   id: string;
   name: string;
   document?: string;
@@ -24,8 +24,8 @@ export default class Profile {
 
   static async getPublic(id: string) {}
 
-  static async me(): Promise<UserProfile | null> {
-    let item: UserProfile;
+  static async me(): Promise<ProfileModel | null> {
+    let item: ProfileModel;
     try {
       let $ = await RequestUtil.fetch(
         `/?f=yggpers`,

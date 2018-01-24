@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { RefreshControl, SectionList, StyleSheet, View } from 'react-native';
+import {ListRenderItemInfo, RefreshControl, SectionList, SectionListData, StyleSheet, View} from 'react-native';
 import * as PropTypes from 'prop-types';
 import Loading from '../../../components/ui/Loading';
 import Log from '../../../modules/logger/Log';
@@ -9,6 +9,8 @@ import CacheStorage from '../../../modules/storage/CacheStorage';
 import UPAO from '../../../scraping/UPAO';
 import PeriodHeader from '../../../components/period/PeriodHeader';
 import CourseItem from '../../../components/course/CourseItem';
+import {IntroPage} from '../../IntroScreen';
+import {CourseModel, PeriodModel} from '../../../scraping/student/Intranet';
 
 const TAG = 'LevelScreen';
 export default class LevelScreen extends React.Component {
@@ -23,10 +25,10 @@ export default class LevelScreen extends React.Component {
     sections: []
   };
 
-  renderItem = ({ item, index }) => {
+  renderItem = ({ item, index }: ListRenderItemInfo<CourseModel>) => {
     return <CourseItem course={item} navigation={this.props.navigation} />;
   };
-  renderHeader = ({ section }) => {
+  renderHeader = ({ section }: { section: SectionListData<PeriodModel> }) => {
     return <PeriodHeader courses={section.data} title={section.title} />;
   };
   onChangePeriod = period => {
@@ -75,7 +77,7 @@ export default class LevelScreen extends React.Component {
       let { level } = this.props;
       let periods = await UPAO.Student.Intranet.getHistoryCourses(level);
 
-      let sections = (periods || []).map(period => {
+      let sections = periods.map(period => {
         return {
           title: period.period,
           data: period.courses
