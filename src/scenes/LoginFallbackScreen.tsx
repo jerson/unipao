@@ -9,11 +9,9 @@ import Auth from '../modules/session/Auth';
 import RouterUtil from '../modules/util/RouterUtil';
 import RequestUtil from '../scraping/utils/RequestUtil';
 import WebViewDownloader from '../components/ui/WebViewDownloader';
-import { PreferenceItemProps } from '../components/preference/PreferenceItem';
 import {
   NavigationNavigatorProps,
-  NavigationScreenProp,
-  NavigationState
+  NavigationScreenProp
 } from 'react-navigation';
 
 export interface LoginFallbackScreenProps {

@@ -3,8 +3,17 @@ import { StyleSheet, Text, View } from 'react-native';
 import * as PropTypes from 'prop-types';
 import { _ } from '../../modules/i18n/Translator';
 
+export interface EnrollmentInfoHeaderProps {
+  first: any;
+}
+
+export interface State {}
+
 const TAG = 'EnrollmentInfoHeader';
-export default class EnrollmentInfoHeader extends React.Component {
+export default class EnrollmentInfoHeader extends React.Component<
+  EnrollmentInfoHeaderProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
     navigation: PropTypes.object.isRequired

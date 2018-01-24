@@ -4,14 +4,24 @@ import * as PropTypes from 'prop-types';
 import ImageUtil from '../../modules/util/ImageUtil';
 import Touchable from '../ui/Touchable';
 
+export interface GalleryImageProps {
+  image: any;
+  onShowGallery: () => void;
+}
+
+export interface State {}
+
 const TAG = 'GalleryImage';
-export default class GalleryImage extends React.Component {
+export default class GalleryImage extends React.Component<
+  GalleryImageProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
     navigation: PropTypes.object.isRequired
   };
 
-  state = {};
+  state: State = {};
 
   toggle = () => {
     let { onShowGallery } = this.props;

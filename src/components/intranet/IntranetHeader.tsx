@@ -1,5 +1,13 @@
 import * as React from 'react';
-import { Dimensions, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  Dimensions,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
 import * as PropTypes from 'prop-types';
 import Log from '../../modules/logger/Log';
 import Request from '../../modules/network/Request';
@@ -9,21 +17,42 @@ import { _ } from '../../modules/i18n/Translator';
 import Touchable from '../ui/Touchable';
 import CacheStorage from '../../modules/storage/CacheStorage';
 
+export interface IntranetHeaderProps {
+  onChooseCareer: (career: any) => void;
+}
+
+export interface State {
+  currentIndex: number;
+  width: number;
+  isLoading: boolean;
+  cacheLoaded: boolean;
+  careers: any[];
+  career: any;
+}
+
 const TAG = 'IntranetHeader';
-export default class IntranetHeader extends React.Component {
+export default class IntranetHeader extends React.Component<
+  IntranetHeaderProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
     navigation: PropTypes.object.isRequired
   };
 
-  state = {
+  state: State = {
     currentIndex: 0,
     width: Dimensions.get('window').width,
     isLoading: false,
+    cacheLoaded: false,
     careers: [],
     career: null
   };
 
+  refs: {
+    [string: string]: any;
+    scroll: ScrollView;
+  };
   load = async () => {
     this.setState({ isLoading: true, cacheLoaded: false });
     await this.checkCache();
@@ -42,7 +71,7 @@ export default class IntranetHeader extends React.Component {
     }
   };
 
-  loadResponse = (body, cacheLoaded = false) => {
+  loadResponse = (body: any, cacheLoaded = false) => {
     let data1 = [];
     let data2 = [];
     if (body.data_carreras) {
@@ -117,8 +146,12 @@ export default class IntranetHeader extends React.Component {
       this.refs.scroll.scrollTo({ x: index * width, animated: true });
     }
   };
-  onScroll = e => {
+  onScroll = (e?: NativeSyntheticEvent<NativeScrollEvent>) => {
+    if (!e) {
+      return;
+    }
     let { currentIndex } = this.state;
+
     let contentOffset = e.nativeEvent.contentOffset;
     let viewSize = e.nativeEvent.layoutMeasurement;
 

@@ -2,19 +2,20 @@ import * as React from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import * as PropTypes from 'prop-types';
 import Touchable from './Touchable';
+import { ModalProps as Props } from 'react-native-modal';
 
-export interface ModalProps {
-  isVisible?: boolean;
+export interface ModalProps extends Props {
+  isVisible: boolean;
 }
 
 export interface State {
   px: number;
   py: number;
-  loaded: false;
+  loaded: boolean;
 }
 
 const TAG = 'ModalWindows';
-export default class ModalWindows extends React.Component {
+export default class ModalWindows extends React.Component<ModalProps, State> {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
     navigation: PropTypes.object.isRequired
@@ -26,16 +27,30 @@ export default class ModalWindows extends React.Component {
     loaded: false
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  refs: {
+    [string: string]: any;
+    list: View;
+  };
+
+  componentDidUpdate(prevProps: ModalProps, prevState: State) {
     if (this.props.isVisible) {
       setTimeout(() => {
-        this.container &&
-          this.container.measure((ox, oy, width, height, px, py) => {
-            if (this.state.loaded) {
-              return;
+        this.refs.container &&
+          this.refs.container.measure(
+            (
+              ox: number,
+              oy: number,
+              width: number,
+              height: number,
+              px: number,
+              py: number
+            ) => {
+              if (this.state.loaded) {
+                return;
+              }
+              this.setState({ px, py, loaded: true });
             }
-            this.setState({ px, py, loaded: true });
-          });
+          );
       }, 100);
     }
   }
@@ -56,9 +71,7 @@ export default class ModalWindows extends React.Component {
 
     return (
       <View
-        ref={ref => {
-          this.container = ref;
-        }}
+        ref={'container'}
         style={[
           styles.absolute,
           styles.modal,

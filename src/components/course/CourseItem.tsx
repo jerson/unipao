@@ -2,9 +2,20 @@ import * as React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import * as PropTypes from 'prop-types';
 import Touchable from '../ui/Touchable';
+import { NavigationScreenProp } from 'react-navigation';
+
+export interface CourseItemProps {
+  course: any;
+  navigation: NavigationScreenProp<null, null>;
+}
+
+export interface State {}
 
 const TAG = 'CourseItem';
-export default class CourseItem extends React.Component {
+export default class CourseItem extends React.Component<
+  CourseItemProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };

@@ -5,14 +5,28 @@ import AlertMessage from '../ui/AlertMessage';
 import { _ } from '../../modules/i18n/Translator';
 import * as numeral from 'numeral';
 
+export interface PaymentHeaderProps {
+  payments: any[];
+}
+
+export interface State {
+  totalPayments?: number;
+  totalCargo?: number;
+  totalSaldo?: number;
+  totalInteres?: number;
+}
+
 const TAG = 'PaymentHeader';
-export default class PaymentHeader extends React.PureComponent {
+export default class PaymentHeader extends React.PureComponent<
+  PaymentHeaderProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
     navigation: PropTypes.object.isRequired
   };
 
-  state = {};
+  state: State = {};
 
   componentDidMount() {
     let { payments } = this.props;

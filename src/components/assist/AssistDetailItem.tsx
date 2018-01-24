@@ -2,14 +2,23 @@ import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import * as PropTypes from 'prop-types';
 
+export interface AssistDetailItemProps {
+  detail: any;
+}
+
+export interface State {}
+
 const TAG = 'AssistDetailItem';
-export default class AssistDetailItem extends React.Component {
+export default class AssistDetailItem extends React.Component<
+  AssistDetailItemProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
     navigation: PropTypes.object.isRequired
   };
 
-  state = {};
+  state: State = {};
 
   render() {
     let { detail } = this.props;

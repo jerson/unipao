@@ -7,6 +7,7 @@ import {
   ListRenderItemInfo,
   ScaledSize,
   StyleSheet,
+  TextInput,
   View
 } from 'react-native';
 import Loading from './Loading';
@@ -27,20 +28,18 @@ export interface DimensionsChange {
   screen?: ScaledSize;
 }
 
-export interface DimensionsChange {
-  window: ScaledSize;
-  screen?: ScaledSize;
-}
-
 export default class FlexibleGrid<ItemT> extends React.Component<
   FlexibleGridProps<ItemT>,
   State
 > {
-  list: React.Component<FlatListProperties<any>, React.ComponentState> | null;
-
   state: State = {
     itemWidth: 0,
     numColumns: 1
+  };
+
+  refs: {
+    [string: string]: any;
+    input: TextInput;
   };
 
   renderItem = (data: ListRenderItemInfo<ItemT>) => {
@@ -79,7 +78,7 @@ export default class FlexibleGrid<ItemT> extends React.Component<
   }
 
   getFlatList() {
-    return this.list;
+    return this.refs.list;
   }
 
   render() {
@@ -90,9 +89,7 @@ export default class FlexibleGrid<ItemT> extends React.Component<
     }
     return (
       <FlatList
-        ref={ref => {
-          this.list = ref;
-        }}
+        ref={'list'}
         {...props}
         renderItem={this.renderItem}
         key={'show_' + numColumns}

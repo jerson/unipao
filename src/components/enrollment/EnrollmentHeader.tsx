@@ -4,14 +4,26 @@ import * as PropTypes from 'prop-types';
 import AlertMessage from '../ui/AlertMessage';
 import { _ } from '../../modules/i18n/Translator';
 
+export interface EnrollmentHeaderProps {
+  enrollments: any[];
+  title: string;
+}
+
+export interface State {
+  first?: any;
+}
+
 const TAG = 'EnrollmentHeader';
-export default class EnrollmentHeader extends React.Component {
+export default class EnrollmentHeader extends React.Component<
+  EnrollmentHeaderProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
     navigation: PropTypes.object.isRequired
   };
 
-  state = {};
+  state: State = {};
 
   componentDidMount() {
     let { enrollments, title } = this.props;

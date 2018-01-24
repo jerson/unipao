@@ -10,6 +10,8 @@ import CacheStorage from '../../modules/storage/CacheStorage';
 export interface PeriodModalProps {
   onChange: (value: string) => void;
   onLoaded: (periods: any[]) => void;
+  isVisible: boolean;
+  period: any;
 }
 
 export interface State {

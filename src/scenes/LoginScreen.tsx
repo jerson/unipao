@@ -1,12 +1,5 @@
 import * as React from 'react';
-import {
-  Dimensions,
-  Image,
-  ScrollView,
-  StyleSheet,
-  TextInput,
-  View
-} from 'react-native';
+import { Dimensions, Image, ScrollView, StyleSheet, View } from 'react-native';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
 import { Theme } from '../themes/styles';
@@ -24,14 +17,7 @@ import SingleStorage from '../modules/storage/SingleStorage';
 import Loading from '../components/ui/Loading';
 import { _ } from '../modules/i18n/Translator';
 import UPAO from '../scraping/UPAO';
-import { PreferenceItemProps } from '../components/preference/PreferenceItem';
-import {
-  NavigationAction,
-  NavigationContainerProps,
-  NavigationProp,
-  NavigationScreenProp,
-  NavigationStackScreenOptions
-} from 'react-navigation';
+import { NavigationScreenProp } from 'react-navigation';
 
 export interface LoginScreenProps {
   navigation: NavigationScreenProp<null, null>;

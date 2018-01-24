@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, StyleProp, ViewStyle } from 'react-native';
+import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 
 export interface PreferenceHeaderProps {
   style?: StyleProp<ViewStyle>;

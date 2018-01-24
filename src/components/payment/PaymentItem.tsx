@@ -7,13 +7,24 @@ import { capitalize } from 'underscore.string';
 import { _ } from '../../modules/i18n/Translator';
 import Modal from '../ui/Modal';
 
+export interface PaymentItemProps {
+  payment: any;
+}
+
+export interface State {
+  expanded: boolean;
+}
+
 const TAG = 'PaymentItem';
-export default class PaymentItem extends React.PureComponent {
+export default class PaymentItem extends React.PureComponent<
+  PaymentItemProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
 
-  state = {
+  state: State = {
     expanded: false
   };
 

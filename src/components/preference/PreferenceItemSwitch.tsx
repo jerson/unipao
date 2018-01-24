@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Switch, { SwitchProps } from '../ui/Switch';
+import Switch from '../ui/Switch';
 import Storage from '../../modules/storage/PreferencesStorage';
 import PreferenceItem, { PreferenceItemProps } from './PreferenceItem';
 import Log from '../../modules/logger/Log';

@@ -4,14 +4,23 @@ import * as PropTypes from 'prop-types';
 import AssistItem from './AssistItem';
 import { _ } from '../../modules/i18n/Translator';
 
+export interface AssistHeaderProps {
+  assist: any;
+}
+
+export interface State {}
+
 const TAG = 'AssistHeader';
-export default class AssistHeader extends React.Component {
+export default class AssistHeader extends React.Component<
+  AssistHeaderProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
     navigation: PropTypes.object.isRequired
   };
 
-  state = {};
+  state: State = {};
 
   render() {
     let { assist } = this.props;

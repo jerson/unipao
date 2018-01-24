@@ -2,13 +2,24 @@ import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import * as PropTypes from 'prop-types';
 
+export interface EnrollmentItemProps {
+  enrollment: any;
+}
+
+export interface State {
+  expanded: boolean;
+}
+
 const TAG = 'EnrollmentItem';
-export default class EnrollmentItem extends React.Component {
+export default class EnrollmentItem extends React.Component<
+  EnrollmentItemProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
 
-  state = {
+  state: State = {
     expanded: false
   };
 

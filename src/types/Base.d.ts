@@ -2,9 +2,16 @@
 
 declare var __DEV__: boolean;
 declare const module: any;
+declare const capitalize: any;
 
 declare module 'appcenter-push' {
     export = module;
+}
+declare module 'numeral' {
+    export = module;
+}
+declare module 'underscore.string' {
+    export function capitalize(text: string, extra: boolean): string;
 }
 declare module 'cheerio-without-node-native' {
     export = module;

@@ -6,14 +6,24 @@ import ImageUtil from '../../modules/util/ImageUtil';
 import { Theme } from '../../themes/styles';
 import LinearGradient from '../ui/LinearGradient';
 
+export interface GalleryItemProps {
+  gallery: any;
+  index: number;
+}
+
+export interface State {}
+
 const TAG = 'GalleryItem';
-export default class GalleryItem extends React.Component {
+export default class GalleryItem extends React.Component<
+  GalleryItemProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
     navigation: PropTypes.object.isRequired
   };
 
-  state = {};
+  state: State = {};
 
   render() {
     let { gallery, index } = this.props;

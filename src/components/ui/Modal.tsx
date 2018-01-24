@@ -1,5 +1,7 @@
 import * as React from 'react';
-import BaseModal, { ModalProps } from 'react-native-modal';
+import BaseModal, { ModalProps as Props } from 'react-native-modal';
+
+export interface ModalProps extends Props {}
 
 export interface State {}
 

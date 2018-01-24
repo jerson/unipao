@@ -1,26 +1,37 @@
 import * as React from 'react';
-import { SectionList } from 'react-native';
+import { ListRenderItemInfo, SectionList, SectionListData } from 'react-native';
 import * as PropTypes from 'prop-types';
 import EnrollmentItem from './EnrollmentItem';
 import EnrollmentHeader from './EnrollmentHeader';
 import EnrollmentInfoHeader from './EnrollmentInfoHeader';
 
+export interface EnrollmentListProps {
+  enrollments: any[];
+}
+
+export interface State {
+  sections: any[];
+}
+
 const TAG = 'EnrollmentList';
-export default class EnrollmentList extends React.Component {
+export default class EnrollmentList extends React.Component<
+  EnrollmentListProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
     navigation: PropTypes.object.isRequired
   };
 
-  state = {
+  state: State = {
     sections: []
   };
 
-  renderItem = ({ item }) => {
+  renderItem = ({ item }: ListRenderItemInfo<any>) => {
     return <EnrollmentItem enrollment={item} />;
   };
 
-  renderHeader = ({ section }) => {
+  renderHeader = ({ section }: { section: SectionListData<any> }) => {
     if (typeof section.title === 'object') {
       return <EnrollmentInfoHeader first={section.title} />;
     }
@@ -31,7 +42,7 @@ export default class EnrollmentList extends React.Component {
 
   componentDidMount() {
     let { enrollments } = this.props;
-    let courses = {};
+    let courses: { [key: string]: any } = {};
     let first = enrollments[0] || {};
 
     for (let enrollment of enrollments) {

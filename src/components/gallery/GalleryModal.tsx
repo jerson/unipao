@@ -3,7 +3,11 @@ import {
   Dimensions,
   FlatList,
   Image,
+  ListRenderItemInfo,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
   Platform,
+  ScaledSize,
   StatusBar,
   StyleSheet,
   Text,
@@ -12,12 +16,33 @@ import {
 import * as PropTypes from 'prop-types';
 import { Theme } from '../../themes/styles';
 import NavigationButton from '../ui/NavigationButton';
-import Modal from '../ui/Modal';
+import Modal, { ModalProps } from '../ui/Modal';
 import LinearGradient from '../ui/LinearGradient';
 import ImageZoom from 'react-native-image-pan-zoom';
 
+export interface GalleryModalProps extends ModalProps {
+  onChooseCareer: (career: any) => void;
+  images: any[];
+  index: number;
+  onBackButtonPress: () => void;
+}
+
+export interface State {
+  currentIndex: number;
+  width: number;
+  height: number;
+}
+
+export interface DimensionsChange {
+  window: ScaledSize;
+  screen?: ScaledSize;
+}
+
 const TAG = 'GalleryModal';
-export default class GalleryModal extends React.PureComponent {
+export default class GalleryModal extends React.PureComponent<
+  GalleryModalProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
     navigation: PropTypes.object.isRequired
@@ -29,7 +54,11 @@ export default class GalleryModal extends React.PureComponent {
     height: Dimensions.get('window').height
   };
 
-  renderItem = ({ item, index }) => {
+  refs: {
+    [string: string]: any;
+    list: FlatList<any>;
+  };
+  renderItem = ({ item, index }: ListRenderItemInfo<any>) => {
     let { width, height } = this.state;
 
     return (
@@ -87,7 +116,10 @@ export default class GalleryModal extends React.PureComponent {
         offset: page * width
       });
   };
-  onScroll = e => {
+  onScroll = (e?: NativeSyntheticEvent<NativeScrollEvent>) => {
+    if (!e) {
+      return;
+    }
     let { currentIndex, width } = this.state;
     let contentOffset = e.nativeEvent.contentOffset;
     let newIndex = Math.round(contentOffset.x / width);
@@ -98,7 +130,7 @@ export default class GalleryModal extends React.PureComponent {
 
     this.setState({ currentIndex: newIndex });
   };
-  onDimensionsChange = ({ window, screen }) => {
+  onDimensionsChange = ({ window, screen }: DimensionsChange) => {
     let { width, height } = window;
 
     this.setState(

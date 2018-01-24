@@ -5,8 +5,18 @@ import Touchable from '../ui/Touchable';
 import { _ } from '../../modules/i18n/Translator';
 import ImageUtil from '../../modules/util/ImageUtil';
 
+export interface AssistItemProps {
+  assist: any;
+  disabledPress?: boolean;
+}
+
+export interface State {}
+
 const TAG = 'AssistItem';
-export default class AssistItem extends React.Component {
+export default class AssistItem extends React.Component<
+  AssistItemProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
     navigation: PropTypes.object.isRequired

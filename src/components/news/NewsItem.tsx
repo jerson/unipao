@@ -8,17 +8,23 @@ import { _ } from '../../modules/i18n/Translator';
 
 const moment = require('moment');
 
+export interface NewsItemProps {
+  news: any;
+}
+
+export interface State {}
+
 const TAG = 'NewsItem';
-export default class NewsItem extends React.Component {
+export default class NewsItem extends React.Component<NewsItemProps, State> {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
     navigation: PropTypes.object.isRequired
   };
 
-  state = {};
+  state: State = {};
 
   render() {
-    let { news, index } = this.props;
+    let { news } = this.props;
     let ago = moment(news.date || '').fromNow();
     let itemHeight = 200;
     return (

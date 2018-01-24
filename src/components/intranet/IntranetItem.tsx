@@ -5,13 +5,23 @@ import Icon from '../ui/Icon';
 import Touchable from '../ui/Touchable';
 import { _ } from '../../modules/i18n/Translator';
 
+export interface IntranetItemProps {
+  intranet: any;
+  onChooseItem: () => void;
+}
+
+export interface State {}
+
 const TAG = 'IntranetItem';
-export default class IntranetItem extends React.Component {
+export default class IntranetItem extends React.Component<
+  IntranetItemProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
 
-  state = {};
+  state: State = {};
 
   onPress = () => {
     let { intranet, onChooseItem } = this.props;

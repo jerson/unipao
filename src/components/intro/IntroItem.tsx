@@ -10,9 +10,18 @@ import {
 import * as PropTypes from 'prop-types';
 import { Theme } from '../../themes/styles';
 import Icon from '../ui/Icon';
+import { IntroPage } from '../../scenes/IntroScreen';
+
+export interface IntroItemProps {
+  item: IntroPage;
+  width: number;
+  index: number;
+}
+
+export interface State {}
 
 const TAG = 'IntroItem';
-export default class IntroItem extends React.Component {
+export default class IntroItem extends React.Component<IntroItemProps, State> {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
     navigation: PropTypes.object.isRequired

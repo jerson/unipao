@@ -32,7 +32,7 @@ export interface State {
   pages: IntroPage[];
 }
 
-export default class IntroScreen<ItemT> extends React.Component<
+export default class IntroScreen extends React.Component<
   IntroScreenProps,
   State
 > {
@@ -66,9 +66,12 @@ export default class IntroScreen<ItemT> extends React.Component<
     ]
   };
 
-  list: FlatList<ItemT>;
+  refs: {
+    [string: string]: any;
+    list: FlatList<IntroPage>;
+  };
 
-  renderItem = ({ item, index }: ListRenderItemInfo<ItemT>) => {
+  renderItem = ({ item, index }: ListRenderItemInfo<IntroPage>) => {
     let { width } = this.state;
     return <IntroItem item={item} width={width} index={index} />;
   };
@@ -78,8 +81,8 @@ export default class IntroScreen<ItemT> extends React.Component<
     let page = currentPage;
     page--;
     page = page < 0 ? 0 : page;
-    this.list &&
-      this.list.scrollToOffset({
+    this.refs.list &&
+      this.refs.list.scrollToOffset({
         offset: page * width
       });
   };
@@ -89,8 +92,8 @@ export default class IntroScreen<ItemT> extends React.Component<
     let page = currentPage;
     page++;
     page = page >= pages.length ? 0 : page;
-    this.list &&
-      this.list.scrollToOffset({
+    this.refs.list &&
+      this.refs.list.scrollToOffset({
         offset: page * width
       });
   };
@@ -100,10 +103,11 @@ export default class IntroScreen<ItemT> extends React.Component<
   };
 
   onScroll = (e?: NativeSyntheticEvent<NativeScrollEvent>) => {
-    let { pages, currentPage } = this.state;
     if (!e) {
       return;
     }
+    let { pages, currentPage } = this.state;
+
     let contentOffset = e.nativeEvent.contentOffset;
     let viewSize = e.nativeEvent.layoutMeasurement;
     let newPage = Math.round(contentOffset.x / viewSize.width);
@@ -124,8 +128,8 @@ export default class IntroScreen<ItemT> extends React.Component<
 
   componentDidMount() {
     setTimeout(() => {
-      this.list &&
-        this.list.scrollToOffset({
+      this.refs.list &&
+        this.refs.list.scrollToOffset({
           offset: 1
         });
     }, 100);
@@ -138,9 +142,7 @@ export default class IntroScreen<ItemT> extends React.Component<
       <View style={{ flex: 1 }}>
         <Background />
         <FlatList
-          ref={(ref: any) => {
-            this.list = ref;
-          }}
+          ref={'list'}
           data={pages}
           style={{ flex: 1 }}
           horizontal

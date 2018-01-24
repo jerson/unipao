@@ -3,13 +3,24 @@ import { StyleSheet, Text, View } from 'react-native';
 import * as PropTypes from 'prop-types';
 import { _ } from '../../modules/i18n/Translator';
 
+export interface AgendaItemProps {
+  agenda: any;
+  index: number;
+  isToday: boolean;
+}
+
+export interface State {}
+
 const TAG = 'AgendaItem';
-export default class AgendaItem extends React.Component {
+export default class AgendaItem extends React.Component<
+  AgendaItemProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
 
-  state = {};
+  state: State = {};
 
   render() {
     let { agenda, index, isToday } = this.props;

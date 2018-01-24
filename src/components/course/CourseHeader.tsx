@@ -6,14 +6,23 @@ import DimensionUtil from '../../modules/util/DimensionUtil';
 import { Theme } from '../../themes/styles';
 import LinearGradient from '../ui/LinearGradient';
 
+export interface CourseHeaderProps {
+  course: any;
+}
+
+export interface State {}
+
 const TAG = 'CourseHeader';
-export default class CourseHeader extends React.Component {
+export default class CourseHeader extends React.Component<
+  CourseHeaderProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
     navigation: PropTypes.object.isRequired
   };
 
-  state = {};
+  state: State = {};
 
   onPress = () => {};
 

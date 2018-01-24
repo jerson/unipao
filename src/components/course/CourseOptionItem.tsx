@@ -5,13 +5,23 @@ import Icon from '../ui/Icon';
 import Touchable from '../ui/Touchable';
 import { _ } from '../../modules/i18n/Translator';
 
+export interface CourseOptionItemProps {
+  option: any;
+  onChooseItem: () => void;
+}
+
+export interface State {}
+
 const TAG = 'CourseOptionItem';
-export default class CourseOptionItem extends React.Component {
+export default class CourseOptionItem extends React.Component<
+  CourseOptionItemProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
 
-  state = {};
+  state: State = {};
 
   onPress = () => {
     let { option, onChooseItem } = this.props;
