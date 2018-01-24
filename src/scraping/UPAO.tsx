@@ -89,7 +89,7 @@ export default class UPAO {
         {},
         { tag: 'login', checkSession: false }
       );
-      ok = $('#ctl00_csesion').length;
+      ok = $('#ctl00_csesion').length > 0;
     } catch (e) {
       Log.info(TAG, 'login', e);
       throw e;

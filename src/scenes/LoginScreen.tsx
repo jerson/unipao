@@ -110,8 +110,8 @@ export default class LoginScreen extends React.Component<
 
     this.setState({ isLoading: false });
   };
-  onSuccessLogin = () => {
-    RouterUtil.resetTo(this.props.navigation, 'User');
+  onSuccessLogin = (success: boolean) => {
+    success && RouterUtil.resetTo(this.props.navigation, 'User');
   };
   onDimensionsChange = () => {
     this.forceUpdate();

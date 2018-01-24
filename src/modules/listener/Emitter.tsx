@@ -6,9 +6,8 @@ export type Name =
   | 'onLocationChange'
   | 'onDimensionsChange'
   | 'onOrientationChange'
-  | 'onNoLogin'
   | 'onNetworkStateChange'
-  | 'onSuccessLogin'
+  | 'onLoginStatus'
   | string;
 
 export default class Emitter {

@@ -45,7 +45,7 @@ export default class Translator {
     translations: { en },
     defaultLocale: 'en'
   };
-  static locale;
+  static locale: string;
 
   static async init(settings: UserSettings) {
     this.locale = this.getSystemLocale();

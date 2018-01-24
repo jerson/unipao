@@ -6,7 +6,7 @@ export interface Params {
 
 const TAG = 'ParamsUtils';
 export default class ParamsUtils {
-  static getFormData3(obj) {
+  static getFormData3(obj: any) {
     let data = [];
     for (let key of Object.keys(obj)) {
       data.push(`${key}=${encodeURI(obj[key])}`);
@@ -15,7 +15,7 @@ export default class ParamsUtils {
     return data.join('&');
   }
 
-  static getFormData(obj, form = null, namespace = null) {
+  static getFormData(obj: any, form: any = null, namespace: any = null) {
     let fd = form || new FormData();
     let formKey;
 

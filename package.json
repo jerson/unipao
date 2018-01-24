@@ -4,8 +4,6 @@
     "private": true,
     "scripts": {
         "start": "react-native start",
-        "build": "npm run tslint && tsc",
-        "watch": "npm run tslint && tsc --watch",
         "build:android:release": "cd android && ./gradlew assembleRelease",
         "build:android:beta": "cd android && ./gradlew assembleReleaseBeta",
         "build:windows:assets": "react-native bundle --platform windows --entry-file index.js --bundle-output windows\\unipao\\ReactAssets\\index.windows.bundle --assets-dest windows\\unipao\\ReactAssets  --dev false",
@@ -25,9 +23,7 @@
         "push:all:beta": "npm run push:android:beta && npm run push:ios:beta && npm run push:windows:beta",
         "test": "node node_modules/jest/bin/jest.js --watch",
         "precommit": "lint-staged",
-        "tslint": "tslint --project tsconfig.json -r tslint.json -r ./node_modules/tslint-microsoft-contrib --fix || true",
-        "prettier": "prettier --write --single-quote 'src/**/*.tsx'",
-        "format": "npm run prettier && npm run tslint"
+        "prettier": "prettier --write --single-quote 'src/**/*.tsx'"
     },
     "lint-staged": {
         "*.{js,json,css}": [
@@ -49,8 +45,6 @@
         "react-native-typescript-transformer": "^1.2.3",
         "react-test-renderer": "16.2.0",
         "rnpm-plugin-windows": "^0.2.8",
-        "tslint": "^5.9.1",
-        "tslint-microsoft-contrib": "^5.0.2",
         "tsutils": "^2.19.1",
         "typescript": "^2.6.2"
     },
@@ -85,6 +79,7 @@
         "react-navigation": "^1.0.0-beta.22",
         "realm": "^2.1.1",
         "string-format": "^0.5.0",
+        "tslib": "^1.9.0",
         "underscore.string": "^3.3.4"
     }
 }

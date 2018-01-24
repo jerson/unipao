@@ -3,6 +3,18 @@ import Album from './profile/Album';
 import Friend from './profile/Friend';
 import RequestUtil from '../utils/RequestUtil';
 
+export interface UserProfile {
+  id: string;
+  name: string;
+  document?: string;
+  birthday?: string;
+  nacionality?: string;
+  ethnic?: string;
+  civilStatus?: string;
+  religion?: string;
+  gender?: string;
+}
+
 const TAG = 'Profile';
 export default class Profile {
   static Album = Album;
@@ -12,8 +24,8 @@ export default class Profile {
 
   static async getPublic(id: string) {}
 
-  static async me() {
-    let item = null;
+  static async me(): Promise<UserProfile | null> {
+    let item: UserProfile;
     try {
       let $ = await RequestUtil.fetch(
         `/?f=yggpers`,
@@ -71,7 +83,9 @@ export default class Profile {
         .replace(/[0-9]/g, '')
         .replace(/\s+/g, ' ')
         .trim();
-      let id = $('#ctl00_hdid').attr('value');
+
+      let id = $('#ctl00_hdid').attr('value') || '';
+
       item = {
         id,
         name,

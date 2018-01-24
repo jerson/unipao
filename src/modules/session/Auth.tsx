@@ -2,6 +2,7 @@ import SingleStorage from '../storage/SingleStorage';
 import Emitter from '../listener/Emitter';
 import Log from '../logger/Log';
 import UPAO from '../../scraping/UPAO';
+import { UserProfile } from '../../scraping/student/Profile';
 
 export interface UserSettings {
   headerName?: string;
@@ -15,17 +16,13 @@ export interface Settings {
   hashToken: string;
 }
 
-export interface User {
-  [key: string]: string | boolean | number;
-}
-
 export default class Auth {
   static settings: Settings = {
     headerName: 'X-Auth',
     authPath: 'me',
     hashToken: ''
   };
-  static user?: User;
+  static user?: UserProfile;
 
   static async init(settings?: UserSettings) {
     if (settings) {
@@ -43,9 +40,8 @@ export default class Auth {
     let data = await SingleStorage.get('user');
     if (data) {
       let user = JSON.parse(data);
-      Emitter.emit('onSuccessLogin', user);
+      Emitter.emit('onLoginStatus', true);
       this.user = user;
-      //return this.login(true);
     }
   }
 
@@ -56,10 +52,10 @@ export default class Auth {
       let profile = await UPAO.Student.Profile.me();
       if (profile) {
         isOk = await this.setUser(profile);
-        emit && Emitter.emit('onSuccessLogin', this.user);
+        emit && Emitter.emit('onLoginStatus', true);
       }
     } catch (e) {
-      emit && Emitter.emit('onNoLogin', true);
+      emit && Emitter.emit('onLoginStatus', false);
     }
 
     return isOk;
@@ -77,11 +73,11 @@ export default class Auth {
     return this.user ? this.user.id.toString() : '';
   }
 
-  static getUser(): User {
-    return this.user || {};
+  static getUser(): UserProfile | undefined {
+    return this.user;
   }
 
-  static setUser(data: any): Promise<boolean> {
+  static setUser(data: UserProfile): Promise<boolean> {
     this.user = data;
     return SingleStorage.set('user', JSON.stringify(data));
   }
@@ -89,7 +85,7 @@ export default class Auth {
   static async logout(): Promise<boolean> {
     Log.info('[AUTH]', 'logout');
     this.user = undefined;
-    Emitter.emit('onNoLogin', true);
+    Emitter.emit('onLoginStatus', false);
     await SingleStorage.remove('user');
     UPAO.logout();
     return true;

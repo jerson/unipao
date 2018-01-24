@@ -1,5 +1,13 @@
 import * as React from 'react';
-import { StatusBar, View } from 'react-native';
+import {
+  StatusBar,
+  StyleProp,
+  TextInput,
+  TextInputProperties,
+  TextStyle,
+  View,
+  ViewStyle
+} from 'react-native';
 import Request from './modules/network/Request';
 import Config from './Config';
 import MainRouter from './routers/MainRouter';
@@ -14,22 +22,33 @@ import { _ } from './modules/i18n/Translator';
 import SingleStorage from './modules/storage/SingleStorage';
 import CacheStorage from './modules/storage/CacheStorage';
 import DimensionUtil from './modules/util/DimensionUtil';
+import { NavigationScreenProp } from 'react-navigation';
+import { Message } from './components/ui/MessageItem';
 
 numeral.defaultFormat('0,0.00');
 
-export default class Main extends React.Component {
+export interface MainProps {}
+
+export interface State {}
+
+export default class Main extends React.Component<MainProps, State> {
   static childContextTypes = {
     notification: PropTypes.object
   };
-  forcedLogout = false;
+  private forcedLogout = false;
 
-  noti: MessageCenter;
+  refs: {
+    [string: string]: any;
+    notification: MessageCenter;
+    navigation: NavigationScreenProp<null, null>;
+  };
+
   onForceLogout = async () => {
     if (this.forcedLogout) {
       return;
     }
     this.forcedLogout = true;
-    this.noti.show({
+    this.refs.notification.show({
       type: 'warning',
       title: _(
         'Sessión terminada, tal vez has iniciado sesión otro dispositivo/navegador o pasaste un tiempo inactivo'
@@ -49,8 +68,8 @@ export default class Main extends React.Component {
   getChildContext() {
     return {
       notification: {
-        show: (params: any) => {
-          this.noti && this.noti.show(params);
+        show: (params: Message) => {
+          this.refs.notification && this.refs.notification.show(params);
         }
       }
     };
@@ -96,11 +115,7 @@ export default class Main extends React.Component {
           barStyle="light-content"
         />
         <MainRouter ref={'navigation'} />
-        <MessageCenter
-          ref={(ref: MessageCenter) => {
-            this.noti = ref;
-          }}
-        />
+        <MessageCenter ref={'noti'} />
       </View>
     );
   }
