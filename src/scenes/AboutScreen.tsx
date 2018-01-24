@@ -8,9 +8,19 @@ import KeyboardSpacer from '../components/ui/KeyboardSpacer';
 import Background from '../components/ui/Background';
 import ViewSpacer from '../components/ui/ViewSpacer';
 import { _ } from '../modules/i18n/Translator';
+import { NavigationScreenProp } from 'react-navigation';
+
+export interface AboutScreenProps {
+  navigation: NavigationScreenProp<null, null>;
+}
+
+export interface State {}
 
 const TAG = 'AboutScreen';
-export default class AboutScreen extends React.Component {
+export default class AboutScreen extends React.Component<
+  AboutScreenProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
@@ -23,7 +33,7 @@ export default class AboutScreen extends React.Component {
     headerStyle: [Theme.navigationBar]
   };
 
-  state = {};
+  state: State = {};
 
   onDimensionsChange = () => {
     this.forceUpdate();

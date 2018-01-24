@@ -12,6 +12,7 @@ declare module 'numeral' {
 }
 declare module 'underscore.string' {
     export function capitalize(text: string, extra: boolean): string;
+    export function titleize(text: string): string;
 }
 declare module 'cheerio-without-node-native' {
     export = module;

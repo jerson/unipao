@@ -20,16 +20,28 @@ import RouterUtil from '../../modules/util/RouterUtil';
 import { titleize } from 'underscore.string';
 import ImageUtil from '../../modules/util/ImageUtil';
 import { _ } from '../../modules/i18n/Translator';
+import {
+  NavigationScreenProp,
+  NavigationTabScreenOptions
+} from 'react-navigation';
 
+export interface ProfileScreenProps {
+  navigation: NavigationScreenProp<null, null>;
+}
+
+export interface State {}
 const TAG = 'ProfileScreen';
-export default class ProfileScreen extends React.Component {
+export default class ProfileScreen extends React.Component<
+  ProfileScreenProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
 
   static navigationOptions = {
     tabBarLabel: _('Perfíl'),
-    tabBarIcon: ({ tintColor }) => (
+    tabBarIcon: ({ tintColor }: any) => (
       <Icon
         name={'user'}
         type={'FontAwesome'}

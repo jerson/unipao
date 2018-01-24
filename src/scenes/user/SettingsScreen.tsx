@@ -11,9 +11,19 @@ import PreferencesStorage from '../../modules/storage/PreferencesStorage';
 import Translator, { _ } from '../../modules/i18n/Translator';
 import codePush from 'react-native-code-push';
 import * as DeviceInfo from 'react-native-device-info';
+import { NavigationScreenProp } from 'react-navigation';
 
-export default class SettingsScreen extends React.Component {
-  static navigationOptions = ({ navigation, screenProps }) => ({
+export interface SettingsScreenProps {
+  navigation: NavigationScreenProp<null, null>;
+}
+
+export interface State {}
+
+export default class SettingsScreen extends React.Component<
+  SettingsScreenProps,
+  State
+> {
+  static navigationOptions = {
     title: _('Ajustes'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
@@ -23,7 +33,7 @@ export default class SettingsScreen extends React.Component {
       Theme.subNavigationBar,
       Theme.shadowDefault
     ]
-  });
+  };
   static localeValues = [
     {
       value: 'auto',
