@@ -103,27 +103,29 @@ export default class ProfileScreen extends React.Component<
         )}
         <Background />
 
-        <View style={styles.profile}>
-          <View style={[styles.imageContainer, Theme.shadowDefault]}>
-            <Image
-              style={styles.imagePlaceholder}
-              source={require('../../images/placeholder.png')}
-            />
-            <Image
-              style={[styles.image]}
-              defaultSource={require('../../images/placeholder.png')}
-              source={{ uri: ImageUtil.getUserImage(user) }}
-            />
+        {user && (
+          <View style={styles.profile}>
+            <View style={[styles.imageContainer, Theme.shadowDefault]}>
+              <Image
+                style={styles.imagePlaceholder}
+                source={require('../../images/placeholder.png')}
+              />
+              <Image
+                style={[styles.image]}
+                defaultSource={require('../../images/placeholder.png')}
+                source={{ uri: ImageUtil.getUserImage(user) }}
+              />
+            </View>
+            <View style={styles.infoContainer}>
+              <Text style={[styles.name, styles.id, Theme.textShadow]}>
+                {user.id}
+              </Text>
+              <Text style={[styles.name, Theme.textShadow]}>
+                {titleize(user.name)}
+              </Text>
+            </View>
           </View>
-          <View style={styles.infoContainer}>
-            <Text style={[styles.name, styles.id, Theme.textShadow]}>
-              {user.id}
-            </Text>
-            <Text style={[styles.name, Theme.textShadow]}>
-              {titleize(user.name)}
-            </Text>
-          </View>
-        </View>
+        )}
 
         <Button
           type={'primary'}
