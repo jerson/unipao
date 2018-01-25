@@ -6,15 +6,34 @@ import NavigationButton from '../../components/ui/NavigationButton';
 import Loading from '../../components/ui/Loading';
 import Log from '../../modules/logger/Log';
 import Request from '../../modules/network/Request';
-import { NavigationScreenConfigProps, TabNavigator } from 'react-navigation';
+import {
+  NavigationNavigatorProps,
+  NavigationScreenConfigProps,
+  NavigationScreenProp,
+  TabNavigator
+} from 'react-navigation';
 import { _ } from '../../modules/i18n/Translator';
 import { tabsOptions } from '../../routers/Tabs';
 import ScheduleList from '../../components/schedule/ScheduleList';
 import PeriodModal from '../../components/period/PeriodModal';
 import CacheStorage from '../../modules/storage/CacheStorage';
 
+export interface ScheduleScreenProps {
+  navigation: NavigationScreenProp<null, null>;
+}
+
+export interface State {
+  isLoading: boolean;
+  cacheLoaded: boolean;
+  period: any;
+  scheduleDays: any;
+}
+
 const TAG = 'ScheduleScreen';
-export default class ScheduleScreen extends React.Component {
+export default class ScheduleScreen extends React.Component<
+  ScheduleScreenProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
@@ -47,13 +66,17 @@ export default class ScheduleScreen extends React.Component {
     )
   });
 
-  state = {
+  refs: {
+    periods: PeriodModal;
+  };
+  state: State = {
     isLoading: true,
+    cacheLoaded: false,
     period: null,
     scheduleDays: {}
   };
 
-  onChangePeriod = period => {
+  onChangePeriod = (period: any) => {
     this.setState({ period }, () => {
       this.load();
     });
@@ -79,8 +102,8 @@ export default class ScheduleScreen extends React.Component {
     }
   };
 
-  loadResponse = (body, cacheLoaded = false) => {
-    let scheduleDays = {};
+  loadResponse = (body: any, cacheLoaded = false) => {
+    let scheduleDays: any = {};
     if (body.data) {
       let data = JSON.parse(body.data);
 
@@ -165,84 +188,106 @@ export default class ScheduleScreen extends React.Component {
 const ScheduleTab = TabNavigator(
   {
     LUN: {
-      screen: ({ navigation, screenProps }) => {
-        let { scheduleDays } = screenProps;
+      screen: ({ navigation, screenProps }: NavigationNavigatorProps<null>) => {
+        let scheduleDays = screenProps ? screenProps.scheduleDays || {} : {};
         let schedule = scheduleDays['LUN'] || [];
         return <ScheduleList schedule={schedule} />;
       },
-      navigationOptions: ({ navigation, screenProps }) => {
+      navigationOptions: ({
+        navigation,
+        screenProps
+      }: NavigationNavigatorProps<null>) => {
         return {
           tabBarLabel: _('Lunes')
         };
       }
     },
     MAR: {
-      screen: ({ navigation, screenProps }) => {
-        let { scheduleDays } = screenProps;
+      screen: ({ navigation, screenProps }: NavigationNavigatorProps<null>) => {
+        let scheduleDays = screenProps ? screenProps.scheduleDays || {} : {};
         let schedule = scheduleDays['MAR'] || [];
         return <ScheduleList schedule={schedule} />;
       },
-      navigationOptions: ({ navigation, screenProps }) => {
+      navigationOptions: ({
+        navigation,
+        screenProps
+      }: NavigationNavigatorProps<null>) => {
         return {
           tabBarLabel: _('Martes')
         };
       }
     },
     MIE: {
-      screen: ({ navigation, screenProps }) => {
-        let { scheduleDays } = screenProps;
+      screen: ({ navigation, screenProps }: NavigationNavigatorProps<null>) => {
+        let scheduleDays = screenProps ? screenProps.scheduleDays || {} : {};
         let schedule = scheduleDays['MIE'] || [];
         return <ScheduleList schedule={schedule} />;
       },
-      navigationOptions: ({ navigation, screenProps }) => {
+      navigationOptions: ({
+        navigation,
+        screenProps
+      }: NavigationNavigatorProps<null>) => {
         return {
           tabBarLabel: _('Miercoles')
         };
       }
     },
     JUE: {
-      screen: ({ navigation, screenProps }) => {
-        let { scheduleDays } = screenProps;
+      screen: ({ navigation, screenProps }: NavigationNavigatorProps<null>) => {
+        let scheduleDays = screenProps ? screenProps.scheduleDays || {} : {};
         let schedule = scheduleDays['JUE'] || [];
         return <ScheduleList schedule={schedule} />;
       },
-      navigationOptions: ({ navigation, screenProps }) => {
+      navigationOptions: ({
+        navigation,
+        screenProps
+      }: NavigationNavigatorProps<null>) => {
         return {
           tabBarLabel: _('Jueves')
         };
       }
     },
     VIE: {
-      screen: ({ navigation, screenProps }) => {
-        let { scheduleDays } = screenProps;
+      screen: ({ navigation, screenProps }: NavigationNavigatorProps<null>) => {
+        let scheduleDays = screenProps ? screenProps.scheduleDays || {} : {};
         let schedule = scheduleDays['VIE'] || [];
         return <ScheduleList schedule={schedule} />;
       },
-      navigationOptions: ({ navigation, screenProps }) => {
+      navigationOptions: ({
+        navigation,
+        screenProps
+      }: NavigationNavigatorProps<null>) => {
         return {
           tabBarLabel: _('Viernes')
         };
       }
     },
     SAB: {
-      screen: ({ navigation, screenProps }) => {
-        let { scheduleDays } = screenProps;
+      screen: ({ navigation, screenProps }: NavigationNavigatorProps<null>) => {
+        let scheduleDays = screenProps ? screenProps.scheduleDays || {} : {};
         let schedule = scheduleDays['SAB'] || [];
         return <ScheduleList schedule={schedule} />;
       },
-      navigationOptions: ({ navigation, screenProps }) => {
+      navigationOptions: ({
+        navigation,
+        screenProps
+      }: NavigationNavigatorProps<null>) => {
         return {
           tabBarLabel: _('Sabado')
         };
       }
     },
     DOM: {
-      screen: ({ navigation, screenProps }) => {
-        let { scheduleDays } = screenProps;
+      screen: ({ navigation, screenProps }: NavigationNavigatorProps<null>) => {
+        let scheduleDays = screenProps ? screenProps.scheduleDays || {} : {};
+
         let schedule = scheduleDays['DOM'] || [];
         return <ScheduleList schedule={schedule} />;
       },
-      navigationOptions: ({ navigation, screenProps }) => {
+      navigationOptions: ({
+        navigation,
+        screenProps
+      }: NavigationNavigatorProps<null>) => {
         return {
           tabBarLabel: _('Domingo')
         };

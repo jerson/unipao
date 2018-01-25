@@ -20,7 +20,7 @@ export interface SelectModalProps extends InputProps {
   values: InputSelectOption[];
   selectedValue?: string;
   title?: string;
-  isVisible: boolean;
+  isVisible?: boolean;
   onValueChange: (value: string, index: number) => void;
   onCancel?: () => void;
 }
@@ -52,7 +52,7 @@ export default class SelectModal extends React.Component<
 
     return (
       <Modal
-        isVisible={isVisible}
+        isVisible={!!isVisible}
         onBackButtonPress={onCancel}
         onBackdropPress={onCancel}
         style={styles.modal}

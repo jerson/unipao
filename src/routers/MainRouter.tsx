@@ -1,5 +1,13 @@
 import LoginScreen from '../scenes/LoginScreen';
-import { StackNavigator, TabNavigator } from 'react-navigation';
+import {
+  NavigationComponent,
+  NavigationContainer,
+  NavigationScreenConfigProps,
+  NavigationScreenRouteConfig,
+  NavigationTabScreenOptions,
+  StackNavigator,
+  TabNavigator
+} from 'react-navigation';
 import { View } from 'react-native';
 import * as React from 'react';
 import AboutScreen from '../scenes/AboutScreen';
@@ -95,10 +103,10 @@ const UPAOTabNavigator = TabNavigator(
           <Icon
             name={'newspaper-o'}
             type={'FontAwesome'}
-            style={[Theme.tabTarIcon, { color: tintColor }]}
+            style={[Theme.tabTarIcon, { color: tintColor || '#444' }]}
           />
         )
-      }
+      } as NavigationTabScreenOptions
     },
     Gallery: {
       screen: GalleryNavigator,
@@ -107,10 +115,10 @@ const UPAOTabNavigator = TabNavigator(
         tabBarIcon: ({ tintColor }) => (
           <Icon
             name={'photo'}
-            style={[Theme.tabTarIcon, { color: tintColor }]}
+            style={[Theme.tabTarIcon, { color: tintColor || '#444' }]}
           />
         )
-      }
+      } as NavigationTabScreenOptions
     },
     Agenda: {
       screen: AgendaNavigator,
@@ -120,10 +128,10 @@ const UPAOTabNavigator = TabNavigator(
           <Icon
             name={'calendar'}
             type={'MaterialCommunityIcons'}
-            style={[Theme.tabTarIcon, { color: tintColor }]}
+            style={[Theme.tabTarIcon, { color: tintColor || '#444' }]}
           />
         )
-      }
+      } as NavigationTabScreenOptions
     }
   },
   {
@@ -240,7 +248,7 @@ const UsersTabNavigator = TabNavigator(
       screen: ProfileScreen
     },
     Intranet: {
-      screen: ({ navigation }) => {
+      screen: ({ navigation }: NavigationScreenConfigProps) => {
         return (
           <View style={{ flex: 1 }}>
             <IntranetNavigator screenProps={{ tabNavigation: navigation }} />
@@ -253,14 +261,14 @@ const UsersTabNavigator = TabNavigator(
           <Icon
             name={'network'}
             type={'Entypo'}
-            style={[Theme.tabTarIcon, { color: tintColor }]}
+            style={[Theme.tabTarIcon, { color: tintColor || '#444' }]}
           />
         )
-      }
+      } as NavigationTabScreenOptions
     },
 
     UPAO: {
-      screen: ({ navigation }) => {
+      screen: ({ navigation }: NavigationScreenConfigProps) => {
         return (
           <View style={{ flex: 1 }}>
             <UPAONavigator screenProps={{ tabNavigation: navigation }} />
@@ -273,13 +281,13 @@ const UsersTabNavigator = TabNavigator(
           <Icon
             name={'newspaper-o'}
             type={'FontAwesome'}
-            style={[Theme.tabTarIcon, { color: tintColor }]}
+            style={[Theme.tabTarIcon, { color: tintColor || '#444' }]}
           />
         )
-      }
+      } as NavigationTabScreenOptions
     },
     Mail: {
-      screen: ({ navigation }) => {
+      screen: ({ navigation }: NavigationScreenConfigProps) => {
         return (
           <View style={{ flex: 1 }}>
             <MailNavigator screenProps={{ tabNavigation: navigation }} />
@@ -292,13 +300,13 @@ const UsersTabNavigator = TabNavigator(
           <Icon
             name={'gmail'}
             type={'MaterialCommunityIcons'}
-            style={[Theme.tabTarIcon, { color: tintColor }]}
+            style={[Theme.tabTarIcon, { color: tintColor || '#444' }]}
           />
         )
-      }
+      } as NavigationTabScreenOptions
     },
     Settings: {
-      screen: ({ navigation }) => {
+      screen: ({ navigation }: NavigationScreenConfigProps) => {
         return (
           <View style={{ flex: 1 }}>
             <SettingsNavigator screenProps={{ tabNavigation: navigation }} />
@@ -311,16 +319,16 @@ const UsersTabNavigator = TabNavigator(
           <Icon
             name={'settings'}
             type={'MaterialCommunityIcons'}
-            style={[Theme.tabTarIcon, { color: tintColor }]}
+            style={[Theme.tabTarIcon, { color: tintColor || '#444' }]}
           />
         )
-      }
+      } as NavigationTabScreenOptions
     }
   },
   { ...tabsOptionsMain }
 );
 
-export default StackNavigator(
+const MainNavigator = StackNavigator(
   {
     Login: {
       screen: LoginScreen
@@ -335,7 +343,7 @@ export default StackNavigator(
       screen: IntroScreen
     },
     User: {
-      screen: ({ navigation }) => (
+      screen: ({ navigation }: NavigationScreenConfigProps) => (
         <UsersTabNavigator screenProps={{ rootNavigation: navigation }} />
       )
     }
@@ -347,3 +355,4 @@ export default StackNavigator(
     }
   }
 );
+export default MainNavigator as NavigationContainer;

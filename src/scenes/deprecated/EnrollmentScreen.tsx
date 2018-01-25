@@ -7,14 +7,33 @@ import Loading from '../../components/ui/Loading';
 import Log from '../../modules/logger/Log';
 import Request from '../../modules/network/Request';
 import EnrollmentList from '../../components/enrollment/EnrollmentList';
-import { NavigationScreenConfigProps, TabNavigator } from 'react-navigation';
+import {
+  NavigationNavigatorProps,
+  NavigationScreenConfigProps,
+  NavigationScreenProp,
+  TabNavigator
+} from 'react-navigation';
 import { tabsOptions } from '../../routers/Tabs';
 import PeriodModal from '../../components/period/PeriodModal';
 import { _ } from '../../modules/i18n/Translator';
 import CacheStorage from '../../modules/storage/CacheStorage';
 
+export interface EnrollmentScreenProps {
+  navigation: NavigationScreenProp<null, null>;
+}
+
+export interface State {
+  cacheLoaded: boolean;
+  isLoading: boolean;
+  period: any;
+  tabs: any;
+  careers: any;
+}
 const TAG = 'EnrollmentScreen';
-export default class EnrollmentScreen extends React.Component {
+export default class EnrollmentScreen extends React.Component<
+  EnrollmentScreenProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
@@ -48,14 +67,15 @@ export default class EnrollmentScreen extends React.Component {
     )
   });
 
-  state = {
+  state: State = {
     isLoading: true,
     period: null,
+    cacheLoaded: false,
     tabs: null,
     careers: {}
   };
 
-  onChangePeriod = period => {
+  onChangePeriod = (period: any) => {
     this.setState({ period }, () => {
       this.load();
     });
@@ -81,9 +101,9 @@ export default class EnrollmentScreen extends React.Component {
     }
   };
 
-  loadResponse = (body, cacheLoaded = false) => {
-    let careers = {};
-    let tabs = {};
+  loadResponse = (body: any, cacheLoaded = false) => {
+    let careers: any = {};
+    let tabs: any = {};
 
     if (body.data) {
       let enrollments = JSON.parse(body.data);
@@ -94,12 +114,18 @@ export default class EnrollmentScreen extends React.Component {
         }
         if (!tabs[name]) {
           tabs[name] = {
-            screen: ({ navigation, screenProps }) => {
-              let { careers } = screenProps;
+            screen: ({
+              navigation,
+              screenProps
+            }: NavigationNavigatorProps<null>) => {
+              let careers = screenProps ? screenProps.careers || {} : {};
               let enrollments = careers[name] || [];
               return <EnrollmentList enrollments={enrollments} />;
             },
-            navigationOptions: ({ navigation, screenProps }) => {
+            navigationOptions: ({
+              navigation,
+              screenProps
+            }: NavigationNavigatorProps<null>) => {
               return {
                 tabBarLabel: enrollment.CARRERA
               };
@@ -114,10 +140,16 @@ export default class EnrollmentScreen extends React.Component {
     if (totalTabs.length < 1) {
       tabs = {
         NO: {
-          screen: ({ navigation, screenProps }) => {
+          screen: ({
+            navigation,
+            screenProps
+          }: NavigationNavigatorProps<null>) => {
             return <EnrollmentList enrollments={[]} />;
           },
-          navigationOptions: ({ navigation, screenProps }) => {
+          navigationOptions: ({
+            navigation,
+            screenProps
+          }: NavigationNavigatorProps<null>) => {
             return {
               tabBarLabel: _('No se encontraron datos')
             };
@@ -166,6 +198,9 @@ export default class EnrollmentScreen extends React.Component {
     }
   };
 
+  refs: {
+    periods: PeriodModal;
+  };
   reload = () => {
     this.load(true);
   };

@@ -1,5 +1,12 @@
 import * as React from 'react';
-import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
+import {
+  FlatList,
+  ListRenderItemInfo,
+  RefreshControl,
+  StyleSheet,
+  TextInput,
+  View
+} from 'react-native';
 import { Theme } from '../../themes/styles';
 import * as PropTypes from 'prop-types';
 import NavigationButton from '../../components/ui/NavigationButton';
@@ -11,10 +18,27 @@ import PeriodModal from '../../components/period/PeriodModal';
 import AlertMessage from '../../components/ui/AlertMessage';
 import { _ } from '../../modules/i18n/Translator';
 import CacheStorage from '../../modules/storage/CacheStorage';
-import { NavigationScreenConfigProps } from 'react-navigation';
+import {
+  NavigationScreenConfigProps,
+  NavigationScreenProp
+} from 'react-navigation';
 
+export interface AssistsScreenProps {
+  navigation: NavigationScreenProp<null, null>;
+}
+
+export interface State {
+  isLoading: boolean;
+  period: any;
+  cacheLoaded: boolean;
+  isRefreshing: boolean;
+  assists: any[];
+}
 const TAG = 'AssistsScreen';
-export default class AssistsScreen extends React.Component {
+export default class AssistsScreen extends React.Component<
+  AssistsScreenProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
@@ -52,17 +76,21 @@ export default class AssistsScreen extends React.Component {
     )
   });
 
-  state = {
+  refs: {
+    periods: PeriodModal;
+  };
+  state: State = {
     isLoading: false,
     period: null,
     isRefreshing: false,
+    cacheLoaded: false,
     assists: []
   };
 
-  renderItem = ({ item, index }) => {
+  renderItem = ({ item, index }: ListRenderItemInfo<any>) => {
     return <AssistItem assist={item} />;
   };
-  onChangePeriod = period => {
+  onChangePeriod = (period: any) => {
     this.setState({ period }, () => {
       this.load();
     });
@@ -89,7 +117,7 @@ export default class AssistsScreen extends React.Component {
     }
   };
 
-  loadResponse = (body, cacheLoaded = false) => {
+  loadResponse = (body: any, cacheLoaded = false) => {
     let assists = [];
     if (body.data) {
       assists = JSON.parse(body.data);

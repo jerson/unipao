@@ -45,7 +45,7 @@ export default class CacheStorage {
     Log.info(TAG, 'set', key);
     let keyEncoded = this.hashCode(key);
     let realm = await this.getInstance();
-    let cache = realm.objectForPrimaryKey('Cache', keyEncoded);
+    let cache: any = realm.objectForPrimaryKey('Cache', keyEncoded);
     realm.write(() => {
       if (cache) {
         Log.info(TAG, 'set', key, 'update');
@@ -65,7 +65,7 @@ export default class CacheStorage {
     Log.info(TAG, 'get', key);
     let realm = await this.getInstance();
     let keyEncoded = this.hashCode(key);
-    let data = null;
+    let data: any = null;
     realm.write(() => {
       data = realm.objectForPrimaryKey('Cache', keyEncoded);
     });

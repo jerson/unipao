@@ -5,15 +5,32 @@ import * as PropTypes from 'prop-types';
 import Loading from '../../components/ui/Loading';
 import Log from '../../modules/logger/Log';
 import Request from '../../modules/network/Request';
-import { NavigationScreenConfigProps, TabNavigator } from 'react-navigation';
+import {
+  NavigationNavigatorProps,
+  NavigationScreenConfigProps,
+  NavigationScreenProp,
+  TabNavigator
+} from 'react-navigation';
 import PaymentList from '../../components/payment/PaymentList';
 import { _ } from '../../modules/i18n/Translator';
 import { tabsOptions } from '../../routers/Tabs';
 import NavigationButton from '../../components/ui/NavigationButton';
 import CacheStorage from '../../modules/storage/CacheStorage';
 
+export interface PaymentsScreenProps {
+  navigation: NavigationScreenProp<null, null>;
+}
+
+export interface State {
+  isLoading: boolean;
+  cacheLoaded: boolean;
+  paymentsGroups: any;
+}
 const TAG = 'PaymentsScreen';
-export default class PaymentsScreen extends React.Component {
+export default class PaymentsScreen extends React.Component<
+  PaymentsScreenProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
@@ -38,8 +55,9 @@ export default class PaymentsScreen extends React.Component {
     )
   });
 
-  state = {
+  state: State = {
     isLoading: true,
+    cacheLoaded: false,
     paymentsGroups: {}
   };
 
@@ -61,8 +79,8 @@ export default class PaymentsScreen extends React.Component {
     }
   };
 
-  loadResponse = (body, cacheLoaded = false) => {
-    let paymentsGroups = {};
+  loadResponse = (body: any, cacheLoaded = false) => {
+    let paymentsGroups: any = {};
     if (body.data) {
       let data = JSON.parse(body.data);
 
@@ -127,60 +145,85 @@ export default class PaymentsScreen extends React.Component {
 const PaymentsTab = TabNavigator(
   {
     UG: {
-      screen: ({ navigation, screenProps }) => {
-        let { paymentsGroups } = screenProps;
+      screen: ({ navigation, screenProps }: NavigationNavigatorProps<null>) => {
+        let paymentsGroups = screenProps
+          ? screenProps.paymentsGroups || {}
+          : {};
         let payments = paymentsGroups['UG'] || [];
         return <PaymentList payments={payments} />;
       },
-      navigationOptions: ({ navigation, screenProps }) => {
+      navigationOptions: ({
+        navigation,
+        screenProps
+      }: NavigationNavigatorProps<null>) => {
         return {
           tabBarLabel: _('Pregrado')
         };
       }
     },
     GR: {
-      screen: ({ navigation, screenProps }) => {
-        let { paymentsGroups } = screenProps;
+      screen: ({ navigation, screenProps }: NavigationNavigatorProps<null>) => {
+        let paymentsGroups = screenProps
+          ? screenProps.paymentsGroups || {}
+          : {};
         let payments = paymentsGroups['GR'] || [];
         return <PaymentList payments={payments} />;
       },
-      navigationOptions: ({ navigation, screenProps }) => {
+      navigationOptions: ({
+        navigation,
+        screenProps
+      }: NavigationNavigatorProps<null>) => {
         return {
           tabBarLabel: _('Postgrado')
         };
       }
     },
     UT: {
-      screen: ({ navigation, screenProps }) => {
-        let { paymentsGroups } = screenProps;
+      screen: ({ navigation, screenProps }: NavigationNavigatorProps<null>) => {
+        let paymentsGroups = screenProps
+          ? screenProps.paymentsGroups || {}
+          : {};
         let payments = paymentsGroups['UT'] || [];
         return <PaymentList payments={payments} />;
       },
-      navigationOptions: ({ navigation, screenProps }) => {
+      navigationOptions: ({
+        navigation,
+        screenProps
+      }: NavigationNavigatorProps<null>) => {
         return {
           tabBarLabel: _('Gente que trabaja')
         };
       }
     },
     UB: {
-      screen: ({ navigation, screenProps }) => {
-        let { paymentsGroups } = screenProps;
+      screen: ({ navigation, screenProps }: NavigationNavigatorProps<null>) => {
+        let paymentsGroups = screenProps
+          ? screenProps.paymentsGroups || {}
+          : {};
         let payments = paymentsGroups['UB'] || [];
         return <PaymentList payments={payments} />;
       },
-      navigationOptions: ({ navigation, screenProps }) => {
+      navigationOptions: ({
+        navigation,
+        screenProps
+      }: NavigationNavigatorProps<null>) => {
         return {
           tabBarLabel: _('Centro de idiomas')
         };
       }
     },
     EU: {
-      screen: ({ navigation, screenProps }) => {
-        let { paymentsGroups } = screenProps;
+      screen: ({ navigation, screenProps }: NavigationNavigatorProps<null>) => {
+        let paymentsGroups = screenProps
+          ? screenProps.paymentsGroups || {}
+          : {};
         let payments = paymentsGroups['EU'] || [];
         return <PaymentList payments={payments} />;
       },
-      navigationOptions: ({ navigation, screenProps }) => {
+      navigationOptions: ({
+        navigation,
+        screenProps
+      }: NavigationNavigatorProps<null>) => {
         return {
           tabBarLabel: _('Ext. Universitaria')
         };

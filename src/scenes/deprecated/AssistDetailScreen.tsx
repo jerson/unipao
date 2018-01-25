@@ -1,14 +1,26 @@
 import * as React from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, ListRenderItemInfo, StyleSheet, View } from 'react-native';
 import { Theme } from '../../themes/styles';
 import * as PropTypes from 'prop-types';
 import AssistDetailItem from '../../components/assist/AssistDetailItem';
 import AssistHeader from '../../components/assist/AssistHeader';
 import { _ } from '../../modules/i18n/Translator';
-import { NavigationScreenConfigProps } from 'react-navigation';
+import {
+  NavigationScreenConfigProps,
+  NavigationScreenProp
+} from 'react-navigation';
+
+export interface AssistDetailScreenProps {
+  navigation: NavigationScreenProp<null, null>;
+}
+
+export interface State {}
 
 const TAG = 'AssistDetailScreen';
-export default class AssistDetailScreen extends React.Component {
+export default class AssistDetailScreen extends React.Component<
+  AssistDetailScreenProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
@@ -28,9 +40,9 @@ export default class AssistDetailScreen extends React.Component {
     ]
   });
 
-  state = {};
+  state: State = {};
 
-  renderItem = ({ item, index }) => {
+  renderItem = ({ item, index }: ListRenderItemInfo<any>) => {
     return <AssistDetailItem detail={item} />;
   };
 
