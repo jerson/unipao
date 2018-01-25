@@ -10,14 +10,37 @@ import NavigationButton from '../../../components/ui/NavigationButton';
 import GalleryImage from '../../../components/gallery/GalleryImage';
 import FlexibleGrid from '../../../components/ui/FlexibleGrid';
 import GalleryModal from '../../../components/gallery/GalleryModal';
+import {
+  NavigationScreenConfigProps,
+  NavigationScreenProp
+} from 'react-navigation';
+import { GalleryDetailModel } from '../../../scraping/info/Gallery';
+
+export interface GalleryScreenProps {
+  navigation: NavigationScreenProp<null, null>;
+}
+
+export interface State {
+  cacheLoaded: boolean;
+  showGalleryModal: boolean;
+  gallery?: GalleryDetailModel;
+  galleryIndex: number;
+  isLoading: boolean;
+}
 
 const TAG = 'GalleryScreen';
-export default class GalleryScreen extends React.PureComponent {
+export default class GalleryScreen extends React.PureComponent<
+  GalleryScreenProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
 
-  static navigationOptions = ({ navigation, screenProps }) => ({
+  static navigationOptions = ({
+    navigation,
+    screenProps
+  }: NavigationScreenConfigProps) => ({
     title: '',
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
@@ -28,9 +51,10 @@ export default class GalleryScreen extends React.PureComponent {
       Theme.shadowDefault
     ]
   });
-  state = {
+  state: State = {
+    cacheLoaded: false,
     showGalleryModal: false,
-    gallery: null,
+    gallery: undefined,
     galleryIndex: 0,
     isLoading: true
   };
@@ -51,7 +75,7 @@ export default class GalleryScreen extends React.PureComponent {
       Log.info(TAG, 'checkCache', e);
     }
   };
-  loadResponse = (gallery, cacheLoaded = false) => {
+  loadResponse = (gallery?: GalleryDetailModel, cacheLoaded = false) => {
     this.setState({
       cacheLoaded,
       gallery,
@@ -69,7 +93,7 @@ export default class GalleryScreen extends React.PureComponent {
     } catch (e) {
       Log.warn(TAG, 'load', e);
       if (!cacheLoaded) {
-        this.loadResponse(null);
+        this.loadResponse(undefined);
       } else {
         this.setState({
           isLoading: false
@@ -77,7 +101,7 @@ export default class GalleryScreen extends React.PureComponent {
       }
     }
   };
-  toogleGallery = index => {
+  toogleGallery = (index: number) => {
     let { gallery } = this.state;
     let images = gallery ? gallery.images || [] : [];
 
@@ -99,9 +123,9 @@ export default class GalleryScreen extends React.PureComponent {
     UPAO.abort('Gallery.get');
   }
 
-  getParams() {
-    let { state } = this.props.navigation;
-    return state.params || {};
+  getParams(): any {
+    let { params } = this.props.navigation.state || { params: {} };
+    return params;
   }
 
   componentDidMount() {
@@ -121,7 +145,7 @@ export default class GalleryScreen extends React.PureComponent {
             index={galleryIndex}
             onBackButtonPress={this.hideGallery}
             onBackdropPress={this.hideGallery}
-            visible
+            isVisible
           />
         )}
         <FlexibleGrid

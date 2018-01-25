@@ -16,7 +16,10 @@ export default class ExamsSectionScreen extends React.Component {
     notification: PropTypes.object.isRequired
   };
 
-  static navigationOptions = ({ navigation, screenProps }) => ({
+  static navigationOptions = ({
+    navigation,
+    screenProps
+  }: NavigationScreenConfigProps) => ({
     title: '',
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],

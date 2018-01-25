@@ -9,6 +9,7 @@ import Loading from '../../../../components/ui/Loading';
 import Config from '../../../../scraping/Config';
 import NavigationButton from '../../../../components/ui/NavigationButton';
 import WebViewDownloader from '../../../../components/ui/WebViewDownloader';
+import { NavigationScreenConfigProps } from 'react-navigation';
 
 const TAG = 'JobsSectionScreen';
 export default class JobsSectionScreen extends React.Component {
@@ -16,7 +17,10 @@ export default class JobsSectionScreen extends React.Component {
     notification: PropTypes.object.isRequired
   };
 
-  static navigationOptions = ({ navigation, screenProps }) => ({
+  static navigationOptions = ({
+    navigation,
+    screenProps
+  }: NavigationScreenConfigProps) => ({
     title: '',
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],

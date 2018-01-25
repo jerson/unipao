@@ -6,13 +6,39 @@ import NavigationButton from '../../components/ui/NavigationButton';
 import Loading from '../../components/ui/Loading';
 import * as PropTypes from 'prop-types';
 import WebViewDownloader from '../../components/ui/WebViewDownloader';
+import {
+  NavigationNavigatorProps,
+  NavigationScreenProp
+} from 'react-navigation';
+
+export interface MailScreenProps {
+  navigation: NavigationScreenProp<null, null>;
+}
+
+export interface State {
+  isLoading: boolean;
+  isReloading: boolean;
+}
+
+export interface NavigationParams {
+  params: {
+    isLoading: boolean;
+    reload: () => void;
+  };
+}
 
 const TAG = 'MailScreen';
-export default class MailScreen extends React.Component {
+export default class MailScreen extends React.Component<
+  MailScreenProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
-  static navigationOptions = ({ navigation, screenProps }) => ({
+  static navigationOptions = ({
+    navigation,
+    screenProps
+  }: NavigationNavigatorProps<NavigationParams>) => ({
     title: _('Correo UPAO'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
@@ -34,7 +60,7 @@ export default class MailScreen extends React.Component {
           )}
         <NavigationButton
           onPress={() => {
-            navigation.state.params.reload();
+            navigation && navigation.state.params.reload();
           }}
           icon={'refresh'}
           iconType={'MaterialIcons'}
@@ -43,7 +69,7 @@ export default class MailScreen extends React.Component {
     )
   });
 
-  state = {
+  state: State = {
     isLoading: true,
     isReloading: false
   };

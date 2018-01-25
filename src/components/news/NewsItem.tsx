@@ -5,11 +5,12 @@ import * as PropTypes from 'prop-types';
 import ImageUtil from '../../modules/util/ImageUtil';
 import { Theme } from '../../themes/styles';
 import { _ } from '../../modules/i18n/Translator';
+import { NewsModel } from '../../scraping/info/News';
 
 const moment = require('moment');
 
 export interface NewsItemProps {
-  news: any;
+  news: NewsModel;
 }
 
 export interface State {}
@@ -36,10 +37,12 @@ export default class NewsItem extends React.Component<NewsItemProps, State> {
           }}
         >
           <View style={styles.header}>
-            <Image
-              style={[styles.image, { height: itemHeight }]}
-              source={{ uri: ImageUtil.asset(news.image) }}
-            />
+            {news.image && (
+              <Image
+                style={[styles.image, { height: itemHeight }]}
+                source={{ uri: ImageUtil.asset(news.image) }}
+              />
+            )}
           </View>
           <View style={styles.infoContainer}>
             <Text style={[styles.name]} numberOfLines={2}>

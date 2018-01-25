@@ -5,10 +5,10 @@ import * as PropTypes from 'prop-types';
 import ImageUtil from '../../modules/util/ImageUtil';
 import { Theme } from '../../themes/styles';
 import LinearGradient from '../ui/LinearGradient';
+import { GalleryModel } from '../../scraping/info/Gallery';
 
 export interface GalleryItemProps {
-  gallery: any;
-  index: number;
+  gallery: GalleryModel;
 }
 
 export interface State {}
@@ -26,7 +26,7 @@ export default class GalleryItem extends React.Component<
   state: State = {};
 
   render() {
-    let { gallery, index } = this.props;
+    let { gallery } = this.props;
     let itemHeight = 200;
     return (
       <View style={[styles.container]}>

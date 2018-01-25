@@ -5,6 +5,7 @@ import * as PropTypes from 'prop-types';
 import AssistDetailItem from '../../components/assist/AssistDetailItem';
 import AssistHeader from '../../components/assist/AssistHeader';
 import { _ } from '../../modules/i18n/Translator';
+import { NavigationScreenConfigProps } from 'react-navigation';
 
 const TAG = 'AssistDetailScreen';
 export default class AssistDetailScreen extends React.Component {
@@ -12,7 +13,10 @@ export default class AssistDetailScreen extends React.Component {
     notification: PropTypes.object.isRequired
   };
 
-  static navigationOptions = ({ navigation, screenProps }) => ({
+  static navigationOptions = ({
+    navigation,
+    screenProps
+  }: NavigationScreenConfigProps) => ({
     title: _('Mis Asistencias'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
@@ -35,9 +39,9 @@ export default class AssistDetailScreen extends React.Component {
     return <AssistHeader assist={assist} />;
   };
 
-  getParams() {
-    let { state } = this.props.navigation;
-    return state.params || {};
+  getParams(): any {
+    let { params } = this.props.navigation.state || { params: {} };
+    return params;
   }
 
   render() {

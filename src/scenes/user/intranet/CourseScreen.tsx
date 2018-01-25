@@ -14,6 +14,7 @@ import CourseOptionItem from '../../../components/course/CourseOptionItem';
 import CourseHeader from '../../../components/course/CourseHeader';
 import Loading from '../../../components/ui/Loading';
 import NavigationButton from '../../../components/ui/NavigationButton';
+import { NavigationScreenConfigProps } from 'react-navigation';
 
 const TAG = 'CourseScreen';
 export default class CourseScreen extends React.Component {
@@ -21,7 +22,10 @@ export default class CourseScreen extends React.Component {
     notification: PropTypes.object.isRequired
   };
 
-  static navigationOptions = ({ navigation, screenProps }) => ({
+  static navigationOptions = ({
+    navigation,
+    screenProps
+  }: NavigationScreenConfigProps) => ({
     title: '',
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
@@ -128,9 +132,9 @@ export default class CourseScreen extends React.Component {
     });
   };
 
-  getParams() {
-    let { state } = this.props.navigation;
-    return state.params || {};
+  getParams(): any {
+    let { params } = this.props.navigation.state || { params: {} };
+    return params;
   }
 
   componentDidMount() {

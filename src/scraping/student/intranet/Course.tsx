@@ -1,10 +1,26 @@
 import RequestUtil from '../../utils/RequestUtil';
 import ParamsUtils from '../../utils/ParamsUtils';
 import Log from '../../../modules/logger/Log';
+import { CourseModel } from '../Intranet';
 
 const TAG = 'Course';
+
+export interface SyllableModel {
+  id: string;
+  url: string;
+  name: string;
+}
+
+export interface SectionModel {
+  id: string;
+  code: string;
+  nrc: string;
+  teacher: string;
+  name: string;
+}
+
 export default class Course {
-  static async getExamsHTML(section: any) {
+  static async getExamsHTML(section: any): Promise<string> {
     let html = '';
     try {
       let params = {
@@ -22,7 +38,7 @@ export default class Course {
         { tag: 'Course.getExamsHTML', checkSession: true }
       );
 
-      html = this.sanitizeHTML($.html());
+      html = this.sanitizeHTML($('table').html());
     } catch (e) {
       Log.warn(TAG, 'getExamsHTML', e);
       throw e;
@@ -31,7 +47,7 @@ export default class Course {
     return html;
   }
 
-  static async getJobsHTML(section: any) {
+  static async getJobsHTML(section: any): Promise<string> {
     let html = '';
     try {
       let params = {
@@ -49,7 +65,7 @@ export default class Course {
         { tag: 'Course.getJobsHTML', checkSession: true }
       );
 
-      html = this.sanitizeHTML($.html());
+      html = this.sanitizeHTML($('table').html());
     } catch (e) {
       Log.info(TAG, 'getJobsHTML', e);
       throw e;
@@ -58,7 +74,7 @@ export default class Course {
     return html;
   }
 
-  static async getAssistsHTML(section: any) {
+  static async getAssistsHTML(section: any): Promise<string> {
     let html = '';
     try {
       let params = {
@@ -76,7 +92,7 @@ export default class Course {
         { tag: 'Course.getAssistsHTML', checkSession: true }
       );
 
-      html = this.sanitizeHTML($.html());
+      html = this.sanitizeHTML($('table').html());
     } catch (e) {
       Log.info(TAG, 'getAssistsHTML', e);
       throw e;
@@ -90,7 +106,7 @@ export default class Course {
     // return html.replace(new RegExp('\\|', 'gi'), '%257C');
   }
 
-  static async getMaterialsHTML(section: any) {
+  static async getMaterialsHTML(section: any): Promise<string> {
     let html = '';
     try {
       let params = {
@@ -114,7 +130,7 @@ export default class Course {
           .attr('target', '_blank');
       });
 
-      html = this.sanitizeHTML($.html());
+      html = this.sanitizeHTML($('table').html());
     } catch (e) {
       Log.info(TAG, 'getMaterialsHTML', e);
       throw e;
@@ -123,7 +139,7 @@ export default class Course {
     return html;
   }
 
-  static async getForumHTML(section: any) {
+  static async getForumHTML(section: any): Promise<string> {
     let html = '';
     try {
       let params = {
@@ -141,7 +157,7 @@ export default class Course {
         { tag: 'Course.getForumHTML', checkSession: true }
       );
 
-      html = this.sanitizeHTML($.html());
+      html = this.sanitizeHTML($('table').html());
     } catch (e) {
       Log.info(TAG, 'getForumHTML', e);
       throw e;
@@ -150,7 +166,7 @@ export default class Course {
     return html;
   }
 
-  static async getGradesHTML(course: any) {
+  static async getGradesHTML(course: any): Promise<string> {
     let html = '';
     try {
       let params = {
@@ -181,8 +197,8 @@ export default class Course {
     return html;
   }
 
-  static async getSyllables(course: any) {
-    let items = [];
+  static async getSyllables(course: any): Promise<SyllableModel[]> {
+    let items: SyllableModel[] = [];
     try {
       let params = {
         f: 'YAAHIST',
@@ -224,7 +240,9 @@ export default class Course {
     return items;
   }
 
-  static async getMaterialsSections(course: any) {
+  static async getMaterialsSections(
+    course: CourseModel
+  ): Promise<SectionModel[]> {
     let items = [];
     try {
       let params = {
@@ -252,7 +270,9 @@ export default class Course {
     return items;
   }
 
-  static async getAssistsSections(course: any) {
+  static async getAssistsSections(
+    course: CourseModel
+  ): Promise<SectionModel[]> {
     let items = [];
     try {
       let params = {
@@ -280,7 +300,7 @@ export default class Course {
     return items;
   }
 
-  static async getForumSections(course: any) {
+  static async getForumSections(course: CourseModel): Promise<SectionModel[]> {
     let items = [];
     try {
       let params = {
@@ -308,7 +328,7 @@ export default class Course {
     return items;
   }
 
-  static async getJobsSections(course: any) {
+  static async getJobsSections(course: CourseModel): Promise<SectionModel[]> {
     let items = [];
     try {
       let params = {
@@ -336,7 +356,7 @@ export default class Course {
     return items;
   }
 
-  static async getExamsSections(course: any) {
+  static async getExamsSections(course: CourseModel): Promise<SectionModel[]> {
     let items = [];
     try {
       let params = {
@@ -364,8 +384,8 @@ export default class Course {
     return items;
   }
 
-  static parseSections($) {
-    let items = [];
+  static parseSections($: JQueryStatic): SectionModel[] {
+    let items: SectionModel[] = [];
 
     if (!$) {
       return items;

@@ -5,9 +5,10 @@ import Touchable from '../ui/Touchable';
 import { _ } from '../../modules/i18n/Translator';
 import Log from '../../modules/logger/Log';
 import Icon from '../ui/Icon';
+import { SyllableModel } from '../../scraping/student/intranet/Course';
 
 export interface SyllableItemProps {
-  syllable: any;
+  syllable: SyllableModel;
 }
 
 export interface State {}

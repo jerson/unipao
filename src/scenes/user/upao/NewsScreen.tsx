@@ -19,14 +19,40 @@ import Log from '../../../modules/logger/Log';
 import UPAO from '../../../scraping/UPAO';
 import Loading from '../../../components/ui/Loading';
 import NavigationButton from '../../../components/ui/NavigationButton';
+import { NewsDetailModel } from '../../../scraping/info/News';
+import {
+  NavigationNavigatorProps,
+  NavigationScreenConfig,
+  NavigationScreenConfigProps,
+  NavigationScreenProp,
+  NavigationStackRouterConfig,
+  StackNavigatorConfig
+} from 'react-navigation';
+import { NavigationParams } from '../../LoginFallbackScreen';
+
+export interface NewsListScreenProps {
+  navigation: NavigationScreenProp<null, null>;
+}
+
+export interface State {
+  isLoading: boolean;
+  cacheLoaded: boolean;
+  news?: NewsDetailModel;
+}
 
 const TAG = 'NewsListScreen';
-export default class NewsListScreen extends React.Component {
+export default class NewsListScreen extends React.Component<
+  NewsListScreenProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
 
-  static navigationOptions = ({ navigation, screenProps }) => ({
+  static navigationOptions = ({
+    navigation,
+    screenProps
+  }: NavigationScreenConfigProps) => ({
     title: '',
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
@@ -37,8 +63,8 @@ export default class NewsListScreen extends React.Component {
       Theme.shadowDefault
     ]
   });
-  state = {
-    news: null,
+  state: State = {
+    cacheLoaded: false,
     isLoading: true
   };
   load = async () => {
@@ -58,7 +84,7 @@ export default class NewsListScreen extends React.Component {
       Log.info(TAG, 'checkCache', e);
     }
   };
-  loadResponse = (news, cacheLoaded = false) => {
+  loadResponse = (news?: NewsDetailModel, cacheLoaded = false) => {
     this.setState({
       cacheLoaded,
       news,
@@ -76,7 +102,7 @@ export default class NewsListScreen extends React.Component {
     } catch (e) {
       Log.warn(TAG, 'load', e);
       if (!cacheLoaded) {
-        this.loadResponse(null);
+        this.loadResponse(undefined);
       } else {
         this.setState({
           isLoading: false
@@ -89,9 +115,9 @@ export default class NewsListScreen extends React.Component {
     UPAO.abort('News.get');
   }
 
-  getParams() {
-    let { state } = this.props.navigation;
-    return state.params || {};
+  getParams(): any {
+    let { params } = this.props.navigation.state || { params: {} };
+    return params;
   }
 
   componentDidMount() {
@@ -115,18 +141,20 @@ export default class NewsListScreen extends React.Component {
           {isLoading && <Loading margin />}
           {news && (
             <View style={styles.content}>
-              <View style={styles.header}>
-                <Image
-                  style={[styles.image, { height: itemHeight }]}
-                  source={{ uri: ImageUtil.asset(news.image) }}
-                />
+              <View>
+                {news.image && (
+                  <Image
+                    style={[styles.image, { height: itemHeight }]}
+                    source={{ uri: ImageUtil.asset(news.image) }}
+                  />
+                )}
 
                 <View style={styles.infoContainer}>
                   <Touchable
                     onPress={() => {
                       //test
                       let options = {
-                        title: news.title,
+                        title: news ? news.title : '',
                         message: _('Lee esta noticia en UniPAO'),
                         url: 'http://unipao.com/',
                         subject: _('Compartir')

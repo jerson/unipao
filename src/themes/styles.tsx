@@ -5,7 +5,7 @@ let isAndroid = Platform.OS === 'android';
 export const Theme = {
   tabTarIcon: {
     fontSize: 25
-  } as TextStyle,
+  },
   tintColor: 'rgba(255,255,255,0.7)',
   subTintColor: 'rgba(0,0,0,0.7)',
   navigationBar: {
@@ -23,19 +23,19 @@ export const Theme = {
       width: 2
     },
     backgroundColor: '#fff'
-  } as ViewStyle,
+  },
   subNavigationBar: {
     backgroundColor: '#fff'
-  } as ViewStyle,
+  },
   subtitle: {
     color: '#444'
-  } as TextStyle,
+  },
   title: {
     color: '#fff',
     fontSize: isAndroid ? 16 : 16,
     padding: 0,
     fontWeight: '400'
-  } as TextStyle,
+  },
   noShadow: {
     elevation: 0,
     borderWidth: 0,
@@ -46,21 +46,21 @@ export const Theme = {
       height: 0,
       width: 0
     }
-  } as ViewStyle,
+  },
   shadowDefault: {
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 2,
     elevation: 1
-  } as ViewStyle,
+  },
   shadowLarge: {
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 6,
     elevation: 3
-  } as ViewStyle,
+  },
   textShadow: {
     textShadowColor: 'rgba(0,0,0,0.2)',
     textShadowRadius: 4,
@@ -68,5 +68,5 @@ export const Theme = {
       height: 1,
       width: 0
     }
-  } as TextStyle
+  }
 };

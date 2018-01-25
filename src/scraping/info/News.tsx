@@ -3,10 +3,25 @@ import RequestUtil from '../utils/RequestUtil';
 
 const moment = require('moment');
 
+export interface NewsModel {
+  id: string;
+  title: string;
+  date: string;
+  image?: string;
+  url: string;
+  subtitle: string;
+}
+export interface NewsDetailModel {
+  id: string;
+  title: string;
+  image?: string;
+  subtitle: string;
+  content: string;
+}
 const TAG = 'News';
 export default class News {
-  static async getList(page: number) {
-    let items = [];
+  static async getList(page: number): Promise<NewsModel[]> {
+    let items: NewsModel[] = [];
     try {
       let $ = await RequestUtil.fetch(
         'http://www.upao.edu.pe/actualidad/?mod=mod_act&s=not&Page=' + page,
@@ -18,26 +33,18 @@ export default class News {
       let $container = $('.centro1');
 
       $('.col_ent1', $container).each((index, value) => {
-        if (!items[index]) {
-          items[index] = {};
-        }
         items[index].date = moment(
           $('.fblog', value).text(),
           'DD-MM-yy'
         ).toDate();
       });
       $('.col_ent2', $container).each((index, value) => {
-        if (!items[index]) {
-          items[index] = {};
-        }
+        let href = $('a', value).attr('href') || '';
         items[index].image = $('img', value).attr('src');
-        items[index].url = $('a', value).attr('href');
-        items[index].id = items[index].url;
+        items[index].url = href;
+        items[index].id = href;
       });
       $('.col_ent3', $container).each((index, value) => {
-        if (!items[index]) {
-          items[index] = {};
-        }
         items[index].title = $('.tit_ent', value).text();
         items[index].subtitle = $('.subtit_ent', value).text();
       });
@@ -49,8 +56,8 @@ export default class News {
     return items;
   }
 
-  static async get(id: string) {
-    let item = null;
+  static async get(id: string): Promise<NewsDetailModel> {
+    let item: NewsDetailModel;
     try {
       let $ = await RequestUtil.fetch(
         'http://www.upao.edu.pe/actualidad/' + id,

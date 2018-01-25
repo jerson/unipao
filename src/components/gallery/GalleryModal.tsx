@@ -9,9 +9,11 @@ import {
   Platform,
   ScaledSize,
   StatusBar,
+  StyleProp,
   StyleSheet,
   Text,
-  View
+  View,
+  ViewStyle
 } from 'react-native';
 import * as PropTypes from 'prop-types';
 import { Theme } from '../../themes/styles';
@@ -19,12 +21,17 @@ import NavigationButton from '../ui/NavigationButton';
 import Modal, { ModalProps } from '../ui/Modal';
 import LinearGradient from '../ui/LinearGradient';
 import ImageZoom from 'react-native-image-pan-zoom';
+import { GalleryImageModel } from '../../scraping/info/Gallery';
 
-export interface GalleryModalProps extends ModalProps {
-  onChooseCareer: (career: any) => void;
+export interface GalleryModalProps {
   images: any[];
   index: number;
-  onBackButtonPress: () => void;
+  isVisible: boolean;
+  onModalShow?: () => void;
+  onModalHide?: () => void;
+  onBackButtonPress?: () => void;
+  onBackdropPress?: () => void;
+  style?: StyleProp<ViewStyle>;
 }
 
 export interface State {
@@ -58,7 +65,7 @@ export default class GalleryModal extends React.PureComponent<
     [string: string]: any;
     list: FlatList<any>;
   };
-  renderItem = ({ item, index }: ListRenderItemInfo<any>) => {
+  renderItem = ({ item, index }: ListRenderItemInfo<GalleryImageModel>) => {
     let { width, height } = this.state;
 
     return (

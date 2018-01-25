@@ -1,5 +1,12 @@
 import * as React from 'react';
-import {ListRenderItemInfo, RefreshControl, SectionList, SectionListData, StyleSheet, View} from 'react-native';
+import {
+  ListRenderItemInfo,
+  RefreshControl,
+  SectionList,
+  SectionListData,
+  StyleSheet,
+  View
+} from 'react-native';
 import * as PropTypes from 'prop-types';
 import Loading from '../../../components/ui/Loading';
 import Log from '../../../modules/logger/Log';
@@ -9,18 +16,36 @@ import CacheStorage from '../../../modules/storage/CacheStorage';
 import UPAO from '../../../scraping/UPAO';
 import PeriodHeader from '../../../components/period/PeriodHeader';
 import CourseItem from '../../../components/course/CourseItem';
-import {IntroPage} from '../../IntroScreen';
-import {CourseModel, PeriodModel} from '../../../scraping/student/Intranet';
+import { IntroPage } from '../../IntroScreen';
+import { CourseModel, PeriodModel } from '../../../scraping/student/Intranet';
+import { NavigationScreenProp } from 'react-navigation';
+
+export interface LevelScreenProps {
+  navigation: NavigationScreenProp<null, null>;
+  level: string;
+}
+
+export interface State {
+  isLoading: boolean;
+  period: any;
+  isRefreshing: boolean;
+  cacheLoaded: boolean;
+  sections: any[];
+}
 
 const TAG = 'LevelScreen';
-export default class LevelScreen extends React.Component {
+export default class LevelScreen extends React.Component<
+  LevelScreenProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
 
-  state = {
+  state: State = {
     isLoading: false,
     period: null,
+    cacheLoaded: false,
     isRefreshing: false,
     sections: []
   };
@@ -29,12 +54,7 @@ export default class LevelScreen extends React.Component {
     return <CourseItem course={item} navigation={this.props.navigation} />;
   };
   renderHeader = ({ section }: { section: SectionListData<PeriodModel> }) => {
-    return <PeriodHeader courses={section.data} title={section.title} />;
-  };
-  onChangePeriod = period => {
-    this.setState({ period }, () => {
-      this.load();
-    });
+    return <PeriodHeader title={section.title} />;
   };
 
   load = async () => {
@@ -58,7 +78,7 @@ export default class LevelScreen extends React.Component {
     }
   };
 
-  loadResponse = (data, cacheLoaded = false) => {
+  loadResponse = (data: any, cacheLoaded = false) => {
     let sections = [];
     if (data) {
       sections = data;
@@ -100,9 +120,7 @@ export default class LevelScreen extends React.Component {
   reload = () => {
     this.onRefresh();
   };
-  togglePeriods = () => {
-    this.refs.periods.show();
-  };
+
   onRefresh = () => {
     this.setState({ isRefreshing: true }, () => {
       this.load();

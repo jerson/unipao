@@ -7,6 +7,13 @@ declare const capitalize: any;
 declare module 'appcenter-push' {
     export = module;
 }
+declare module 'react-native-share' {
+    export = module;
+}
+declare module 'react-native-htmlview' {
+    export = module;
+}
+
 declare module 'numeral' {
     export = module;
 }

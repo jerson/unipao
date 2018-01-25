@@ -17,7 +17,10 @@ export default class CourseAssistsScreen extends React.Component {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
-  static navigationOptions = ({ navigation, screenProps }) => ({
+  static navigationOptions = ({
+    navigation,
+    screenProps
+  }: NavigationScreenConfigProps) => ({
     headerBackTitle: null,
     title: _('Asistencias del curso'),
     headerTitleStyle: [Theme.title, Theme.subtitle],
@@ -134,9 +137,9 @@ export default class CourseAssistsScreen extends React.Component {
     UPAO.abort('Course.getAssistsSections');
   }
 
-  getParams() {
-    let { state } = this.props.navigation;
-    return state.params || {};
+  getParams(): any {
+    let { params } = this.props.navigation.state || { params: {} };
+    return params;
   }
 
   componentDidMount() {

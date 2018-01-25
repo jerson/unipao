@@ -10,13 +10,17 @@ import UPAO from '../../../scraping/UPAO';
 import Log from '../../../modules/logger/Log';
 import CacheStorage from '../../../modules/storage/CacheStorage';
 import WebViewDownloader from '../../../components/ui/WebViewDownloader';
+import { NavigationScreenConfigProps } from 'react-navigation';
 
 const TAG = 'CourseGradesScreen';
 export default class CourseGradesScreen extends React.Component {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
-  static navigationOptions = ({ navigation, screenProps }) => ({
+  static navigationOptions = ({
+    navigation,
+    screenProps
+  }: NavigationScreenConfigProps) => ({
     headerBackTitle: null,
     title: _('Notas del curso'),
     headerTitleStyle: [Theme.title, Theme.subtitle],
@@ -92,9 +96,9 @@ export default class CourseGradesScreen extends React.Component {
     this.load();
   };
 
-  getParams() {
-    let { state } = this.props.navigation;
-    return state.params || {};
+  getParams(): any {
+    let { params } = this.props.navigation.state || { params: {} };
+    return params;
   }
 
   componentWillUnmount() {

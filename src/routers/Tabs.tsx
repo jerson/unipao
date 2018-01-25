@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TabBarTop, TabNavigator } from 'react-navigation';
+import { TabBarTop, TabNavigator, TabNavigatorConfig } from 'react-navigation';
 import { Theme } from '../themes/styles';
 import { Platform } from 'react-native';
 
@@ -27,7 +27,7 @@ export const tabsOptions = {
       backgroundColor: '#0d61ac'
     }
   }
-};
+} as TabNavigatorConfig;
 
 export const tabsOptionsMain = {
   ...TabNavigator.Presets.iOSBottomTabs,
@@ -51,7 +51,7 @@ export const tabsOptionsMain = {
       flexDirection: 'column'
     }
   }
-};
+} as TabNavigatorConfig;
 export const tabsOptionsSub = {
   tabBarComponent: TabBarTop,
   tabBarPosition: 'top',
@@ -77,4 +77,4 @@ export const tabsOptionsSub = {
       backgroundColor: '#f59331'
     }
   }
-};
+} as TabNavigatorConfig;

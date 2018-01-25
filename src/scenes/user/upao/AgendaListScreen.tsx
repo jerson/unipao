@@ -1,5 +1,12 @@
 import * as React from 'react';
-import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
+import {
+  FlatList,
+  ListRenderItemInfo,
+  RefreshControl,
+  StyleSheet,
+  TextInput,
+  View
+} from 'react-native';
 import { Theme } from '../../../themes/styles';
 import * as PropTypes from 'prop-types';
 import Log from '../../../modules/logger/Log';
@@ -8,11 +15,30 @@ import AgendaItem from '../../../components/agenda/AgendaItem';
 import { _ } from '../../../modules/i18n/Translator';
 import CacheStorage from '../../../modules/storage/CacheStorage';
 import UPAO from '../../../scraping/UPAO';
+import { NavigationScreenProp } from 'react-navigation';
+import { GalleryModel } from '../../../scraping/info/Gallery';
+import { AgendaModel } from '../../../scraping/info/Agenda';
 
 const moment = require('moment');
 
+export interface AgendaListScreenProps {
+  navigation: NavigationScreenProp<null, null>;
+}
+
+export interface State {
+  agendaList: AgendaModel[];
+  month: string;
+  year: string;
+  isRefreshing: boolean;
+  cacheLoaded: boolean;
+  isLoading: boolean;
+}
+
 const TAG = 'AgendaListScreen';
-export default class AgendaListScreen extends React.Component {
+export default class AgendaListScreen extends React.Component<
+  AgendaListScreenProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
@@ -29,11 +55,17 @@ export default class AgendaListScreen extends React.Component {
     ]
   };
 
-  state = {
+  refs: {
+    [string: string]: any;
+    input: FlatList<AgendaModel>;
+  };
+  state: State = {
     agendaList: [],
     month: moment().format('MM'),
     year: moment().format('YYYY'),
-    isRefreshing: false
+    isRefreshing: false,
+    cacheLoaded: false,
+    isLoading: false
   };
 
   load = async () => {
@@ -58,7 +90,7 @@ export default class AgendaListScreen extends React.Component {
     }
   };
 
-  loadResponse = (data, cacheLoaded = false) => {
+  loadResponse = (data: AgendaModel[], cacheLoaded = false) => {
     let exist = false;
     let i = 0;
     if (data) {
@@ -105,13 +137,13 @@ export default class AgendaListScreen extends React.Component {
       }
     }
   };
-  isToday = item => {
+  isToday = (item: AgendaModel) => {
     let { month, year } = this.state;
-    let day = parseInt(item.dayOfMonth, 10);
+    let day = item.dayOfMonth;
     let date = `${day}/${month}/${year}`;
     return date === moment().format('DD/MM/YYYY');
   };
-  renderItem = ({ item, index }) => {
+  renderItem = ({ item, index }: ListRenderItemInfo<AgendaModel>) => {
     let isToday = this.isToday(item);
     return <AgendaItem isToday={isToday} agenda={item} />;
   };

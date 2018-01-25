@@ -5,7 +5,7 @@ import * as PropTypes from 'prop-types';
 import Loading from '../../components/ui/Loading';
 import Log from '../../modules/logger/Log';
 import Request from '../../modules/network/Request';
-import { TabNavigator } from 'react-navigation';
+import { NavigationScreenConfigProps, TabNavigator } from 'react-navigation';
 import PaymentList from '../../components/payment/PaymentList';
 import { _ } from '../../modules/i18n/Translator';
 import { tabsOptions } from '../../routers/Tabs';
@@ -18,7 +18,10 @@ export default class PaymentsScreen extends React.Component {
     notification: PropTypes.object.isRequired
   };
 
-  static navigationOptions = ({ navigation, screenProps }) => ({
+  static navigationOptions = ({
+    navigation,
+    screenProps
+  }: NavigationScreenConfigProps) => ({
     title: _('Estado de cuenta'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],

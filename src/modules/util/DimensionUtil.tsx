@@ -6,7 +6,7 @@ export default class DimensionUtil {
   }
 
   static getStatusBarPadding() {
-    const version = parseInt(Platform.Version, 10);
+    const version = parseInt(Platform.Version.toString(), 10);
     return Platform.OS === 'ios' ||
       Platform.OS === 'windows' ||
       (Platform.OS === 'android' && version < 21)

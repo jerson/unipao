@@ -15,6 +15,9 @@ import { NavigationScreenProp } from 'react-navigation';
 
 export interface SettingsScreenProps {
   navigation: NavigationScreenProp<null, null>;
+  screenProps: {
+    rootNavigation: NavigationScreenProp<null, null>;
+  };
 }
 
 export interface State {}

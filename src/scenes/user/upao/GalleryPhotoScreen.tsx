@@ -3,6 +3,7 @@ import {
   Dimensions,
   Image,
   Platform,
+  ScaledSize,
   StyleSheet,
   Text,
   View
@@ -12,14 +13,37 @@ import * as PropTypes from 'prop-types';
 import NavigationButton from '../../../components/ui/NavigationButton';
 import ImageZoom from 'react-native-image-pan-zoom';
 import LinearGradient from '../../../components/ui/LinearGradient';
+import {
+  NavigationScreenConfigProps,
+  NavigationScreenProp
+} from 'react-navigation';
+
+export interface GalleryPhotoScreenProps {
+  navigation: NavigationScreenProp<null, null>;
+}
+
+export interface State {
+  width: number;
+  height: number;
+}
+export interface DimensionsChange {
+  window: ScaledSize;
+  screen?: ScaledSize;
+}
 
 const TAG = 'GalleryPhotoScreen';
-export default class GalleryPhotoScreen extends React.PureComponent {
+export default class GalleryPhotoScreen extends React.PureComponent<
+  GalleryPhotoScreenProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
 
-  static navigationOptions = ({ navigation, screenProps }) => ({
+  static navigationOptions = ({
+    navigation,
+    screenProps
+  }: NavigationScreenConfigProps) => ({
     title: '',
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
@@ -30,19 +54,19 @@ export default class GalleryPhotoScreen extends React.PureComponent {
       Theme.shadowDefault
     ]
   });
-  state = {
+  state: State = {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height - 180
   };
-  onDimensionsChange = ({ window, screen }) => {
+  onDimensionsChange = ({ window, screen }: DimensionsChange) => {
     let { width, height } = window;
 
     this.setState({ width, height: height - 180 });
   };
 
-  getParams() {
-    let { state } = this.props.navigation;
-    return state.params || {};
+  getParams(): any {
+    let { params } = this.props.navigation.state || { params: {} };
+    return params;
   }
 
   componentDidMount() {

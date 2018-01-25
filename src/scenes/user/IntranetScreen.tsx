@@ -1,20 +1,45 @@
 import * as React from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { Dimensions, ScaledSize, StyleSheet, View } from 'react-native';
 import { Theme } from '../../themes/styles';
 import * as PropTypes from 'prop-types';
 import Loading from '../../components/ui/Loading';
 import { _ } from '../../modules/i18n/Translator';
 import { tabsOptionsSub } from '../../routers/Tabs';
-import { TabNavigator } from 'react-navigation';
+import {
+  NavigationNavigatorProps,
+  NavigationScreenProp,
+  TabNavigator,
+  TabNavigatorConfig
+} from 'react-navigation';
 import LevelScreen from './intranet/LevelScreen';
+import { NavigationParams } from '../LoginFallbackScreen';
 
+export interface IntranetScreenProps {
+  navigation: NavigationScreenProp<null, null>;
+}
+
+export interface State {
+  isLoading: boolean;
+  width: number;
+}
+
+export interface DimensionsChange {
+  window: ScaledSize;
+  screen?: ScaledSize;
+}
 const TAG = 'IntranetScreen';
-export default class IntranetScreen extends React.PureComponent {
+export default class IntranetScreen extends React.PureComponent<
+  IntranetScreenProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
 
-  static navigationOptions = ({ navigation, screenProps }) => ({
+  static navigationOptions = ({
+    navigation,
+    screenProps
+  }: NavigationNavigatorProps<null>) => ({
     title: _('Aula Virtual'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
@@ -22,12 +47,12 @@ export default class IntranetScreen extends React.PureComponent {
     headerStyle: [Theme.navigationBar, Theme.subNavigationBar]
   });
 
-  state = {
+  state: State = {
     isLoading: true,
     width: 300
   };
 
-  onDimensionsChange = ({ window, screen }) => {
+  onDimensionsChange = ({ window, screen }: DimensionsChange) => {
     this.setState({ width: window.width, isLoading: false });
   };
 
@@ -55,60 +80,84 @@ export default class IntranetScreen extends React.PureComponent {
     const LevelsTab = TabNavigator(
       {
         UG: {
-          screen: ({ navigation, screenProps }) => {
+          screen: ({
+            navigation,
+            screenProps
+          }: NavigationNavigatorProps<null>) => {
             return (
               <LevelScreen
                 level={'UG'}
-                navigation={screenProps.topNavigation}
+                navigation={screenProps ? screenProps.topNavigation : undefined}
               />
             );
           },
-          navigationOptions: ({ navigation, screenProps }) => {
+          navigationOptions: ({
+            navigation,
+            screenProps
+          }: NavigationNavigatorProps<null>) => {
             return {
               tabBarLabel: _('Pregrado')
             };
           }
         },
         GR: {
-          screen: ({ navigation, screenProps }) => {
+          screen: ({
+            navigation,
+            screenProps
+          }: NavigationNavigatorProps<null>) => {
             return (
               <LevelScreen
                 level={'GR'}
-                navigation={screenProps.topNavigation}
+                navigation={screenProps ? screenProps.topNavigation : undefined}
               />
             );
           },
-          navigationOptions: ({ navigation, screenProps }) => {
+          navigationOptions: ({
+            navigation,
+            screenProps
+          }: NavigationNavigatorProps<null>) => {
             return {
               tabBarLabel: _('Postgrado')
             };
           }
         },
         UT: {
-          screen: ({ navigation, screenProps }) => {
+          screen: ({
+            navigation,
+            screenProps
+          }: NavigationNavigatorProps<null>) => {
             return (
               <LevelScreen
                 level={'UT'}
-                navigation={screenProps.topNavigation}
+                navigation={screenProps ? screenProps.topNavigation : undefined}
               />
             );
           },
-          navigationOptions: ({ navigation, screenProps }) => {
+          navigationOptions: ({
+            navigation,
+            screenProps
+          }: NavigationNavigatorProps<null>) => {
             return {
               tabBarLabel: _('G. que trabaja')
             };
           }
         },
         UB: {
-          screen: ({ navigation, screenProps }) => {
+          screen: ({
+            navigation,
+            screenProps
+          }: NavigationNavigatorProps<null>) => {
             return (
               <LevelScreen
                 level={'UB'}
-                navigation={screenProps.topNavigation}
+                navigation={screenProps ? screenProps.topNavigation : undefined}
               />
             );
           },
-          navigationOptions: ({ navigation, screenProps }) => {
+          navigationOptions: ({
+            navigation,
+            screenProps
+          }: NavigationNavigatorProps<null>) => {
             return {
               tabBarLabel: _('Centro de idiomas')
             };

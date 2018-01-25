@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { RefreshControl, StyleSheet, View } from 'react-native';
+import {
+  ListRenderItem,
+  ListRenderItemInfo,
+  RefreshControl,
+  StyleSheet,
+  View
+} from 'react-native';
 import { Theme } from '../../../themes/styles';
 import * as PropTypes from 'prop-types';
 import Log from '../../../modules/logger/Log';
@@ -9,9 +15,29 @@ import { _ } from '../../../modules/i18n/Translator';
 import CacheStorage from '../../../modules/storage/CacheStorage';
 import UPAO from '../../../scraping/UPAO';
 import FlexibleGrid from '../../../components/ui/FlexibleGrid';
+import { NewsDetailModel, NewsModel } from '../../../scraping/info/News';
+import { NavigationScreenProp } from 'react-navigation';
+import { IntroPage } from '../../IntroScreen';
+
+export interface NewsListScreenProps {
+  navigation: NavigationScreenProp<null, null>;
+}
+
+export interface State {
+  newsList: NewsModel[];
+  page: number;
+  cacheLoaded: boolean;
+  isLoading: boolean;
+  isRefreshing: boolean;
+  isLoadingMore: boolean;
+  canLoadMore: boolean;
+}
 
 const TAG = 'NewsListScreen';
-export default class NewsListScreen extends React.Component {
+export default class NewsListScreen extends React.Component<
+  NewsListScreenProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
@@ -31,6 +57,7 @@ export default class NewsListScreen extends React.Component {
   state = {
     newsList: [],
     page: 1,
+    cacheLoaded: false,
     isLoading: true,
     isRefreshing: false,
     isLoadingMore: false,
@@ -63,9 +90,9 @@ export default class NewsListScreen extends React.Component {
     }
   };
 
-  loadResponse = (data, cacheLoaded = false) => {
+  loadResponse = (data?: NewsModel[], cacheLoaded = false) => {
     let { page } = this.state;
-    let newsList = [];
+    let newsList: NewsModel[] = [];
     if (data) {
       if (data.length < 1) {
         this.setState({ canLoadMore: false });
@@ -104,7 +131,7 @@ export default class NewsListScreen extends React.Component {
       }
     }
   };
-  renderItem = ({ item, index }) => {
+  renderItem = ({ item, index }: ListRenderItemInfo<any>) => {
     return <NewsItem news={item} />;
   };
   onRefresh = () => {

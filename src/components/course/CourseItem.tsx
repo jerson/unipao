@@ -3,7 +3,7 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import * as PropTypes from 'prop-types';
 import Touchable from '../ui/Touchable';
 import { NavigationScreenProp } from 'react-navigation';
-import {CourseModel} from '../../scraping/student/Intranet';
+import { CourseModel } from '../../scraping/student/Intranet';
 
 export interface CourseItemProps {
   course: CourseModel;

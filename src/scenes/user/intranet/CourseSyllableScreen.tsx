@@ -93,9 +93,9 @@ export default class CourseSyllableScreen extends React.Component {
     UPAO.abort('Course.getSyllables');
   }
 
-  getParams() {
-    let { state } = this.props.navigation;
-    return state.params || {};
+  getParams(): any {
+    let { params } = this.props.navigation.state || { params: {} };
+    return params;
   }
 
   componentDidMount() {

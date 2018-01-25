@@ -11,6 +11,7 @@ import PeriodModal from '../../components/period/PeriodModal';
 import AlertMessage from '../../components/ui/AlertMessage';
 import { _ } from '../../modules/i18n/Translator';
 import CacheStorage from '../../modules/storage/CacheStorage';
+import { NavigationScreenConfigProps } from 'react-navigation';
 
 const TAG = 'AssistsScreen';
 export default class AssistsScreen extends React.Component {
@@ -18,7 +19,10 @@ export default class AssistsScreen extends React.Component {
     notification: PropTypes.object.isRequired
   };
 
-  static navigationOptions = ({ navigation, screenProps }) => ({
+  static navigationOptions = ({
+    navigation,
+    screenProps
+  }: NavigationScreenConfigProps) => ({
     title: _('Mis Asistencias'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
@@ -136,9 +140,9 @@ export default class AssistsScreen extends React.Component {
     });
   };
 
-  getParams() {
-    let { state } = this.props.navigation;
-    return state.params || {};
+  getParams(): any {
+    let { params } = this.props.navigation.state || { params: {} };
+    return params;
   }
 
   componentDidMount() {

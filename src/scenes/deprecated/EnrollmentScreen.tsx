@@ -7,7 +7,7 @@ import Loading from '../../components/ui/Loading';
 import Log from '../../modules/logger/Log';
 import Request from '../../modules/network/Request';
 import EnrollmentList from '../../components/enrollment/EnrollmentList';
-import { TabNavigator } from 'react-navigation';
+import { NavigationScreenConfigProps, TabNavigator } from 'react-navigation';
 import { tabsOptions } from '../../routers/Tabs';
 import PeriodModal from '../../components/period/PeriodModal';
 import { _ } from '../../modules/i18n/Translator';
@@ -19,7 +19,10 @@ export default class EnrollmentScreen extends React.Component {
     notification: PropTypes.object.isRequired
   };
 
-  static navigationOptions = ({ navigation, screenProps }) => ({
+  static navigationOptions = ({
+    navigation,
+    screenProps
+  }: NavigationScreenConfigProps) => ({
     title: _('Ficha de matrícula'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
@@ -170,9 +173,9 @@ export default class EnrollmentScreen extends React.Component {
     this.refs.periods.show();
   };
 
-  getParams() {
-    let { state } = this.props.navigation;
-    return state.params || {};
+  getParams(): any {
+    let { params } = this.props.navigation.state || { params: {} };
+    return params;
   }
 
   componentDidMount() {

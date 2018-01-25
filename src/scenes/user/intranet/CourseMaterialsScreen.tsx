@@ -5,7 +5,7 @@ import { _ } from '../../../modules/i18n/Translator';
 import NavigationButton from '../../../components/ui/NavigationButton';
 import Loading from '../../../components/ui/Loading';
 import * as PropTypes from 'prop-types';
-import { TabNavigator } from 'react-navigation';
+import { NavigationScreenConfigProps, TabNavigator } from 'react-navigation';
 import { tabsOptions } from '../../../routers/Tabs';
 import Log from '../../../modules/logger/Log';
 import CacheStorage from '../../../modules/storage/CacheStorage';
@@ -17,7 +17,10 @@ export default class CourseMaterialsScreen extends React.Component {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
-  static navigationOptions = ({ navigation, screenProps }) => ({
+  static navigationOptions = ({
+    navigation,
+    screenProps
+  }: NavigationScreenConfigProps) => ({
     headerBackTitle: null,
     title: _('Materiales del curso'),
     headerTitleStyle: [Theme.title, Theme.subtitle],
@@ -134,9 +137,9 @@ export default class CourseMaterialsScreen extends React.Component {
     UPAO.abort('Course.getMaterialsSections');
   }
 
-  getParams() {
-    let { state } = this.props.navigation;
-    return state.params || {};
+  getParams(): any {
+    let { params } = this.props.navigation.state || { params: {} };
+    return params;
   }
 
   componentDidMount() {

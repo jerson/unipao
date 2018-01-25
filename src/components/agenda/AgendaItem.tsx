@@ -2,10 +2,10 @@ import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import * as PropTypes from 'prop-types';
 import { _ } from '../../modules/i18n/Translator';
+import { AgendaModel } from '../../scraping/info/Agenda';
 
 export interface AgendaItemProps {
-  agenda: any;
-  index: number;
+  agenda: AgendaModel;
   isToday: boolean;
 }
 
@@ -23,7 +23,7 @@ export default class AgendaItem extends React.Component<
   state: State = {};
 
   render() {
-    let { agenda, index, isToday } = this.props;
+    let { agenda, isToday } = this.props;
     let day = agenda.dayOfMonth;
     let dayName = agenda.dayName;
 
