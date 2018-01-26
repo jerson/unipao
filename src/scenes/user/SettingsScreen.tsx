@@ -105,7 +105,6 @@ export default class SettingsScreen extends React.Component<
         keyboardShouldPersistTaps={'handled'}
         showsVerticalScrollIndicator={true}
       >
-        {/*<Background />*/}
         <PreferenceHeader title={_('General')} />
 
         <PreferenceItemSelect

@@ -166,7 +166,6 @@ export default class AgendaListScreen extends React.Component<
     let { isLoading, isRefreshing, agendaList } = this.state;
     return (
       <View style={[styles.container]}>
-        {/*<Background />*/}
         {isLoading && <Loading margin />}
         <FlatList
           ref={'list'}

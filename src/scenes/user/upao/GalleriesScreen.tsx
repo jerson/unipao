@@ -19,6 +19,7 @@ import {
   NavigationScreenProp,
   NavigationStackScreenOptions
 } from 'react-navigation';
+import List = Realm.List;
 
 export interface GalleriesScreenProps {
   navigation: NavigationScreenProp<null, null>;
@@ -131,7 +132,7 @@ export default class GalleriesScreen extends React.Component<
       }
     }
   };
-  renderItem = ({ item, index }: ListRenderItemInfo<any>) => {
+  renderItem = ({ item, index }: ListRenderItemInfo<GalleryModel>) => {
     return <GalleryItem gallery={item} />;
   };
   onRefresh = () => {
@@ -165,7 +166,6 @@ export default class GalleriesScreen extends React.Component<
     let { isLoading, isRefreshing, galleries } = this.state;
     return (
       <View style={[styles.container]}>
-        {/*<Background />*/}
         {isLoading && <Loading margin />}
         <FlexibleGrid
           itemWidth={300}
@@ -181,8 +181,8 @@ export default class GalleriesScreen extends React.Component<
               onRefresh={this.onRefresh}
             />
           }
-          keyExtractor={(item: any, index) => {
-            return item.id.toString();
+          keyExtractor={(item: GalleryModel, index) => {
+            return item.id;
           }}
         />
       </View>

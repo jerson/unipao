@@ -7,6 +7,7 @@ import AlertMessage, {
   AlertMessageType
 } from './AlertMessage';
 import EndCallback = Animated.EndCallback;
+import CompositeAnimation = Animated.CompositeAnimation;
 
 export interface Message extends AlertMessageProps {
   id?: string;
@@ -39,8 +40,8 @@ export default class MessageItem extends React.Component<
     itemHeight: 0
   };
 
-  animation: any;
-  timeoutDismiss: any;
+  animation: CompositeAnimation;
+  timeoutDismiss: number;
 
   onLayout = (event: LayoutChangeEvent) => {
     let itemHeight = event.nativeEvent.layout.height;

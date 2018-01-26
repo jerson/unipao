@@ -13,7 +13,8 @@ import {
 import Loading from './Loading';
 
 export interface FlexibleGridProps<ItemT> extends FlatListProperties<ItemT> {
-  renderItem: ListRenderItem<ItemT>;
+  renderItem: ListRenderItem<any>;
+  keyExtractor?: (item: any, index: number) => string;
   itemMargin: number;
   itemWidth: number;
 }

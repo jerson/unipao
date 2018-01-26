@@ -167,7 +167,7 @@ export default class Request {
 
     try {
       Log.debug('[FETCH]', method, fullPath, body);
-      let requestBody: any = undefined;
+      let requestBody: any;
       let allowBody = !(method === 'GET' || method === 'HEAD');
       if (allowBody) {
         if (isMultipart) {

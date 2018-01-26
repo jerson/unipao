@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import {
+  ListRenderItemInfo,
+  Platform,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
 import { Theme } from '../../../themes/styles';
 import * as PropTypes from 'prop-types';
 import CacheStorage from '../../../modules/storage/CacheStorage';
@@ -14,7 +20,10 @@ import {
   NavigationScreenProp,
   NavigationStackScreenOptions
 } from 'react-navigation';
-import { GalleryDetailModel } from '../../../scraping/info/Gallery';
+import {
+  GalleryDetailModel,
+  GalleryModel
+} from '../../../scraping/info/Gallery';
 
 export interface GalleryScreenProps {
   navigation: NavigationScreenProp<null, null>;
@@ -160,7 +169,7 @@ export default class GalleryScreen extends React.PureComponent<
             );
           }}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item, index }) => (
+          renderItem={({ item, index }: ListRenderItemInfo<GalleryModel>) => (
             <GalleryImage
               image={item}
               onShowGallery={() => {

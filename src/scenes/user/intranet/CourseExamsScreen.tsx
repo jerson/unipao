@@ -6,6 +6,7 @@ import NavigationButton from '../../../components/ui/NavigationButton';
 import Loading from '../../../components/ui/Loading';
 import * as PropTypes from 'prop-types';
 import {
+  NavigationContainer,
   NavigationRouteConfigMap,
   NavigationScreenConfigProps,
   NavigationScreenProp,
@@ -26,7 +27,7 @@ export interface CourseExamsScreenProps {
 }
 
 export interface State {
-  tabs: any;
+  Tabs?: NavigationContainer;
   isLoading: boolean;
   cacheLoaded: boolean;
   isReloading: boolean;
@@ -63,7 +64,6 @@ export default class CourseExamsScreen extends React.Component<
   });
 
   state: State = {
-    tabs: null,
     cacheLoaded: false,
     isLoading: true,
     isReloading: false
@@ -123,7 +123,7 @@ export default class CourseExamsScreen extends React.Component<
     });
     this.setState({
       cacheLoaded,
-      tabs: Tabs,
+      Tabs,
       isLoading: false
     });
   };
@@ -166,8 +166,7 @@ export default class CourseExamsScreen extends React.Component<
   }
 
   render() {
-    let { tabs, isLoading } = this.state;
-    let Tabs = tabs;
+    let { Tabs, isLoading } = this.state;
 
     return (
       <View style={[styles.container]}>

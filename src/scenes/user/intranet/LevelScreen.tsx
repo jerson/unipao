@@ -26,10 +26,14 @@ export interface LevelScreenProps {
 
 export interface State {
   isLoading: boolean;
-  period: any;
   isRefreshing: boolean;
   cacheLoaded: boolean;
-  sections: any[];
+  sections: Section[];
+}
+
+export interface Section {
+  title: string;
+  data: CourseModel[];
 }
 
 const TAG = 'LevelScreen';
@@ -43,7 +47,6 @@ export default class LevelScreen extends React.Component<
 
   state: State = {
     isLoading: false,
-    period: null,
     cacheLoaded: false,
     isRefreshing: false,
     sections: []
@@ -77,11 +80,8 @@ export default class LevelScreen extends React.Component<
     }
   };
 
-  loadResponse = (data: any, cacheLoaded = false) => {
-    let sections = [];
-    if (data) {
-      sections = data;
-    }
+  loadResponse = (data: Section[], cacheLoaded = false) => {
+    let sections = data;
     this.setState({
       cacheLoaded,
       sections,

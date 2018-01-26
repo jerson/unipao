@@ -132,7 +132,7 @@ export default class NewsListScreen extends React.Component<
       }
     }
   };
-  renderItem = ({ item, index }: ListRenderItemInfo<any>) => {
+  renderItem = ({ item, index }: ListRenderItemInfo<NewsModel>) => {
     return <NewsItem news={item} />;
   };
   onRefresh = () => {
@@ -166,7 +166,6 @@ export default class NewsListScreen extends React.Component<
     let { isLoading, isRefreshing, newsList } = this.state;
     return (
       <View style={[styles.container]}>
-        {/*<Background />*/}
         {isLoading && <Loading margin />}
         <FlexibleGrid
           itemWidth={250}
@@ -182,8 +181,8 @@ export default class NewsListScreen extends React.Component<
               onRefresh={this.onRefresh}
             />
           }
-          keyExtractor={(item: any, index) => {
-            return item.id.toString();
+          keyExtractor={(item: NewsModel, index) => {
+            return item.id;
           }}
         />
       </View>

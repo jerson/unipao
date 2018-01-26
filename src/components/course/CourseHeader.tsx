@@ -5,9 +5,10 @@ import Touchable from '../ui/Touchable';
 import DimensionUtil from '../../modules/util/DimensionUtil';
 import { Theme } from '../../themes/styles';
 import LinearGradient from '../ui/LinearGradient';
+import { CourseModel } from '../../scraping/student/Intranet';
 
 export interface CourseHeaderProps {
-  course: any;
+  course: CourseModel;
 }
 
 export interface State {}

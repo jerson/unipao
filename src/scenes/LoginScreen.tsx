@@ -29,7 +29,11 @@ export interface LoginScreenProps {
 export interface State {
   isLoading: boolean;
   loadedCredentials: boolean;
-  defaults: any;
+  defaults: {
+    username?: string;
+    password?: string;
+    remember?: string;
+  };
 }
 
 const TAG = 'LoginScreen';

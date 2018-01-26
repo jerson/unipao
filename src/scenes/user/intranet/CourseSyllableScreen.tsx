@@ -132,7 +132,6 @@ export default class CourseSyllableScreen extends React.Component<
     let { isLoading, isRefreshing, items } = this.state;
     return (
       <View style={[styles.container]}>
-        {/*<Background />*/}
         {isLoading && <Loading margin />}
         <FlatList
           ref={'list'}

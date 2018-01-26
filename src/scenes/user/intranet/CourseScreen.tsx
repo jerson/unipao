@@ -19,12 +19,14 @@ import {
   NavigationScreenProp,
   NavigationStackScreenOptions
 } from 'react-navigation';
+import { IconType } from '../../../components/ui/Icon';
 
 export interface CourseItemModel {
   route: string;
   name: string;
   icon?: string;
-  iconType?: string;
+  disabled?: boolean;
+  iconType?: IconType;
 }
 
 export interface CourseScreenProps {

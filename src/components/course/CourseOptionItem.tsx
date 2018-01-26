@@ -4,9 +4,10 @@ import * as PropTypes from 'prop-types';
 import Icon from '../ui/Icon';
 import Touchable from '../ui/Touchable';
 import { _ } from '../../modules/i18n/Translator';
+import { CourseItemModel } from '../../scenes/user/intranet/CourseScreen';
 
 export interface CourseOptionItemProps {
-  option: any;
+  option: CourseItemModel;
   onChooseItem: () => void;
 }
 
@@ -49,11 +50,14 @@ export default class CourseOptionItem extends React.Component<
       <Touchable onPress={this.onPress}>
         <View style={[styles.container, option.disabled && styles.disabled]}>
           <View style={styles.info}>
-            <Icon
-              style={styles.icon}
-              name={option.icon}
-              type={option.iconType}
-            />
+            {option.icon &&
+              option.iconType && (
+                <Icon
+                  style={styles.icon}
+                  name={option.icon}
+                  type={option.iconType}
+                />
+              )}
 
             <Text style={styles.name}>{option.name}</Text>
           </View>

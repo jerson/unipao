@@ -26,7 +26,7 @@ export default class PreferencesStorage {
       noti9: true
     }
   };
-  static cache: any = {};
+  static cache: Preferences = {};
 
   static init(settings?: UserSettings) {
     if (settings) {

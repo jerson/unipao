@@ -24,7 +24,7 @@ import ImageZoom from 'react-native-image-pan-zoom';
 import { GalleryImageModel } from '../../scraping/info/Gallery';
 
 export interface GalleryModalProps {
-  images: any[];
+  images: GalleryImageModel[];
   index: number;
   isVisible: boolean;
   onModalShow?: () => void;
@@ -63,7 +63,7 @@ export default class GalleryModal extends React.PureComponent<
 
   refs: {
     [string: string]: any;
-    list: FlatList<any>;
+    list: FlatList<GalleryImageModel>;
   };
   renderItem = ({ item, index }: ListRenderItemInfo<GalleryImageModel>) => {
     let { width, height } = this.state;

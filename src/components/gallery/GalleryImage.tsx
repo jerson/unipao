@@ -3,9 +3,10 @@ import { Image, StyleSheet, View } from 'react-native';
 import * as PropTypes from 'prop-types';
 import ImageUtil from '../../modules/util/ImageUtil';
 import Touchable from '../ui/Touchable';
+import { GalleryImageModel } from '../../scraping/info/Gallery';
 
 export interface GalleryImageProps {
-  image: any;
+  image: GalleryImageModel;
   onShowGallery: () => void;
 }
 

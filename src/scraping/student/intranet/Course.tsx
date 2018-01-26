@@ -20,7 +20,7 @@ export interface SectionModel {
 }
 
 export default class Course {
-  static async getExamsHTML(section: any): Promise<string> {
+  static async getExamsHTML(section: SectionModel): Promise<string> {
     let html = '';
     try {
       let params = {
@@ -47,7 +47,7 @@ export default class Course {
     return html;
   }
 
-  static async getJobsHTML(section: any): Promise<string> {
+  static async getJobsHTML(section: SectionModel): Promise<string> {
     let html = '';
     try {
       let params = {
@@ -74,7 +74,7 @@ export default class Course {
     return html;
   }
 
-  static async getAssistsHTML(section: any): Promise<string> {
+  static async getAssistsHTML(section: SectionModel): Promise<string> {
     let html = '';
     try {
       let params = {
@@ -106,7 +106,7 @@ export default class Course {
     // return html.replace(new RegExp('\\|', 'gi'), '%257C');
   }
 
-  static async getMaterialsHTML(section: any): Promise<string> {
+  static async getMaterialsHTML(section: SectionModel): Promise<string> {
     let html = '';
     try {
       let params = {
@@ -139,7 +139,7 @@ export default class Course {
     return html;
   }
 
-  static async getForumHTML(section: any): Promise<string> {
+  static async getForumHTML(section: SectionModel): Promise<string> {
     let html = '';
     try {
       let params = {
@@ -166,7 +166,7 @@ export default class Course {
     return html;
   }
 
-  static async getGradesHTML(course: any): Promise<string> {
+  static async getGradesHTML(course: CourseModel): Promise<string> {
     let html = '';
     try {
       let params = {
@@ -197,7 +197,7 @@ export default class Course {
     return html;
   }
 
-  static async getSyllables(course: any): Promise<SyllableModel[]> {
+  static async getSyllables(course: CourseModel): Promise<SyllableModel[]> {
     let items: SyllableModel[] = [];
     try {
       let params = {
