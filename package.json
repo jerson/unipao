@@ -37,7 +37,7 @@
     "prettier": "prettier --write --single-quote 'src/**/*.tsx'"
   },
   "lint-staged": {
-    "*.{js,json,css}": ["prettier --write", "git add"]
+    "*.{tsx,ts,js,json,css}": ["prettier --write", "git add"]
   },
   "devDependencies": {
     "@types/jquery": "^3.3.0",

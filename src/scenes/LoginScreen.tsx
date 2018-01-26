@@ -60,11 +60,11 @@ export default class LoginScreen extends React.Component<
     remember: Input;
   };
 
-    clearCredentials = () => {
-        SingleStorage.remove('username');
-        SingleStorage.remove('password');
-        SingleStorage.remove('remember');
-    };
+  clearCredentials = () => {
+    SingleStorage.remove('username');
+    SingleStorage.remove('password');
+    SingleStorage.remove('remember');
+  };
   onRememberChange = (remember: boolean) => {
     !remember && this.clearCredentials();
   };
