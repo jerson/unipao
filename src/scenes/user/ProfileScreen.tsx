@@ -22,7 +22,6 @@ import ImageUtil from '../../modules/util/ImageUtil';
 import { _ } from '../../modules/i18n/Translator';
 import {
   NavigationScreenProp,
-  NavigationStackScreenOptions,
   NavigationTabScreenOptions
 } from 'react-navigation';
 

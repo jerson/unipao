@@ -21,7 +21,6 @@ import Loading from '../../../components/ui/Loading';
 import NavigationButton from '../../../components/ui/NavigationButton';
 import { NewsDetailModel } from '../../../scraping/info/News';
 import {
-  NavigationScreenConfigProps,
   NavigationScreenProp,
   NavigationStackScreenOptions
 } from 'react-navigation';

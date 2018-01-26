@@ -11,7 +11,6 @@ import GalleryImage from '../../../components/gallery/GalleryImage';
 import FlexibleGrid from '../../../components/ui/FlexibleGrid';
 import GalleryModal from '../../../components/gallery/GalleryModal';
 import {
-  NavigationScreenConfigProps,
   NavigationScreenProp,
   NavigationStackScreenOptions
 } from 'react-navigation';

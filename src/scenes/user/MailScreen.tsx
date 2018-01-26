@@ -7,7 +7,6 @@ import Loading from '../../components/ui/Loading';
 import * as PropTypes from 'prop-types';
 import WebViewDownloader from '../../components/ui/WebViewDownloader';
 import {
-  NavigationNavigatorProps,
   NavigationScreenConfigProps,
   NavigationScreenProp,
   NavigationStackScreenOptions
@@ -20,13 +19,6 @@ export interface MailScreenProps {
 export interface State {
   isLoading: boolean;
   isReloading: boolean;
-}
-
-export interface NavigationParams {
-  params: {
-    isLoading: boolean;
-    reload: () => void;
-  };
 }
 
 const TAG = 'MailScreen';

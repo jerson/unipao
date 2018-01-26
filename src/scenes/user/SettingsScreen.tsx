@@ -13,8 +13,7 @@ import codePush from 'react-native-code-push';
 import * as DeviceInfo from 'react-native-device-info';
 import {
   NavigationScreenProp,
-  NavigationStackScreenOptions,
-  NavigationTabScreenOptions
+  NavigationStackScreenOptions
 } from 'react-navigation';
 import { InputSelectOption } from '../../components/ui/InputSelect';
 

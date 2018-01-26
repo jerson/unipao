@@ -25,13 +25,6 @@ export interface State {
   html: string;
 }
 
-export interface NavigationParams {
-  params: {
-    isLoading: boolean;
-    reload: () => void;
-  };
-}
-
 const TAG = 'LoginFallbackScreen';
 export default class LoginFallbackScreen extends React.Component<
   LoginFallbackScreenProps,

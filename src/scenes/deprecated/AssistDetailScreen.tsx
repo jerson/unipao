@@ -6,7 +6,6 @@ import AssistDetailItem from '../../components/assist/AssistDetailItem';
 import AssistHeader from '../../components/assist/AssistHeader';
 import { _ } from '../../modules/i18n/Translator';
 import {
-  NavigationScreenConfigProps,
   NavigationScreenProp,
   NavigationStackScreenOptions
 } from 'react-navigation';

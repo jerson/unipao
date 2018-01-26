@@ -16,7 +16,6 @@ import CourseHeader from '../../../components/course/CourseHeader';
 import Loading from '../../../components/ui/Loading';
 import NavigationButton from '../../../components/ui/NavigationButton';
 import {
-  NavigationScreenConfigProps,
   NavigationScreenProp,
   NavigationStackScreenOptions
 } from 'react-navigation';

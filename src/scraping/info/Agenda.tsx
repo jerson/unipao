@@ -1,6 +1,5 @@
 import Log from '../../modules/logger/Log';
 import RequestUtil from '../utils/RequestUtil';
-import { NewsModel } from './News';
 
 export interface AgendaModel {
   dayOfMonth: number;

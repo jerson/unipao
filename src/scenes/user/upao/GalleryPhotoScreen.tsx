@@ -14,7 +14,6 @@ import NavigationButton from '../../../components/ui/NavigationButton';
 import ImageZoom from 'react-native-image-pan-zoom';
 import LinearGradient from '../../../components/ui/LinearGradient';
 import {
-  NavigationScreenConfigProps,
   NavigationScreenProp,
   NavigationStackScreenOptions
 } from 'react-navigation';

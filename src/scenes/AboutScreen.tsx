@@ -10,8 +10,7 @@ import ViewSpacer from '../components/ui/ViewSpacer';
 import { _ } from '../modules/i18n/Translator';
 import {
   NavigationScreenProp,
-  NavigationStackScreenOptions,
-  StackNavigatorConfig
+  NavigationStackScreenOptions
 } from 'react-navigation';
 
 export interface AboutScreenProps {
