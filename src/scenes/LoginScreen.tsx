@@ -110,7 +110,7 @@ export default class LoginScreen extends React.Component<
 
     this.setState({ isLoading: false });
   };
-  onSuccessLogin = (success: boolean) => {
+  onLoginStatus = (success: boolean) => {
     success && RouterUtil.resetTo(this.props.navigation, 'User');
   };
   onDimensionsChange = () => {
@@ -130,14 +130,14 @@ export default class LoginScreen extends React.Component<
   };
 
   async componentDidMount() {
-    Emitter.on('onSuccessLogin', this.onSuccessLogin);
+    Emitter.on('onLoginStatus', this.onLoginStatus);
     Dimensions.addEventListener('change', this.onDimensionsChange);
 
     await this.loadDefaultCredentials();
   }
 
   componentWillUnmount() {
-    Emitter.off(this.onSuccessLogin);
+    Emitter.off(this.onLoginStatus);
     Dimensions.removeEventListener('change', this.onDimensionsChange);
     UPAO.abort('login');
   }

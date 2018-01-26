@@ -73,16 +73,16 @@ export default class Main extends React.Component<MainProps, State> {
   }
 
   componentDidMount() {
-    Auth.init({
-      authPath: 'user/me',
-      hashToken: Config.token.app
-    });
     CacheStorage.init({
       path: 'cache.db',
       schemaVersion: 1
     });
     Emitter.on('onForceLogout', this.onForceLogout);
     this.showIntro();
+    Auth.init({
+      authPath: 'user/me',
+      hashToken: Config.token.app
+    });
   }
 
   async showIntro() {

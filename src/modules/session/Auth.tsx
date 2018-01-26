@@ -29,7 +29,7 @@ export default class Auth {
       this.settings = Object.assign({}, this.settings, settings);
     }
     Log.info('[AUTH]', 'init');
-    await this.checkLogin();
+    this.checkLogin();
   }
 
   static async checkLogin() {
@@ -50,10 +50,8 @@ export default class Auth {
     let isOk = false;
     try {
       let profile = await UPAO.Student.Profile.me();
-      if (profile) {
-        isOk = await this.setUser(profile);
-        emit && Emitter.emit('onLoginStatus', true);
-      }
+      isOk = await this.setUser(profile);
+      emit && Emitter.emit('onLoginStatus', true);
     } catch (e) {
       emit && Emitter.emit('onLoginStatus', false);
     }

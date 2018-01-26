@@ -24,7 +24,7 @@ export default class Profile {
 
   static async getPublic(id: string) {}
 
-  static async me(): Promise<ProfileModel | null> {
+  static async me(): Promise<ProfileModel> {
     let item: ProfileModel;
     try {
       let $ = await RequestUtil.fetch(
@@ -35,7 +35,7 @@ export default class Profile {
 
       let $user = $('#ctl00_lbl_usua');
       if (!$user.length) {
-        return null;
+        throw Error('no inicio correctamente');
       }
 
       let nacionality = $(

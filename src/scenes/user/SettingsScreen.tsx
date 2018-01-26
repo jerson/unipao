@@ -12,6 +12,7 @@ import Translator, { _ } from '../../modules/i18n/Translator';
 import codePush from 'react-native-code-push';
 import * as DeviceInfo from 'react-native-device-info';
 import { NavigationScreenProp } from 'react-navigation';
+import { InputSelectOption } from '../../components/ui/InputSelect';
 
 export interface SettingsScreenProps {
   navigation: NavigationScreenProp<null, null>;
@@ -22,6 +23,24 @@ export interface SettingsScreenProps {
 
 export interface State {}
 
+const localeValues: InputSelectOption[] = [
+  {
+    value: 'auto',
+    label: _('Automático')
+  },
+  {
+    value: 'es',
+    label: _('Español')
+  },
+  {
+    value: 'en',
+    label: _('English')
+  },
+  {
+    value: 'pt',
+    label: _('Portuguese')
+  }
+];
 export default class SettingsScreen extends React.Component<
   SettingsScreenProps,
   State
@@ -37,24 +56,6 @@ export default class SettingsScreen extends React.Component<
       Theme.shadowDefault
     ]
   };
-  static localeValues = [
-    {
-      value: 'auto',
-      label: _('Automático')
-    },
-    {
-      value: 'es',
-      label: _('Español')
-    },
-    {
-      value: 'en',
-      label: _('English')
-    },
-    {
-      value: 'pt',
-      label: _('Portuguese')
-    }
-  ];
 
   state = {};
   onDimensionsChange = () => {
@@ -106,7 +107,7 @@ export default class SettingsScreen extends React.Component<
 
         <PreferenceItemSelect
           name={'locale'}
-          values={SettingsScreen.localeValues}
+          values={localeValues}
           title={_('Elegir idioma')}
           onChange={this.onChangeLocale}
           description={_(
