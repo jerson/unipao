@@ -91,19 +91,19 @@ export default class NewsListScreen extends React.Component<
     }
   };
 
-  loadResponse = (data?: NewsModel[], cacheLoaded = false) => {
+  loadResponse = (data: NewsModel[], cacheLoaded = false) => {
     let { page } = this.state;
     let newsList: NewsModel[] = [];
-    if (data) {
-      if (data.length < 1) {
-        this.setState({ canLoadMore: false });
-      }
-      if (page === 1) {
-        newsList = data;
-      } else {
-        newsList = [...this.state.newsList, ...data];
-      }
+
+    if (data.length < 1) {
+      this.setState({ canLoadMore: false });
     }
+    if (page === 1) {
+      newsList = data;
+    } else {
+      newsList = [...this.state.newsList, ...data];
+    }
+
     this.setState({
       cacheLoaded,
       newsList,
