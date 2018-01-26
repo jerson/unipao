@@ -10,7 +10,6 @@ import RouterUtil from '../modules/util/RouterUtil';
 import RequestUtil from '../scraping/utils/RequestUtil';
 import WebViewDownloader from '../components/ui/WebViewDownloader';
 import {
-  NavigationNavigatorProps,
   NavigationScreenConfigProps,
   NavigationScreenProp
 } from 'react-navigation';

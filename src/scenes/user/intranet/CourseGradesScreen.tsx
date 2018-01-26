@@ -10,10 +10,26 @@ import UPAO from '../../../scraping/UPAO';
 import Log from '../../../modules/logger/Log';
 import CacheStorage from '../../../modules/storage/CacheStorage';
 import WebViewDownloader from '../../../components/ui/WebViewDownloader';
-import { NavigationScreenConfigProps } from 'react-navigation';
+import {
+  NavigationScreenConfigProps,
+  NavigationScreenProp
+} from 'react-navigation';
+
+export interface CourseGradesScreenProps {
+  navigation: NavigationScreenProp<null, null>;
+}
+
+export interface State {
+  html: string;
+  isLoading: boolean;
+  cacheLoaded: boolean;
+}
 
 const TAG = 'CourseGradesScreen';
-export default class CourseGradesScreen extends React.Component {
+export default class CourseGradesScreen extends React.Component<
+  CourseGradesScreenProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
@@ -43,9 +59,10 @@ export default class CourseGradesScreen extends React.Component {
     )
   });
 
-  state = {
+  state: State = {
     html: '',
-    isLoading: true
+    isLoading: true,
+    cacheLoaded: false
   };
   load = async () => {
     this.setState({ isLoading: true, cacheLoaded: false });
@@ -76,13 +93,13 @@ export default class CourseGradesScreen extends React.Component {
     } catch (e) {
       Log.warn(TAG, 'load', e);
       if (!cacheLoaded) {
-        this.loadResponse([]);
+        this.loadResponse('');
       } else {
         this.setState({ isLoading: false });
       }
     }
   };
-  loadResponse = (html, cacheLoaded = false) => {
+  loadResponse = (html: string, cacheLoaded = false) => {
     this.setState({
       cacheLoaded,
       html,

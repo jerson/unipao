@@ -1,9 +1,7 @@
 import LoginScreen from '../scenes/LoginScreen';
 import {
-  NavigationComponent,
   NavigationContainer,
   NavigationScreenConfigProps,
-  NavigationScreenRouteConfig,
   NavigationTabScreenOptions,
   StackNavigator,
   TabNavigator

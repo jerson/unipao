@@ -2,7 +2,6 @@ import * as React from 'react';
 import {
   ListRenderItemInfo,
   RefreshControl,
-  ScaledSize,
   StyleSheet,
   View
 } from 'react-native';

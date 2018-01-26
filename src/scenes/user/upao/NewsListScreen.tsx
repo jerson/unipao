@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {
-  ListRenderItem,
   ListRenderItemInfo,
   RefreshControl,
   StyleSheet,
@@ -15,9 +14,8 @@ import { _ } from '../../../modules/i18n/Translator';
 import CacheStorage from '../../../modules/storage/CacheStorage';
 import UPAO from '../../../scraping/UPAO';
 import FlexibleGrid from '../../../components/ui/FlexibleGrid';
-import { NewsDetailModel, NewsModel } from '../../../scraping/info/News';
+import { NewsModel } from '../../../scraping/info/News';
 import { NavigationScreenProp } from 'react-navigation';
-import { IntroPage } from '../../IntroScreen';
 
 export interface NewsListScreenProps {
   navigation: NavigationScreenProp<null, null>;

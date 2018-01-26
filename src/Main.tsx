@@ -1,13 +1,5 @@
 import * as React from 'react';
-import {
-  StatusBar,
-  StyleProp,
-  TextInput,
-  TextInputProperties,
-  TextStyle,
-  View,
-  ViewStyle
-} from 'react-native';
+import { StatusBar, View } from 'react-native';
 import Request from './modules/network/Request';
 import Config from './Config';
 import MainRouter from './routers/MainRouter';
@@ -35,14 +27,11 @@ export default class Main extends React.Component<MainProps, State> {
   static childContextTypes = {
     notification: PropTypes.object
   };
-  private forcedLogout = false;
-
   refs: {
     [string: string]: any;
     notification: MessageCenter;
     navigation: NavigationScreenProp<null, null>;
   };
-
   onForceLogout = async () => {
     if (this.forcedLogout) {
       return;
@@ -64,6 +53,7 @@ export default class Main extends React.Component<MainProps, State> {
       this.forcedLogout = false;
     }, 1000);
   };
+  private forcedLogout = false;
 
   getChildContext() {
     return {

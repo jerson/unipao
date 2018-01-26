@@ -11,6 +11,7 @@ export interface NewsModel {
   url: string;
   subtitle: string;
 }
+
 export interface NewsDetailModel {
   id: string;
   title: string;
@@ -18,6 +19,7 @@ export interface NewsDetailModel {
   subtitle: string;
   content: string;
 }
+
 const TAG = 'News';
 export default class News {
   static async getList(page: number): Promise<NewsModel[]> {

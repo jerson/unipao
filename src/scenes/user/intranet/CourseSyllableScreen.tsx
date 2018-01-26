@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
+import {
+  FlatList,
+  ListRenderItemInfo,
+  RefreshControl,
+  StyleSheet,
+  View
+} from 'react-native';
 import { Theme } from '../../../themes/styles';
 import * as PropTypes from 'prop-types';
 import Log from '../../../modules/logger/Log';
@@ -8,9 +14,25 @@ import { _ } from '../../../modules/i18n/Translator';
 import CacheStorage from '../../../modules/storage/CacheStorage';
 import UPAO from '../../../scraping/UPAO';
 import SyllableItem from '../../../components/syllable/SyllableItem';
+import { NavigationScreenProp } from 'react-navigation';
+import { SyllableModel } from '../../../scraping/student/intranet/Course';
+
+export interface CourseSyllableScreenProps {
+  navigation: NavigationScreenProp<null, null>;
+}
+
+export interface State {
+  items: SyllableModel[];
+  isLoading: boolean;
+  isRefreshing: boolean;
+  cacheLoaded: boolean;
+}
 
 const TAG = 'CourseSyllableScreen';
-export default class CourseSyllableScreen extends React.Component {
+export default class CourseSyllableScreen extends React.Component<
+  CourseSyllableScreenProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
@@ -27,9 +49,10 @@ export default class CourseSyllableScreen extends React.Component {
     ]
   };
 
-  state = {
+  state: State = {
     items: [],
     isLoading: false,
+    cacheLoaded: false,
     isRefreshing: false
   };
 
@@ -55,7 +78,7 @@ export default class CourseSyllableScreen extends React.Component {
     }
   };
 
-  loadResponse = (items, cacheLoaded = false) => {
+  loadResponse = (items: SyllableModel[], cacheLoaded = false) => {
     this.setState({
       items,
       cacheLoaded,
@@ -80,7 +103,7 @@ export default class CourseSyllableScreen extends React.Component {
       }
     }
   };
-  renderItem = ({ item, index }) => {
+  renderItem = ({ item, index }: ListRenderItemInfo<SyllableModel>) => {
     return <SyllableItem syllable={item} />;
   };
   onRefresh = () => {

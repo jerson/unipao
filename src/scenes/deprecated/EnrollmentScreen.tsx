@@ -29,6 +29,7 @@ export interface State {
   tabs: any;
   careers: any;
 }
+
 const TAG = 'EnrollmentScreen';
 export default class EnrollmentScreen extends React.Component<
   EnrollmentScreenProps,

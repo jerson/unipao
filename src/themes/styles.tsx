@@ -1,4 +1,4 @@
-import { Platform, TextStyle, ViewStyle } from 'react-native';
+import { Platform } from 'react-native';
 
 let isAndroid = Platform.OS === 'android';
 

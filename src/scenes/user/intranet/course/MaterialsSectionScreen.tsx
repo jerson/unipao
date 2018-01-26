@@ -1,48 +1,37 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Theme } from '../../../../themes/styles';
 import * as PropTypes from 'prop-types';
 import CacheStorage from '../../../../modules/storage/CacheStorage';
 import Log from '../../../../modules/logger/Log';
 import UPAO from '../../../../scraping/UPAO';
 import Loading from '../../../../components/ui/Loading';
 import Config from '../../../../scraping/Config';
-import NavigationButton from '../../../../components/ui/NavigationButton';
 import WebViewDownloader from '../../../../components/ui/WebViewDownloader';
+import { SectionModel } from '../../../../scraping/student/intranet/Course';
+
+export interface MaterialsSectionScreenProps {
+  section: SectionModel;
+}
+
+export interface State {
+  isLoading: boolean;
+  cacheLoaded: boolean;
+  html: string;
+}
 
 const TAG = 'MaterialsSectionScreen';
-export default class MaterialsSectionScreen extends React.Component {
+export default class MaterialsSectionScreen extends React.Component<
+  MaterialsSectionScreenProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
 
-  static navigationOptions = ({
-    navigation,
-    screenProps
-  }: NavigationScreenConfigProps) => ({
-    title: '',
-    headerBackTitle: null,
-    headerTitleStyle: [Theme.title, Theme.subtitle],
-    headerTintColor: Theme.subTintColor,
-    headerStyle: [
-      Theme.navigationBar,
-      Theme.subNavigationBar,
-      Theme.shadowDefault
-    ],
-    headerRight: (
-      <View style={{ flexDirection: 'row' }}>
-        <NavigationButton
-          onPress={() => {
-            navigation.state.params.reload();
-          }}
-          icon={'refresh'}
-          iconType={'MaterialIcons'}
-        />
-      </View>
-    )
-  });
-  state = {
-    isLoading: true
+  state: State = {
+    html: '',
+    isLoading: true,
+    cacheLoaded: false
   };
   load = async () => {
     this.setState({ isLoading: true, cacheLoaded: false });
@@ -61,7 +50,7 @@ export default class MaterialsSectionScreen extends React.Component {
       Log.info(TAG, 'checkCache', e);
     }
   };
-  loadResponse = (html, cacheLoaded = false) => {
+  loadResponse = (html: string, cacheLoaded = false) => {
     this.setState({
       cacheLoaded,
       html,
@@ -79,7 +68,7 @@ export default class MaterialsSectionScreen extends React.Component {
     } catch (e) {
       Log.warn(TAG, 'load', e);
       if (!cacheLoaded) {
-        this.loadResponse(null);
+        this.loadResponse('');
       } else {
         this.setState({
           isLoading: false
@@ -97,7 +86,7 @@ export default class MaterialsSectionScreen extends React.Component {
   }
 
   render() {
-    let { html: content, isRefreshing, isLoading } = this.state;
+    let { html: content, isLoading } = this.state;
     let html = `
 <html>
 <head>
@@ -196,7 +185,7 @@ ${content}
         {!isLoading && (
           <WebViewDownloader
             style={[styles.container]}
-            openInternally={['campusvirtual.upao.edu.pe']}
+            // openInternally={['campusvirtual.upao.edu.pe']}
             source={{
               html,
               baseUrl: Config.URL

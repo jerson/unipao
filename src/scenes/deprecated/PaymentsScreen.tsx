@@ -26,6 +26,7 @@ export interface State {
   cacheLoaded: boolean;
   paymentsGroups: any;
 }
+
 const TAG = 'PaymentsScreen';
 export default class PaymentsScreen extends React.Component<
   PaymentsScreenProps,

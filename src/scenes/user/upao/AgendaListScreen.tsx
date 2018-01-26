@@ -4,7 +4,6 @@ import {
   ListRenderItemInfo,
   RefreshControl,
   StyleSheet,
-  TextInput,
   View
 } from 'react-native';
 import { Theme } from '../../../themes/styles';
@@ -16,7 +15,6 @@ import { _ } from '../../../modules/i18n/Translator';
 import CacheStorage from '../../../modules/storage/CacheStorage';
 import UPAO from '../../../scraping/UPAO';
 import { NavigationScreenProp } from 'react-navigation';
-import { GalleryModel } from '../../../scraping/info/Gallery';
 import { AgendaModel } from '../../../scraping/info/Agenda';
 
 const moment = require('moment');

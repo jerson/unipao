@@ -5,15 +5,36 @@ import { _ } from '../../../modules/i18n/Translator';
 import NavigationButton from '../../../components/ui/NavigationButton';
 import Loading from '../../../components/ui/Loading';
 import * as PropTypes from 'prop-types';
-import { TabNavigator } from 'react-navigation';
+import {
+  NavigationNavigatorProps,
+  NavigationScreenConfigProps,
+  NavigationScreenProp,
+  TabNavigator
+} from 'react-navigation';
 import { tabsOptions } from '../../../routers/Tabs';
 import Log from '../../../modules/logger/Log';
 import CacheStorage from '../../../modules/storage/CacheStorage';
 import UPAO from '../../../scraping/UPAO';
 import AssistsSectionScreen from './course/AssistsSectionScreen';
+import { SectionModel } from '../../../scraping/student/intranet/Course';
+import AlertMessage from '../../../components/ui/AlertMessage';
+
+export interface CourseAssistsScreenProps {
+  navigation: NavigationScreenProp<null, null>;
+}
+
+export interface State {
+  tabs: any;
+  isLoading: boolean;
+  cacheLoaded: boolean;
+  isReloading: boolean;
+}
 
 const TAG = 'CourseAssistsScreen';
-export default class CourseAssistsScreen extends React.Component {
+export default class CourseAssistsScreen extends React.Component<
+  CourseAssistsScreenProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
@@ -39,8 +60,9 @@ export default class CourseAssistsScreen extends React.Component {
     )
   });
 
-  state = {
-    html: '',
+  state: State = {
+    tabs: null,
+    cacheLoaded: false,
     isLoading: true,
     isReloading: false
   };
@@ -61,23 +83,27 @@ export default class CourseAssistsScreen extends React.Component {
       Log.info(TAG, 'checkCache', e);
     }
   };
-  loadResponse = (data, cacheLoaded = false) => {
-    let tabs = {};
+  loadResponse = (data: SectionModel[], cacheLoaded = false) => {
+    let tabs: any = {};
 
-    if (data) {
-      for (let item of data) {
-        if (!tabs[item.name]) {
-          tabs[item.name] = {
-            screen: ({ navigation, screenProps }) => {
-              return <AssistsSectionScreen section={item} />;
-            },
-            navigationOptions: ({ navigation, screenProps }) => {
-              return {
-                tabBarLabel: item.name
-              };
-            }
-          };
-        }
+    for (let item of data) {
+      if (!tabs[item.name]) {
+        tabs[item.name] = {
+          screen: ({
+            navigation,
+            screenProps
+          }: NavigationNavigatorProps<null>) => {
+            return <AssistsSectionScreen section={item} />;
+          },
+          navigationOptions: ({
+            navigation,
+            screenProps
+          }: NavigationNavigatorProps<null>) => {
+            return {
+              tabBarLabel: item.name
+            };
+          }
+        };
       }
     }
 
@@ -85,13 +111,11 @@ export default class CourseAssistsScreen extends React.Component {
     if (totalTabs.length < 1) {
       tabs = {
         NO: {
-          screen: ({ navigation, screenProps }) => {
-            return <AssistsSectionScreen section={{}} />;
+          screen: () => {
+            return <AlertMessage message={_('No hay datos')} />;
           },
-          navigationOptions: ({ navigation, screenProps }) => {
-            return {
-              tabBarLabel: _('No se encontraron datos')
-            };
+          navigationOptions: {
+            tabBarLabel: _('Error')
           }
         }
       };

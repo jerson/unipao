@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {
   FlatList,
+  ListRenderItemInfo,
   Platform,
   RefreshControl,
   StyleSheet,
@@ -14,10 +15,34 @@ import CourseOptionItem from '../../../components/course/CourseOptionItem';
 import CourseHeader from '../../../components/course/CourseHeader';
 import Loading from '../../../components/ui/Loading';
 import NavigationButton from '../../../components/ui/NavigationButton';
-import { NavigationScreenConfigProps } from 'react-navigation';
+import {
+  NavigationScreenConfigProps,
+  NavigationScreenProp
+} from 'react-navigation';
+
+export interface CourseItemModel {
+  route: string;
+  name: string;
+  icon?: string;
+  iconType?: string;
+}
+
+export interface CourseScreenProps {
+  navigation: NavigationScreenProp<null, null>;
+}
+
+export interface State {
+  isLoading: boolean;
+  isRefreshing: boolean;
+  cacheLoaded: boolean;
+  items: CourseItemModel[];
+}
 
 const TAG = 'CourseScreen';
-export default class CourseScreen extends React.Component {
+export default class CourseScreen extends React.Component<
+  CourseScreenProps,
+  State
+> {
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
@@ -34,23 +59,13 @@ export default class CourseScreen extends React.Component {
       Theme.navigationBar,
       Theme.subNavigationBar,
       { backgroundColor: 'transparent' }
-      // Theme.shadowDefault
     ],
     header: null
-    // headerRight: (
-    //   <NavigationButton
-    //     onPress={() => {
-    //       navigation.state.params.reload();
-    //     }}
-    //     active
-    //     icon={'refresh'}
-    //     iconType={'MaterialIcons'}
-    //   />
-    // )
   });
 
-  state = {
+  state: State = {
     isLoading: true,
+    cacheLoaded: false,
     isRefreshing: false,
     items: [
       {
@@ -98,7 +113,7 @@ export default class CourseScreen extends React.Component {
     ]
   };
 
-  renderItem = ({ item, index }) => {
+  renderItem = ({ item, index }: ListRenderItemInfo<CourseItemModel>) => {
     return (
       <CourseOptionItem
         option={item}
@@ -109,7 +124,7 @@ export default class CourseScreen extends React.Component {
     );
   };
 
-  onChooseItem = item => {
+  onChooseItem = (item: CourseItemModel) => {
     let { course } = this.getParams();
     this.props.navigation.navigate(item.route, { course });
   };

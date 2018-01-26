@@ -2,7 +2,6 @@
 
 declare var __DEV__: boolean;
 declare const module: any;
-declare const capitalize: any;
 
 declare module 'appcenter-push' {
     export = module;
@@ -19,13 +18,10 @@ declare module 'numeral' {
 }
 declare module 'underscore.string' {
     export function capitalize(text: string, extra: boolean): string;
+
     export function titleize(text: string): string;
 }
 declare module 'cheerio-without-node-native' {
-    export = module;
-}
-
-declare module 'react-native-linear-gradient' {
     export = module;
 }
 

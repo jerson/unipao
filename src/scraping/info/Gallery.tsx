@@ -9,11 +9,13 @@ export interface GalleryModel {
   imageSmall: string;
   url: string;
 }
+
 export interface GalleryDetailModel {
   id: string;
   title: string;
   images: GalleryImageModel[];
 }
+
 export interface GalleryImageModel {
   id: string;
   title: string;
@@ -21,6 +23,7 @@ export interface GalleryImageModel {
   imageSmall: string;
   url: string;
 }
+
 const TAG = 'Gallery';
 export default class Gallery {
   static async getList(page: number): Promise<GalleryModel[]> {

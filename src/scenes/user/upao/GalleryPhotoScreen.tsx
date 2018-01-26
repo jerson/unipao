@@ -26,6 +26,7 @@ export interface State {
   width: number;
   height: number;
 }
+
 export interface DimensionsChange {
   window: ScaledSize;
   screen?: ScaledSize;

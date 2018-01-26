@@ -21,14 +21,9 @@ import Loading from '../../../components/ui/Loading';
 import NavigationButton from '../../../components/ui/NavigationButton';
 import { NewsDetailModel } from '../../../scraping/info/News';
 import {
-  NavigationNavigatorProps,
-  NavigationScreenConfig,
   NavigationScreenConfigProps,
-  NavigationScreenProp,
-  NavigationStackRouterConfig,
-  StackNavigatorConfig
+  NavigationScreenProp
 } from 'react-navigation';
-import { NavigationParams } from '../../LoginFallbackScreen';
 
 export interface NewsListScreenProps {
   navigation: NavigationScreenProp<null, null>;

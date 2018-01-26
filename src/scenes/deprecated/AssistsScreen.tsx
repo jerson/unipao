@@ -4,7 +4,6 @@ import {
   ListRenderItemInfo,
   RefreshControl,
   StyleSheet,
-  TextInput,
   View
 } from 'react-native';
 import { Theme } from '../../themes/styles';
@@ -34,6 +33,7 @@ export interface State {
   isRefreshing: boolean;
   assists: any[];
 }
+
 const TAG = 'AssistsScreen';
 export default class AssistsScreen extends React.Component<
   AssistsScreenProps,

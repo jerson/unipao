@@ -73,7 +73,7 @@ class KeyboardSpacerBase extends React.Component<KeyboardSpacerProps, State> {
     if (Platform.OS === 'ios') {
       animationConfig = LayoutAnimation.create(
         event.duration,
-        LayoutAnimation.Types[event.easing],
+        LayoutAnimation.Types.easeInEaseOut,
         LayoutAnimation.Properties.opacity
       );
     }
@@ -100,7 +100,7 @@ class KeyboardSpacerBase extends React.Component<KeyboardSpacerProps, State> {
     if (Platform.OS === 'ios') {
       animationConfig = LayoutAnimation.create(
         event.duration,
-        LayoutAnimation.Types[event.easing],
+        LayoutAnimation.Types.easeInEaseOut,
         LayoutAnimation.Properties.opacity
       );
     }

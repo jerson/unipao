@@ -18,7 +18,7 @@ import {
 import * as PropTypes from 'prop-types';
 import { Theme } from '../../themes/styles';
 import NavigationButton from '../ui/NavigationButton';
-import Modal, { ModalProps } from '../ui/Modal';
+import Modal from '../ui/Modal';
 import LinearGradient from '../ui/LinearGradient';
 import ImageZoom from 'react-native-image-pan-zoom';
 import { GalleryImageModel } from '../../scraping/info/Gallery';

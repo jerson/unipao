@@ -8,11 +8,9 @@ import { tabsOptionsSub } from '../../routers/Tabs';
 import {
   NavigationNavigatorProps,
   NavigationScreenProp,
-  TabNavigator,
-  TabNavigatorConfig
+  TabNavigator
 } from 'react-navigation';
 import LevelScreen from './intranet/LevelScreen';
-import { NavigationParams } from '../LoginFallbackScreen';
 
 export interface IntranetScreenProps {
   navigation: NavigationScreenProp<null, null>;
@@ -27,6 +25,7 @@ export interface DimensionsChange {
   window: ScaledSize;
   screen?: ScaledSize;
 }
+
 const TAG = 'IntranetScreen';
 export default class IntranetScreen extends React.PureComponent<
   IntranetScreenProps,

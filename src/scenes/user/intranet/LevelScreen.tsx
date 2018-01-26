@@ -16,7 +16,6 @@ import CacheStorage from '../../../modules/storage/CacheStorage';
 import UPAO from '../../../scraping/UPAO';
 import PeriodHeader from '../../../components/period/PeriodHeader';
 import CourseItem from '../../../components/course/CourseItem';
-import { IntroPage } from '../../IntroScreen';
 import { CourseModel, PeriodModel } from '../../../scraping/student/Intranet';
 import { NavigationScreenProp } from 'react-navigation';
 

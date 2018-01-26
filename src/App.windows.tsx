@@ -17,6 +17,7 @@ export interface AppProps {}
 export interface State {
   isLoaded: boolean;
 }
+
 class App extends React.Component<AppProps, State> {
   state: State = {
     isLoaded: false

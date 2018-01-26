@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TabBarTop, TabNavigator, TabNavigatorConfig } from 'react-navigation';
+import { TabBarBottom, TabBarTop, TabNavigatorConfig } from 'react-navigation';
 import { Theme } from '../themes/styles';
 import { Platform } from 'react-native';
 
@@ -30,7 +30,9 @@ export const tabsOptions = {
 } as TabNavigatorConfig;
 
 export const tabsOptionsMain = {
-  ...TabNavigator.Presets.iOSBottomTabs,
+  tabBarComponent: TabBarBottom,
+  tabBarPosition: 'bottom',
+  initialLayout: undefined,
   lazy: true,
   swipeEnabled: true,
   animationEnabled: false,
