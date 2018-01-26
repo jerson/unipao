@@ -2,13 +2,6 @@
     "name": "unipao",
     "version": "1.0.0",
     "private": true,
-    "devDependencies": {
-        "babel-preset-react-native-stage-0": "^1.0.1",
-        "lint-staged": "^6.0.0",
-        "prettier": "1.9.2",
-        "react-test-renderer": "16.2.0",
-        "rnpm-plugin-windows": "^0.2.8"
-    },
     "scripts": {
         "start": "react-native start",
         "build:android:release": "cd android && ./gradlew assembleRelease",
@@ -30,13 +23,30 @@
         "push:all:beta": "npm run push:android:beta && npm run push:ios:beta && npm run push:windows:beta",
         "test": "node node_modules/jest/bin/jest.js --watch",
         "precommit": "lint-staged",
-        "prettier": "prettier --write --single-quote 'src/**/*.js'"
+        "prettier": "prettier --write --single-quote 'src/**/*.tsx'"
     },
     "lint-staged": {
         "*.{js,json,css}": [
             "prettier --write",
             "git add"
         ]
+    },
+    "devDependencies": {
+        "@types/jquery": "^3.3.0",
+        "@types/prop-types": "^15.5.2",
+        "@types/pubsub-js": "^1.5.18",
+        "@types/react": "^16.0.34",
+        "@types/react-native": "^0.52.2",
+        "@types/react-navigation": "^1.0.28",
+        "@types/realm": "^1.13.0",
+        "babel-preset-react-native-stage-0": "^1.0.1",
+        "lint-staged": "^6.0.0",
+        "prettier": "1.9.2",
+        "react-native-typescript-transformer": "^1.2.3",
+        "react-test-renderer": "16.2.0",
+        "rnpm-plugin-windows": "^0.2.8",
+        "tsutils": "^2.19.1",
+        "typescript": "^2.6.2"
     },
     "dependencies": {
         "appcenter": "^1.1.0",
@@ -69,6 +79,7 @@
         "react-navigation": "^1.0.0-beta.22",
         "realm": "^2.1.1",
         "string-format": "^0.5.0",
+        "tslib": "^1.9.0",
         "underscore.string": "^3.3.4"
     }
 }
