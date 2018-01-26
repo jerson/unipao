@@ -24,6 +24,13 @@ const TAG = 'News';
 export default class News {
   static async getList(page: number): Promise<NewsModel[]> {
     let items: NewsModel[] = [];
+    let defaultItem: NewsModel = {
+      id: '',
+      title: '',
+      date: '',
+      url: '',
+      subtitle: ''
+    };
     try {
       let $ = await RequestUtil.fetch(
         'http://www.upao.edu.pe/actualidad/?mod=mod_act&s=not&Page=' + page,
@@ -35,18 +42,27 @@ export default class News {
       let $container = $('.centro1');
 
       $('.col_ent1', $container).each((index, value) => {
+        if (!items[index]) {
+          items[index] = { ...defaultItem };
+        }
         items[index].date = moment(
           $('.fblog', value).text(),
           'DD-MM-yy'
         ).toDate();
       });
       $('.col_ent2', $container).each((index, value) => {
+        if (!items[index]) {
+          items[index] = { ...defaultItem };
+        }
         let href = $('a', value).attr('href') || '';
         items[index].image = $('img', value).attr('src');
         items[index].url = href;
         items[index].id = href;
       });
       $('.col_ent3', $container).each((index, value) => {
+        if (!items[index]) {
+          items[index] = { ...defaultItem };
+        }
         items[index].title = $('.tit_ent', value).text();
         items[index].subtitle = $('.subtit_ent', value).text();
       });

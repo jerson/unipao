@@ -15,12 +15,12 @@ import Request from '../../modules/network/Request';
 import AssistItem from '../../components/assist/AssistItem';
 import PeriodModal from '../../components/period/PeriodModal';
 import AlertMessage from '../../components/ui/AlertMessage';
-import { _ } from '../../modules/i18n/Translator';
-import CacheStorage from '../../modules/storage/CacheStorage';
 import {
   NavigationScreenConfigProps,
   NavigationScreenProp
 } from 'react-navigation';
+import CacheStorage from '../../modules/storage/CacheStorage';
+import { _ } from '../../modules/i18n/Translator';
 
 export interface AssistsScreenProps {
   navigation: NavigationScreenProp<null, null>;
