@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { TabBarBottom, TabBarTop, TabNavigatorConfig } from 'react-navigation';
 import { Theme } from '../themes/styles';
-import { Platform } from 'react-native';
+import { Platform, ViewStyle } from 'react-native';
 
-export const tabsOptions = {
+export const tabsOptions: TabNavigatorConfig = {
   tabBarComponent: TabBarTop,
   tabBarPosition: 'top',
   backBehavior: 'none',
@@ -27,9 +27,9 @@ export const tabsOptions = {
       backgroundColor: '#0d61ac'
     }
   }
-} as TabNavigatorConfig;
+};
 
-export const tabsOptionsMain = {
+export const tabsOptionsMain: TabNavigatorConfig = {
   tabBarComponent: TabBarBottom,
   tabBarPosition: 'bottom',
   initialLayout: undefined,
@@ -53,8 +53,8 @@ export const tabsOptionsMain = {
       flexDirection: 'column'
     }
   }
-} as TabNavigatorConfig;
-export const tabsOptionsSub = {
+};
+export const tabsOptionsSub: TabNavigatorConfig = {
   tabBarComponent: TabBarTop,
   tabBarPosition: 'top',
   lazy: true,
@@ -79,4 +79,4 @@ export const tabsOptionsSub = {
       backgroundColor: '#f59331'
     }
   }
-} as TabNavigatorConfig;
+};

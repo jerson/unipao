@@ -32,7 +32,7 @@ export default class Auth {
     this.checkLogin();
   }
 
-  static async checkLogin() {
+  private static async checkLogin() {
     if (this.isLoggedIn()) {
       return;
     }
@@ -75,7 +75,7 @@ export default class Auth {
     return this.user;
   }
 
-  static setUser(data: ProfileModel): Promise<boolean> {
+  private static setUser(data: ProfileModel): Promise<boolean> {
     this.user = data;
     return SingleStorage.set('user', JSON.stringify(data));
   }

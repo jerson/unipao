@@ -143,7 +143,7 @@ export default class Request {
     return this.defaultRequest('DELETE', path, body, options);
   }
 
-  static async defaultRequest(
+  private static async defaultRequest(
     method: Method,
     path: string,
     body: Body,
@@ -231,17 +231,17 @@ export default class Request {
     }
   }
 
-  static getHeaders(options: Options): Headers {
+  private static getHeaders(options: Options): Headers {
     return {};
   }
 
-  static getFullPath(path: string): string {
+  private static getFullPath(path: string): string {
     return path.indexOf('http') === 0
       ? path
       : this.settings.baseUrl + '/' + path;
   }
 
-  static addItemsToForm(form: string[], names: string[], obj: any) {
+  private static addItemsToForm(form: string[], names: string[], obj: any) {
     if (obj === undefined || obj === '' || obj === null) {
       return this.addItemToForm(form, names, '');
     }
@@ -277,7 +277,7 @@ export default class Request {
     }
   }
 
-  static addItemToForm(form: string[], names: string[], value: string) {
+  private static addItemToForm(form: string[], names: string[], value: string) {
     let name = encodeURIComponent(names.join('.').replace(/\.\[/g, '['));
     value = encodeURIComponent(value.toString());
     form.push(`${name}=${value}`);

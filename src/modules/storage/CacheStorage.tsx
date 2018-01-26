@@ -82,7 +82,7 @@ export default class CacheStorage {
     return true;
   }
 
-  static hashCode(text: string): string {
+  private static hashCode(text: string): string {
     return text;
     // let hash = 0,
     //   i,
