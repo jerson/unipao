@@ -15,7 +15,10 @@ import CacheStorage from '../../../modules/storage/CacheStorage';
 import UPAO from '../../../scraping/UPAO';
 import FlexibleGrid from '../../../components/ui/FlexibleGrid';
 import { NewsModel } from '../../../scraping/info/News';
-import { NavigationScreenProp } from 'react-navigation';
+import {
+  NavigationScreenProp,
+  NavigationStackScreenOptions
+} from 'react-navigation';
 
 export interface NewsListScreenProps {
   navigation: NavigationScreenProp<null, null>;
@@ -40,7 +43,7 @@ export default class NewsListScreen extends React.Component<
     notification: PropTypes.object.isRequired
   };
 
-  static navigationOptions = {
+  static navigationOptions: NavigationStackScreenOptions = {
     title: _('Últimas noticias'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],

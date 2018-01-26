@@ -17,7 +17,8 @@ import PeriodModal from '../../components/period/PeriodModal';
 import AlertMessage from '../../components/ui/AlertMessage';
 import {
   NavigationScreenConfigProps,
-  NavigationScreenProp
+  NavigationScreenProp,
+  NavigationStackScreenOptions
 } from 'react-navigation';
 import CacheStorage from '../../modules/storage/CacheStorage';
 import { _ } from '../../modules/i18n/Translator';
@@ -46,7 +47,7 @@ export default class AssistsScreen extends React.Component<
   static navigationOptions = ({
     navigation,
     screenProps
-  }: NavigationScreenConfigProps) => ({
+  }: NavigationScreenConfigProps): NavigationStackScreenOptions => ({
     title: _('Mis Asistencias'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],

@@ -11,6 +11,7 @@ import {
   NavigationNavigatorProps,
   NavigationScreenConfigProps,
   NavigationScreenProp,
+  NavigationStackScreenOptions,
   TabNavigator
 } from 'react-navigation';
 import { tabsOptions } from '../../routers/Tabs';
@@ -42,7 +43,7 @@ export default class EnrollmentScreen extends React.Component<
   static navigationOptions = ({
     navigation,
     screenProps
-  }: NavigationScreenConfigProps) => ({
+  }: NavigationScreenConfigProps): NavigationStackScreenOptions => ({
     title: _('Ficha de matrícula'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],

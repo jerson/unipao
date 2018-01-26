@@ -11,7 +11,8 @@ import RequestUtil from '../scraping/utils/RequestUtil';
 import WebViewDownloader from '../components/ui/WebViewDownloader';
 import {
   NavigationScreenConfigProps,
-  NavigationScreenProp
+  NavigationScreenProp,
+  NavigationStackScreenOptions
 } from 'react-navigation';
 
 export interface LoginFallbackScreenProps {
@@ -42,7 +43,7 @@ export default class LoginFallbackScreen extends React.Component<
   static navigationOptions = ({
     navigation,
     screenProps
-  }: NavigationScreenConfigProps) => ({
+  }: NavigationScreenConfigProps): NavigationStackScreenOptions => ({
     title: _('Iniciar sesión'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],

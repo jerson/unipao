@@ -17,7 +17,10 @@ import SingleStorage from '../modules/storage/SingleStorage';
 import Loading from '../components/ui/Loading';
 import { _ } from '../modules/i18n/Translator';
 import UPAO from '../scraping/UPAO';
-import { NavigationScreenProp } from 'react-navigation';
+import {
+  NavigationScreenProp,
+  NavigationStackScreenOptions
+} from 'react-navigation';
 
 export interface LoginScreenProps {
   navigation: NavigationScreenProp<null, null>;
@@ -38,7 +41,7 @@ export default class LoginScreen extends React.Component<
     notification: PropTypes.object.isRequired
   };
 
-  static navigationOptions = {
+  static navigationOptions: NavigationStackScreenOptions = {
     title: Config.app.name,
     headerBackTitle: null,
     headerTitleStyle: Theme.title,

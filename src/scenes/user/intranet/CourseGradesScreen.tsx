@@ -12,7 +12,8 @@ import CacheStorage from '../../../modules/storage/CacheStorage';
 import WebViewDownloader from '../../../components/ui/WebViewDownloader';
 import {
   NavigationScreenConfigProps,
-  NavigationScreenProp
+  NavigationScreenProp,
+  NavigationStackScreenOptions
 } from 'react-navigation';
 
 export interface CourseGradesScreenProps {
@@ -36,7 +37,7 @@ export default class CourseGradesScreen extends React.Component<
   static navigationOptions = ({
     navigation,
     screenProps
-  }: NavigationScreenConfigProps) => ({
+  }: NavigationScreenConfigProps): NavigationStackScreenOptions => ({
     headerBackTitle: null,
     title: _('Notas del curso'),
     headerTitleStyle: [Theme.title, Theme.subtitle],

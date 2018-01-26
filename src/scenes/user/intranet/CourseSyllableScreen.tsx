@@ -14,7 +14,10 @@ import { _ } from '../../../modules/i18n/Translator';
 import CacheStorage from '../../../modules/storage/CacheStorage';
 import UPAO from '../../../scraping/UPAO';
 import SyllableItem from '../../../components/syllable/SyllableItem';
-import { NavigationScreenProp } from 'react-navigation';
+import {
+  NavigationScreenProp,
+  NavigationStackScreenOptions
+} from 'react-navigation';
 import { SyllableModel } from '../../../scraping/student/intranet/Course';
 
 export interface CourseSyllableScreenProps {
@@ -37,7 +40,7 @@ export default class CourseSyllableScreen extends React.Component<
     notification: PropTypes.object.isRequired
   };
 
-  static navigationOptions = {
+  static navigationOptions: NavigationStackScreenOptions = {
     title: _('Silabos del curso'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],

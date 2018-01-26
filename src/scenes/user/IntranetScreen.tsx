@@ -8,6 +8,7 @@ import { tabsOptionsSub } from '../../routers/Tabs';
 import {
   NavigationNavigatorProps,
   NavigationScreenProp,
+  NavigationStackScreenOptions,
   TabNavigator
 } from 'react-navigation';
 import LevelScreen from './intranet/LevelScreen';
@@ -35,16 +36,13 @@ export default class IntranetScreen extends React.PureComponent<
     notification: PropTypes.object.isRequired
   };
 
-  static navigationOptions = ({
-    navigation,
-    screenProps
-  }: NavigationNavigatorProps<null>) => ({
+  static navigationOptions: NavigationStackScreenOptions = {
     title: _('Aula Virtual'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
     headerTintColor: Theme.tintColor,
     headerStyle: [Theme.navigationBar, Theme.subNavigationBar]
-  });
+  };
 
   state: State = {
     isLoading: true,

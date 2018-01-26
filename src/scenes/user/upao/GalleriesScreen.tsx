@@ -15,7 +15,10 @@ import CacheStorage from '../../../modules/storage/CacheStorage';
 import UPAO from '../../../scraping/UPAO';
 import FlexibleGrid from '../../../components/ui/FlexibleGrid';
 import { GalleryModel } from '../../../scraping/info/Gallery';
-import { NavigationScreenProp } from 'react-navigation';
+import {
+  NavigationScreenProp,
+  NavigationStackScreenOptions
+} from 'react-navigation';
 
 export interface GalleriesScreenProps {
   navigation: NavigationScreenProp<null, null>;
@@ -40,7 +43,7 @@ export default class GalleriesScreen extends React.Component<
     notification: PropTypes.object.isRequired
   };
 
-  static navigationOptions = {
+  static navigationOptions: NavigationStackScreenOptions = {
     title: _('Galerías'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],

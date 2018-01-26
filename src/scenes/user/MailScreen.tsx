@@ -8,7 +8,9 @@ import * as PropTypes from 'prop-types';
 import WebViewDownloader from '../../components/ui/WebViewDownloader';
 import {
   NavigationNavigatorProps,
-  NavigationScreenProp
+  NavigationScreenConfigProps,
+  NavigationScreenProp,
+  NavigationStackScreenOptions
 } from 'react-navigation';
 
 export interface MailScreenProps {
@@ -38,7 +40,7 @@ export default class MailScreen extends React.Component<
   static navigationOptions = ({
     navigation,
     screenProps
-  }: NavigationNavigatorProps<NavigationParams>) => ({
+  }: NavigationScreenConfigProps): NavigationStackScreenOptions => ({
     title: _('Correo UPAO'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],

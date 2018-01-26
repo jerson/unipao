@@ -9,6 +9,7 @@ import {
   NavigationNavigatorProps,
   NavigationScreenConfigProps,
   NavigationScreenProp,
+  NavigationStackScreenOptions,
   TabNavigator
 } from 'react-navigation';
 import { tabsOptions } from '../../../routers/Tabs';
@@ -41,7 +42,7 @@ export default class CourseMaterialsScreen extends React.Component<
   static navigationOptions = ({
     navigation,
     screenProps
-  }: NavigationScreenConfigProps) => ({
+  }: NavigationScreenConfigProps): NavigationStackScreenOptions => ({
     headerBackTitle: null,
     title: _('Materiales del curso'),
     headerTitleStyle: [Theme.title, Theme.subtitle],

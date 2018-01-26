@@ -49,11 +49,7 @@ const NewsNavigator = StackNavigator(
     }
   },
   {
-    headerMode: 'none',
-    cardStyle: {
-      //backgroundColor: '#fff',
-      //top: DimensionUtil.getNavigationBarHeight() * -1
-    }
+    headerMode: 'none'
   }
 );
 const GalleryNavigator = StackNavigator(
@@ -69,11 +65,7 @@ const GalleryNavigator = StackNavigator(
     }
   },
   {
-    headerMode: 'none',
-    cardStyle: {
-      // backgroundColor: '#fff',
-      //  top: DimensionUtil.getNavigationBarHeight() * -1
-    }
+    headerMode: 'none'
   }
 );
 const AgendaNavigator = StackNavigator(
@@ -83,11 +75,7 @@ const AgendaNavigator = StackNavigator(
     }
   },
   {
-    headerMode: 'none',
-    cardStyle: {
-      // backgroundColor: '#fff',
-      // top: DimensionUtil.getNavigationBarHeight() * -1
-    }
+    headerMode: 'none'
   }
 );
 
@@ -150,12 +138,7 @@ const UPAONavigator = StackNavigator(
       }
     }
   },
-  {
-    //headerMode: 'float',
-    cardStyle: {
-      //backgroundColor: 'red'
-    }
-  }
+  {}
 );
 const MailNavigator = StackNavigator(
   {
@@ -163,13 +146,7 @@ const MailNavigator = StackNavigator(
       screen: MailScreen
     }
   },
-  {
-    //headerMode: 'float',
-    cardStyle: {
-      // backgroundColor: '#fff',
-      // top: DimensionUtil.getNavigationBarHeight() * -1
-    }
-  }
+  {}
 );
 
 const SettingsNavigator = StackNavigator(
@@ -178,13 +155,7 @@ const SettingsNavigator = StackNavigator(
       screen: SettingsScreen
     }
   },
-  {
-    //headerMode: 'float',
-    cardStyle: {
-      //  backgroundColor: '#fff',
-      //  top: DimensionUtil.getNavigationBarHeight() * -1
-    }
-  }
+  {}
 );
 
 const IntranetNavigator = StackNavigator(
@@ -232,13 +203,7 @@ const IntranetNavigator = StackNavigator(
       screen: EnrollmentScreen
     }
   },
-  {
-    // headerMode: 'float',
-    cardStyle: {
-      //backgroundColor: '#fff',
-      // top: DimensionUtil.getNavigationBarHeight() * -1
-    }
-  }
+  {}
 );
 const UsersTabNavigator = TabNavigator(
   {

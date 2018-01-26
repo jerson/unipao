@@ -7,7 +7,8 @@ import AssistHeader from '../../components/assist/AssistHeader';
 import { _ } from '../../modules/i18n/Translator';
 import {
   NavigationScreenConfigProps,
-  NavigationScreenProp
+  NavigationScreenProp,
+  NavigationStackScreenOptions
 } from 'react-navigation';
 
 export interface AssistDetailScreenProps {
@@ -25,10 +26,7 @@ export default class AssistDetailScreen extends React.Component<
     notification: PropTypes.object.isRequired
   };
 
-  static navigationOptions = ({
-    navigation,
-    screenProps
-  }: NavigationScreenConfigProps) => ({
+  static navigationOptions: NavigationStackScreenOptions = {
     title: _('Mis Asistencias'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
@@ -38,7 +36,7 @@ export default class AssistDetailScreen extends React.Component<
       Theme.subNavigationBar,
       Theme.shadowDefault
     ]
-  });
+  };
 
   state: State = {};
 

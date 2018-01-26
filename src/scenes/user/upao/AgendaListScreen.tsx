@@ -14,7 +14,10 @@ import AgendaItem from '../../../components/agenda/AgendaItem';
 import { _ } from '../../../modules/i18n/Translator';
 import CacheStorage from '../../../modules/storage/CacheStorage';
 import UPAO from '../../../scraping/UPAO';
-import { NavigationScreenProp } from 'react-navigation';
+import {
+  NavigationScreenProp,
+  NavigationStackScreenOptions
+} from 'react-navigation';
 import { AgendaModel } from '../../../scraping/info/Agenda';
 
 const moment = require('moment');
@@ -41,7 +44,7 @@ export default class AgendaListScreen extends React.Component<
     notification: PropTypes.object.isRequired
   };
 
-  static navigationOptions = {
+  static navigationOptions: NavigationStackScreenOptions = {
     title: _('Agenda del més'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],

@@ -15,7 +15,8 @@ import ImageZoom from 'react-native-image-pan-zoom';
 import LinearGradient from '../../../components/ui/LinearGradient';
 import {
   NavigationScreenConfigProps,
-  NavigationScreenProp
+  NavigationScreenProp,
+  NavigationStackScreenOptions
 } from 'react-navigation';
 
 export interface GalleryPhotoScreenProps {
@@ -41,10 +42,7 @@ export default class GalleryPhotoScreen extends React.PureComponent<
     notification: PropTypes.object.isRequired
   };
 
-  static navigationOptions = ({
-    navigation,
-    screenProps
-  }: NavigationScreenConfigProps) => ({
+  static navigationOptions: NavigationStackScreenOptions = {
     title: '',
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
@@ -54,7 +52,7 @@ export default class GalleryPhotoScreen extends React.PureComponent<
       Theme.subNavigationBar,
       Theme.shadowDefault
     ]
-  });
+  };
   state: State = {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height - 180

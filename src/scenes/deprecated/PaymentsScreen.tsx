@@ -9,6 +9,7 @@ import {
   NavigationNavigatorProps,
   NavigationScreenConfigProps,
   NavigationScreenProp,
+  NavigationStackScreenOptions,
   TabNavigator
 } from 'react-navigation';
 import PaymentList from '../../components/payment/PaymentList';
@@ -39,7 +40,7 @@ export default class PaymentsScreen extends React.Component<
   static navigationOptions = ({
     navigation,
     screenProps
-  }: NavigationScreenConfigProps) => ({
+  }: NavigationScreenConfigProps): NavigationStackScreenOptions => ({
     title: _('Estado de cuenta'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],

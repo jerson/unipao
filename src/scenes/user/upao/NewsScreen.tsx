@@ -22,7 +22,8 @@ import NavigationButton from '../../../components/ui/NavigationButton';
 import { NewsDetailModel } from '../../../scraping/info/News';
 import {
   NavigationScreenConfigProps,
-  NavigationScreenProp
+  NavigationScreenProp,
+  NavigationStackScreenOptions
 } from 'react-navigation';
 
 export interface NewsListScreenProps {
@@ -44,10 +45,7 @@ export default class NewsListScreen extends React.Component<
     notification: PropTypes.object.isRequired
   };
 
-  static navigationOptions = ({
-    navigation,
-    screenProps
-  }: NavigationScreenConfigProps) => ({
+  static navigationOptions: NavigationStackScreenOptions = {
     title: '',
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
@@ -57,7 +55,7 @@ export default class NewsListScreen extends React.Component<
       Theme.subNavigationBar,
       Theme.shadowDefault
     ]
-  });
+  };
   state: State = {
     cacheLoaded: false,
     isLoading: true

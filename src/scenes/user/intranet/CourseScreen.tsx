@@ -17,7 +17,8 @@ import Loading from '../../../components/ui/Loading';
 import NavigationButton from '../../../components/ui/NavigationButton';
 import {
   NavigationScreenConfigProps,
-  NavigationScreenProp
+  NavigationScreenProp,
+  NavigationStackScreenOptions
 } from 'react-navigation';
 
 export interface CourseItemModel {
@@ -47,10 +48,7 @@ export default class CourseScreen extends React.Component<
     notification: PropTypes.object.isRequired
   };
 
-  static navigationOptions = ({
-    navigation,
-    screenProps
-  }: NavigationScreenConfigProps) => ({
+  static navigationOptions: NavigationStackScreenOptions = {
     title: '',
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
@@ -61,7 +59,7 @@ export default class CourseScreen extends React.Component<
       { backgroundColor: 'transparent' }
     ],
     header: null
-  });
+  };
 
   state: State = {
     isLoading: true,

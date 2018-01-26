@@ -11,7 +11,11 @@ import PreferencesStorage from '../../modules/storage/PreferencesStorage';
 import Translator, { _ } from '../../modules/i18n/Translator';
 import codePush from 'react-native-code-push';
 import * as DeviceInfo from 'react-native-device-info';
-import { NavigationScreenProp } from 'react-navigation';
+import {
+  NavigationScreenProp,
+  NavigationStackScreenOptions,
+  NavigationTabScreenOptions
+} from 'react-navigation';
 import { InputSelectOption } from '../../components/ui/InputSelect';
 
 export interface SettingsScreenProps {
@@ -45,7 +49,7 @@ export default class SettingsScreen extends React.Component<
   SettingsScreenProps,
   State
 > {
-  static navigationOptions = {
+  static navigationOptions: NavigationStackScreenOptions = {
     title: _('Ajustes'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],

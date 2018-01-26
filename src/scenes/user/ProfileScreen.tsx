@@ -20,7 +20,11 @@ import RouterUtil from '../../modules/util/RouterUtil';
 import { titleize } from 'underscore.string';
 import ImageUtil from '../../modules/util/ImageUtil';
 import { _ } from '../../modules/i18n/Translator';
-import { NavigationScreenProp } from 'react-navigation';
+import {
+  NavigationScreenProp,
+  NavigationStackScreenOptions,
+  NavigationTabScreenOptions
+} from 'react-navigation';
 
 export interface ProfileScreenProps {
   navigation: NavigationScreenProp<null, null>;
@@ -40,13 +44,13 @@ export default class ProfileScreen extends React.Component<
     notification: PropTypes.object.isRequired
   };
 
-  static navigationOptions = {
+  static navigationOptions: NavigationTabScreenOptions = {
     tabBarLabel: _('Perfíl'),
-    tabBarIcon: ({ tintColor }: any) => (
+    tabBarIcon: ({ tintColor }) => (
       <Icon
         name={'user'}
         type={'FontAwesome'}
-        style={[Theme.tabTarIcon, { color: tintColor }]}
+        style={[Theme.tabTarIcon, { color: tintColor || '#444' }]}
       />
     )
   };

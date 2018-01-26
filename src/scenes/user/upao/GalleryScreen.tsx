@@ -12,7 +12,8 @@ import FlexibleGrid from '../../../components/ui/FlexibleGrid';
 import GalleryModal from '../../../components/gallery/GalleryModal';
 import {
   NavigationScreenConfigProps,
-  NavigationScreenProp
+  NavigationScreenProp,
+  NavigationStackScreenOptions
 } from 'react-navigation';
 import { GalleryDetailModel } from '../../../scraping/info/Gallery';
 
@@ -37,10 +38,7 @@ export default class GalleryScreen extends React.PureComponent<
     notification: PropTypes.object.isRequired
   };
 
-  static navigationOptions = ({
-    navigation,
-    screenProps
-  }: NavigationScreenConfigProps) => ({
+  static navigationOptions: NavigationStackScreenOptions = {
     title: '',
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
@@ -50,7 +48,7 @@ export default class GalleryScreen extends React.PureComponent<
       Theme.subNavigationBar,
       Theme.shadowDefault
     ]
-  });
+  };
   state: State = {
     cacheLoaded: false,
     showGalleryModal: false,

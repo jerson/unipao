@@ -10,6 +10,7 @@ import {
   NavigationNavigatorProps,
   NavigationScreenConfigProps,
   NavigationScreenProp,
+  NavigationStackScreenOptions,
   TabNavigator
 } from 'react-navigation';
 import { _ } from '../../modules/i18n/Translator';
@@ -41,7 +42,7 @@ export default class ScheduleScreen extends React.Component<
   static navigationOptions = ({
     navigation,
     screenProps
-  }: NavigationScreenConfigProps) => ({
+  }: NavigationScreenConfigProps): NavigationStackScreenOptions => ({
     title: _('Mi Horario'),
     headerTitleStyle: [Theme.title, Theme.subtitle],
     headerTintColor: Theme.subTintColor,
