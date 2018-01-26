@@ -6,6 +6,7 @@ import NavigationButton from '../../../components/ui/NavigationButton';
 import Loading from '../../../components/ui/Loading';
 import * as PropTypes from 'prop-types';
 import {
+  NavigationRouteConfigMap,
   NavigationScreenConfigProps,
   NavigationScreenProp,
   NavigationStackScreenOptions,
@@ -85,7 +86,7 @@ export default class CourseJobsScreen extends React.Component<
     }
   };
   loadResponse = (data: SectionModel[], cacheLoaded = false) => {
-    let tabs: any = {};
+    let tabs: NavigationRouteConfigMap = {};
 
     for (let item of data) {
       if (!tabs[item.name]) {

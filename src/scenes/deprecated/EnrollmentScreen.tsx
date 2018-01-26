@@ -8,6 +8,7 @@ import Log from '../../modules/logger/Log';
 import Request from '../../modules/network/Request';
 import EnrollmentList from '../../components/enrollment/EnrollmentList';
 import {
+  NavigationRouteConfigMap,
   NavigationScreenConfigProps,
   NavigationScreenProp,
   NavigationStackScreenOptions,
@@ -105,7 +106,7 @@ export default class EnrollmentScreen extends React.Component<
 
   loadResponse = (body: any, cacheLoaded = false) => {
     let careers: any = {};
-    let tabs: any = {};
+    let tabs: NavigationRouteConfigMap = {};
 
     if (body.data) {
       let enrollments = JSON.parse(body.data);
