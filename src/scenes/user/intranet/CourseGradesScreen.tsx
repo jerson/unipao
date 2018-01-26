@@ -135,7 +135,7 @@ export default class CourseGradesScreen extends React.Component<
 <head>
     <meta name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
-	<title></title>
+	<title>app</title>
 	<style>
 * {
     font-size: 12px !important;
@@ -156,7 +156,7 @@ table tr:nth-child(1) > td {
 
 table {
     border-collapse: separate;
-    border-spacing: 0px;
+    border-spacing: 0;
     width: 100% !important;
     border-left: none;
     min-height: 100% !important;

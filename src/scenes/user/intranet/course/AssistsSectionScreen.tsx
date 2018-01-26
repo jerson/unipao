@@ -93,7 +93,7 @@ export default class AssistsSectionScreen extends React.Component<
 <head>
     <meta name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
-	<title></title>
+	<title>app</title>
 	<style>
 	* {
     font-size: 13px !important;
