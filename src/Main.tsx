@@ -105,7 +105,7 @@ export default class Main extends React.Component<MainProps, State> {
           barStyle="light-content"
         />
         <MainRouter ref={'navigation'} />
-        <MessageCenter ref={'noti'} />
+        <MessageCenter ref={'notification'} />
       </View>
     );
   }
