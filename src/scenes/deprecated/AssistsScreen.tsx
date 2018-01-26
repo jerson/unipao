@@ -196,7 +196,6 @@ export default class AssistsScreen extends React.Component<
           />
         )}
 
-        {/*<Background/>*/}
         {!isLoading &&
           assists.length < 1 && (
             <AlertMessage

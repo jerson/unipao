@@ -6,9 +6,7 @@ import {
   NativeScrollEvent,
   NativeSyntheticEvent,
   StyleSheet,
-  TextStyle,
-  View,
-  ViewStyle
+  View
 } from 'react-native';
 import IntroItem from '../components/intro/IntroItem';
 import Button from '../components/ui/Button';

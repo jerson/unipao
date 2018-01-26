@@ -6,10 +6,10 @@ import Loading from '../../components/ui/Loading';
 import Log from '../../modules/logger/Log';
 import Request from '../../modules/network/Request';
 import {
-  NavigationNavigatorProps,
   NavigationScreenConfigProps,
   NavigationScreenProp,
   NavigationStackScreenOptions,
+  NavigationTabScreenOptions,
   TabNavigator
 } from 'react-navigation';
 import PaymentList from '../../components/payment/PaymentList';
@@ -136,7 +136,6 @@ export default class PaymentsScreen extends React.Component<
     let { paymentsGroups, isLoading } = this.state;
     return (
       <View style={[styles.container]}>
-        {/*<Background/>*/}
         {isLoading && <Loading margin />}
         {!isLoading && <PaymentsTab screenProps={{ paymentsGroups }} />}
       </View>
@@ -147,89 +146,64 @@ export default class PaymentsScreen extends React.Component<
 const PaymentsTab = TabNavigator(
   {
     UG: {
-      screen: ({ navigation, screenProps }: NavigationNavigatorProps<null>) => {
+      screen: ({ navigation, screenProps }: NavigationScreenConfigProps) => {
         let paymentsGroups = screenProps
           ? screenProps.paymentsGroups || {}
           : {};
         let payments = paymentsGroups['UG'] || [];
         return <PaymentList payments={payments} />;
       },
-      navigationOptions: ({
-        navigation,
-        screenProps
-      }: NavigationNavigatorProps<null>) => {
-        return {
-          tabBarLabel: _('Pregrado')
-        };
-      }
+      navigationOptions: {
+        tabBarLabel: _('Pregrado')
+      } as NavigationTabScreenOptions
     },
     GR: {
-      screen: ({ navigation, screenProps }: NavigationNavigatorProps<null>) => {
+      screen: ({ navigation, screenProps }: NavigationScreenConfigProps) => {
         let paymentsGroups = screenProps
           ? screenProps.paymentsGroups || {}
           : {};
         let payments = paymentsGroups['GR'] || [];
         return <PaymentList payments={payments} />;
       },
-      navigationOptions: ({
-        navigation,
-        screenProps
-      }: NavigationNavigatorProps<null>) => {
-        return {
-          tabBarLabel: _('Postgrado')
-        };
-      }
+      navigationOptions: {
+        tabBarLabel: _('Postgrado')
+      } as NavigationTabScreenOptions
     },
     UT: {
-      screen: ({ navigation, screenProps }: NavigationNavigatorProps<null>) => {
+      screen: ({ navigation, screenProps }: NavigationScreenConfigProps) => {
         let paymentsGroups = screenProps
           ? screenProps.paymentsGroups || {}
           : {};
         let payments = paymentsGroups['UT'] || [];
         return <PaymentList payments={payments} />;
       },
-      navigationOptions: ({
-        navigation,
-        screenProps
-      }: NavigationNavigatorProps<null>) => {
-        return {
-          tabBarLabel: _('Gente que trabaja')
-        };
-      }
+      navigationOptions: {
+        tabBarLabel: _('Gente que trabaja')
+      } as NavigationTabScreenOptions
     },
     UB: {
-      screen: ({ navigation, screenProps }: NavigationNavigatorProps<null>) => {
+      screen: ({ navigation, screenProps }: NavigationScreenConfigProps) => {
         let paymentsGroups = screenProps
           ? screenProps.paymentsGroups || {}
           : {};
         let payments = paymentsGroups['UB'] || [];
         return <PaymentList payments={payments} />;
       },
-      navigationOptions: ({
-        navigation,
-        screenProps
-      }: NavigationNavigatorProps<null>) => {
-        return {
-          tabBarLabel: _('Centro de idiomas')
-        };
-      }
+      navigationOptions: {
+        tabBarLabel: _('Centro de idiomas')
+      } as NavigationTabScreenOptions
     },
     EU: {
-      screen: ({ navigation, screenProps }: NavigationNavigatorProps<null>) => {
+      screen: ({ navigation, screenProps }: NavigationScreenConfigProps) => {
         let paymentsGroups = screenProps
           ? screenProps.paymentsGroups || {}
           : {};
         let payments = paymentsGroups['EU'] || [];
         return <PaymentList payments={payments} />;
       },
-      navigationOptions: ({
-        navigation,
-        screenProps
-      }: NavigationNavigatorProps<null>) => {
-        return {
-          tabBarLabel: _('Ext. Universitaria')
-        };
-      }
+      navigationOptions: {
+        tabBarLabel: _('Ext. Universitaria')
+      } as NavigationTabScreenOptions
     }
   },
   {

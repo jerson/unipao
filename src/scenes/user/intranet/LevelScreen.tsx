@@ -139,7 +139,6 @@ export default class LevelScreen extends React.Component<
 
     return (
       <View style={[styles.container]}>
-        {/*<Background/>*/}
         {!isLoading &&
           sections.length < 1 && (
             <AlertMessage

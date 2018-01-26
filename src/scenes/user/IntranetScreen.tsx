@@ -6,9 +6,10 @@ import Loading from '../../components/ui/Loading';
 import { _ } from '../../modules/i18n/Translator';
 import { tabsOptionsSub } from '../../routers/Tabs';
 import {
-  NavigationNavigatorProps,
+  NavigationScreenConfigProps,
   NavigationScreenProp,
   NavigationStackScreenOptions,
+  NavigationTabScreenOptions,
   TabNavigator
 } from 'react-navigation';
 import LevelScreen from './intranet/LevelScreen';
@@ -80,7 +81,7 @@ export default class IntranetScreen extends React.PureComponent<
           screen: ({
             navigation,
             screenProps
-          }: NavigationNavigatorProps<null>) => {
+          }: NavigationScreenConfigProps) => {
             return (
               <LevelScreen
                 level={'UG'}
@@ -88,20 +89,15 @@ export default class IntranetScreen extends React.PureComponent<
               />
             );
           },
-          navigationOptions: ({
-            navigation,
-            screenProps
-          }: NavigationNavigatorProps<null>) => {
-            return {
-              tabBarLabel: _('Pregrado')
-            };
-          }
+          navigationOptions: {
+            tabBarLabel: _('Pregrado')
+          } as NavigationTabScreenOptions
         },
         GR: {
           screen: ({
             navigation,
             screenProps
-          }: NavigationNavigatorProps<null>) => {
+          }: NavigationScreenConfigProps) => {
             return (
               <LevelScreen
                 level={'GR'}
@@ -109,20 +105,15 @@ export default class IntranetScreen extends React.PureComponent<
               />
             );
           },
-          navigationOptions: ({
-            navigation,
-            screenProps
-          }: NavigationNavigatorProps<null>) => {
-            return {
-              tabBarLabel: _('Postgrado')
-            };
-          }
+          navigationOptions: {
+            tabBarLabel: _('Postgrado')
+          } as NavigationTabScreenOptions
         },
         UT: {
           screen: ({
             navigation,
             screenProps
-          }: NavigationNavigatorProps<null>) => {
+          }: NavigationScreenConfigProps) => {
             return (
               <LevelScreen
                 level={'UT'}
@@ -130,20 +121,15 @@ export default class IntranetScreen extends React.PureComponent<
               />
             );
           },
-          navigationOptions: ({
-            navigation,
-            screenProps
-          }: NavigationNavigatorProps<null>) => {
-            return {
-              tabBarLabel: _('G. que trabaja')
-            };
-          }
+          navigationOptions: {
+            tabBarLabel: _('G. que trabaja')
+          } as NavigationTabScreenOptions
         },
         UB: {
           screen: ({
             navigation,
             screenProps
-          }: NavigationNavigatorProps<null>) => {
+          }: NavigationScreenConfigProps) => {
             return (
               <LevelScreen
                 level={'UB'}
@@ -151,14 +137,9 @@ export default class IntranetScreen extends React.PureComponent<
               />
             );
           },
-          navigationOptions: ({
-            navigation,
-            screenProps
-          }: NavigationNavigatorProps<null>) => {
-            return {
-              tabBarLabel: _('Centro de idiomas')
-            };
-          }
+          navigationOptions: {
+            tabBarLabel: _('Centro de idiomas')
+          } as NavigationTabScreenOptions
         }
       },
       {
@@ -181,7 +162,6 @@ export default class IntranetScreen extends React.PureComponent<
     );
     return (
       <View style={[styles.container]}>
-        {/*<Background/>*/}
         {isLoading && <Loading margin />}
         {!isLoading && (
           <LevelsTab screenProps={{ topNavigation: navigation }} />

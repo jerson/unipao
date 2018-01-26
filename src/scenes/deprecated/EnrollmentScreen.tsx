@@ -8,10 +8,10 @@ import Log from '../../modules/logger/Log';
 import Request from '../../modules/network/Request';
 import EnrollmentList from '../../components/enrollment/EnrollmentList';
 import {
-  NavigationNavigatorProps,
   NavigationScreenConfigProps,
   NavigationScreenProp,
   NavigationStackScreenOptions,
+  NavigationTabScreenOptions,
   TabNavigator
 } from 'react-navigation';
 import { tabsOptions } from '../../routers/Tabs';
@@ -119,19 +119,14 @@ export default class EnrollmentScreen extends React.Component<
             screen: ({
               navigation,
               screenProps
-            }: NavigationNavigatorProps<null>) => {
+            }: NavigationScreenConfigProps) => {
               let careers = screenProps ? screenProps.careers || {} : {};
               let enrollments = careers[name] || [];
               return <EnrollmentList enrollments={enrollments} />;
             },
-            navigationOptions: ({
-              navigation,
-              screenProps
-            }: NavigationNavigatorProps<null>) => {
-              return {
-                tabBarLabel: enrollment.CARRERA
-              };
-            }
+            navigationOptions: {
+              tabBarLabel: enrollment.CARRERA
+            } as NavigationTabScreenOptions
           };
         }
         careers[name].push(enrollment);
@@ -142,20 +137,12 @@ export default class EnrollmentScreen extends React.Component<
     if (totalTabs.length < 1) {
       tabs = {
         NO: {
-          screen: ({
-            navigation,
-            screenProps
-          }: NavigationNavigatorProps<null>) => {
+          screen: () => {
             return <EnrollmentList enrollments={[]} />;
           },
-          navigationOptions: ({
-            navigation,
-            screenProps
-          }: NavigationNavigatorProps<null>) => {
-            return {
-              tabBarLabel: _('No se encontraron datos')
-            };
-          }
+          navigationOptions: {
+            tabBarLabel: _('No se encontraron datos')
+          } as NavigationTabScreenOptions
         }
       };
     }
@@ -237,7 +224,6 @@ export default class EnrollmentScreen extends React.Component<
           />
         )}
 
-        {/*<Background/>*/}
         {isLoading && <Loading margin />}
         {!isLoading &&
           EnrollmentTabs && <EnrollmentTabs screenProps={{ careers }} />}

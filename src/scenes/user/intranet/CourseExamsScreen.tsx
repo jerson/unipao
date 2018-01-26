@@ -6,10 +6,10 @@ import NavigationButton from '../../../components/ui/NavigationButton';
 import Loading from '../../../components/ui/Loading';
 import * as PropTypes from 'prop-types';
 import {
-  NavigationNavigatorProps,
   NavigationScreenConfigProps,
   NavigationScreenProp,
   NavigationStackScreenOptions,
+  NavigationTabScreenOptions,
   TabNavigator
 } from 'react-navigation';
 import { tabsOptions } from '../../../routers/Tabs';
@@ -90,20 +90,12 @@ export default class CourseExamsScreen extends React.Component<
     for (let item of data) {
       if (!tabs[item.name]) {
         tabs[item.name] = {
-          screen: ({
-            navigation,
-            screenProps
-          }: NavigationNavigatorProps<null>) => {
+          screen: () => {
             return <ExamsSectionScreen section={item} />;
           },
-          navigationOptions: ({
-            navigation,
-            screenProps
-          }: NavigationNavigatorProps<null>) => {
-            return {
-              tabBarLabel: item.name
-            };
-          }
+          navigationOptions: {
+            tabBarLabel: item.name
+          } as NavigationTabScreenOptions
         };
       }
     }
@@ -117,7 +109,7 @@ export default class CourseExamsScreen extends React.Component<
           },
           navigationOptions: {
             tabBarLabel: _('Error')
-          }
+          } as NavigationTabScreenOptions
         }
       };
     }

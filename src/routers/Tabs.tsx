@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { TabBarBottom, TabBarTop, TabNavigatorConfig } from 'react-navigation';
 import { Theme } from '../themes/styles';
-import { Platform, ViewStyle } from 'react-native';
+import { Platform } from 'react-native';
 
 export const tabsOptions: TabNavigatorConfig = {
   tabBarComponent: TabBarTop,

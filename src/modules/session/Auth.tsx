@@ -32,19 +32,6 @@ export default class Auth {
     this.checkLogin();
   }
 
-  private static async checkLogin() {
-    if (this.isLoggedIn()) {
-      return;
-    }
-    Log.info('[AUTH]', 'checkLogin');
-    let data = await SingleStorage.get('user');
-    if (data) {
-      let user = JSON.parse(data);
-      Emitter.emit('onLoginStatus', true);
-      this.user = user;
-    }
-  }
-
   static async login(emit: boolean = false): Promise<boolean> {
     Log.info('[AUTH]', 'login');
     let isOk = false;
@@ -75,11 +62,6 @@ export default class Auth {
     return this.user;
   }
 
-  private static setUser(data: ProfileModel): Promise<boolean> {
-    this.user = data;
-    return SingleStorage.set('user', JSON.stringify(data));
-  }
-
   static async logout(): Promise<boolean> {
     Log.info('[AUTH]', 'logout');
     this.user = undefined;
@@ -87,5 +69,23 @@ export default class Auth {
     await SingleStorage.remove('user');
     UPAO.logout();
     return true;
+  }
+
+  private static async checkLogin() {
+    if (this.isLoggedIn()) {
+      return;
+    }
+    Log.info('[AUTH]', 'checkLogin');
+    let data = await SingleStorage.get('user');
+    if (data) {
+      let user = JSON.parse(data);
+      Emitter.emit('onLoginStatus', true);
+      this.user = user;
+    }
+  }
+
+  private static setUser(data: ProfileModel): Promise<boolean> {
+    this.user = data;
+    return SingleStorage.set('user', JSON.stringify(data));
   }
 }
