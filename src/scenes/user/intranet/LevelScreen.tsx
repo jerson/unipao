@@ -103,10 +103,13 @@ export default class LevelScreen extends React.PureComponent<
             navigation,
             screenProps
           }: NavigationScreenConfigProps) => {
+            if (!screenProps) {
+              return null;
+            }
             return (
               <HistoryCoursesScreen
-                level={item.level}
-                navigation={screenProps ? screenProps.topNavigation : undefined}
+                level={screenProps.item.level}
+                navigation={screenProps.topNavigation}
               />
             );
           },
@@ -170,7 +173,7 @@ export default class LevelScreen extends React.PureComponent<
       <View style={styles.container}>
         {isLoading && <Loading margin />}
         {!isLoading && (
-          <LevelsTab screenProps={{ topNavigation: navigation }} />
+          <LevelsTab screenProps={{ topNavigation: navigation, item }} />
         )}
       </View>
     );
