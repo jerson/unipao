@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     paddingBottom: 2
   },
   name: {
-    color: '#444',
+    color: '#666',
     textAlign: 'center',
     fontSize: 15
   }

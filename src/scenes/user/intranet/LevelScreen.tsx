@@ -167,12 +167,7 @@ export default class LevelScreen extends React.PureComponent<
       }
     );
     return (
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: '#fff'
-        }}
-      >
+      <View style={styles.container}>
         {isLoading && <Loading margin />}
         {!isLoading && (
           <LevelsTab screenProps={{ topNavigation: navigation }} />
@@ -181,3 +176,10 @@ export default class LevelScreen extends React.PureComponent<
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff'
+  }
+});
