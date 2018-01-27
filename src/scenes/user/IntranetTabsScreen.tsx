@@ -63,7 +63,7 @@ const Tabs = TabNavigator(
     Home: {
       screen: IntranetScreen,
       navigationOptions: {
-        tabBarLabel: _('Niveles académicos')
+        tabBarLabel: _('Nivel académico')
       } as NavigationTabScreenOptions
     },
     Messages: {

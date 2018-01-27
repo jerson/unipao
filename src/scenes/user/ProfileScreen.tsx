@@ -24,6 +24,7 @@ import {
   NavigationScreenProp,
   NavigationTabScreenOptions
 } from 'react-navigation';
+import ViewSpacer from '../../components/ui/ViewSpacer';
 
 export interface ProfileScreenProps {
   navigation: NavigationScreenProp<null, null>;
@@ -92,7 +93,7 @@ export default class ProfileScreen extends React.Component<
 
     return (
       <ScrollView
-        contentContainerStyle={[styles.content, { minHeight }]}
+        contentContainerStyle={[styles.content]}
         style={[styles.container]}
         keyboardShouldPersistTaps={'handled'}
         showsVerticalScrollIndicator={true}
@@ -105,10 +106,9 @@ export default class ProfileScreen extends React.Component<
             barStyle="dark-content"
           />
         )}
-        <Background />
 
         {user && (
-          <View style={styles.profile}>
+          <View style={[styles.profile, Theme.shadowLarge]}>
             <View style={[styles.imageContainer, Theme.shadowDefault]}>
               <Image
                 style={styles.imagePlaceholder}
@@ -121,15 +121,12 @@ export default class ProfileScreen extends React.Component<
               />
             </View>
             <View style={styles.infoContainer}>
-              <Text style={[styles.name, styles.id, Theme.textShadow]}>
-                {user.id}
-              </Text>
-              <Text style={[styles.name, Theme.textShadow]}>
-                {titleize(user.name)}
-              </Text>
+              <Text style={[styles.name, styles.id]}>{user.id}</Text>
+              <Text style={[styles.name]}>{titleize(user.name)}</Text>
             </View>
           </View>
         )}
+        <ViewSpacer size={'large'} />
 
         <Button
           type={'primary'}
@@ -144,14 +141,17 @@ export default class ProfileScreen extends React.Component<
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    backgroundColor: '#f4f4f4'
+  },
   content: {
     paddingBottom: 50,
     justifyContent: 'center'
   },
   profile: {
+    backgroundColor: '#fff',
     alignItems: 'center',
-    padding: 10
+    padding: 20
   },
   imageContainer: {
     width: 100,
@@ -178,11 +178,11 @@ const styles = StyleSheet.create({
   },
   id: {
     fontSize: 13,
-    color: 'rgba(255,255,255,0.5)',
+    color: 'rgba(0,0,0,0.5)',
     paddingBottom: 2
   },
   name: {
-    color: '#fff',
+    color: '#444',
     textAlign: 'center',
     fontSize: 15
   }

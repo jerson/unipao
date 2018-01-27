@@ -13,7 +13,6 @@ import {
   TabNavigator
 } from 'react-navigation';
 import HistoryCoursesScreen from './HistoryCoursesScreen';
-import { IntranetItemModel } from '../IntranetScreen';
 import NavigationButton from '../../../components/ui/NavigationButton';
 
 export interface LevelScreenProps {
@@ -78,6 +77,7 @@ export default class LevelScreen extends React.PureComponent<
   componentWillUnmount() {
     Dimensions.removeEventListener('change', this.onDimensionsChange);
   }
+
   getParams(): any {
     let { params } = this.props.navigation.state || { params: {} };
     return params;
@@ -122,7 +122,7 @@ export default class LevelScreen extends React.PureComponent<
             return <View />;
           },
           navigationOptions: {
-            tabBarLabel: _('Ficha Matricula')
+            tabBarLabel: _('Matricula')
           } as NavigationTabScreenOptions
         },
         Grades: {
@@ -167,7 +167,12 @@ export default class LevelScreen extends React.PureComponent<
       }
     );
     return (
-      <View style={[styles.container]}>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: '#fff'
+        }}
+      >
         {isLoading && <Loading margin />}
         {!isLoading && (
           <LevelsTab screenProps={{ topNavigation: navigation }} />
@@ -176,10 +181,3 @@ export default class LevelScreen extends React.PureComponent<
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff'
-  }
-});
