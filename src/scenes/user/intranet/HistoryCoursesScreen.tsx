@@ -16,7 +16,10 @@ import CacheStorage from '../../../modules/storage/CacheStorage';
 import UPAO from '../../../scraping/UPAO';
 import PeriodHeader from '../../../components/period/PeriodHeader';
 import CourseItem from '../../../components/course/CourseItem';
-import { CourseModel, PeriodModel } from '../../../scraping/student/Intranet';
+import {
+  CourseModel,
+  PeriodDetailModel
+} from '../../../scraping/student/Intranet';
 import { NavigationScreenProp } from 'react-navigation';
 
 export interface HistoryCoursesScreenProps {
@@ -55,7 +58,11 @@ export default class HistoryCoursesScreen extends React.Component<
   renderItem = ({ item, index }: ListRenderItemInfo<CourseModel>) => {
     return <CourseItem course={item} navigation={this.props.navigation} />;
   };
-  renderHeader = ({ section }: { section: SectionListData<PeriodModel> }) => {
+  renderHeader = ({
+    section
+  }: {
+    section: SectionListData<PeriodDetailModel>;
+  }) => {
     return <PeriodHeader title={section.title} />;
   };
 
