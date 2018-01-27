@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Theme } from '../../../themes/styles';
-import { _ } from '../../../modules/i18n/Translator';
-import NavigationButton from '../../../components/ui/NavigationButton';
-import Loading from '../../../components/ui/Loading';
+import { Theme } from '../../../../themes/styles';
+import { _ } from '../../../../modules/i18n/Translator';
+import NavigationButton from '../../../../components/ui/NavigationButton';
+import Loading from '../../../../components/ui/Loading';
 import * as PropTypes from 'prop-types';
-import Config from '../../../scraping/Config';
-import UPAO from '../../../scraping/UPAO';
-import Log from '../../../modules/logger/Log';
-import CacheStorage from '../../../modules/storage/CacheStorage';
-import WebViewDownloader from '../../../components/ui/WebViewDownloader';
+import Config from '../../../../scraping/Config';
+import UPAO from '../../../../scraping/UPAO';
+import Log from '../../../../modules/logger/Log';
+import CacheStorage from '../../../../modules/storage/CacheStorage';
+import WebViewDownloader from '../../../../components/ui/WebViewDownloader';
 import {
   NavigationScreenConfigProps,
   NavigationScreenProp,

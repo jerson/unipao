@@ -1,16 +1,15 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as PropTypes from 'prop-types';
-import CacheStorage from '../../../../modules/storage/CacheStorage';
-import Log from '../../../../modules/logger/Log';
-import UPAO from '../../../../scraping/UPAO';
-import Loading from '../../../../components/ui/Loading';
-import Config from '../../../../scraping/Config';
-import WebViewDownloader from '../../../../components/ui/WebViewDownloader';
-import { State } from './ForumSectionScreen';
-import { SectionModel } from '../../../../scraping/student/intranet/Course';
+import CacheStorage from '../../../../../modules/storage/CacheStorage';
+import Log from '../../../../../modules/logger/Log';
+import UPAO from '../../../../../scraping/UPAO';
+import Loading from '../../../../../components/ui/Loading';
+import Config from '../../../../../scraping/Config';
+import WebViewDownloader from '../../../../../components/ui/WebViewDownloader';
+import { SectionModel } from '../../../../../scraping/student/intranet/Course';
 
-export interface AssistsSectionScreenProps {
+export interface MaterialsSectionScreenProps {
   section: SectionModel;
 }
 
@@ -20,9 +19,9 @@ export interface State {
   html: string;
 }
 
-const TAG = 'AssistsSectionScreen';
-export default class AssistsSectionScreen extends React.Component<
-  AssistsSectionScreenProps,
+const TAG = 'MaterialsSectionScreen';
+export default class MaterialsSectionScreen extends React.Component<
+  MaterialsSectionScreenProps,
   State
 > {
   static contextTypes = {
@@ -41,7 +40,7 @@ export default class AssistsSectionScreen extends React.Component<
   };
   getCacheKey = () => {
     let { section } = this.props;
-    return `assists_section_${section.id}`;
+    return `materials_section_${section.id}`;
   };
   checkCache = async () => {
     try {
@@ -63,7 +62,7 @@ export default class AssistsSectionScreen extends React.Component<
     let { cacheLoaded } = this.state;
 
     try {
-      let item = await UPAO.Student.Intranet.Course.getAssistsHTML(section);
+      let item = await UPAO.Student.Intranet.Course.getMaterialsHTML(section);
       this.loadResponse(item);
       CacheStorage.set(this.getCacheKey(), item);
     } catch (e) {
@@ -79,7 +78,7 @@ export default class AssistsSectionScreen extends React.Component<
   };
 
   componentWillUnmount() {
-    UPAO.abort('Course.getAssistsHTML');
+    UPAO.abort('Course.getMaterialsHTML');
   }
 
   componentDidMount() {
@@ -186,6 +185,7 @@ ${content}
         {!isLoading && (
           <WebViewDownloader
             style={[styles.container]}
+            // openInternally={['campusvirtual.upao.edu.pe']}
             source={{
               html,
               baseUrl: Config.URL

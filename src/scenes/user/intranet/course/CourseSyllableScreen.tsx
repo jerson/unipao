@@ -6,19 +6,19 @@ import {
   StyleSheet,
   View
 } from 'react-native';
-import { Theme } from '../../../themes/styles';
+import { Theme } from '../../../../themes/styles';
 import * as PropTypes from 'prop-types';
-import Log from '../../../modules/logger/Log';
-import Loading from '../../../components/ui/Loading';
-import { _ } from '../../../modules/i18n/Translator';
-import CacheStorage from '../../../modules/storage/CacheStorage';
-import UPAO from '../../../scraping/UPAO';
-import SyllableItem from '../../../components/syllable/SyllableItem';
+import Log from '../../../../modules/logger/Log';
+import Loading from '../../../../components/ui/Loading';
+import { _ } from '../../../../modules/i18n/Translator';
+import CacheStorage from '../../../../modules/storage/CacheStorage';
+import UPAO from '../../../../scraping/UPAO';
+import SyllableItem from '../../../../components/syllable/SyllableItem';
 import {
   NavigationScreenProp,
   NavigationStackScreenOptions
 } from 'react-navigation';
-import { SyllableModel } from '../../../scraping/student/intranet/Course';
+import { SyllableModel } from '../../../../scraping/student/intranet/Course';
 
 export interface CourseSyllableScreenProps {
   navigation: NavigationScreenProp<null, null>;

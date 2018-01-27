@@ -114,39 +114,39 @@ try{
     if (window.location.href.indexOf('upao.edu.pe/login.aspx')!==-1){    
       var style = document.createElement( "style" );
       style.innerHTML = 'table, td, tr, div {' +
-      '    width: auto !important;\\n' +
-      '    text-align: center !important;\\n' +
-      '    margin: 0 auto !important;\\n' +
-      '    background: none !important;\\n' +
-      '    font-family: Roboto,Helvetica,Arial; !important;\\n' +
+      '    width: auto !important;' +
+      '    text-align: center !important;' +
+      '    margin: 0 auto !important;' +
+      '    background: none !important;' +
+      '    font-family: Roboto,Helvetica,Arial; !important;' +
       '} ' +
       '#e_pie,.e_cab,map,div[style*=Orange], div[style*=orange] {' +
-      '    display: none !important\\n' +
+      '    display: none !important' +
       '} ' +
       'body{' +
-      '    display: flex !important;\\n' +
-      '    align-items: center !important;\\n' +
-      '    justify-content: center !important;\\n' +
-      '    flex: 1 !important;\\n' +
-      '    height: 100vh !important;\\n' +
-      '    min-height: 100px !important;\\n' +
-      '    background: #fff !important;\\n' +
+      '    display: flex !important;' +
+      '    align-items: center !important;' +
+      '    justify-content: center !important;' +
+      '    flex: 1 !important;' +
+      '    height: 100vh !important;' +
+      '    min-height: 100px !important;' +
+      '    background: #fff !important;' +
       '}' +
       'input[type=text], input[type=password] {' +
-      '    background: #fff !important;\\n' +
-      '    padding: 4px !important;\\n' +
-      '    border: 1px solid #d4d4d4 !important;\\n' +
-      '    border-radius: 4px !important;\\n' +
-      '    padding-left: 10px !important;\\n' +
-      '    font-size: 16px !important;\\n' +
-      '    font-weight: normal !important;\\n' +
-      '    max-width: 280px;\\n' +
-      '    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.08) !important;\\n' +
-      '    box-shadow: 0 0 10px rgba(0,0,0,0.08) !important;\\n' +
-      '    font-family: Roboto,Helvetica,Arial; !important;\\n' +
+      '    background: #fff !important;' +
+      '    padding: 4px !important;' +
+      '    border: 1px solid #d4d4d4 !important;' +
+      '    border-radius: 4px !important;' +
+      '    padding-left: 10px !important;' +
+      '    font-size: 16px !important;' +
+      '    font-weight: normal !important;' +
+      '    max-width: 280px;' +
+      '    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.08) !important;' +
+      '    box-shadow: 0 0 10px rgba(0,0,0,0.08) !important;' +
+      '    font-family: Roboto,Helvetica,Arial; !important;' +
       '} '+
       'img {' +
-      '  width: 100% !important;\\n' +
+      '  width: 100% !important;' +
       '}';
       document.getElementsByTagName( "head" )[0].appendChild( style );
       
@@ -163,14 +163,15 @@ try{
       }
       
     }
+      
+      var hash = Math.random();
+      var link = document.createElement( "link" );
+      link.href = "https://unipao.com/app.css?"+hash;
+      link.type = "text/css";
+      link.rel = "stylesheet";
+      link.media = "screen,print";
+      document.getElementsByTagName( "head" )[0].appendChild( link );
     
-    var hash = Math.random();
-    var link = document.createElement( "link" );
-    link.href = "https://unipao.com/app.css?"+hash;
-    link.type = "text/css";
-    link.rel = "stylesheet";
-    link.media = "screen,print";
-    document.getElementsByTagName( "head" )[0].appendChild( link );
     
 }catch(e){
 }

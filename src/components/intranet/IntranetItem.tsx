@@ -4,9 +4,11 @@ import * as PropTypes from 'prop-types';
 import Icon from '../ui/Icon';
 import Touchable from '../ui/Touchable';
 import { _ } from '../../modules/i18n/Translator';
+import { IntranetItemModel } from '../../scenes/user/IntranetScreen';
+import { Theme } from '../../themes/styles';
 
 export interface IntranetItemProps {
-  intranet: any;
+  item: IntranetItemModel;
   onChooseItem: () => void;
 }
 
@@ -24,8 +26,8 @@ export default class IntranetItem extends React.Component<
   state: State = {};
 
   onPress = () => {
-    let { intranet, onChooseItem } = this.props;
-    if (intranet.disabled) {
+    let { item, onChooseItem } = this.props;
+    if (item.disabled) {
       this.context.notification.show({
         type: 'warning',
         id: 'intranet',
@@ -43,19 +45,28 @@ export default class IntranetItem extends React.Component<
   };
 
   render() {
-    let { intranet } = this.props;
+    let { item } = this.props;
 
     return (
-      <Touchable onPress={this.onPress}>
-        <View style={[styles.container, intranet.disabled && styles.disabled]}>
+      <Touchable style={styles.button} onPress={this.onPress}>
+        <View
+          style={[
+            styles.container,
+            Theme.shadowLarge,
+            item.disabled && styles.disabled
+          ]}
+        >
           <View style={styles.info}>
-            <Icon
-              style={styles.icon}
-              name={intranet.icon}
-              type={intranet.iconType}
-            />
-
-            <Text style={styles.name}>{intranet.name}</Text>
+            {item.icon &&
+              item.iconType && (
+                <Icon
+                  style={styles.icon}
+                  name={item.icon}
+                  type={item.iconType}
+                />
+              )}
+            <Text style={styles.name}>{item.name}</Text>
+            <Text style={styles.description}>{item.description}</Text>
           </View>
         </View>
       </Touchable>
@@ -64,22 +75,28 @@ export default class IntranetItem extends React.Component<
 }
 
 const styles = StyleSheet.create({
+  button: {
+    padding: 5
+  },
   container: {
     backgroundColor: '#fafafa',
-    padding: 5,
-    borderBottomWidth: 1,
-    borderColor: '#f1f1f1',
+    // borderBottomWidth: 1,
+    // borderColor: '#f1f1f1',
     flexDirection: 'row',
-    alignItems: 'center',
-    height: 58
+    borderRadius: 8,
+    alignItems: 'center'
+    // height: 58
   },
   disabled: {
     opacity: 0.5
   },
   info: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center'
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 120,
+    padding: 5
   },
   icon: {
     fontSize: 30,
@@ -89,7 +106,13 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   name: {
+    textAlign: 'center',
     fontSize: 14,
     color: '#666'
+  },
+  description: {
+    textAlign: 'center',
+    fontSize: 12,
+    color: '#999'
   }
 });

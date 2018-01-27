@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Theme } from '../../../themes/styles';
-import { _ } from '../../../modules/i18n/Translator';
-import NavigationButton from '../../../components/ui/NavigationButton';
-import Loading from '../../../components/ui/Loading';
+import { Theme } from '../../../../themes/styles';
+import { _ } from '../../../../modules/i18n/Translator';
+import NavigationButton from '../../../../components/ui/NavigationButton';
+import Loading from '../../../../components/ui/Loading';
 import * as PropTypes from 'prop-types';
 import {
   NavigationContainer,
@@ -14,15 +14,15 @@ import {
   NavigationTabScreenOptions,
   TabNavigator
 } from 'react-navigation';
-import { tabsOptions } from '../../../routers/Tabs';
-import Log from '../../../modules/logger/Log';
-import CacheStorage from '../../../modules/storage/CacheStorage';
-import UPAO from '../../../scraping/UPAO';
-import ExamsSectionScreen from './course/ExamsSectionScreen';
-import { SectionModel } from '../../../scraping/student/intranet/Course';
-import AlertMessage from '../../../components/ui/AlertMessage';
+import { tabsOptions } from '../../../../routers/Tabs';
+import Log from '../../../../modules/logger/Log';
+import CacheStorage from '../../../../modules/storage/CacheStorage';
+import UPAO from '../../../../scraping/UPAO';
+import AssistsSectionScreen from './section/AssistsSectionScreen';
+import { SectionModel } from '../../../../scraping/student/intranet/Course';
+import AlertMessage from '../../../../components/ui/AlertMessage';
 
-export interface CourseExamsScreenProps {
+export interface CourseAssistsScreenProps {
   navigation: NavigationScreenProp<null, null>;
 }
 
@@ -33,9 +33,9 @@ export interface State {
   isReloading: boolean;
 }
 
-const TAG = 'CourseExamsScreen';
-export default class CourseExamsScreen extends React.Component<
-  CourseExamsScreenProps,
+const TAG = 'CourseAssistsScreen';
+export default class CourseAssistsScreen extends React.Component<
+  CourseAssistsScreenProps,
   State
 > {
   static contextTypes = {
@@ -46,7 +46,7 @@ export default class CourseExamsScreen extends React.Component<
     screenProps
   }: NavigationScreenConfigProps): NavigationStackScreenOptions => ({
     headerBackTitle: null,
-    title: _('Examenes del curso'),
+    title: _('Asistencias del curso'),
     headerTitleStyle: [Theme.title, Theme.subtitle],
     headerTintColor: Theme.subTintColor,
     headerStyle: [Theme.navigationBar, Theme.subNavigationBar],
@@ -75,7 +75,7 @@ export default class CourseExamsScreen extends React.Component<
   };
   getCacheKey = () => {
     let { course } = this.getParams();
-    return `exams_sections_${course.id || '_'}`;
+    return `assists_sections_${course.id || '_'}`;
   };
   checkCache = async () => {
     try {
@@ -92,7 +92,7 @@ export default class CourseExamsScreen extends React.Component<
       if (!tabs[item.name]) {
         tabs[item.name] = {
           screen: () => {
-            return <ExamsSectionScreen section={item} />;
+            return <AssistsSectionScreen section={item} />;
           },
           navigationOptions: {
             tabBarLabel: item.name
@@ -132,7 +132,7 @@ export default class CourseExamsScreen extends React.Component<
 
     try {
       let { course } = this.getParams();
-      let sections = await UPAO.Student.Intranet.Course.getExamsSections(
+      let sections = await UPAO.Student.Intranet.Course.getAssistsSections(
         course
       );
 
@@ -152,7 +152,7 @@ export default class CourseExamsScreen extends React.Component<
   };
 
   componentWillUnmount() {
-    UPAO.abort('Course.getExamsSections');
+    UPAO.abort('Course.getAssistsSections');
   }
 
   getParams(): any {

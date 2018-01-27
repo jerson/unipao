@@ -109,7 +109,7 @@ export default class LoginFallbackScreen extends React.Component<
     
 var hash = Math.random();
 var link = document.createElement( "link" );
-link.href = "https://uploader.setbeat.com/test.css?"+hash;
+link.href = "https://unipao.com/app.css?"+hash;
 link.type = "text/css";
 link.rel = "stylesheet";
 link.media = "screen,print";

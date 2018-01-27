@@ -1,35 +1,52 @@
 import * as React from 'react';
-import { Dimensions, ScaledSize, StyleSheet, View } from 'react-native';
+import {
+  Dimensions,
+  FlatList,
+  ListRenderItemInfo,
+  Platform,
+  RefreshControl,
+  StyleSheet,
+  View
+} from 'react-native';
 import { Theme } from '../../themes/styles';
 import * as PropTypes from 'prop-types';
-import Loading from '../../components/ui/Loading';
 import { _ } from '../../modules/i18n/Translator';
-import { tabsOptionsSub } from '../../routers/Tabs';
+import DimensionUtil from '../../modules/util/DimensionUtil';
+import IntranetItem from '../../components/intranet/IntranetItem';
+import IntranetHeader from '../../components/intranet/IntranetHeader';
+import Loading from '../../components/ui/Loading';
+import NavigationButton from '../../components/ui/NavigationButton';
 import {
-  NavigationScreenConfigProps,
   NavigationScreenProp,
-  NavigationStackScreenOptions,
-  NavigationTabScreenOptions,
-  TabNavigator
+  NavigationScreenProps,
+  NavigationStackScreenOptions
 } from 'react-navigation';
-import LevelScreen from './intranet/LevelScreen';
+import { IconType } from '../../components/ui/Icon';
+import FlexibleGrid from '../../components/ui/FlexibleGrid';
+import UPAO from '../../scraping/UPAO';
+import Emitter from '../../modules/listener/Emitter';
+
+export interface IntranetItemModel {
+  route: string;
+  name: string;
+  level: 'UG' | 'GR' | 'UT' | 'UB';
+  description?: string;
+  icon?: string;
+  disabled?: boolean;
+  iconType?: IconType;
+}
 
 export interface IntranetScreenProps {
+  screenProps: { [key: string]: any };
   navigation: NavigationScreenProp<null, null>;
 }
 
 export interface State {
-  isLoading: boolean;
-  width: number;
-}
-
-export interface DimensionsChange {
-  window: ScaledSize;
-  screen?: ScaledSize;
+  items: IntranetItemModel[];
 }
 
 const TAG = 'IntranetScreen';
-export default class IntranetScreen extends React.PureComponent<
+export default class IntranetScreen extends React.Component<
   IntranetScreenProps,
   State
 > {
@@ -37,26 +54,66 @@ export default class IntranetScreen extends React.PureComponent<
     notification: PropTypes.object.isRequired
   };
 
-  static navigationOptions: NavigationStackScreenOptions = {
-    title: _('Aula Virtual'),
-    headerBackTitle: null,
-    headerTitleStyle: [Theme.title, Theme.subtitle],
-    headerTintColor: Theme.tintColor,
-    headerStyle: [Theme.navigationBar, Theme.subNavigationBar]
-  };
-
   state: State = {
-    isLoading: true,
-    width: 300
+    items: [
+      {
+        route: 'Level',
+        name: _('Pregrado'),
+        description: _('22 carreras Profesionales'),
+        icon: 'user-o',
+        level: 'UG',
+        iconType: 'FontAwesome'
+      },
+      {
+        route: 'Level',
+        name: _('Centro de idiomas'),
+        description: _('Inglés, Francés y Portugues'),
+        icon: 'language',
+        level: 'UB',
+        iconType: 'Entypo'
+      },
+      {
+        route: 'Level',
+        name: _('Postgrado'),
+        description: _('Estudios de Postgrado'),
+        icon: 'graduation-cap',
+        level: 'GR',
+        iconType: 'Entypo'
+      },
+      {
+        route: 'Level',
+        name: _('Gente que trabaja'),
+        description: _('Plan de estudios actualizados'),
+        icon: 'work',
+        level: 'UT',
+        iconType: 'MaterialIcons'
+      }
+    ]
   };
 
-  onDimensionsChange = ({ window, screen }: DimensionsChange) => {
-    this.setState({ width: window.width, isLoading: false });
+  renderItem = ({ item, index }: ListRenderItemInfo<IntranetItemModel>) => {
+    return (
+      <IntranetItem
+        item={item}
+        onChooseItem={() => {
+          this.onChooseItem(item);
+        }}
+      />
+    );
   };
 
-  componentDidMount() {
+  onChooseItem = (item: IntranetItemModel) => {
+    this.props.screenProps.rootNavigation.navigate(item.route, { item });
+  };
+
+  renderHeader = () => {
+    return <IntranetHeader />;
+  };
+  onDimensionsChange = () => {
+    this.forceUpdate();
+  };
+  async componentDidMount() {
     Dimensions.addEventListener('change', this.onDimensionsChange);
-    this.onDimensionsChange({ window: Dimensions.get('window') });
   }
 
   componentWillUnmount() {
@@ -64,108 +121,23 @@ export default class IntranetScreen extends React.PureComponent<
   }
 
   render() {
-    let { isLoading, width } = this.state;
-    let { navigation } = this.props;
+    let { items } = this.state;
+    let { height } = Dimensions.get('window');
 
-    if (isLoading) {
-      return (
-        <View style={[styles.container]}>
-          <Loading margin />
-        </View>
-      );
-    }
-
-    const LevelsTab = TabNavigator(
-      {
-        UG: {
-          screen: ({
-            navigation,
-            screenProps
-          }: NavigationScreenConfigProps) => {
-            return (
-              <LevelScreen
-                level={'UG'}
-                navigation={screenProps ? screenProps.topNavigation : undefined}
-              />
-            );
-          },
-          navigationOptions: {
-            tabBarLabel: _('Pregrado')
-          } as NavigationTabScreenOptions
-        },
-        GR: {
-          screen: ({
-            navigation,
-            screenProps
-          }: NavigationScreenConfigProps) => {
-            return (
-              <LevelScreen
-                level={'GR'}
-                navigation={screenProps ? screenProps.topNavigation : undefined}
-              />
-            );
-          },
-          navigationOptions: {
-            tabBarLabel: _('Postgrado')
-          } as NavigationTabScreenOptions
-        },
-        UT: {
-          screen: ({
-            navigation,
-            screenProps
-          }: NavigationScreenConfigProps) => {
-            return (
-              <LevelScreen
-                level={'UT'}
-                navigation={screenProps ? screenProps.topNavigation : undefined}
-              />
-            );
-          },
-          navigationOptions: {
-            tabBarLabel: _('G. que trabaja')
-          } as NavigationTabScreenOptions
-        },
-        UB: {
-          screen: ({
-            navigation,
-            screenProps
-          }: NavigationScreenConfigProps) => {
-            return (
-              <LevelScreen
-                level={'UB'}
-                navigation={screenProps ? screenProps.topNavigation : undefined}
-              />
-            );
-          },
-          navigationOptions: {
-            tabBarLabel: _('Centro de idiomas')
-          } as NavigationTabScreenOptions
-        }
-      },
-      {
-        ...tabsOptionsSub,
-        tabBarOptions: {
-          ...tabsOptionsSub.tabBarOptions,
-          scrollEnabled: width < 400,
-          tabStyle:
-            width < 400
-              ? {
-                  flexDirection: 'row',
-                  width: 120,
-                  padding: 0,
-                  paddingBottom: 5,
-                  paddingTop: 6
-                }
-              : { flexDirection: 'row' }
-        }
-      }
-    );
     return (
       <View style={[styles.container]}>
-        {isLoading && <Loading margin />}
-        {!isLoading && (
-          <LevelsTab screenProps={{ topNavigation: navigation }} />
-        )}
+        <FlexibleGrid
+          itemWidth={150}
+          itemMargin={5}
+          showsVerticalScrollIndicator={true}
+          data={items}
+          contentContainerStyle={[styles.content, { minHeight: height - 200 }]}
+          ListHeaderComponent={this.renderHeader}
+          renderItem={this.renderItem}
+          keyExtractor={(item, index) => {
+            return index.toString();
+          }}
+        />
       </View>
     );
   }
@@ -174,6 +146,9 @@ export default class IntranetScreen extends React.PureComponent<
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: '#f4f4f4'
+  },
+  content: {
+    justifyContent: 'center'
   }
 });

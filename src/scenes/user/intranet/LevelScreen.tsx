@@ -1,43 +1,37 @@
 import * as React from 'react';
-import {
-  ListRenderItemInfo,
-  RefreshControl,
-  SectionList,
-  SectionListData,
-  StyleSheet,
-  View
-} from 'react-native';
+import { Dimensions, ScaledSize, StyleSheet, View } from 'react-native';
+import { Theme } from '../../../themes/styles';
 import * as PropTypes from 'prop-types';
 import Loading from '../../../components/ui/Loading';
-import Log from '../../../modules/logger/Log';
-import AlertMessage from '../../../components/ui/AlertMessage';
 import { _ } from '../../../modules/i18n/Translator';
-import CacheStorage from '../../../modules/storage/CacheStorage';
-import UPAO from '../../../scraping/UPAO';
-import PeriodHeader from '../../../components/period/PeriodHeader';
-import CourseItem from '../../../components/course/CourseItem';
-import { CourseModel, PeriodModel } from '../../../scraping/student/Intranet';
-import { NavigationScreenProp } from 'react-navigation';
+import { tabsOptionsSub } from '../../../routers/Tabs';
+import {
+  NavigationScreenConfigProps,
+  NavigationScreenProp,
+  NavigationStackScreenOptions,
+  NavigationTabScreenOptions,
+  TabNavigator
+} from 'react-navigation';
+import HistoryCoursesScreen from './HistoryCoursesScreen';
+import { IntranetItemModel } from '../IntranetScreen';
+import NavigationButton from '../../../components/ui/NavigationButton';
 
 export interface LevelScreenProps {
   navigation: NavigationScreenProp<null, null>;
-  level: string;
 }
 
 export interface State {
   isLoading: boolean;
-  isRefreshing: boolean;
-  cacheLoaded: boolean;
-  sections: Section[];
+  width: number;
 }
 
-export interface Section {
-  title: string;
-  data: CourseModel[];
+export interface DimensionsChange {
+  window: ScaledSize;
+  screen?: ScaledSize;
 }
 
 const TAG = 'LevelScreen';
-export default class LevelScreen extends React.Component<
+export default class LevelScreen extends React.PureComponent<
   LevelScreenProps,
   State
 > {
@@ -45,125 +39,138 @@ export default class LevelScreen extends React.Component<
     notification: PropTypes.object.isRequired
   };
 
+  static navigationOptions = ({
+    navigation,
+    screenProps
+  }: NavigationScreenConfigProps): NavigationStackScreenOptions => ({
+    title: navigation ? navigation.state.params.item.name : _('Nivel'),
+    headerBackTitle: null,
+    headerTitleStyle: [Theme.title, Theme.subtitle],
+    headerTintColor: Theme.subTintColor,
+    headerStyle: [Theme.navigationBar, Theme.subNavigationBar],
+    headerRight: (
+      <View style={{ flexDirection: 'row' }}>
+        <NavigationButton
+          onPress={() => {
+            navigation.state.params.reload();
+          }}
+          icon={'refresh'}
+          iconType={'MaterialIcons'}
+        />
+      </View>
+    )
+  });
+
   state: State = {
-    isLoading: false,
-    cacheLoaded: false,
-    isRefreshing: false,
-    sections: []
+    isLoading: true,
+    width: 300
   };
 
-  renderItem = ({ item, index }: ListRenderItemInfo<CourseModel>) => {
-    return <CourseItem course={item} navigation={this.props.navigation} />;
+  onDimensionsChange = ({ window, screen }: DimensionsChange) => {
+    this.setState({ width: window.width, isLoading: false });
   };
-  renderHeader = ({ section }: { section: SectionListData<PeriodModel> }) => {
-    return <PeriodHeader title={section.title} />;
-  };
-
-  load = async () => {
-    let { isRefreshing } = this.state;
-    if (!isRefreshing) {
-      this.setState({ isLoading: true, cacheLoaded: false });
-      await this.checkCache();
-    }
-    await this.loadRequest();
-  };
-  getCacheKey = () => {
-    let { level } = this.props;
-    return `level_${level || '_'}`;
-  };
-  checkCache = async () => {
-    try {
-      let data = await CacheStorage.get(this.getCacheKey());
-      data && this.loadResponse(data, true);
-    } catch (e) {
-      Log.info(TAG, 'checkCache', e);
-    }
-  };
-
-  loadResponse = (data: Section[], cacheLoaded = false) => {
-    let sections = data;
-    this.setState({
-      cacheLoaded,
-      sections,
-      isLoading: false,
-      isRefreshing: false
-    });
-  };
-  loadRequest = async () => {
-    let { cacheLoaded } = this.state;
-
-    try {
-      let { level } = this.props;
-      let periods = await UPAO.Student.Intranet.getHistoryCourses(level);
-
-      let sections = periods.map(period => {
-        return {
-          title: period.period,
-          data: period.courses
-        };
-      });
-
-      this.loadResponse(sections);
-      CacheStorage.set(this.getCacheKey(), sections);
-    } catch (e) {
-      Log.warn(TAG, 'load', e);
-      if (!cacheLoaded) {
-        Log.info(TAG, 'loadRequest', '!cacheLoaded');
-        this.loadResponse([]);
-      } else {
-        Log.info(TAG, 'loadRequest', 'cacheLoaded');
-        this.setState({ isLoading: false, isRefreshing: false });
-      }
-    }
-  };
-  reload = () => {
-    this.onRefresh();
-  };
-
-  onRefresh = () => {
-    this.setState({ isRefreshing: true }, () => {
-      this.load();
-    });
-  };
-
-  componentWillUnmount() {
-    UPAO.abort('Course.getHistoryCourses');
-  }
 
   componentDidMount() {
-    this.load();
+    Dimensions.addEventListener('change', this.onDimensionsChange);
+    this.onDimensionsChange({ window: Dimensions.get('window') });
+  }
+
+  componentWillUnmount() {
+    Dimensions.removeEventListener('change', this.onDimensionsChange);
+  }
+  getParams(): any {
+    let { params } = this.props.navigation.state || { params: {} };
+    return params;
   }
 
   render() {
-    let { sections, isLoading, isRefreshing } = this.state;
+    let { isLoading, width } = this.state;
+    let { navigation } = this.props;
+    let { item } = this.getParams();
 
+    if (isLoading) {
+      return (
+        <View style={[styles.container]}>
+          <Loading margin />
+        </View>
+      );
+    }
+
+    const LevelsTab = TabNavigator(
+      {
+        History: {
+          screen: ({
+            navigation,
+            screenProps
+          }: NavigationScreenConfigProps) => {
+            return (
+              <HistoryCoursesScreen
+                level={item.level}
+                navigation={screenProps ? screenProps.topNavigation : undefined}
+              />
+            );
+          },
+          navigationOptions: {
+            tabBarLabel: _('Cursos')
+          } as NavigationTabScreenOptions
+        },
+        Enrollment: {
+          screen: ({
+            navigation,
+            screenProps
+          }: NavigationScreenConfigProps) => {
+            return <View />;
+          },
+          navigationOptions: {
+            tabBarLabel: _('Ficha Matricula')
+          } as NavigationTabScreenOptions
+        },
+        Grades: {
+          screen: ({
+            navigation,
+            screenProps
+          }: NavigationScreenConfigProps) => {
+            return <View />;
+          },
+          navigationOptions: {
+            tabBarLabel: _('Reporte Notas')
+          } as NavigationTabScreenOptions
+        },
+        Payments: {
+          screen: ({
+            navigation,
+            screenProps
+          }: NavigationScreenConfigProps) => {
+            return <View />;
+          },
+          navigationOptions: {
+            tabBarLabel: _('Estado cuenta')
+          } as NavigationTabScreenOptions
+        }
+      },
+      {
+        ...tabsOptionsSub,
+        tabBarOptions: {
+          ...tabsOptionsSub.tabBarOptions,
+          scrollEnabled: width < 400,
+          tabStyle:
+            width < 400
+              ? {
+                  flexDirection: 'row',
+                  width: 120,
+                  padding: 0,
+                  paddingBottom: 5,
+                  paddingTop: 6
+                }
+              : { flexDirection: 'row' }
+        }
+      }
+    );
     return (
       <View style={[styles.container]}>
-        {!isLoading &&
-          sections.length < 1 && (
-            <AlertMessage
-              type={'warning'}
-              title={_('No se encontraron datos')}
-            />
-          )}
         {isLoading && <Loading margin />}
         {!isLoading && (
-          <SectionList
-            sections={sections}
-            stickySectionHeadersEnabled
-            showsVerticalScrollIndicator={true}
-            renderItem={this.renderItem}
-            renderSectionHeader={this.renderHeader}
-            refreshControl={
-              <RefreshControl
-                refreshing={isRefreshing}
-                onRefresh={this.onRefresh}
-              />
-            }
-            keyExtractor={(item, index) => {
-              return index.toString();
-            }}
-          />
+          <LevelsTab screenProps={{ topNavigation: navigation }} />
         )}
       </View>
     );

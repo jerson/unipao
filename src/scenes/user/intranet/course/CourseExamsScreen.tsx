@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Theme } from '../../../themes/styles';
-import { _ } from '../../../modules/i18n/Translator';
-import NavigationButton from '../../../components/ui/NavigationButton';
-import Loading from '../../../components/ui/Loading';
+import { Theme } from '../../../../themes/styles';
+import { _ } from '../../../../modules/i18n/Translator';
+import NavigationButton from '../../../../components/ui/NavigationButton';
+import Loading from '../../../../components/ui/Loading';
 import * as PropTypes from 'prop-types';
 import {
   NavigationContainer,
@@ -14,15 +14,15 @@ import {
   NavigationTabScreenOptions,
   TabNavigator
 } from 'react-navigation';
-import { tabsOptions } from '../../../routers/Tabs';
-import Log from '../../../modules/logger/Log';
-import CacheStorage from '../../../modules/storage/CacheStorage';
-import UPAO from '../../../scraping/UPAO';
-import ForumSectionScreen from './course/ForumSectionScreen';
-import { SectionModel } from '../../../scraping/student/intranet/Course';
-import AlertMessage from '../../../components/ui/AlertMessage';
+import { tabsOptions } from '../../../../routers/Tabs';
+import Log from '../../../../modules/logger/Log';
+import CacheStorage from '../../../../modules/storage/CacheStorage';
+import UPAO from '../../../../scraping/UPAO';
+import ExamsSectionScreen from './section/ExamsSectionScreen';
+import { SectionModel } from '../../../../scraping/student/intranet/Course';
+import AlertMessage from '../../../../components/ui/AlertMessage';
 
-export interface CourseForumScreenProps {
+export interface CourseExamsScreenProps {
   navigation: NavigationScreenProp<null, null>;
 }
 
@@ -33,9 +33,9 @@ export interface State {
   isReloading: boolean;
 }
 
-const TAG = 'CourseForumScreen';
-export default class CourseForumScreen extends React.Component<
-  CourseForumScreenProps,
+const TAG = 'CourseExamsScreen';
+export default class CourseExamsScreen extends React.Component<
+  CourseExamsScreenProps,
   State
 > {
   static contextTypes = {
@@ -46,7 +46,7 @@ export default class CourseForumScreen extends React.Component<
     screenProps
   }: NavigationScreenConfigProps): NavigationStackScreenOptions => ({
     headerBackTitle: null,
-    title: _('Foro del curso'),
+    title: _('Examenes del curso'),
     headerTitleStyle: [Theme.title, Theme.subtitle],
     headerTintColor: Theme.subTintColor,
     headerStyle: [Theme.navigationBar, Theme.subNavigationBar],
@@ -75,7 +75,7 @@ export default class CourseForumScreen extends React.Component<
   };
   getCacheKey = () => {
     let { course } = this.getParams();
-    return `forum_sections_${course.id || '_'}`;
+    return `exams_sections_${course.id || '_'}`;
   };
   checkCache = async () => {
     try {
@@ -92,7 +92,7 @@ export default class CourseForumScreen extends React.Component<
       if (!tabs[item.name]) {
         tabs[item.name] = {
           screen: () => {
-            return <ForumSectionScreen section={item} />;
+            return <ExamsSectionScreen section={item} />;
           },
           navigationOptions: {
             tabBarLabel: item.name
@@ -132,7 +132,7 @@ export default class CourseForumScreen extends React.Component<
 
     try {
       let { course } = this.getParams();
-      let sections = await UPAO.Student.Intranet.Course.getForumSections(
+      let sections = await UPAO.Student.Intranet.Course.getExamsSections(
         course
       );
 
@@ -152,7 +152,7 @@ export default class CourseForumScreen extends React.Component<
   };
 
   componentWillUnmount() {
-    UPAO.abort('Course.getForumSections');
+    UPAO.abort('Course.getExamsSections');
   }
 
   getParams(): any {

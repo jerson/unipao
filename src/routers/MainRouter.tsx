@@ -30,14 +30,16 @@ import GalleriesScreen from '../scenes/user/upao/GalleriesScreen';
 import GalleryScreen from '../scenes/user/upao/GalleryScreen';
 import LoginFallbackScreen from '../scenes/LoginFallbackScreen';
 import CourseScreen from '../scenes/user/intranet/CourseScreen';
-import CourseMaterialsScreen from '../scenes/user/intranet/CourseMaterialsScreen';
-import CourseSyllableScreen from '../scenes/user/intranet/CourseSyllableScreen';
-import CourseAssistsScreen from '../scenes/user/intranet/CourseAssistsScreen';
-import CourseGradesScreen from '../scenes/user/intranet/CourseGradesScreen';
-import CourseForumScreen from '../scenes/user/intranet/CourseForumScreen';
-import CourseExamsScreen from '../scenes/user/intranet/CourseExamsScreen';
-import CourseJobsScreen from '../scenes/user/intranet/CourseJobsScreen';
+import CourseMaterialsScreen from '../scenes/user/intranet/course/CourseMaterialsScreen';
+import CourseSyllableScreen from '../scenes/user/intranet/course/CourseSyllableScreen';
+import CourseAssistsScreen from '../scenes/user/intranet/course/CourseAssistsScreen';
+import CourseGradesScreen from '../scenes/user/intranet/course/CourseGradesScreen';
+import CourseForumScreen from '../scenes/user/intranet/course/CourseForumScreen';
+import CourseExamsScreen from '../scenes/user/intranet/course/CourseExamsScreen';
+import CourseJobsScreen from '../scenes/user/intranet/course/CourseJobsScreen';
 import GalleryPhotoScreen from '../scenes/user/upao/GalleryPhotoScreen';
+import LevelScreen from '../scenes/user/intranet/LevelScreen';
+import IntranetTabsScreen from '../scenes/user/IntranetTabsScreen';
 
 const NewsNavigator = StackNavigator(
   {
@@ -161,7 +163,10 @@ const SettingsNavigator = StackNavigator(
 const IntranetNavigator = StackNavigator(
   {
     Home: {
-      screen: IntranetScreen
+      screen: IntranetTabsScreen
+    },
+    Level: {
+      screen: LevelScreen
     },
     Course: {
       screen: CourseScreen
@@ -213,9 +218,7 @@ const UsersTabNavigator = TabNavigator(
     Intranet: {
       screen: ({ navigation }: NavigationScreenConfigProps) => {
         return (
-          <View style={{ flex: 1 }}>
-            <IntranetNavigator screenProps={{ tabNavigation: navigation }} />
-          </View>
+          <IntranetNavigator screenProps={{ tabNavigation: navigation }} />
         );
       },
       navigationOptions: {
@@ -230,13 +233,9 @@ const UsersTabNavigator = TabNavigator(
       } as NavigationTabScreenOptions
     },
 
-    UPAO: {
+    Recent: {
       screen: ({ navigation }: NavigationScreenConfigProps) => {
-        return (
-          <View style={{ flex: 1 }}>
-            <UPAONavigator screenProps={{ tabNavigation: navigation }} />
-          </View>
-        );
+        return <UPAONavigator screenProps={{ tabNavigation: navigation }} />;
       },
       navigationOptions: {
         tabBarLabel: _('Actualidad'),
@@ -251,11 +250,7 @@ const UsersTabNavigator = TabNavigator(
     },
     Mail: {
       screen: ({ navigation }: NavigationScreenConfigProps) => {
-        return (
-          <View style={{ flex: 1 }}>
-            <MailNavigator screenProps={{ tabNavigation: navigation }} />
-          </View>
-        );
+        return <MailNavigator screenProps={{ tabNavigation: navigation }} />;
       },
       navigationOptions: {
         tabBarLabel: _('Correo'),

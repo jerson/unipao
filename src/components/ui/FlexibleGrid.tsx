@@ -83,7 +83,13 @@ export default class FlexibleGrid<ItemT> extends React.Component<
   }
 
   render() {
-    let { renderItem, itemMargin, itemWidth: old, ...props } = this.props;
+    let {
+      renderItem,
+      itemMargin,
+      contentContainerStyle,
+      itemWidth: old,
+      ...props
+    } = this.props;
     let { itemWidth, numColumns } = this.state;
     if (itemWidth === 0) {
       return <Loading margin />;
@@ -95,7 +101,7 @@ export default class FlexibleGrid<ItemT> extends React.Component<
         renderItem={this.renderItem}
         key={'show_' + numColumns}
         numColumns={numColumns}
-        contentContainerStyle={[{ padding: itemMargin }]}
+        contentContainerStyle={[contentContainerStyle, { padding: itemMargin }]}
       />
     );
   }

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Theme } from '../../../themes/styles';
-import { _ } from '../../../modules/i18n/Translator';
-import NavigationButton from '../../../components/ui/NavigationButton';
-import Loading from '../../../components/ui/Loading';
+import { Theme } from '../../../../themes/styles';
+import { _ } from '../../../../modules/i18n/Translator';
+import NavigationButton from '../../../../components/ui/NavigationButton';
+import Loading from '../../../../components/ui/Loading';
 import * as PropTypes from 'prop-types';
 import {
   NavigationContainer,
@@ -14,15 +14,15 @@ import {
   NavigationTabScreenOptions,
   TabNavigator
 } from 'react-navigation';
-import { tabsOptions } from '../../../routers/Tabs';
-import Log from '../../../modules/logger/Log';
-import CacheStorage from '../../../modules/storage/CacheStorage';
-import UPAO from '../../../scraping/UPAO';
-import AssistsSectionScreen from './course/AssistsSectionScreen';
-import { SectionModel } from '../../../scraping/student/intranet/Course';
-import AlertMessage from '../../../components/ui/AlertMessage';
+import { tabsOptions } from '../../../../routers/Tabs';
+import Log from '../../../../modules/logger/Log';
+import CacheStorage from '../../../../modules/storage/CacheStorage';
+import UPAO from '../../../../scraping/UPAO';
+import JobsSectionScreen from './section/JobsSectionScreen';
+import { SectionModel } from '../../../../scraping/student/intranet/Course';
+import AlertMessage from '../../../../components/ui/AlertMessage';
 
-export interface CourseAssistsScreenProps {
+export interface CourseJobsScreenProps {
   navigation: NavigationScreenProp<null, null>;
 }
 
@@ -33,9 +33,9 @@ export interface State {
   isReloading: boolean;
 }
 
-const TAG = 'CourseAssistsScreen';
-export default class CourseAssistsScreen extends React.Component<
-  CourseAssistsScreenProps,
+const TAG = 'CourseJobsScreen';
+export default class CourseJobsScreen extends React.Component<
+  CourseJobsScreenProps,
   State
 > {
   static contextTypes = {
@@ -46,7 +46,7 @@ export default class CourseAssistsScreen extends React.Component<
     screenProps
   }: NavigationScreenConfigProps): NavigationStackScreenOptions => ({
     headerBackTitle: null,
-    title: _('Asistencias del curso'),
+    title: _('Trabajos del curso'),
     headerTitleStyle: [Theme.title, Theme.subtitle],
     headerTintColor: Theme.subTintColor,
     headerStyle: [Theme.navigationBar, Theme.subNavigationBar],
@@ -64,8 +64,8 @@ export default class CourseAssistsScreen extends React.Component<
   });
 
   state: State = {
-    cacheLoaded: false,
     isLoading: true,
+    cacheLoaded: false,
     isReloading: false
   };
   load = async () => {
@@ -75,7 +75,7 @@ export default class CourseAssistsScreen extends React.Component<
   };
   getCacheKey = () => {
     let { course } = this.getParams();
-    return `assists_sections_${course.id || '_'}`;
+    return `jobs_sections_${course.id || '_'}`;
   };
   checkCache = async () => {
     try {
@@ -92,7 +92,7 @@ export default class CourseAssistsScreen extends React.Component<
       if (!tabs[item.name]) {
         tabs[item.name] = {
           screen: () => {
-            return <AssistsSectionScreen section={item} />;
+            return <JobsSectionScreen section={item} />;
           },
           navigationOptions: {
             tabBarLabel: item.name
@@ -132,9 +132,7 @@ export default class CourseAssistsScreen extends React.Component<
 
     try {
       let { course } = this.getParams();
-      let sections = await UPAO.Student.Intranet.Course.getAssistsSections(
-        course
-      );
+      let sections = await UPAO.Student.Intranet.Course.getJobsSections(course);
 
       this.loadResponse(sections);
       CacheStorage.set(this.getCacheKey(), sections);
@@ -152,7 +150,7 @@ export default class CourseAssistsScreen extends React.Component<
   };
 
   componentWillUnmount() {
-    UPAO.abort('Course.getAssistsSections');
+    UPAO.abort('Course.getJobsSections');
   }
 
   getParams(): any {
