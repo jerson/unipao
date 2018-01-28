@@ -47,8 +47,6 @@ export default class PaymentHeader extends React.PureComponent<
       totalInteres += payment.interest;
     }
 
-    console.log(totalPayments, totalCargo, totalSaldo, totalInteres);
-
     this.setState({
       totalPayments,
       totalCargo,
