@@ -138,6 +138,8 @@ export default class CourseGradesScreen extends React.Component<
 	<title>app</title>
 	<style>
 * {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
     font-size: 12px !important;
     font-family: Roboto,Helvetica,Arial,serif;
     border: none !important;

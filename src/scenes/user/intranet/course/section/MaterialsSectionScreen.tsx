@@ -95,6 +95,8 @@ export default class MaterialsSectionScreen extends React.Component<
 	<title>app</title>
 	<style>
 	* {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
     font-size: 13px !important;
     font-family: Roboto,Helvetica,Arial,serif;
     border: none !important;

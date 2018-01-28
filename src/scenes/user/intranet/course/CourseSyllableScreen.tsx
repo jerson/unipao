@@ -19,6 +19,7 @@ import {
   NavigationStackScreenOptions
 } from 'react-navigation';
 import { SyllableModel } from '../../../../scraping/student/intranet/Course';
+import AlertMessage from '../../../../components/ui/AlertMessage';
 
 export interface CourseSyllableScreenProps {
   navigation: NavigationScreenProp<null, null>;
@@ -132,6 +133,13 @@ export default class CourseSyllableScreen extends React.Component<
     let { isLoading, isRefreshing, items } = this.state;
     return (
       <View style={[styles.container]}>
+        {!isLoading &&
+          items.length < 1 && (
+            <AlertMessage
+              type={'warning'}
+              title={_('No se encontraron silabos')}
+            />
+          )}
         {isLoading && <Loading margin />}
         <FlatList
           ref={'list'}

@@ -35,10 +35,10 @@ export default class Course {
           method: 'POST',
           body: ParamsUtils.getFormData(params)
         },
-        { tag: 'Course.getExamsHTML', checkSession: true }
+        { tag: 'Course.getExamsHTML', checkSession: true, ajax: true }
       );
 
-      html = this.sanitizeHTML($('table').html());
+      html = this.sanitizeHTML($('body').html());
     } catch (e) {
       Log.warn(TAG, 'getExamsHTML', e);
       throw e;
@@ -62,10 +62,10 @@ export default class Course {
           method: 'POST',
           body: ParamsUtils.getFormData(params)
         },
-        { tag: 'Course.getJobsHTML', checkSession: true }
+        { tag: 'Course.getJobsHTML', checkSession: true, ajax: true }
       );
 
-      html = this.sanitizeHTML($('table').html());
+      html = this.sanitizeHTML($('body').html());
     } catch (e) {
       Log.info(TAG, 'getJobsHTML', e);
       throw e;
@@ -89,10 +89,10 @@ export default class Course {
           method: 'POST',
           body: ParamsUtils.getFormData(params)
         },
-        { tag: 'Course.getAssistsHTML', checkSession: true }
+        { tag: 'Course.getAssistsHTML', checkSession: true, ajax: true }
       );
 
-      html = this.sanitizeHTML($('table').html());
+      html = this.sanitizeHTML($('body').html());
     } catch (e) {
       Log.info(TAG, 'getAssistsHTML', e);
       throw e;
@@ -121,7 +121,7 @@ export default class Course {
           method: 'POST',
           body: ParamsUtils.getFormData(params)
         },
-        { tag: 'Course.getMaterialsHTML', checkSession: true }
+        { tag: 'Course.getMaterialsHTML', checkSession: true, ajax: true }
       );
 
       $('a').each((index, item) => {
@@ -130,7 +130,7 @@ export default class Course {
           .attr('target', '_blank');
       });
 
-      html = this.sanitizeHTML($('table').html());
+      html = this.sanitizeHTML($('body').html());
     } catch (e) {
       Log.info(TAG, 'getMaterialsHTML', e);
       throw e;
@@ -154,10 +154,10 @@ export default class Course {
           method: 'POST',
           body: ParamsUtils.getFormData(params)
         },
-        { tag: 'Course.getForumHTML', checkSession: true }
+        { tag: 'Course.getForumHTML', checkSession: true, ajax: true }
       );
 
-      html = this.sanitizeHTML($('table').html());
+      html = this.sanitizeHTML($('body').html());
     } catch (e) {
       Log.info(TAG, 'getForumHTML', e);
       throw e;

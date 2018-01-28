@@ -149,6 +149,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f4f4f4'
   },
   content: {
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });

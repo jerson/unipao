@@ -65,13 +65,13 @@ const Tabs = TabNavigator(
       navigationOptions: {
         tabBarLabel: _('Nivel académico')
       } as NavigationTabScreenOptions
-    },
-    Messages: {
-      screen: IntranetScreen,
-      navigationOptions: {
-        tabBarLabel: _('Mensajes')
-      } as NavigationTabScreenOptions
     }
+    // Messages: {
+    //   screen: IntranetScreen,
+    //   navigationOptions: {
+    //     tabBarLabel: _('Mensajes')
+    //   } as NavigationTabScreenOptions
+    // }
   },
   {
     ...tabsOptionsSub

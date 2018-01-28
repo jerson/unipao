@@ -86,7 +86,65 @@ export default class JobsSectionScreen extends React.Component<
   }
 
   render() {
-    let { html, isLoading } = this.state;
+    let { html: content, isLoading } = this.state;
+
+    let html = `
+<html>
+<head>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+	<title>app</title>
+	<style>
+* {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    font-size: 12px !important;
+    font-family: Roboto,Helvetica,Arial,serif;
+    border: none !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding:0 !important;
+}
+
+table tr:nth-child(1) > td {
+    background: #fafafa !important;
+    color: #666 !important;
+    padding: 12px 5px !important;
+    
+    border-right: 1px solid #f4f4f4 !important;
+    border-bottom: 1px solid #f4f4f4 !important;
+    font-weight: normal !important;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-left: none;
+}
+
+td {
+    padding: 5px;
+}
+
+td {
+    border-bottom: 1px solid #e6e6e6 !important;
+    border-right: 1px solid #e6e6e6 !important;
+}
+
+
+
+body,html{
+    margin:0 !important;
+    padding: 0 !important;
+    overflow: auto !important;
+}
+</style>
+</head>
+<body>
+${content}
+</body>
+</html>
+    `;
     return (
       <View style={[styles.container]}>
         {isLoading && <Loading margin />}

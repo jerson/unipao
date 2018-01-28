@@ -38,10 +38,10 @@ export default class CourseHeader extends React.Component<
             { paddingTop: Platform.OS === 'ios' ? 30 : 10 }
           ]}
         >
-          <LinearGradient
-            colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)']}
-            style={styles.background}
-          />
+          {/*<LinearGradient*/}
+          {/*colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)']}*/}
+          {/*style={styles.background}*/}
+          {/*/>*/}
           <View style={styles.imageContainer}>
             <Image
               style={styles.imagePlaceholder}
@@ -57,10 +57,8 @@ export default class CourseHeader extends React.Component<
           </View>
 
           <View style={[styles.infoContainer]}>
-            <Text style={[styles.title, Theme.textShadow]}>{course.name}</Text>
-            <Text style={[styles.subtitle, Theme.textShadow]}>
-              {course.nrc}
-            </Text>
+            <Text style={[styles.title]}>{course.name}</Text>
+            <Text style={[styles.subtitle]}>{course.nrc}</Text>
           </View>
         </View>
       </Touchable>
@@ -78,8 +76,8 @@ const styles = StyleSheet.create({
     bottom: 0
   },
   container: {
-    backgroundColor: '#0d61ac',
-    borderColor: '#f4f4f4',
+    backgroundColor: '#f4f4f4',
+    borderColor: '#dadada',
     borderBottomWidth: 1,
     padding: 10,
     paddingBottom: 20,
@@ -110,13 +108,13 @@ const styles = StyleSheet.create({
     // flex: 1
   },
   title: {
-    fontSize: 16,
-    color: '#fff'
+    fontSize: 17,
+    color: '#666'
     // fontWeight: 'bold'
   },
   subtitle: {
-    fontSize: 12,
-    color: 'rgba(255,255,255,0.5)',
+    fontSize: 14,
+    color: '#0d61ac',
     fontWeight: 'bold'
   }
 });

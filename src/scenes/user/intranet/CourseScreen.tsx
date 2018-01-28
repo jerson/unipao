@@ -93,19 +93,19 @@ export default class CourseScreen extends React.Component<
       },
       {
         route: 'CourseForum',
-        name: _('Foro'),
+        name: _('Foro (beta)'),
         icon: 'forum',
         iconType: 'MaterialIcons'
       },
       {
         route: 'CourseJobs',
-        name: _('Trabajo'),
+        name: _('Trabajo (beta)'),
         icon: 'archive',
         iconType: 'Entypo'
       },
       {
         route: 'CourseExams',
-        name: _('Examenes'),
+        name: _('Examenes (beta)'),
         icon: 'ios-paper',
         iconType: 'Ionicons'
       }
