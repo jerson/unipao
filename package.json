@@ -65,6 +65,7 @@
     "base-64": "^0.1.0",
     "cheerio": "^1.0.0-rc.2",
     "cheerio-without-node-native": "^0.20.2",
+    "htmlparser2-without-node-native": "^3.9.2",
     "moment": "^2.20.1",
     "numeral": "^2.0.6",
     "prop-types": "^15.6.0",

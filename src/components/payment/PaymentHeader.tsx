@@ -3,10 +3,11 @@ import { StyleSheet, Text, View } from 'react-native';
 import * as PropTypes from 'prop-types';
 import AlertMessage from '../ui/AlertMessage';
 import { _ } from '../../modules/i18n/Translator';
-import * as numeral from 'numeral';
+const numeral = require('numeral');
+import { PaymentModel } from '../../scraping/student/Intranet';
 
 export interface PaymentHeaderProps {
-  payments: any[];
+  payments: PaymentModel[];
 }
 
 export interface State {
@@ -26,7 +27,12 @@ export default class PaymentHeader extends React.PureComponent<
     navigation: PropTypes.object.isRequired
   };
 
-  state: State = {};
+  state: State = {
+    totalPayments: 0,
+    totalCargo: 0,
+    totalSaldo: 0,
+    totalInteres: 0
+  };
 
   componentDidMount() {
     let { payments } = this.props;
@@ -35,11 +41,13 @@ export default class PaymentHeader extends React.PureComponent<
     let totalSaldo = 0;
     let totalInteres = 0;
     for (let payment of payments) {
-      totalPayments += parseFloat(payment.PAGO);
-      totalCargo += parseFloat(payment.CARGO);
-      totalSaldo += parseFloat(payment.SALDO);
-      totalInteres += parseFloat(payment.INTERES);
+      totalPayments += payment.payment;
+      totalCargo += payment.charge;
+      totalSaldo += payment.balance;
+      totalInteres += payment.interest;
     }
+
+    console.log(totalPayments, totalCargo, totalSaldo, totalInteres);
 
     this.setState({
       totalPayments,
@@ -53,9 +61,7 @@ export default class PaymentHeader extends React.PureComponent<
     let { payments } = this.props;
 
     if (!payments || payments.length < 1) {
-      return (
-        <AlertMessage type={'warning'} title={_('No se encontraron datos')} />
-      );
+      return null;
     }
 
     let { totalPayments, totalCargo, totalSaldo, totalInteres } = this.state;

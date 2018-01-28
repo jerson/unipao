@@ -14,6 +14,7 @@ import {
 } from 'react-navigation';
 import HistoryCoursesScreen from './HistoryCoursesScreen';
 import NavigationButton from '../../../components/ui/NavigationButton';
+import PaymentsScreen from './PaymentsScreen';
 
 export interface LevelScreenProps {
   navigation: NavigationScreenProp<null, null>;
@@ -144,7 +145,15 @@ export default class LevelScreen extends React.PureComponent<
             navigation,
             screenProps
           }: NavigationScreenConfigProps) => {
-            return <View />;
+            if (!screenProps) {
+              return null;
+            }
+            return (
+              <PaymentsScreen
+                level={screenProps.item.level}
+                navigation={screenProps.topNavigation}
+              />
+            );
           },
           navigationOptions: {
             tabBarLabel: _('Estado cuenta')

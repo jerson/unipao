@@ -7,7 +7,7 @@ import * as PropTypes from 'prop-types';
 import MessageCenter from './components/ui/MessageCenter';
 import Auth from './modules/session/Auth';
 import 'moment/locale/es';
-import * as numeral from 'numeral';
+const numeral = require('numeral');
 import Emitter from './modules/listener/Emitter';
 import RouterUtil from './modules/util/RouterUtil';
 import { _ } from './modules/i18n/Translator';

@@ -40,12 +40,13 @@ export interface PaymentModel {
   receipt: string;
   period: string;
   concept: string;
+  conceptPayment: string;
   description: string;
   date: string;
-  charge: string;
-  payment: string;
-  balance: string;
-  interest: string;
+  charge: number;
+  payment: number;
+  balance: number;
+  interest: number;
 }
 
 const TAG = 'Intranet';
@@ -59,6 +60,12 @@ export default class Intranet {
     let payments: PaymentModel[] = [];
     let $;
     try {
+      //litle hack
+      await RequestUtil.fetch(
+        '/aulavirtual.aspx?f=YAGMURO&r=A',
+        {},
+        { tag: 'Intranet.getPayments', checkSession: true }
+      );
       $ = await RequestUtil.fetch(
         '/aulavirtual.aspx?f=YACACTA&r=A',
         {},
@@ -85,51 +92,63 @@ export default class Intranet {
         },
         { tag: 'Intranet.getPayments', checkSession: true }
       );
-      let $content = $('#id_cont > table');
-      $(' > tr', $content).each((index, value) => {
+      $('table tr').each((index, value) => {
         let receipt = $('td:nth-child(1)', value)
           .text()
           .trim();
 
-        if (!receipt) {
-          return;
+        let receiptCheck = parseInt(receipt, 10);
+
+        if (receiptCheck > 0) {
+          let period = $('td:nth-child(2)', value)
+            .text()
+            .trim();
+          let concept = $('td:nth-child(3)', value)
+            .text()
+            .trim();
+          let description = $('td:nth-child(4)', value)
+            .text()
+            .trim();
+          let conceptPayment = $('td:nth-child(5)', value)
+            .text()
+            .trim();
+          let date = $('td:nth-child(6)', value)
+            .text()
+            .trim();
+          let charge = parseFloat(
+            $('td:nth-child(7)', value)
+              .text()
+              .trim()
+          );
+          let payment = parseFloat(
+            $('td:nth-child(8)', value)
+              .text()
+              .trim()
+          );
+          let balance = parseFloat(
+            $('td:nth-child(9)', value)
+              .text()
+              .trim()
+          );
+          let interest = parseFloat(
+            $('td:nth-child(10)', value)
+              .text()
+              .trim()
+          );
+          payments.push({
+            id: receipt,
+            receipt,
+            period,
+            concept,
+            conceptPayment,
+            description,
+            date,
+            charge,
+            payment,
+            balance,
+            interest
+          });
         }
-        let period = $('td:nth-child(2)', value)
-          .text()
-          .trim();
-        let concept = $('td:nth-child(3)', value)
-          .text()
-          .trim();
-        let description = $('td:nth-child(4)', value)
-          .text()
-          .trim();
-        let date = $('td:nth-child(5)', value)
-          .text()
-          .trim();
-        let charge = $('td:nth-child(6)', value)
-          .text()
-          .trim();
-        let payment = $('td:nth-child(7)', value)
-          .text()
-          .trim();
-        let balance = $('td:nth-child(8)', value)
-          .text()
-          .trim();
-        let interest = $('td:nth-child(9)', value)
-          .text()
-          .trim();
-        payments.push({
-          id: receipt,
-          receipt,
-          period,
-          concept,
-          description,
-          date,
-          charge,
-          payment,
-          balance,
-          interest
-        });
       });
     } catch (e) {
       Log.info(TAG, 'getPayments', e);
@@ -184,7 +203,7 @@ export default class Intranet {
         });
       });
     } catch (e) {
-      Log.info(TAG, 'getPeriods', e);
+      Log.info(TAG, 'getLevelsEnrollment', e);
       throw e;
     }
 
@@ -392,39 +411,48 @@ export default class Intranet {
     return periods;
   }
 
+  static async getCourses(period: string, level: string) {}
+
   private static getLevelCode($: JQueryStatic, level: string): string {
-    let $content = $(
-      '#ctl00_ContentPlaceHolder1_ctl00_MENUYA21_lbl_menu_right'
-    );
     let code = '';
     switch (level) {
       case 'UG':
-        code = $('#mnuya_pregrado', $content).attr('onclick') || '';
+        code = $('#mnuya_pregrado').attr('onclick') || '';
         code = code
-          .replace("javascript:mnuya_load_yaahist('", '')
-          .replace("');", '');
+          .replace('javascript:mnuya_load_yaahist(', '')
+          .replace('javascript:mnuya_load_yacacta(', '')
+          .replace(');', '')
+          .replace(/&apos;/g, '')
+          .replace(/'/g, '');
         break;
       case 'GR':
-        code = $('#mnuya_postgrado', $content).attr('onclick') || '';
+        code = $('#mnuya_postgrado').attr('onclick') || '';
         code = code
-          .replace("javascript:mnuya_load_yaahist('", '')
-          .replace("');", '');
+          .replace('javascript:mnuya_load_yaahist(', '')
+          .replace('javascript:mnuya_load_yacacta(', '')
+          .replace(');', '')
+          .replace(/&apos;/g, '')
+          .replace(/'/g, '');
         break;
       case 'UT':
-        code = $('#mnuya_cgt', $content).attr('onclick') || '';
+        code = $('#mnuya_cgt').attr('onclick') || '';
         code = code
-          .replace("javascript:mnuya_load_yaahist('", '')
-          .replace("');", '');
+          .replace('javascript:mnuya_load_yaahist(', '')
+          .replace('javascript:mnuya_load_yacacta(', '')
+          .replace(');', '')
+          .replace(/&apos;/g, '')
+          .replace(/'/g, '');
         break;
       case 'UB':
-        code = $('#mnuya_idiomas', $content).attr('onclick') || '';
+        code = $('#mnuya_idiomas').attr('onclick') || '';
         code = code
-          .replace("javascript:mnuya_load_yaahist('", '')
-          .replace("');", '');
+          .replace('javascript:mnuya_load_yaahist(', '')
+          .replace('javascript:mnuya_load_yacacta(', '')
+          .replace(');', '')
+          .replace(/&apos;/g, '')
+          .replace(/'/g, '');
         break;
     }
     return code;
   }
-
-  static async getCourses(period: string, level: string) {}
 }

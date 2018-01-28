@@ -2,11 +2,13 @@ import * as cio from 'cheerio-without-node-native';
 import Log from '../../modules/logger/Log';
 import Emitter from '../../modules/listener/Emitter';
 import Config from '../Config';
+import { Headers } from '../../modules/network/Request';
 
 const fetchCancelable = require('react-native-cancelable-fetch');
 
 export interface RequestOptions {
   checkSession?: boolean;
+  ajax?: boolean;
   tag?: string;
 }
 
@@ -24,20 +26,18 @@ export default class RequestUtil {
     let tag = options.tag || url;
     try {
       Log.debug(TAG, 'fetch', tag, url);
-      let response = await fetchCancelable(
-        url,
-        {
-          redirect: 'follow',
-          credentials: 'include',
-          ...params
-        },
-        tag
-      );
+      let response = await fetch(url, {
+        redirect: 'follow',
+        credentials: 'include',
+        ...params
+      });
       html = await response.text();
     } catch (e) {
       Log.error(TAG, 'fetch', e);
     }
-    let $: JQueryStatic = cio.load(html);
+    let $: JQueryStatic = cio.load(
+      options.ajax ? `<html><body>${html}</body></html>` : html
+    );
 
     if (options.checkSession) {
       let loginMessage = ($('a[href*="login.aspx"]').text() || '').trim();

@@ -18,7 +18,6 @@ import SettingsScreen from '../scenes/user/SettingsScreen';
 import AgendaListScreen from '../scenes/user/upao/AgendaListScreen';
 import IntranetScreen from '../scenes/user/IntranetScreen';
 import ScheduleScreen from '../scenes/deprecated/ScheduleScreen';
-import AccountStatusScreen from '../scenes/deprecated/PaymentsScreen';
 import AssistsScreen from '../scenes/deprecated/AssistsScreen';
 import EnrollmentScreen from '../scenes/deprecated/EnrollmentScreen';
 import AssistDetailScreen from '../scenes/deprecated/AssistDetailScreen';
@@ -40,6 +39,7 @@ import CourseJobsScreen from '../scenes/user/intranet/course/CourseJobsScreen';
 import GalleryPhotoScreen from '../scenes/user/upao/GalleryPhotoScreen';
 import LevelScreen from '../scenes/user/intranet/LevelScreen';
 import IntranetTabsScreen from '../scenes/user/IntranetTabsScreen';
+import PaymentsScreen from '../scenes/user/intranet/PaymentsScreen';
 
 const NewsNavigator = StackNavigator(
   {
@@ -194,9 +194,6 @@ const IntranetNavigator = StackNavigator(
     },
     Schedule: {
       screen: ScheduleScreen
-    },
-    Payments: {
-      screen: AccountStatusScreen
     },
     Assists: {
       screen: AssistsScreen

@@ -2,13 +2,14 @@ import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import * as PropTypes from 'prop-types';
 import Touchable from '../ui/Touchable';
-import * as numeral from 'numeral';
+const numeral = require('numeral');
 import { capitalize } from 'underscore.string';
 import { _ } from '../../modules/i18n/Translator';
 import Modal from '../ui/Modal';
+import { PaymentModel } from '../../scraping/student/Intranet';
 
 export interface PaymentItemProps {
-  payment: any;
+  payment: PaymentModel;
 }
 
 export interface State {
@@ -41,15 +42,15 @@ export default class PaymentItem extends React.PureComponent<
         <Touchable onPress={this.toggle}>
           <View style={[styles.container]}>
             <View style={styles.info}>
-              <Text style={styles.name}>{payment.DESCRIPCION}</Text>
+              <Text style={styles.name}>{payment.description}</Text>
               <Text style={styles.subtitle}>
-                {payment.PERIODO} - {capitalize(payment.FECHA_FORMAT, true)}
+                {payment.period} - {capitalize(payment.date, true)}
               </Text>
             </View>
             <View style={styles.payment}>
               <View style={styles.amountContainer}>
                 <Text style={styles.amount}>
-                  S/ {numeral(payment.CARGO).format()}
+                  S/ {numeral(payment.charge).format()}
                 </Text>
               </View>
             </View>
@@ -62,54 +63,56 @@ export default class PaymentItem extends React.PureComponent<
           style={styles.modal}
         >
           <View style={styles.modalContainer}>
-            <Text style={styles.title}>{payment.DESCRIPCION}</Text>
+            <Text style={styles.title}>{payment.description}</Text>
 
             <View style={styles.item}>
               <Text style={styles.description}>{_('Recibo')}:</Text>
-              <Text style={styles.value}> {payment.RECIBO}</Text>
+              <Text style={styles.value}> {payment.receipt}</Text>
             </View>
 
             <View style={styles.item}>
               <Text style={styles.description}>{_('Periodo')}:</Text>
-              <Text style={styles.value}> {payment.PERIODO}</Text>
+              <Text style={styles.value}> {payment.period}</Text>
             </View>
 
             <View style={styles.item}>
               <Text style={styles.description}>{_('Concepto')}:</Text>
-              <Text style={styles.value}> {payment.CONCEPTO}</Text>
+              <Text style={styles.value}> {payment.concept}</Text>
             </View>
 
             <View style={styles.item}>
               <Text style={styles.description}>{_('Forma pago')}:</Text>
-              <Text style={styles.value}> {payment.FORMAPAGO}</Text>
+              <Text style={styles.value}> {payment.conceptPayment}</Text>
             </View>
 
             <View style={styles.item}>
               <Text style={styles.description}>{_('Fecha')}:</Text>
-              <Text style={styles.value}> {payment.FECHA}</Text>
+              <Text style={styles.value}> {payment.date}</Text>
             </View>
             <View style={styles.item}>
               <Text style={styles.description}>{_('Cargo')}:</Text>
               <Text style={styles.value}>
-                S/ {numeral(payment.CARGO).format()}
+                S/ {numeral(payment.charge).format()}
               </Text>
             </View>
+
             <View style={styles.item}>
               <Text style={styles.description}>{_('Pago')}:</Text>
               <Text style={styles.value}>
-                S/ {numeral(payment.PAGO).format()}
+                S/ {numeral(payment.payment).format()}
               </Text>
             </View>
             <View style={styles.item}>
               <Text style={styles.description}>{_('Saldo')}:</Text>
               <Text style={styles.value}>
-                S/ {numeral(payment.SALDO).format()}
+                S/ {numeral(payment.balance).format()}
               </Text>
             </View>
+
             <View style={styles.item}>
               <Text style={styles.description}>{_('Interés')}:</Text>
               <Text style={styles.value}>
-                S/ {numeral(payment.INTERES).format()}
+                S/ {numeral(payment.interest).format()}
               </Text>
             </View>
           </View>
