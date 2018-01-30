@@ -2,11 +2,12 @@ import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import * as PropTypes from 'prop-types';
 import Touchable from '../ui/Touchable';
-const numeral = require('numeral');
 import { capitalize } from 'underscore.string';
 import { _ } from '../../modules/i18n/Translator';
 import Modal from '../ui/Modal';
 import { PaymentModel } from '../../scraping/student/Intranet';
+
+const numeral = require('numeral');
 
 export interface PaymentItemProps {
   payment: PaymentModel;

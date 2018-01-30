@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import * as PropTypes from 'prop-types';
-import AlertMessage from '../ui/AlertMessage';
 import { _ } from '../../modules/i18n/Translator';
-const numeral = require('numeral');
 import { PaymentModel } from '../../scraping/student/Intranet';
+
+const numeral = require('numeral');
 
 export interface PaymentHeaderProps {
   payments: PaymentModel[];

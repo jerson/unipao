@@ -124,6 +124,7 @@ export default class LevelScreen extends React.Component<
     let { params } = this.props.navigation.state || { params: {} };
     return params;
   }
+
   async componentDidMount() {
     Dimensions.addEventListener('change', this.onDimensionsChange);
   }

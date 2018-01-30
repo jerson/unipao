@@ -1,15 +1,11 @@
 import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import * as PropTypes from 'prop-types';
-import Touchable from '../ui/Touchable';
+import { _ } from '../../modules/i18n/Translator';
+import { GradeReportCourseModel } from '../../scraping/student/Intranet';
+
 const numeral = require('numeral');
 const { capitalize } = require('underscore.string');
-import { _ } from '../../modules/i18n/Translator';
-import Modal from '../ui/Modal';
-import {
-  GradeReportCourseModel,
-  GradeReportModel
-} from '../../scraping/student/Intranet';
 
 export interface GradeReportItemProps {
   item: GradeReportCourseModel;

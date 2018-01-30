@@ -18,13 +18,8 @@ import {
   GradeReportModel,
   ProgramModel
 } from '../../../scraping/student/Intranet';
-import {
-  NavigationScreenProp,
-  NavigationStackScreenOptions
-} from 'react-navigation';
 import GradeReportItem from '../../../components/grade/GradesReportItem';
 import GradeReportHeader from '../../../components/grade/GradeReportHeader';
-import { Theme } from '../../../themes/styles';
 
 export interface GradesReportScreenProps {
   program: ProgramModel;

@@ -1,21 +1,7 @@
 import * as React from 'react';
-import {
-  Dimensions,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import { NativeSyntheticEvent, StyleSheet, Text, View } from 'react-native';
 import * as PropTypes from 'prop-types';
-import Log from '../../modules/logger/Log';
-import Request from '../../modules/network/Request';
-import Icon from '../ui/Icon';
-import Loading from '../ui/Loading';
 import { _ } from '../../modules/i18n/Translator';
-import Touchable from '../ui/Touchable';
-import CacheStorage from '../../modules/storage/CacheStorage';
 
 export interface IntranetOptionHeaderProps {}
 

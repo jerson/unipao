@@ -3,8 +3,6 @@ import {
   FlatList,
   ListRenderItemInfo,
   RefreshControl,
-  SectionList,
-  SectionListData,
   StyleSheet,
   View
 } from 'react-native';
@@ -15,13 +13,7 @@ import AlertMessage from '../../../components/ui/AlertMessage';
 import { _ } from '../../../modules/i18n/Translator';
 import CacheStorage from '../../../modules/storage/CacheStorage';
 import UPAO from '../../../scraping/UPAO';
-import PeriodHeader from '../../../components/period/PeriodHeader';
-import CourseItem from '../../../components/course/CourseItem';
-import {
-  CourseModel,
-  PaymentModel,
-  PeriodDetailModel
-} from '../../../scraping/student/Intranet';
+import { PaymentModel } from '../../../scraping/student/Intranet';
 import {
   NavigationScreenConfigProps,
   NavigationScreenProp,
@@ -122,11 +114,6 @@ export default class PaymentsScreen extends React.Component<
       isRefreshing: false
     });
   };
-
-  getParams(): any {
-    let { params } = this.props.navigation.state || { params: {} };
-    return params;
-  }
   loadRequest = async () => {
     let { cacheLoaded } = this.state;
 
@@ -149,12 +136,16 @@ export default class PaymentsScreen extends React.Component<
   reload = () => {
     this.onRefresh();
   };
-
   onRefresh = () => {
     this.setState({ isRefreshing: true }, () => {
       this.load();
     });
   };
+
+  getParams(): any {
+    let { params } = this.props.navigation.state || { params: {} };
+    return params;
+  }
 
   componentWillUnmount() {
     UPAO.abort('Intranet.getPayments');

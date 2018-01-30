@@ -1,32 +1,12 @@
 import * as React from 'react';
-import {
-  Dimensions,
-  FlatList,
-  ListRenderItemInfo,
-  Platform,
-  RefreshControl,
-  StyleSheet,
-  View
-} from 'react-native';
+import { ListRenderItemInfo } from 'react-native';
 import { Theme } from '../../themes/styles';
 import * as PropTypes from 'prop-types';
 import { _ } from '../../modules/i18n/Translator';
-import DimensionUtil from '../../modules/util/DimensionUtil';
-import IntranetItem from '../../components/intranet/IntranetOptionItem';
-import IntranetHeader from '../../components/intranet/IntranetOptionHeader';
-import Loading from '../../components/ui/Loading';
-import NavigationButton from '../../components/ui/NavigationButton';
 import {
   NavigationScreenProp,
-  NavigationStackScreenOptions,
-  NavigationTabScreenOptions,
-  TabNavigator
+  NavigationStackScreenOptions
 } from 'react-navigation';
-import { IconType } from '../../components/ui/Icon';
-import FlexibleGrid from '../../components/ui/FlexibleGrid';
-import UPAO from '../../scraping/UPAO';
-import Emitter from '../../modules/listener/Emitter';
-import { tabsOptionsSub } from '../../routers/Tabs';
 import IntranetScreen from './IntranetScreen';
 
 export interface IntranetTabsScreenProps {

@@ -7,7 +7,6 @@ import * as PropTypes from 'prop-types';
 import MessageCenter from './components/ui/MessageCenter';
 import Auth from './modules/session/Auth';
 import 'moment/locale/es';
-const numeral = require('numeral');
 import Emitter from './modules/listener/Emitter';
 import RouterUtil from './modules/util/RouterUtil';
 import { _ } from './modules/i18n/Translator';
@@ -16,6 +15,8 @@ import CacheStorage from './modules/storage/CacheStorage';
 import DimensionUtil from './modules/util/DimensionUtil';
 import { NavigationScreenProp } from 'react-navigation';
 import { Message } from './components/ui/MessageItem';
+
+const numeral = require('numeral');
 
 numeral.defaultFormat('0,0.00');
 

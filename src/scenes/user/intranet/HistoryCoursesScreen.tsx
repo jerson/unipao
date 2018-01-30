@@ -86,11 +86,6 @@ export default class HistoryCoursesScreen extends React.Component<
     isRefreshing: false,
     sections: []
   };
-
-  getParams(): any {
-    let { params } = this.props.navigation.state || { params: {} };
-    return params;
-  }
   renderItem = ({ item, index }: ListRenderItemInfo<CourseModel>) => {
     return <CourseItem course={item} />;
   };
@@ -101,7 +96,6 @@ export default class HistoryCoursesScreen extends React.Component<
   }) => {
     return <PeriodHeader title={section.title} />;
   };
-
   load = async () => {
     let { isRefreshing } = this.state;
     if (!isRefreshing) {
@@ -122,7 +116,6 @@ export default class HistoryCoursesScreen extends React.Component<
       Log.info(TAG, 'checkCache', e);
     }
   };
-
   loadResponse = (data: Section[], cacheLoaded = false) => {
     let sections = data;
     this.setState({
@@ -162,12 +155,16 @@ export default class HistoryCoursesScreen extends React.Component<
   reload = () => {
     this.onRefresh();
   };
-
   onRefresh = () => {
     this.setState({ isRefreshing: true }, () => {
       this.load();
     });
   };
+
+  getParams(): any {
+    let { params } = this.props.navigation.state || { params: {} };
+    return params;
+  }
 
   componentWillUnmount() {
     UPAO.abort('Intranet.getHistoryCourses');

@@ -1,11 +1,5 @@
 import * as React from 'react';
-import {
-  FlatList,
-  ListRenderItemInfo,
-  RefreshControl,
-  StyleSheet,
-  View
-} from 'react-native';
+import { ListRenderItemInfo, StyleSheet, View } from 'react-native';
 import * as PropTypes from 'prop-types';
 import Loading from '../../../components/ui/Loading';
 import Log from '../../../modules/logger/Log';
@@ -13,12 +7,7 @@ import AlertMessage from '../../../components/ui/AlertMessage';
 import { _ } from '../../../modules/i18n/Translator';
 import CacheStorage from '../../../modules/storage/CacheStorage';
 import UPAO from '../../../scraping/UPAO';
-import {
-  GradeReportCourseModel,
-  GradeReportModel,
-  LevelModel,
-  ProgramModel
-} from '../../../scraping/student/Intranet';
+import { LevelModel, ProgramModel } from '../../../scraping/student/Intranet';
 import {
   NavigationContainer,
   NavigationRouteConfigMap,
@@ -28,8 +17,6 @@ import {
   NavigationTabScreenOptions,
   TabNavigator
 } from 'react-navigation';
-import GradeReportItem from '../../../components/grade/GradesReportItem';
-import GradeReportHeader from '../../../components/grade/GradeReportHeader';
 import { Theme } from '../../../themes/styles';
 import NavigationButton from '../../../components/ui/NavigationButton';
 import { tabsOptions } from '../../../routers/Tabs';
@@ -85,12 +72,6 @@ export default class GradesReportTabsScreen extends React.Component<
     programs: [],
     Tabs: undefined
   };
-
-  getParams(): any {
-    let { params } = this.props.navigation.state || { params: {} };
-    return params;
-  }
-
   load = async () => {
     let { isRefreshing } = this.state;
     if (!isRefreshing) {
@@ -111,7 +92,6 @@ export default class GradesReportTabsScreen extends React.Component<
       Log.info(TAG, 'checkCache', e);
     }
   };
-
   loadResponse = (
     data: { programs: ProgramModel[]; levelGrade?: LevelModel },
     cacheLoaded = false
@@ -184,12 +164,16 @@ export default class GradesReportTabsScreen extends React.Component<
   reload = () => {
     this.onRefresh();
   };
-
   onRefresh = () => {
     this.setState({ isRefreshing: true }, () => {
       this.load();
     });
   };
+
+  getParams(): any {
+    let { params } = this.props.navigation.state || { params: {} };
+    return params;
+  }
 
   componentWillUnmount() {
     UPAO.abort('Intranet.getLevelsGrades');

@@ -19,7 +19,6 @@ import {
   NavigationScreenProp,
   NavigationStackScreenOptions
 } from 'react-navigation';
-import List = Realm.List;
 
 export interface GalleriesScreenProps {
   navigation: NavigationScreenProp<null, null>;

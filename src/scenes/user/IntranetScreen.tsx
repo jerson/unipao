@@ -1,29 +1,10 @@
 import * as React from 'react';
-import {
-  Dimensions,
-  FlatList,
-  ListRenderItemInfo,
-  Platform,
-  RefreshControl,
-  StyleSheet,
-  View
-} from 'react-native';
-import { Theme } from '../../themes/styles';
+import { Dimensions, ListRenderItemInfo, StyleSheet, View } from 'react-native';
 import * as PropTypes from 'prop-types';
 import { _ } from '../../modules/i18n/Translator';
-import DimensionUtil from '../../modules/util/DimensionUtil';
 import IntranetOptionHeader from '../../components/intranet/IntranetOptionHeader';
-import Loading from '../../components/ui/Loading';
-import NavigationButton from '../../components/ui/NavigationButton';
-import {
-  NavigationScreenProp,
-  NavigationScreenProps,
-  NavigationStackScreenOptions
-} from 'react-navigation';
 import { IconType } from '../../components/ui/Icon';
 import FlexibleGrid from '../../components/ui/FlexibleGrid';
-import UPAO from '../../scraping/UPAO';
-import Emitter from '../../modules/listener/Emitter';
 import IntranetOptionItem from '../../components/intranet/IntranetOptionItem';
 
 export interface IntranetOptionItemModel {
@@ -114,6 +95,7 @@ export default class IntranetScreen extends React.Component<
   onDimensionsChange = () => {
     this.forceUpdate();
   };
+
   async componentDidMount() {
     Dimensions.addEventListener('change', this.onDimensionsChange);
   }

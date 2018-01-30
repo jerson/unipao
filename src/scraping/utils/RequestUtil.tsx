@@ -2,7 +2,6 @@ import * as cio from 'cheerio-without-node-native';
 import Log from '../../modules/logger/Log';
 import Emitter from '../../modules/listener/Emitter';
 import Config from '../Config';
-import { Headers } from '../../modules/network/Request';
 
 const fetchCancelable = require('react-native-cancelable-fetch');
 

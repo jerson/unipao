@@ -47,6 +47,7 @@ export interface GradeReportCourseModel {
   ppa: string;
   pps: string;
 }
+
 export interface GradeReportModel {
   items: GradeReportCourseModel[];
   weightedAverageCumulative: number;

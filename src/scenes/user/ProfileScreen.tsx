@@ -13,11 +13,9 @@ import {
 import Icon from '../../components/ui/Icon';
 import { Theme } from '../../themes/styles';
 import * as PropTypes from 'prop-types';
-import Background from '../../components/ui/Background';
 import Auth from '../../modules/session/Auth';
 import Button from '../../components/ui/Button';
 import RouterUtil from '../../modules/util/RouterUtil';
-const { titleize } = require('underscore.string');
 import ImageUtil from '../../modules/util/ImageUtil';
 import { _ } from '../../modules/i18n/Translator';
 import {
@@ -25,6 +23,8 @@ import {
   NavigationTabScreenOptions
 } from 'react-navigation';
 import ViewSpacer from '../../components/ui/ViewSpacer';
+
+const { titleize } = require('underscore.string');
 
 export interface ProfileScreenProps {
   navigation: NavigationScreenProp<null, null>;
