@@ -131,8 +131,6 @@ export default class GradesReportScreen extends React.Component<
   };
 
   componentWillUnmount() {
-    UPAO.abort('Intranet.getLevelsGrades');
-    UPAO.abort('Intranet.getPrograms');
     UPAO.abort('Intranet.getGradesReport');
   }
 
