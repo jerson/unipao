@@ -16,7 +16,6 @@ import { Theme } from '../themes/styles';
 import NewsScreen from '../scenes/user/upao/NewsScreen';
 import SettingsScreen from '../scenes/user/SettingsScreen';
 import AgendaListScreen from '../scenes/user/upao/AgendaListScreen';
-import IntranetScreen from '../scenes/user/IntranetScreen';
 import ScheduleScreen from '../scenes/deprecated/ScheduleScreen';
 import AssistsScreen from '../scenes/deprecated/AssistsScreen';
 import EnrollmentScreen from '../scenes/deprecated/EnrollmentScreen';
@@ -40,8 +39,8 @@ import GalleryPhotoScreen from '../scenes/user/upao/GalleryPhotoScreen';
 import LevelScreen from '../scenes/user/intranet/LevelScreen';
 import IntranetTabsScreen from '../scenes/user/IntranetTabsScreen';
 import PaymentsScreen from '../scenes/user/intranet/PaymentsScreen';
-import GradesReportScreen from '../scenes/user/intranet/GradesReportScreen';
 import HistoryCoursesScreen from '../scenes/user/intranet/HistoryCoursesScreen';
+import GradesReportTabsScreen from '../scenes/user/intranet/GradesReportTabsScreen';
 
 const NewsNavigator = StackNavigator(
   {
@@ -174,7 +173,7 @@ const IntranetNavigator = StackNavigator(
       screen: PaymentsScreen
     },
     GradesReport: {
-      screen: GradesReportScreen
+      screen: GradesReportTabsScreen
     },
     HistoryCourses: {
       screen: HistoryCoursesScreen

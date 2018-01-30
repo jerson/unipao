@@ -109,11 +109,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 17,
-    color: '#666'
+    color: '#666',
+    textAlign: 'center'
     // fontWeight: 'bold'
   },
   subtitle: {
     fontSize: 14,
+    textAlign: 'center',
     color: '#0d61ac',
     fontWeight: 'bold'
   }

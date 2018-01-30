@@ -204,10 +204,11 @@ export default class EnrollmentScreen extends React.Component<
   }
 
   componentDidMount() {
-    this.props.navigation.setParams({ reload: this.reload });
     this.props.navigation.setParams({
+      reload: this.reload,
       togglePeriods: this.togglePeriods
     });
+
     let { period } = this.getParams();
     this.onChangePeriod(period);
   }

@@ -15,7 +15,8 @@ import CacheStorage from '../../../modules/storage/CacheStorage';
 import UPAO from '../../../scraping/UPAO';
 import {
   GradeReportCourseModel,
-  GradeReportModel
+  GradeReportModel,
+  ProgramModel
 } from '../../../scraping/student/Intranet';
 import {
   NavigationScreenProp,
@@ -26,7 +27,7 @@ import GradeReportHeader from '../../../components/grade/GradeReportHeader';
 import { Theme } from '../../../themes/styles';
 
 export interface GradesReportScreenProps {
-  navigation: NavigationScreenProp<null, null>;
+  program: ProgramModel;
   level: string;
 }
 
@@ -45,29 +46,14 @@ export default class GradesReportScreen extends React.Component<
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
-  static navigationOptions: NavigationStackScreenOptions = {
-    title: _('Reporte de notas'),
-    headerBackTitle: null,
-    headerTitleStyle: [Theme.title, Theme.subtitle],
-    headerTintColor: Theme.subTintColor,
-    headerStyle: [
-      Theme.navigationBar,
-      Theme.subNavigationBar,
-      Theme.shadowDefault
-    ]
-  };
 
   state: State = {
-    isLoading: false,
+    isLoading: true,
     cacheLoaded: false,
     isRefreshing: false,
     report: undefined
   };
 
-  getParams(): any {
-    let { params } = this.props.navigation.state || { params: {} };
-    return params;
-  }
   renderItem = ({
     item,
     index
@@ -91,8 +77,8 @@ export default class GradesReportScreen extends React.Component<
     await this.loadRequest();
   };
   getCacheKey = () => {
-    let { level } = this.getParams();
-    return `gradesReport_${level || '_'}`;
+    let { level, program } = this.props;
+    return `gradesReport_${level || '_'}_${program.id || '_'}`;
   };
   checkCache = async () => {
     try {
@@ -115,12 +101,11 @@ export default class GradesReportScreen extends React.Component<
     let { cacheLoaded } = this.state;
 
     try {
-      let { level } = this.getParams();
-      let levelGrade = await UPAO.Student.Intranet.getLevelGradeByLevel(level);
-      let programs = await UPAO.Student.Intranet.getPrograms(levelGrade.id);
+      let { level, program } = this.props;
+      console.log(level, program);
       let report = await UPAO.Student.Intranet.getGradesReport(
-        levelGrade.id,
-        programs[0].id
+        level,
+        program.id
       );
       this.loadResponse(report);
       CacheStorage.set(this.getCacheKey(), report);
@@ -157,18 +142,22 @@ export default class GradesReportScreen extends React.Component<
 
   render() {
     let { report, isLoading, isRefreshing } = this.state;
+    let items = report ? report.items || [] : [];
     return (
       <View style={[styles.container]}>
-        {((!isLoading && report && report.items.length < 1) ||
-          (!isLoading && !report)) && (
-          <AlertMessage type={'warning'} title={_('No se encontraron datos')} />
-        )}
+        {!isLoading &&
+          items.length < 1 && (
+            <AlertMessage
+              type={'warning'}
+              title={_('No se encontraron datos')}
+            />
+          )}
         {isLoading && <Loading margin />}
         {!isLoading &&
           report && (
             <FlatList
-              data={report.items}
-              extraData={report.items.length}
+              data={items}
+              extraData={items.length}
               showsVerticalScrollIndicator={true}
               renderItem={this.renderItem}
               ListHeaderComponent={this.renderHeader}

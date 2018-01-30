@@ -3,8 +3,6 @@ import {
   FlatList,
   ListRenderItemInfo,
   RefreshControl,
-  SectionList,
-  SectionListData,
   StyleSheet,
   View
 } from 'react-native';
@@ -15,24 +13,29 @@ import AlertMessage from '../../../components/ui/AlertMessage';
 import { _ } from '../../../modules/i18n/Translator';
 import CacheStorage from '../../../modules/storage/CacheStorage';
 import UPAO from '../../../scraping/UPAO';
-import PeriodHeader from '../../../components/period/PeriodHeader';
-import CourseItem from '../../../components/course/CourseItem';
 import {
-  CourseModel,
-  PaymentModel,
-  PeriodDetailModel
+  GradeReportCourseModel,
+  GradeReportModel,
+  LevelModel,
+  ProgramModel
 } from '../../../scraping/student/Intranet';
 import {
+  NavigationContainer,
+  NavigationRouteConfigMap,
   NavigationScreenConfigProps,
   NavigationScreenProp,
-  NavigationStackScreenOptions
+  NavigationStackScreenOptions,
+  NavigationTabScreenOptions,
+  TabNavigator
 } from 'react-navigation';
-import PaymentItem from '../../../components/payment/PaymentItem';
-import PaymentHeader from '../../../components/payment/PaymentHeader';
+import GradeReportItem from '../../../components/grade/GradesReportItem';
+import GradeReportHeader from '../../../components/grade/GradeReportHeader';
 import { Theme } from '../../../themes/styles';
 import NavigationButton from '../../../components/ui/NavigationButton';
+import { tabsOptions } from '../../../routers/Tabs';
+import GradesReportScreen from './GradesReportScreen';
 
-export interface PaymentsScreenProps {
+export interface GradesReportTabsScreenProps {
   navigation: NavigationScreenProp<null, null>;
   level: string;
 }
@@ -41,12 +44,13 @@ export interface State {
   isLoading: boolean;
   isRefreshing: boolean;
   cacheLoaded: boolean;
-  payments: PaymentModel[];
+  programs?: ProgramModel[];
+  Tabs?: NavigationContainer;
 }
 
-const TAG = 'PaymentsScreen';
-export default class PaymentsScreen extends React.Component<
-  PaymentsScreenProps,
+const TAG = 'GradesReportTabsScreen';
+export default class GradesReportTabsScreen extends React.Component<
+  GradesReportTabsScreenProps,
   State
 > {
   static contextTypes = {
@@ -56,15 +60,11 @@ export default class PaymentsScreen extends React.Component<
     navigation,
     screenProps
   }: NavigationScreenConfigProps): NavigationStackScreenOptions => ({
-    title: _('Historial de pagos'),
+    title: _('Reporte de notas'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
     headerTintColor: Theme.subTintColor,
-    headerStyle: [
-      Theme.navigationBar,
-      Theme.subNavigationBar,
-      Theme.shadowDefault
-    ],
+    headerStyle: [Theme.navigationBar, Theme.subNavigationBar],
     headerRight: (
       <View style={{ flexDirection: 'row' }}>
         <NavigationButton
@@ -82,16 +82,14 @@ export default class PaymentsScreen extends React.Component<
     isLoading: true,
     cacheLoaded: false,
     isRefreshing: false,
-    payments: []
+    programs: [],
+    Tabs: undefined
   };
 
-  renderItem = ({ item, index }: ListRenderItemInfo<PaymentModel>) => {
-    return <PaymentItem payment={item} />;
-  };
-  renderHeader = () => {
-    let { payments } = this.state;
-    return <PaymentHeader payments={payments} />;
-  };
+  getParams(): any {
+    let { params } = this.props.navigation.state || { params: {} };
+    return params;
+  }
 
   load = async () => {
     let { isRefreshing } = this.state;
@@ -103,7 +101,7 @@ export default class PaymentsScreen extends React.Component<
   };
   getCacheKey = () => {
     let { level } = this.getParams();
-    return `payments_${level || '_'}`;
+    return `gradesReportPrograms_${level || '_'}`;
   };
   checkCache = async () => {
     try {
@@ -114,32 +112,69 @@ export default class PaymentsScreen extends React.Component<
     }
   };
 
-  loadResponse = (payments: PaymentModel[], cacheLoaded = false) => {
+  loadResponse = (
+    data: { programs: ProgramModel[]; levelGrade?: LevelModel },
+    cacheLoaded = false
+  ) => {
+    let { programs, levelGrade } = data;
+    let tabs: NavigationRouteConfigMap = {};
+
+    for (let program of programs) {
+      let name = program.name || 'ERR';
+      tabs[name] = {
+        screen: ({ navigation, screenProps }: NavigationScreenConfigProps) => {
+          return (
+            <GradesReportScreen
+              level={levelGrade ? levelGrade.id : 'error'}
+              program={program}
+            />
+          );
+        },
+        navigationOptions: {
+          tabBarLabel: program.name
+        } as NavigationTabScreenOptions
+      };
+    }
+    let totalTabs = Object.keys(tabs);
+    if (totalTabs.length < 1) {
+      tabs = {
+        NO: {
+          screen: () => {
+            return <AlertMessage message={_('No hay datos')} />;
+          },
+          navigationOptions: {
+            tabBarLabel: _('Error')
+          } as NavigationTabScreenOptions
+        }
+      };
+    }
+    let Tabs = TabNavigator(tabs, {
+      ...tabsOptions
+    });
+
     this.setState({
       cacheLoaded,
-      payments,
+      programs,
+      Tabs,
       isLoading: false,
       isRefreshing: false
     });
   };
-
-  getParams(): any {
-    let { params } = this.props.navigation.state || { params: {} };
-    return params;
-  }
   loadRequest = async () => {
     let { cacheLoaded } = this.state;
 
     try {
       let { level } = this.getParams();
-      let payments = await UPAO.Student.Intranet.getPayments(level);
-      this.loadResponse(payments);
-      CacheStorage.set(this.getCacheKey(), payments);
+      let levelGrade = await UPAO.Student.Intranet.getLevelGradeByLevel(level);
+      let programs = await UPAO.Student.Intranet.getPrograms(levelGrade.id);
+      let data = { programs, levelGrade };
+      this.loadResponse(data);
+      CacheStorage.set(this.getCacheKey(), data);
     } catch (e) {
       Log.warn(TAG, 'load', e);
       if (!cacheLoaded) {
         Log.info(TAG, 'loadRequest', '!cacheLoaded');
-        this.loadResponse([]);
+        this.loadResponse({ programs: [], levelGrade: undefined });
       } else {
         Log.info(TAG, 'loadRequest', 'cacheLoaded');
         this.setState({ isLoading: false, isRefreshing: false });
@@ -157,7 +192,8 @@ export default class PaymentsScreen extends React.Component<
   };
 
   componentWillUnmount() {
-    UPAO.abort('Intranet.getPayments');
+    UPAO.abort('Intranet.getLevelsGrades');
+    UPAO.abort('Intranet.getPrograms');
   }
 
   componentDidMount() {
@@ -167,36 +203,11 @@ export default class PaymentsScreen extends React.Component<
   }
 
   render() {
-    let { payments, isLoading, isRefreshing } = this.state;
-
+    let { Tabs, programs, isLoading } = this.state;
     return (
       <View style={[styles.container]}>
-        {!isLoading &&
-          payments.length < 1 && (
-            <AlertMessage
-              type={'warning'}
-              title={_('No se encontraron datos')}
-            />
-          )}
         {isLoading && <Loading margin />}
-        {!isLoading && (
-          <FlatList
-            data={payments}
-            extraData={(payments || []).length}
-            showsVerticalScrollIndicator={true}
-            renderItem={this.renderItem}
-            ListHeaderComponent={this.renderHeader}
-            refreshControl={
-              <RefreshControl
-                refreshing={isRefreshing}
-                onRefresh={this.onRefresh}
-              />
-            }
-            keyExtractor={(item, index) => {
-              return index.toString();
-            }}
-          />
-        )}
+        {!isLoading && Tabs && <Tabs />}
       </View>
     );
   }

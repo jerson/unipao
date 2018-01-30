@@ -21,10 +21,12 @@ import {
   PeriodDetailModel
 } from '../../../scraping/student/Intranet';
 import {
+  NavigationScreenConfigProps,
   NavigationScreenProp,
   NavigationStackScreenOptions
 } from 'react-navigation';
 import { Theme } from '../../../themes/styles';
+import NavigationButton from '../../../components/ui/NavigationButton';
 
 export interface HistoryCoursesScreenProps {
   navigation: NavigationScreenProp<null, null>;
@@ -52,7 +54,10 @@ export default class HistoryCoursesScreen extends React.Component<
     notification: PropTypes.object.isRequired
   };
 
-  static navigationOptions: NavigationStackScreenOptions = {
+  static navigationOptions = ({
+    navigation,
+    screenProps
+  }: NavigationScreenConfigProps): NavigationStackScreenOptions => ({
     title: _('Cursos anteriores'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
@@ -61,11 +66,22 @@ export default class HistoryCoursesScreen extends React.Component<
       Theme.navigationBar,
       Theme.subNavigationBar,
       Theme.shadowDefault
-    ]
-  };
+    ],
+    headerRight: (
+      <View style={{ flexDirection: 'row' }}>
+        <NavigationButton
+          onPress={() => {
+            navigation.state.params.reload();
+          }}
+          icon={'refresh'}
+          iconType={'MaterialIcons'}
+        />
+      </View>
+    )
+  });
 
   state: State = {
-    isLoading: false,
+    isLoading: true,
     cacheLoaded: false,
     isRefreshing: false,
     sections: []
@@ -158,6 +174,8 @@ export default class HistoryCoursesScreen extends React.Component<
   }
 
   componentDidMount() {
+    this.props.navigation.setParams({ reload: this.reload });
+
     this.load();
   }
 

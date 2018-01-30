@@ -66,7 +66,7 @@ export default class AgendaListScreen extends React.Component<
     year: moment().format('YYYY'),
     isRefreshing: false,
     cacheLoaded: false,
-    isLoading: false
+    isLoading: true
   };
 
   load = async () => {
