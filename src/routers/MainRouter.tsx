@@ -40,6 +40,8 @@ import GalleryPhotoScreen from '../scenes/user/upao/GalleryPhotoScreen';
 import LevelScreen from '../scenes/user/intranet/LevelScreen';
 import IntranetTabsScreen from '../scenes/user/IntranetTabsScreen';
 import PaymentsScreen from '../scenes/user/intranet/PaymentsScreen';
+import GradesReportScreen from '../scenes/user/intranet/GradesReportScreen';
+import HistoryCoursesScreen from '../scenes/user/intranet/HistoryCoursesScreen';
 
 const NewsNavigator = StackNavigator(
   {
@@ -168,6 +170,27 @@ const IntranetNavigator = StackNavigator(
     Level: {
       screen: LevelScreen
     },
+    Payments: {
+      screen: PaymentsScreen
+    },
+    GradesReport: {
+      screen: GradesReportScreen
+    },
+    HistoryCourses: {
+      screen: HistoryCoursesScreen
+    },
+    Schedule: {
+      screen: ScheduleScreen
+    },
+    Assists: {
+      screen: AssistsScreen
+    },
+    AssistDetail: {
+      screen: AssistDetailScreen
+    },
+    Enrollment: {
+      screen: EnrollmentScreen
+    },
     Course: {
       screen: CourseScreen
     },
@@ -191,18 +214,6 @@ const IntranetNavigator = StackNavigator(
     },
     CourseExams: {
       screen: CourseExamsScreen
-    },
-    Schedule: {
-      screen: ScheduleScreen
-    },
-    Assists: {
-      screen: AssistsScreen
-    },
-    AssistDetail: {
-      screen: AssistDetailScreen
-    },
-    Enrollment: {
-      screen: EnrollmentScreen
     }
   },
   {}

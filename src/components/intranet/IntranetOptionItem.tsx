@@ -4,19 +4,19 @@ import * as PropTypes from 'prop-types';
 import Icon from '../ui/Icon';
 import Touchable from '../ui/Touchable';
 import { _ } from '../../modules/i18n/Translator';
-import { IntranetItemModel } from '../../scenes/user/IntranetScreen';
+import { IntranetOptionItemModel } from '../../scenes/user/IntranetScreen';
 import { Theme } from '../../themes/styles';
 
-export interface IntranetItemProps {
-  item: IntranetItemModel;
+export interface IntranetOptionItemProps {
+  item: IntranetOptionItemModel;
   onChooseItem: () => void;
 }
 
 export interface State {}
 
-const TAG = 'IntranetItem';
-export default class IntranetItem extends React.Component<
-  IntranetItemProps,
+const TAG = 'IntranetOptionItem';
+export default class IntranetOptionItem extends React.Component<
+  IntranetOptionItemProps,
   State
 > {
   static contextTypes = {

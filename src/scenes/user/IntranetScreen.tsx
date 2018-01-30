@@ -12,8 +12,7 @@ import { Theme } from '../../themes/styles';
 import * as PropTypes from 'prop-types';
 import { _ } from '../../modules/i18n/Translator';
 import DimensionUtil from '../../modules/util/DimensionUtil';
-import IntranetItem from '../../components/intranet/IntranetItem';
-import IntranetHeader from '../../components/intranet/IntranetHeader';
+import IntranetOptionHeader from '../../components/intranet/IntranetOptionHeader';
 import Loading from '../../components/ui/Loading';
 import NavigationButton from '../../components/ui/NavigationButton';
 import {
@@ -25,8 +24,9 @@ import { IconType } from '../../components/ui/Icon';
 import FlexibleGrid from '../../components/ui/FlexibleGrid';
 import UPAO from '../../scraping/UPAO';
 import Emitter from '../../modules/listener/Emitter';
+import IntranetOptionItem from '../../components/intranet/IntranetOptionItem';
 
-export interface IntranetItemModel {
+export interface IntranetOptionItemModel {
   route: string;
   name: string;
   level: 'UG' | 'GR' | 'UT' | 'UB';
@@ -38,11 +38,10 @@ export interface IntranetItemModel {
 
 export interface IntranetScreenProps {
   screenProps: { [key: string]: any };
-  navigation: NavigationScreenProp<null, null>;
 }
 
 export interface State {
-  items: IntranetItemModel[];
+  items: IntranetOptionItemModel[];
 }
 
 const TAG = 'IntranetScreen';
@@ -91,9 +90,12 @@ export default class IntranetScreen extends React.Component<
     ]
   };
 
-  renderItem = ({ item, index }: ListRenderItemInfo<IntranetItemModel>) => {
+  renderItem = ({
+    item,
+    index
+  }: ListRenderItemInfo<IntranetOptionItemModel>) => {
     return (
-      <IntranetItem
+      <IntranetOptionItem
         item={item}
         onChooseItem={() => {
           this.onChooseItem(item);
@@ -102,12 +104,12 @@ export default class IntranetScreen extends React.Component<
     );
   };
 
-  onChooseItem = (item: IntranetItemModel) => {
+  onChooseItem = (item: IntranetOptionItemModel) => {
     this.props.screenProps.rootNavigation.navigate(item.route, { item });
   };
 
   renderHeader = () => {
-    return <IntranetHeader />;
+    return <IntranetOptionHeader />;
   };
   onDimensionsChange = () => {
     this.forceUpdate();
@@ -131,7 +133,7 @@ export default class IntranetScreen extends React.Component<
           itemMargin={5}
           showsVerticalScrollIndicator={true}
           data={items}
-          contentContainerStyle={[styles.content, { minHeight: height - 200 }]}
+          contentContainerStyle={[styles.content, { minHeight: height - 150 }]}
           ListHeaderComponent={this.renderHeader}
           renderItem={this.renderItem}
           keyExtractor={(item, index) => {

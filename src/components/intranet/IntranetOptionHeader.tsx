@@ -17,13 +17,13 @@ import { _ } from '../../modules/i18n/Translator';
 import Touchable from '../ui/Touchable';
 import CacheStorage from '../../modules/storage/CacheStorage';
 
-export interface IntranetHeaderProps {}
+export interface IntranetOptionHeaderProps {}
 
 export interface State {}
 
-const TAG = 'IntranetHeader';
-export default class IntranetHeader extends React.Component<
-  IntranetHeaderProps,
+const TAG = 'IntranetOptionHeader';
+export default class IntranetOptionHeader extends React.Component<
+  IntranetOptionHeaderProps,
   State
 > {
   static contextTypes = {

@@ -12,8 +12,8 @@ import { Theme } from '../../themes/styles';
 import * as PropTypes from 'prop-types';
 import { _ } from '../../modules/i18n/Translator';
 import DimensionUtil from '../../modules/util/DimensionUtil';
-import IntranetItem from '../../components/intranet/IntranetItem';
-import IntranetHeader from '../../components/intranet/IntranetHeader';
+import IntranetItem from '../../components/intranet/IntranetOptionItem';
+import IntranetHeader from '../../components/intranet/IntranetOptionHeader';
 import Loading from '../../components/ui/Loading';
 import NavigationButton from '../../components/ui/NavigationButton';
 import {
@@ -49,31 +49,36 @@ export default class IntranetTabsScreen extends React.Component<
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
     headerTintColor: Theme.subTintColor,
-    headerStyle: [Theme.navigationBar, Theme.subNavigationBar]
+    headerStyle: [
+      Theme.navigationBar,
+      Theme.subNavigationBar,
+      Theme.shadowDefault
+    ]
   };
 
   render() {
     let { navigation } = this.props;
-    return <Tabs screenProps={{ rootNavigation: navigation }} />;
+    return <IntranetScreen screenProps={{ rootNavigation: navigation }} />;
+    // return <Tabs screenProps={{ rootNavigation: navigation }} />;
   }
 }
 
-const Tabs = TabNavigator(
-  {
-    Home: {
-      screen: IntranetScreen,
-      navigationOptions: {
-        tabBarLabel: _('Nivel académico')
-      } as NavigationTabScreenOptions
-    }
-    // Messages: {
-    //   screen: IntranetScreen,
-    //   navigationOptions: {
-    //     tabBarLabel: _('Mensajes')
-    //   } as NavigationTabScreenOptions
-    // }
-  },
-  {
-    ...tabsOptionsSub
-  }
-);
+// const Tabs = TabNavigator(
+//   {
+//     Home: {
+//       screen: IntranetScreen,
+//       navigationOptions: {
+//         tabBarLabel: _('Nivel académico')
+//       } as NavigationTabScreenOptions
+//     }
+//     // Messages: {
+//     //   screen: IntranetScreen,
+//     //   navigationOptions: {
+//     //     tabBarLabel: _('Mensajes')
+//     //   } as NavigationTabScreenOptions
+//     // }
+//   },
+//   {
+//     ...tabsOptionsSub
+//   }
+// );

@@ -22,9 +22,13 @@ import {
   PaymentModel,
   PeriodDetailModel
 } from '../../../scraping/student/Intranet';
-import { NavigationScreenProp } from 'react-navigation';
+import {
+  NavigationScreenProp,
+  NavigationStackScreenOptions
+} from 'react-navigation';
 import PaymentItem from '../../../components/payment/PaymentItem';
 import PaymentHeader from '../../../components/payment/PaymentHeader';
+import { Theme } from '../../../themes/styles';
 
 export interface PaymentsScreenProps {
   navigation: NavigationScreenProp<null, null>;
@@ -45,6 +49,17 @@ export default class PaymentsScreen extends React.Component<
 > {
   static contextTypes = {
     notification: PropTypes.object.isRequired
+  };
+  static navigationOptions: NavigationStackScreenOptions = {
+    title: _('Historial de pagos'),
+    headerBackTitle: null,
+    headerTitleStyle: [Theme.title, Theme.subtitle],
+    headerTintColor: Theme.subTintColor,
+    headerStyle: [
+      Theme.navigationBar,
+      Theme.subNavigationBar,
+      Theme.shadowDefault
+    ]
   };
 
   state: State = {
@@ -71,7 +86,7 @@ export default class PaymentsScreen extends React.Component<
     await this.loadRequest();
   };
   getCacheKey = () => {
-    let { level } = this.props;
+    let { level } = this.getParams();
     return `payments_${level || '_'}`;
   };
   checkCache = async () => {
@@ -91,11 +106,16 @@ export default class PaymentsScreen extends React.Component<
       isRefreshing: false
     });
   };
+
+  getParams(): any {
+    let { params } = this.props.navigation.state || { params: {} };
+    return params;
+  }
   loadRequest = async () => {
     let { cacheLoaded } = this.state;
 
     try {
-      let { level } = this.props;
+      let { level } = this.getParams();
       let payments = await UPAO.Student.Intranet.getPayments(level);
       this.loadResponse(payments);
       CacheStorage.set(this.getCacheKey(), payments);

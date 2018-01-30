@@ -1,38 +1,36 @@
 import * as React from 'react';
-import { Dimensions, ScaledSize, StyleSheet, View } from 'react-native';
-import { Theme } from '../../../themes/styles';
+import { Dimensions, ListRenderItemInfo, StyleSheet, View } from 'react-native';
 import * as PropTypes from 'prop-types';
-import Loading from '../../../components/ui/Loading';
 import { _ } from '../../../modules/i18n/Translator';
-import { tabsOptionsSub } from '../../../routers/Tabs';
+import { IconType } from '../../../components/ui/Icon';
+import FlexibleGrid from '../../../components/ui/FlexibleGrid';
 import {
   NavigationScreenConfigProps,
   NavigationScreenProp,
-  NavigationStackScreenOptions,
-  NavigationTabScreenOptions,
-  TabNavigator
+  NavigationStackScreenOptions
 } from 'react-navigation';
-import HistoryCoursesScreen from './HistoryCoursesScreen';
-import NavigationButton from '../../../components/ui/NavigationButton';
-import PaymentsScreen from './PaymentsScreen';
-import GradesReportScreen from './GradesReportScreen';
+import LevelOptionItem from '../../../components/level/LevelOptionItem';
+import LevelOptionHeader from '../../../components/level/LevelOptionHeader';
+import { Theme } from '../../../themes/styles';
+
+export interface LevelOptionItemModel {
+  route: string;
+  name: string;
+  description?: string;
+  icon?: string;
+  iconType?: IconType;
+}
 
 export interface LevelScreenProps {
   navigation: NavigationScreenProp<null, null>;
 }
 
 export interface State {
-  isLoading: boolean;
-  width: number;
-}
-
-export interface DimensionsChange {
-  window: ScaledSize;
-  screen?: ScaledSize;
+  items: LevelOptionItemModel[];
 }
 
 const TAG = 'LevelScreen';
-export default class LevelScreen extends React.PureComponent<
+export default class LevelScreen extends React.Component<
   LevelScreenProps,
   State
 > {
@@ -44,155 +42,114 @@ export default class LevelScreen extends React.PureComponent<
     navigation,
     screenProps
   }: NavigationScreenConfigProps): NavigationStackScreenOptions => ({
-    title: navigation ? navigation.state.params.item.name : _('Nivel'),
+    title: navigation
+      ? navigation.state.params.item.name
+      : _('Nivel académico'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
     headerTintColor: Theme.subTintColor,
-    headerStyle: [Theme.navigationBar, Theme.subNavigationBar],
-    headerRight: (
-      <View style={{ flexDirection: 'row' }}>
-        <NavigationButton
-          onPress={() => {
-            navigation.state.params.reload();
-          }}
-          icon={'refresh'}
-          iconType={'MaterialIcons'}
-        />
-      </View>
-    )
+    headerStyle: [
+      Theme.navigationBar,
+      Theme.subNavigationBar,
+      Theme.shadowDefault
+    ]
   });
 
   state: State = {
-    isLoading: true,
-    width: 300
+    items: [
+      {
+        route: 'HistoryCourses',
+        name: _('Cursos anteriores'),
+        description: _(
+          'Cursos de ciclos anteriores, revisa tus notas, silabos y asistencias'
+        ),
+        icon: 'book',
+        iconType: 'Entypo'
+      },
+      {
+        route: 'GradesReport',
+        name: _('Reporte de notas'),
+        description: _('Reportes de notas de ciclos anteriores'),
+        icon: 'ios-paper',
+        iconType: 'Ionicons'
+      },
+      {
+        route: 'HistoryCourses',
+        name: _('Ficha de matricula'),
+        description: _(
+          'Los cursos a los que te inscribiste y cuantos creditos valen'
+        ),
+        icon: 'folder',
+        iconType: 'Entypo'
+      },
+      {
+        route: 'Payments',
+        name: _('Historial de pagos'),
+        description: _(
+          'Todos los pagos realizados incluyendo derechos de tramite'
+        ),
+        icon: 'monetization-on',
+        iconType: 'MaterialIcons'
+      }
+    ]
   };
 
-  onDimensionsChange = ({ window, screen }: DimensionsChange) => {
-    this.setState({ width: window.width, isLoading: false });
+  renderItem = ({ item, index }: ListRenderItemInfo<LevelOptionItemModel>) => {
+    return (
+      <LevelOptionItem
+        item={item}
+        onChooseItem={() => {
+          this.onChooseItem(item);
+        }}
+      />
+    );
   };
 
-  componentDidMount() {
+  onChooseItem = (option: LevelOptionItemModel) => {
+    let { item } = this.getParams();
+    this.props.navigation.navigate(option.route, {
+      item: option,
+      level: item.level
+    });
+  };
+
+  renderHeader = () => {
+    return <LevelOptionHeader />;
+  };
+  onDimensionsChange = () => {
+    this.forceUpdate();
+  };
+
+  getParams(): any {
+    let { params } = this.props.navigation.state || { params: {} };
+    return params;
+  }
+  async componentDidMount() {
     Dimensions.addEventListener('change', this.onDimensionsChange);
-    this.onDimensionsChange({ window: Dimensions.get('window') });
   }
 
   componentWillUnmount() {
     Dimensions.removeEventListener('change', this.onDimensionsChange);
   }
 
-  getParams(): any {
-    let { params } = this.props.navigation.state || { params: {} };
-    return params;
-  }
-
   render() {
-    let { isLoading, width } = this.state;
-    let { navigation } = this.props;
-    let { item } = this.getParams();
+    let { items } = this.state;
+    let { height } = Dimensions.get('window');
 
-    if (isLoading) {
-      return (
-        <View style={[styles.container]}>
-          <Loading margin />
-        </View>
-      );
-    }
-
-    const LevelsTab = TabNavigator(
-      {
-        History: {
-          screen: ({
-            navigation,
-            screenProps
-          }: NavigationScreenConfigProps) => {
-            if (!screenProps) {
-              return null;
-            }
-            return (
-              <HistoryCoursesScreen
-                level={screenProps.item.level}
-                navigation={screenProps.topNavigation}
-              />
-            );
-          },
-          navigationOptions: {
-            tabBarLabel: _('Cursos')
-          } as NavigationTabScreenOptions
-        },
-        Enrollment: {
-          screen: ({
-            navigation,
-            screenProps
-          }: NavigationScreenConfigProps) => {
-            return <View />;
-          },
-          navigationOptions: {
-            tabBarLabel: _('Matricula')
-          } as NavigationTabScreenOptions
-        },
-        Grades: {
-          screen: ({
-            navigation,
-            screenProps
-          }: NavigationScreenConfigProps) => {
-            if (!screenProps) {
-              return null;
-            }
-            return (
-              <GradesReportScreen
-                level={screenProps.item.level}
-                navigation={screenProps.topNavigation}
-              />
-            );
-          },
-          navigationOptions: {
-            tabBarLabel: _('Reporte Notas')
-          } as NavigationTabScreenOptions
-        },
-        Payments: {
-          screen: ({
-            navigation,
-            screenProps
-          }: NavigationScreenConfigProps) => {
-            if (!screenProps) {
-              return null;
-            }
-            return (
-              <PaymentsScreen
-                level={screenProps.item.level}
-                navigation={screenProps.topNavigation}
-              />
-            );
-          },
-          navigationOptions: {
-            tabBarLabel: _('Estado cuenta')
-          } as NavigationTabScreenOptions
-        }
-      },
-      {
-        ...tabsOptionsSub,
-        tabBarOptions: {
-          ...tabsOptionsSub.tabBarOptions,
-          scrollEnabled: width < 400,
-          tabStyle:
-            width < 400
-              ? {
-                  flexDirection: 'row',
-                  width: 120,
-                  padding: 0,
-                  paddingBottom: 5,
-                  paddingTop: 6
-                }
-              : { flexDirection: 'row' }
-        }
-      }
-    );
     return (
-      <View style={styles.container}>
-        {isLoading && <Loading margin />}
-        {!isLoading && (
-          <LevelsTab screenProps={{ topNavigation: navigation, item }} />
-        )}
+      <View style={[styles.container]}>
+        <FlexibleGrid
+          itemWidth={200}
+          itemMargin={5}
+          showsVerticalScrollIndicator={true}
+          data={items}
+          contentContainerStyle={[styles.content, { minHeight: height - 150 }]}
+          // ListHeaderComponent={this.renderHeader}
+          renderItem={this.renderItem}
+          keyExtractor={(item, index) => {
+            return index.toString();
+          }}
+        />
       </View>
     );
   }
@@ -201,6 +158,10 @@ export default class LevelScreen extends React.PureComponent<
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: '#f4f4f4'
+  },
+  content: {
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });

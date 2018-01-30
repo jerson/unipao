@@ -20,7 +20,11 @@ import {
   CourseModel,
   PeriodDetailModel
 } from '../../../scraping/student/Intranet';
-import { NavigationScreenProp } from 'react-navigation';
+import {
+  NavigationScreenProp,
+  NavigationStackScreenOptions
+} from 'react-navigation';
+import { Theme } from '../../../themes/styles';
 
 export interface HistoryCoursesScreenProps {
   navigation: NavigationScreenProp<null, null>;
@@ -48,6 +52,18 @@ export default class HistoryCoursesScreen extends React.Component<
     notification: PropTypes.object.isRequired
   };
 
+  static navigationOptions: NavigationStackScreenOptions = {
+    title: _('Cursos anteriores'),
+    headerBackTitle: null,
+    headerTitleStyle: [Theme.title, Theme.subtitle],
+    headerTintColor: Theme.subTintColor,
+    headerStyle: [
+      Theme.navigationBar,
+      Theme.subNavigationBar,
+      Theme.shadowDefault
+    ]
+  };
+
   state: State = {
     isLoading: false,
     cacheLoaded: false,
@@ -55,8 +71,12 @@ export default class HistoryCoursesScreen extends React.Component<
     sections: []
   };
 
+  getParams(): any {
+    let { params } = this.props.navigation.state || { params: {} };
+    return params;
+  }
   renderItem = ({ item, index }: ListRenderItemInfo<CourseModel>) => {
-    return <CourseItem course={item} navigation={this.props.navigation} />;
+    return <CourseItem course={item} />;
   };
   renderHeader = ({
     section
@@ -75,7 +95,7 @@ export default class HistoryCoursesScreen extends React.Component<
     await this.loadRequest();
   };
   getCacheKey = () => {
-    let { level } = this.props;
+    let { level } = this.getParams();
     return `level_${level || '_'}`;
   };
   checkCache = async () => {
@@ -100,7 +120,7 @@ export default class HistoryCoursesScreen extends React.Component<
     let { cacheLoaded } = this.state;
 
     try {
-      let { level } = this.props;
+      let { level } = this.getParams();
       let periods = await UPAO.Student.Intranet.getHistoryCourses(level);
 
       let sections = periods.map(period => {

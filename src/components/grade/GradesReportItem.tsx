@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     padding: 5,
+    paddingRight: 10,
     borderBottomWidth: 1,
     borderColor: 'rgba(0,0,0,0.04)',
     flexDirection: 'row',
@@ -101,11 +102,16 @@ const styles = StyleSheet.create({
   },
   grade: {
     fontSize: 14,
+    fontWeight: 'bold',
     color: '#fff'
   },
   gradeContainer: {
     padding: 4,
-    borderRadius: 2,
-    backgroundColor: '#0d61ac'
+    width: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: '#666b76'
   }
 });

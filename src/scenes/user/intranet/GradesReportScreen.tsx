@@ -17,9 +17,13 @@ import {
   GradeReportCourseModel,
   GradeReportModel
 } from '../../../scraping/student/Intranet';
-import { NavigationScreenProp } from 'react-navigation';
+import {
+  NavigationScreenProp,
+  NavigationStackScreenOptions
+} from 'react-navigation';
 import GradeReportItem from '../../../components/grade/GradesReportItem';
 import GradeReportHeader from '../../../components/grade/GradeReportHeader';
+import { Theme } from '../../../themes/styles';
 
 export interface GradesReportScreenProps {
   navigation: NavigationScreenProp<null, null>;
@@ -41,6 +45,17 @@ export default class GradesReportScreen extends React.Component<
   static contextTypes = {
     notification: PropTypes.object.isRequired
   };
+  static navigationOptions: NavigationStackScreenOptions = {
+    title: _('Reporte de notas'),
+    headerBackTitle: null,
+    headerTitleStyle: [Theme.title, Theme.subtitle],
+    headerTintColor: Theme.subTintColor,
+    headerStyle: [
+      Theme.navigationBar,
+      Theme.subNavigationBar,
+      Theme.shadowDefault
+    ]
+  };
 
   state: State = {
     isLoading: false,
@@ -49,6 +64,10 @@ export default class GradesReportScreen extends React.Component<
     report: undefined
   };
 
+  getParams(): any {
+    let { params } = this.props.navigation.state || { params: {} };
+    return params;
+  }
   renderItem = ({
     item,
     index
@@ -72,7 +91,7 @@ export default class GradesReportScreen extends React.Component<
     await this.loadRequest();
   };
   getCacheKey = () => {
-    let { level } = this.props;
+    let { level } = this.getParams();
     return `gradesReport_${level || '_'}`;
   };
   checkCache = async () => {
@@ -96,7 +115,7 @@ export default class GradesReportScreen extends React.Component<
     let { cacheLoaded } = this.state;
 
     try {
-      let { level } = this.props;
+      let { level } = this.getParams();
       let levelGrade = await UPAO.Student.Intranet.getLevelGradeByLevel(level);
       let programs = await UPAO.Student.Intranet.getPrograms(levelGrade.id);
       let report = await UPAO.Student.Intranet.getGradesReport(

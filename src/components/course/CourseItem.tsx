@@ -7,7 +7,6 @@ import { CourseModel } from '../../scraping/student/Intranet';
 
 export interface CourseItemProps {
   course: CourseModel;
-  navigation: NavigationScreenProp<null, null>;
 }
 
 export interface State {}
@@ -18,14 +17,15 @@ export default class CourseItem extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
+    navigation: PropTypes.object.isRequired
   };
 
   state = {};
 
   onPress = () => {
     let { course } = this.props;
-    this.props.navigation.navigate('Course', { course });
+    this.context.navigation.navigate('Course', { course });
   };
 
   render() {
