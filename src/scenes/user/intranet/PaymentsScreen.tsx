@@ -121,7 +121,7 @@ export default class PaymentsScreen extends React.Component<
   };
 
   componentWillUnmount() {
-    UPAO.abort('Course.getPayments');
+    UPAO.abort('Intranet.getPayments');
   }
 
   componentDidMount() {
@@ -144,6 +144,7 @@ export default class PaymentsScreen extends React.Component<
         {!isLoading && (
           <FlatList
             data={payments}
+            extraData={(payments || []).length}
             showsVerticalScrollIndicator={true}
             renderItem={this.renderItem}
             ListHeaderComponent={this.renderHeader}

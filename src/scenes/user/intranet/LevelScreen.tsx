@@ -15,6 +15,7 @@ import {
 import HistoryCoursesScreen from './HistoryCoursesScreen';
 import NavigationButton from '../../../components/ui/NavigationButton';
 import PaymentsScreen from './PaymentsScreen';
+import GradesReportScreen from './GradesReportScreen';
 
 export interface LevelScreenProps {
   navigation: NavigationScreenProp<null, null>;
@@ -134,7 +135,15 @@ export default class LevelScreen extends React.PureComponent<
             navigation,
             screenProps
           }: NavigationScreenConfigProps) => {
-            return <View />;
+            if (!screenProps) {
+              return null;
+            }
+            return (
+              <GradesReportScreen
+                level={screenProps.item.level}
+                navigation={screenProps.topNavigation}
+              />
+            );
           },
           navigationOptions: {
             tabBarLabel: _('Reporte Notas')

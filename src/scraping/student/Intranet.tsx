@@ -200,10 +200,10 @@ export default class Intranet {
     ];
   }
 
-  static async getLevelByLevelGrades(levelCode: string): Promise<LevelModel> {
+  static async getLevelGradeByLevel(levelCode: string): Promise<LevelModel> {
     let levels = await this.getLevelsGrades();
     let name = '';
-    switch (levelCode) {
+    switch (levelCode.toUpperCase()) {
       case 'UT':
         name = 'PGCT';
         break;
@@ -221,6 +221,7 @@ export default class Intranet {
         break;
     }
 
+    console.log(levels);
     for (let level of levels) {
       if (level.name.indexOf(name) !== -1) {
         return level;
@@ -232,6 +233,12 @@ export default class Intranet {
   static async getLevelsGrades(): Promise<LevelModel[]> {
     let levels: LevelModel[] = [];
     try {
+      //litle hack
+      await RequestUtil.fetch(
+        '/aulavirtual.aspx?f=YAGMURO&r=A',
+        {},
+        { tag: 'Intranet.getLevelsGrades', checkSession: true }
+      );
       let $ = await RequestUtil.fetch(
         '/aulavirtual.aspx?f=YAAFIMA&r=A',
         {},
@@ -509,10 +516,10 @@ export default class Intranet {
           method: 'POST',
           body: ParamsUtils.getFormData(params)
         },
-        { tag: 'Intranet.getGradesReport', checkSession: true }
+        { tag: 'Intranet.getGradesReport', checkSession: true, ajax: true }
       );
-      let $tableReport = $('table:first');
-      $('table:first tr', $tableReport).each((index, value) => {
+      let $tableReport = $('table:first-child');
+      $('> tr', $tableReport).each((index, value) => {
         let cycle = $('td:nth-child(1)', value)
           .text()
           .trim();
@@ -566,37 +573,37 @@ export default class Intranet {
         }
       });
 
-      let $tableResume = $('table:last');
+      let $tableResume = $('table:nth-child(2)');
       let weightedAverageCumulative = parseFloat(
-        $('tr:nth-child(1) > td:nth-child(2)', $tableResume)
+        $('> tr:nth-child(1) > td:nth-child(2)', $tableResume)
           .text()
           .trim()
       );
       let approvedCourses = parseInt(
-        $('tr:nth-child(1) > td:nth-child(4)', $tableResume)
+        $('> tr:nth-child(1) > td:nth-child(4)', $tableResume)
           .text()
           .trim(),
         10
       );
       let lastAcademicSemester = parseInt(
-        $('tr:nth-child(1) > td:nth-child(6)', $tableResume)
+        $('> tr:nth-child(1) > td:nth-child(6)', $tableResume)
           .text()
           .trim(),
         10
       );
       let semiannualWeightedAverage = parseFloat(
-        $('tr:nth-child(2) > td:nth-child(2)', $tableResume)
+        $('> tr:nth-child(2) > td:nth-child(2)', $tableResume)
           .text()
           .trim()
       );
       let approvedCredits = parseInt(
-        $('tr:nth-child(2) > td:nth-child(4)', $tableResume)
+        $('> tr:nth-child(2) > td:nth-child(4)', $tableResume)
           .text()
           .trim(),
         10
       );
       let graduated =
-        $('tr:nth-child(2) > td:nth-child(4)', $tableResume)
+        $('tr:nth-child(2) > td:nth-child(6)', $tableResume)
           .text()
           .trim() === 'SI';
 
