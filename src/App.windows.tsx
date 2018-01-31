@@ -8,7 +8,8 @@ import codePush from 'react-native-code-push';
 
 console.disableYellowBox = true;
 let codePushOptions = {
-  checkFrequency: codePush.CheckFrequency.MANUAL
+  installMode: codePush.InstallMode.IMMEDIATE,
+  checkFrequency: codePush.CheckFrequency.ON_APP_START
 };
 
 export interface AppProps {}
@@ -34,9 +35,6 @@ class App extends React.Component<AppProps, State> {
         en,
         pt
       }
-    });
-    codePush.sync({
-      installMode: codePush.InstallMode.IMMEDIATE
     });
   }
 

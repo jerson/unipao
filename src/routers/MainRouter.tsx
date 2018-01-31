@@ -82,6 +82,18 @@ const AgendaNavigator = StackNavigator(
 
 const UPAOTabNavigator = TabNavigator(
   {
+    Gallery: {
+      screen: GalleryNavigator,
+      navigationOptions: {
+        tabBarLabel: _('Fotos'),
+        tabBarIcon: ({ tintColor }) => (
+          <Icon
+            name={'photo'}
+            style={[Theme.tabTarIcon, { color: tintColor || '#444' }]}
+          />
+        )
+      } as NavigationTabScreenOptions
+    },
     News: {
       screen: NewsNavigator,
       navigationOptions: {
@@ -90,18 +102,6 @@ const UPAOTabNavigator = TabNavigator(
           <Icon
             name={'newspaper-o'}
             type={'FontAwesome'}
-            style={[Theme.tabTarIcon, { color: tintColor || '#444' }]}
-          />
-        )
-      } as NavigationTabScreenOptions
-    },
-    Gallery: {
-      screen: GalleryNavigator,
-      navigationOptions: {
-        tabBarLabel: _('Fotos'),
-        tabBarIcon: ({ tintColor }) => (
-          <Icon
-            name={'photo'}
             style={[Theme.tabTarIcon, { color: tintColor || '#444' }]}
           />
         )

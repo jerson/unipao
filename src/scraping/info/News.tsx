@@ -1,5 +1,6 @@
 import Log from '../../modules/logger/Log';
 import RequestUtil from '../utils/RequestUtil';
+import { Platform } from 'react-native';
 
 const moment = require('moment');
 
@@ -23,6 +24,9 @@ export interface NewsDetailModel {
 const TAG = 'News';
 export default class News {
   static async getList(page: number): Promise<NewsModel[]> {
+    if (Platform.OS === 'ios') {
+      return [];
+    }
     let items: NewsModel[] = [];
     let defaultItem: NewsModel = {
       id: '',
@@ -76,6 +80,7 @@ export default class News {
 
   static async get(id: string): Promise<NewsDetailModel> {
     let item: NewsDetailModel;
+
     try {
       let $ = await RequestUtil.fetch(
         'http://www.upao.edu.pe/actualidad/' + id,

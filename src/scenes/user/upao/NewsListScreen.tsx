@@ -19,6 +19,7 @@ import {
   NavigationScreenProp,
   NavigationStackScreenOptions
 } from 'react-navigation';
+import AlertMessage from '../../../components/ui/AlertMessage';
 
 export interface NewsListScreenProps {
   navigation: NavigationScreenProp<null, null>;
@@ -166,6 +167,13 @@ export default class NewsListScreen extends React.Component<
     let { isLoading, isRefreshing, newsList } = this.state;
     return (
       <View style={[styles.container]}>
+        {!isLoading &&
+          newsList.length < 1 && (
+            <AlertMessage
+              type={'warning'}
+              title={_('No se encontraron datos')}
+            />
+          )}
         {isLoading && <Loading margin />}
         <FlexibleGrid
           itemWidth={250}

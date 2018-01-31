@@ -1,6 +1,7 @@
 import Log from '../../modules/logger/Log';
 import RequestUtil from '../utils/RequestUtil';
 import ImageUtils from '../utils/ImageUtils';
+import { Platform } from 'react-native';
 
 export interface GalleryModel {
   id: string;
@@ -27,6 +28,9 @@ export interface GalleryImageModel {
 const TAG = 'Gallery';
 export default class Gallery {
   static async getList(page: number): Promise<GalleryModel[]> {
+    if (Platform.OS === 'ios') {
+      return [];
+    }
     let items: GalleryModel[] = [];
     try {
       let $ = await RequestUtil.fetch(
