@@ -1,6 +1,4 @@
 <resources>
-    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">EC3XX5RnfbbRKUqFxcH4vMP94i3rH15OxeWbf</string>
     <string moduleConfig="true" name="appcenterCrashes_whenToSendCrashes">ALWAYS_SEND</string>
     <string moduleConfig="true" name="appcenterAnalytics_whenToEnableAnalytics">ALWAYS_SEND</string>
-    <string name="app_name">UniPAO</string>
 </resources>

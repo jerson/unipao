@@ -29,12 +29,22 @@ namespace unipao
 
         protected override string JavaScriptMainModuleName => "index";
 
-#if BUNDLE
+#if BUNDLE && !BETA
         protected override string JavaScriptBundleFile
         {
             get
             {
                 codePushReactPackage = new CodePushReactPackage("soO1fdzkHEZip9_URGHP2IvwJVCgrJ9Elopzz", this);
+                return codePushReactPackage.GetJavaScriptBundleFile();
+            }
+        }
+#endif
+#if BUNDLE && BETA
+        protected override string JavaScriptBundleFile
+        {
+            get
+            {
+                codePushReactPackage = new CodePushReactPackage("Dlh6vjlsq-c6LLqWwosvYvukmRg2r15FOMg4G", this);
                 return codePushReactPackage.GetJavaScriptBundleFile();
             }
         }

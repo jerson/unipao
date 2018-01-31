@@ -102,8 +102,8 @@ android {
         applicationId "com.unipao.app"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 5
-        versionName "1.0.3"
+        versionCode 7
+        versionName "1.0.4"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -126,13 +126,32 @@ android {
             include "armeabi-v7a", "x86"
         }
     }
+
     buildTypes {
         release {
+            resValue 'string', 'app_name', '"UniPAO"'
+            resValue 'string', 'reactNativeCodePush_androidDeploymentKey', '"EC3XX5RnfbbRKUqFxcH4vMP94i3rH15OxeWbf"'
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             signingConfig signingConfigs.release
         }
+        releaseBeta {
+            applicationIdSuffix ".beta"
+            resValue 'string', 'app_name', '"UniPAO (Beta)"'
+            resValue 'string', 'reactNativeCodePush_androidDeploymentKey', '"RmRrpUrX0YimQRDNRCQ-Nwt4Ulv_ByFuuGgEG"'
+            minifyEnabled enableProguardInReleaseBuilds
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
+            matchingFallbacks = ['release']
+        }
+        debug {
+            applicationIdSuffix ".debug"
+            resValue 'string', 'app_name', '"UniPAO (Debug)"'
+            resValue 'string', 'reactNativeCodePush_androidDeploymentKey', '"RmRrpUrX0YimQRDNRCQ-Nwt4Ulv_ByFuuGgEG"'
+            //signingConfig signingConfigs.release
+        }
     }
+
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
@@ -149,6 +168,8 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-custom-android-webview')
+    implementation project(':react-native-fs')
     implementation project(':realm')
     implementation project(':react-native-share')
     implementation project(':react-native-device-info')
@@ -159,11 +180,11 @@ dependencies {
     implementation project(':appcenter')
     implementation project(':react-native-vector-icons')
     implementation project(':react-native-linear-gradient')
-    compile fileTree(dir: "libs", include: ["*.jar"])
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.google.firebase:firebase-core:11.8.0'
-    compile "com.google.firebase:firebase-messaging:11.8.0"
-    compile "com.facebook.react:react-native:+"  // From node_modules
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.google.firebase:firebase-core:11.8.0'
+    implementation "com.google.firebase:firebase-messaging:11.8.0"
+    implementation "com.facebook.react:react-native:+"  // From node_modules
 }
 
 // Run this once to be able to run the application with BUCK
