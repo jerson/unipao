@@ -1,6 +1,5 @@
 import Log from '../../modules/logger/Log';
 import RequestUtil from '../utils/RequestUtil';
-import { Platform } from 'react-native';
 
 export interface AgendaModel {
   dayOfMonth: number;

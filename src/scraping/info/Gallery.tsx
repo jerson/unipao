@@ -1,7 +1,6 @@
 import Log from '../../modules/logger/Log';
 import RequestUtil from '../utils/RequestUtil';
 import ImageUtils from '../utils/ImageUtils';
-import { Platform } from 'react-native';
 
 export interface GalleryModel {
   id: string;
