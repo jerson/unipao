@@ -28,9 +28,6 @@ export interface GalleryImageModel {
 const TAG = 'Gallery';
 export default class Gallery {
   static async getList(page: number): Promise<GalleryModel[]> {
-    if (Platform.OS === 'ios') {
-      return [];
-    }
     let items: GalleryModel[] = [];
     try {
       let $ = await RequestUtil.fetch(

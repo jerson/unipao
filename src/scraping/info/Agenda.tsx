@@ -13,9 +13,6 @@ export interface AgendaModel {
 const TAG = 'Agenda';
 export default class Agenda {
   static async getList(page: number): Promise<AgendaModel[]> {
-    if (Platform.OS === 'ios') {
-      return [];
-    }
     let items: AgendaModel[] = [];
     let defaultItem: AgendaModel = {
       dayOfMonth: 0,

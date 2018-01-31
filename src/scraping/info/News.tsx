@@ -24,9 +24,6 @@ export interface NewsDetailModel {
 const TAG = 'News';
 export default class News {
   static async getList(page: number): Promise<NewsModel[]> {
-    if (Platform.OS === 'ios') {
-      return [];
-    }
     let items: NewsModel[] = [];
     let defaultItem: NewsModel = {
       id: '',
