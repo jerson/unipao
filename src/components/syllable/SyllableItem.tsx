@@ -33,10 +33,9 @@ export default class SyllableItem extends React.Component<
     this.context.notification.show({
       type: 'warning',
       id: 'browser',
-      message: _('Abriendo url externa'),
-      icon: 'file-download',
-      autoDismiss: 4,
-      iconType: 'MaterialIcons'
+      message: _('Abriendo enlace en tu navegador'),
+      isLoading: true,
+      autoDismiss: 4
     });
     setTimeout(() => {
       this.openExternalLink(url);

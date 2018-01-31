@@ -111,7 +111,7 @@ export default class ProfileScreen extends React.Component<
           )}
 
           {user && (
-            <View style={[styles.profile, Theme.shadowLarge]}>
+            <View style={[styles.profile]}>
               <View style={[styles.imageContainer, Theme.shadowDefault]}>
                 <Image
                   style={styles.imagePlaceholder}
@@ -151,6 +151,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   profile: {
+    backgroundColor: 'transparent',
     // backgroundColor: '#fff',
     alignItems: 'center',
     padding: 20

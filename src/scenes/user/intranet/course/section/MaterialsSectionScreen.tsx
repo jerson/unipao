@@ -108,7 +108,6 @@ export default class MaterialsSectionScreen extends React.Component<
 }
 
 img {
-    display: none;
 }
 
 div[style*="width:95%"] {
