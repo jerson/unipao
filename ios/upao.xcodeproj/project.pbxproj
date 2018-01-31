@@ -55,6 +55,7 @@
 		7C5262D2B82B40FBA1147E87 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD12D9AD04664B0A960C5CA4 /* libBVLinearGradient.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		83FB22F75E584E8D903496E9 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D409FA54267B41CA8DD985B8 /* Feather.ttf */; };
+		8402A873202183C500A6F3B9 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8402A870202183B200A6F3B9 /* libRNFS.a */; };
 		8D6E8B6DD3F54CF6B8F0D27B /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BDC4228AF1542BAB2C01A0F /* FontAwesome.ttf */; };
 		9336549905D64299AFA9045D /* libPods-upao-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AB0D9D4B9B0126730BE8954 /* libPods-upao-tvOSTests.a */; };
 		97B13915249D49DE80BDFAF2 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0D9182408BDE4FBDA21D709D /* Octicons.ttf */; };
@@ -416,6 +417,20 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
+		8402A86F202183B200A6F3B9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8402A86A202183B100A6F3B9 /* RNFS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F12AFB9B1ADAF8F800E0535D;
+			remoteInfo = RNFS;
+		};
+		8402A871202183B200A6F3B9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8402A86A202183B100A6F3B9 /* RNFS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6456441F1EB8DA9100672408;
+			remoteInfo = "RNFS-tvOS";
+		};
 		ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */;
@@ -451,6 +466,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = upao/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = upao/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		1759A2AE5A4402010EF7C55D /* Pods-upao.releasebeta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-upao.releasebeta.xcconfig"; path = "Pods/Target Support Files/Pods-upao/Pods-upao.releasebeta.xcconfig"; sourceTree = "<group>"; };
 		1ED42777B3BDE82C84196282 /* Pods-upaoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-upaoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-upaoTests/Pods-upaoTests.release.xcconfig"; sourceTree = "<group>"; };
 		1F1FEF2785FA4C2ADD1DCAE0 /* Pods-upao-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-upao-tvOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-upao-tvOSTests/Pods-upao-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		2A895D2099A2D04EAC47EA55 /* libPods-upaoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-upaoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -471,6 +487,7 @@
 		41DFF2423CA14CB687E6C72D /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = "<group>"; };
 		49B4A611CF92456E9391D2D1 /* libc++.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		4D8DC67009CB40708D58B203 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
+		54B2A45681C049C50BC92195 /* Pods-upao-tvOS.releasebeta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-upao-tvOS.releasebeta.xcconfig"; path = "Pods/Target Support Files/Pods-upao-tvOS/Pods-upao-tvOS.releasebeta.xcconfig"; sourceTree = "<group>"; };
 		5691453BC54229989BE884D9 /* Pods-upao-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-upao-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-upao-tvOS/Pods-upao-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		5AB0D9D4B9B0126730BE8954 /* libPods-upao-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-upao-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
@@ -478,6 +495,7 @@
 		7B8B45940A8B49ABAA8938EC /* AppCenter-Config.plist */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; name = "AppCenter-Config.plist"; path = "upao/AppCenter-Config.plist"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		839D38EBE7B5EE76B7A34BF2 /* Pods-upao.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-upao.release.xcconfig"; path = "Pods/Target Support Files/Pods-upao/Pods-upao.release.xcconfig"; sourceTree = "<group>"; };
+		8402A86A202183B100A6F3B9 /* RNFS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNFS.xcodeproj; path = "../node_modules/react-native-fs/RNFS.xcodeproj"; sourceTree = "<group>"; };
 		85A2181BC51484DBF8149DB9 /* Pods-upao-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-upao-tvOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-upao-tvOS/Pods-upao-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		86229130B671B1F4C1B3BC57 /* Pods-upaoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-upaoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-upaoTests/Pods-upaoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8811DEEB499948028A32EF8F /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
@@ -493,8 +511,10 @@
 		BA58262ED9EC400086C7A046 /* libAppCenterReactNativeAnalytics.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAppCenterReactNativeAnalytics.a; sourceTree = "<group>"; };
 		BB90422BD95A47669D7D6B91 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		C0ACD853CD144D87B518788D /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
+		C37C5AD37A9FC5C784B5C311 /* Pods-upao-tvOSTests.releasebeta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-upao-tvOSTests.releasebeta.xcconfig"; path = "Pods/Target Support Files/Pods-upao-tvOSTests/Pods-upao-tvOSTests.releasebeta.xcconfig"; sourceTree = "<group>"; };
 		CD12D9AD04664B0A960C5CA4 /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
 		D0324B2F7A3F43529B2910B7 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
+		D211FD2FC1361FA5494189BC /* Pods-upaoTests.releasebeta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-upaoTests.releasebeta.xcconfig"; path = "Pods/Target Support Files/Pods-upaoTests/Pods-upaoTests.releasebeta.xcconfig"; sourceTree = "<group>"; };
 		D409FA54267B41CA8DD985B8 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		D9A941C239B94C1AA08EBCF5 /* libRNDeviceInfo-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNDeviceInfo-tvOS.a"; sourceTree = "<group>"; };
 		E80CC23552946E78F463889C /* Pods-upao.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-upao.debug.xcconfig"; path = "Pods/Target Support Files/Pods-upao/Pods-upao.debug.xcconfig"; sourceTree = "<group>"; };
@@ -519,6 +539,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8402A873202183C500A6F3B9 /* libRNFS.a in Frameworks */,
 				31460F961FF03FC8004F7913 /* MessageUI.framework in Frameworks */,
 				31460F941FF03FBD004F7913 /* Social.framework in Frameworks */,
 				31460F921FF03FA9004F7913 /* libRNShare.a in Frameworks */,
@@ -849,6 +870,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				8402A86A202183B100A6F3B9 /* RNFS.xcodeproj */,
 				31460F5D1FF03F72004F7913 /* RNShare.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -913,6 +935,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		8402A86B202183B100A6F3B9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8402A870202183B200A6F3B9 /* libRNFS.a */,
+				8402A872202183B200A6F3B9 /* libRNFS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		ADBDB9201DFEBF0600ED6528 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -933,6 +964,10 @@
 				1F1FEF2785FA4C2ADD1DCAE0 /* Pods-upao-tvOSTests.release.xcconfig */,
 				86229130B671B1F4C1B3BC57 /* Pods-upaoTests.debug.xcconfig */,
 				1ED42777B3BDE82C84196282 /* Pods-upaoTests.release.xcconfig */,
+				1759A2AE5A4402010EF7C55D /* Pods-upao.releasebeta.xcconfig */,
+				54B2A45681C049C50BC92195 /* Pods-upao-tvOS.releasebeta.xcconfig */,
+				C37C5AD37A9FC5C784B5C311 /* Pods-upao-tvOSTests.releasebeta.xcconfig */,
+				D211FD2FC1361FA5494189BC /* Pods-upaoTests.releasebeta.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1161,6 +1196,10 @@
 				{
 					ProductGroup = 31C3BEAA1FD3C49000281DAB /* Products */;
 					ProjectRef = F78F1F657A9946D08AD10D3A /* RNDeviceInfo.xcodeproj */;
+				},
+				{
+					ProductGroup = 8402A86B202183B100A6F3B9 /* Products */;
+					ProjectRef = 8402A86A202183B100A6F3B9 /* RNFS.xcodeproj */;
 				},
 				{
 					ProductGroup = 31460F5E1FF03F72004F7913 /* Products */;
@@ -1509,6 +1548,20 @@
 			fileType = archive.ar;
 			path = libRCTText.a;
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8402A870202183B200A6F3B9 /* libRNFS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNFS.a;
+			remoteRef = 8402A86F202183B200A6F3B9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8402A872202183B200A6F3B9 /* libRNFS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNFS.a;
+			remoteRef = 8402A871202183B200A6F3B9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */ = {
@@ -2253,7 +2306,7 @@
 		};
 		31EB7E7A2004613E0073F747 /* ReleaseBeta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 839D38EBE7B5EE76B7A34BF2 /* Pods-upao.release.xcconfig */;
+			baseConfigurationReference = 1759A2AE5A4402010EF7C55D /* Pods-upao.releasebeta.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_NAME = "UniPAO (Beta)";
@@ -2295,7 +2348,7 @@
 		};
 		31EB7E7B2004613E0073F747 /* ReleaseBeta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1ED42777B3BDE82C84196282 /* Pods-upaoTests.release.xcconfig */;
+			baseConfigurationReference = D211FD2FC1361FA5494189BC /* Pods-upaoTests.releasebeta.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -2342,7 +2395,7 @@
 		};
 		31EB7E7C2004613E0073F747 /* ReleaseBeta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5691453BC54229989BE884D9 /* Pods-upao-tvOS.release.xcconfig */;
+			baseConfigurationReference = 54B2A45681C049C50BC92195 /* Pods-upao-tvOS.releasebeta.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -2395,7 +2448,7 @@
 		};
 		31EB7E7D2004613E0073F747 /* ReleaseBeta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1F1FEF2785FA4C2ADD1DCAE0 /* Pods-upao-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = C37C5AD37A9FC5C784B5C311 /* Pods-upao-tvOSTests.releasebeta.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;

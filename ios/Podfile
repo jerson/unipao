@@ -11,7 +11,6 @@ target 'upao' do
   pod 'AppCenter/Analytics', '~> 1.0.1'
   pod 'AppCenterReactNativeShared', '~> 1.0.1'
 
-  pod 'RNFS', :path => '../node_modules/react-native-fs'
 
   target 'upaoTests' do
     inherit! :search_paths
