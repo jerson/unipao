@@ -69,10 +69,9 @@ export default class WebViewDownloader extends React.Component<
     this.context.notification.show({
       type: 'warning',
       id: 'browser',
-      message: _('Abriendo url externa'),
-      icon: 'file-download',
-      autoDismiss: 4,
-      iconType: 'MaterialIcons'
+      message: _('Abriendo enlace en tu navegador'),
+      isLoading: true,
+      autoDismiss: 4
     });
     setTimeout(() => {
       this.openExternalLink(url);
@@ -200,6 +199,7 @@ try{
         }
         javaScriptEnabled
         domStorageEnabled
+        dataDetectorTypes={'none'}
         scalesPageToFit={false}
         scrollEnabled={true}
         onNavigationStateChange={this.onNavigationStateChange}

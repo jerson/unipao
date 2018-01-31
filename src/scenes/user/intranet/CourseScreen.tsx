@@ -74,12 +74,6 @@ export default class CourseScreen extends React.Component<
         iconType: 'MaterialCommunityIcons'
       },
       {
-        route: 'CourseMaterials',
-        name: _('Material'),
-        icon: 'archive',
-        iconType: 'MaterialIcons'
-      },
-      {
         route: 'CourseAssists',
         name: _('Asistencia'),
         icon: 'calendar-today',
@@ -89,6 +83,12 @@ export default class CourseScreen extends React.Component<
         route: 'CourseGrades',
         name: _('Notas'),
         icon: 'grade',
+        iconType: 'MaterialIcons'
+      },
+      {
+        route: 'CourseMaterials',
+        name: _('Material (beta)'),
+        icon: 'archive',
         iconType: 'MaterialIcons'
       },
       {

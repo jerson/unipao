@@ -53,58 +53,60 @@ export default class AboutScreen extends React.Component<
   render() {
     let minHeight = Dimensions.get('window').height;
     return (
-      <ScrollView
-        contentContainerStyle={[styles.content, { minHeight }]}
-        style={[styles.container]}
-        showsVerticalScrollIndicator={true}
-        keyboardShouldPersistTaps={'handled'}
-      >
+      <View style={{ flex: 1 }}>
         <Background />
-        <Icon name={'help-with-circle'} style={styles.icon} type={'Entypo'} />
+        <ScrollView
+          contentContainerStyle={[styles.content, { minHeight }]}
+          style={[styles.container]}
+          showsVerticalScrollIndicator={true}
+          keyboardShouldPersistTaps={'handled'}
+        >
+          <Icon name={'help-with-circle'} style={styles.icon} type={'Entypo'} />
 
-        <View style={[styles.formContainer]}>
-          <Text style={styles.text}>
-            {_(
-              'Somos ex-alumnos de la carrera de ingeniería de software, espero que esta aplicación te sea de utilidad.'
-            )}
-          </Text>
+          <View style={[styles.formContainer]}>
+            <Text style={styles.text}>
+              {_(
+                'Somos ex-alumnos de la carrera de ingeniería de software, espero que esta aplicación te sea de utilidad.'
+              )}
+            </Text>
+
+            <ViewSpacer />
+
+            <Text style={[styles.text, styles.sectionTitle]}>
+              {_('Importante')}:
+            </Text>
+            <Text style={styles.text}>
+              {_(
+                'Esta aplicación es un proyecto que se hizo con el único fin de aprendizaje, no tiene ningún vinculo oficial con la UPAO.'
+              )}
+            </Text>
+            <Text style={styles.text}>
+              {_(
+                'Para garantizar su seguridad todos los datos que se envian se hace unicamente entre tú dispositivo y la UPAO, ningún dato se almacena en otro servidor externo.'
+              )}
+            </Text>
+
+            <ViewSpacer />
+
+            <Text style={[styles.text, styles.sectionTitle]}>Github:</Text>
+            <Text style={styles.text}>@jerson</Text>
+            <Text style={styles.text}>@wilsonvargas</Text>
+          </View>
 
           <ViewSpacer />
 
-          <Text style={[styles.text, styles.sectionTitle]}>
-            {_('Importante')}:
-          </Text>
-          <Text style={styles.text}>
-            {_(
-              'Esta aplicación es un proyecto que se hizo con el único fin de aprendizaje, no tiene ningún vinculo oficial con la UPAO.'
-            )}
-          </Text>
-          <Text style={styles.text}>
-            {_(
-              'Para garantizar su seguridad todos los datos que se envian se hace unicamente entre tú dispositivo y la UPAO, ningún dato se almacena en otro servidor externo.'
-            )}
-          </Text>
-
-          <ViewSpacer />
-
-          <Text style={[styles.text, styles.sectionTitle]}>Github:</Text>
-          <Text style={styles.text}>@jerson</Text>
-          <Text style={styles.text}>@wilsonvargas</Text>
-        </View>
-
-        <ViewSpacer />
-
-        <Button
-          type={'link'}
-          onPress={() => {
-            this.props.navigation.goBack();
-          }}
-          label={_('Volver al inicio de sesión')}
-          icon={'ios-arrow-back'}
-          iconType={'Ionicons'}
-        />
-        <KeyboardSpacer />
-      </ScrollView>
+          <Button
+            type={'link'}
+            onPress={() => {
+              this.props.navigation.goBack();
+            }}
+            label={_('Volver al inicio de sesión')}
+            icon={'ios-arrow-back'}
+            iconType={'Ionicons'}
+          />
+          <KeyboardSpacer />
+        </ScrollView>
+      </View>
     );
   }
 }

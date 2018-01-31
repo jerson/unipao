@@ -101,7 +101,7 @@ export default class Course {
     return html;
   }
 
-  static sanitizeHTML(html: string) {
+  static sanitizeHTML(html: string): string {
     return html;
     // return html.replace(new RegExp('\\|', 'gi'), '%257C');
   }

@@ -2,11 +2,10 @@ import RequestUtil from '../../utils/RequestUtil';
 import { LevelModel, PeriodModel } from '../Intranet';
 import ParamsUtils from '../../utils/ParamsUtils';
 import Log from '../../../modules/logger/Log';
+import { GradeReportModel } from './Grade';
 
 const TAG = 'Enrollment';
 export default class Enrollment {
-  static async get(period: string, level: string) {}
-
   static async getLevels(): Promise<LevelModel[]> {
     return [
       {
@@ -68,5 +67,42 @@ export default class Enrollment {
     }
 
     return periods;
+  }
+
+  static async get(level: string, period: string): Promise<string> {
+    let $;
+    let html = '';
+    try {
+      $ = await RequestUtil.fetch(
+        '/aulavirtual.aspx?f=YAAANOT&r=A',
+        {},
+        { tag: 'Enrollment.get', checkSession: true }
+      );
+    } catch (e) {
+      Log.info(TAG, 'get', e);
+      throw e;
+    }
+
+    let params = {
+      f: 'YAAANOT',
+      a: 'LIST_MATRICULA',
+      codigo_uno: period
+    };
+
+    try {
+      let $ = await RequestUtil.fetch(
+        '/controlador/cargador.aspx',
+        {
+          method: 'POST',
+          body: ParamsUtils.getFormData(params)
+        },
+        { tag: 'Enrollment.get', checkSession: true, ajax: true }
+      );
+      html = $('body').html();
+    } catch (e) {
+      Log.info(TAG, 'get', e);
+      throw e;
+    }
+    return html;
   }
 }

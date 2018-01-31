@@ -23,6 +23,7 @@ import {
   NavigationTabScreenOptions
 } from 'react-navigation';
 import ViewSpacer from '../../components/ui/ViewSpacer';
+import Background from '../../components/ui/Background';
 
 const { titleize } = require('underscore.string');
 
@@ -92,64 +93,65 @@ export default class ProfileScreen extends React.Component<
     let user = Auth.getUser();
 
     return (
-      <ScrollView
-        contentContainerStyle={[styles.content]}
-        style={[styles.container]}
-        keyboardShouldPersistTaps={'handled'}
-        showsVerticalScrollIndicator={true}
-      >
-        {Platform.OS === 'ios' && (
-          <StatusBar
-            backgroundColor="#0d61ac"
-            translucent
-            animated
-            barStyle="dark-content"
+      <View style={{ flex: 1 }}>
+        <Background />
+        <ScrollView
+          contentContainerStyle={[styles.content, { minHeight }]}
+          style={[styles.container]}
+          keyboardShouldPersistTaps={'handled'}
+          showsVerticalScrollIndicator={true}
+        >
+          {Platform.OS === 'ios' && (
+            <StatusBar
+              backgroundColor="#0d61ac"
+              translucent
+              animated
+              barStyle="dark-content"
+            />
+          )}
+
+          {user && (
+            <View style={[styles.profile, Theme.shadowLarge]}>
+              <View style={[styles.imageContainer, Theme.shadowDefault]}>
+                <Image
+                  style={styles.imagePlaceholder}
+                  source={require('../../images/placeholder.png')}
+                />
+                <Image
+                  style={[styles.image]}
+                  defaultSource={require('../../images/placeholder.png')}
+                  source={{ uri: ImageUtil.getUserImage(user) }}
+                />
+              </View>
+              <View style={styles.infoContainer}>
+                <Text style={[styles.name, styles.id]}>{user.id}</Text>
+                <Text style={[styles.name]}>{titleize(user.name)}</Text>
+              </View>
+            </View>
+          )}
+          <ViewSpacer size={'large'} />
+
+          <Button
+            type={'primary'}
+            onPress={this.logout}
+            label={_('Cerrar sesión')}
+            icon={'log-out'}
+            iconType={'Entypo'}
           />
-        )}
-
-        {user && (
-          <View style={[styles.profile, Theme.shadowLarge]}>
-            <View style={[styles.imageContainer, Theme.shadowDefault]}>
-              <Image
-                style={styles.imagePlaceholder}
-                source={require('../../images/placeholder.png')}
-              />
-              <Image
-                style={[styles.image]}
-                defaultSource={require('../../images/placeholder.png')}
-                source={{ uri: ImageUtil.getUserImage(user) }}
-              />
-            </View>
-            <View style={styles.infoContainer}>
-              <Text style={[styles.name, styles.id]}>{user.id}</Text>
-              <Text style={[styles.name]}>{titleize(user.name)}</Text>
-            </View>
-          </View>
-        )}
-        <ViewSpacer size={'large'} />
-
-        <Button
-          type={'primary'}
-          onPress={this.logout}
-          label={_('Cerrar sesión')}
-          icon={'log-out'}
-          iconType={'Entypo'}
-        />
-      </ScrollView>
+        </ScrollView>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#f4f4f4'
-  },
+  container: {},
   content: {
     paddingBottom: 50,
     justifyContent: 'center'
   },
   profile: {
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
     alignItems: 'center',
     padding: 20
   },
@@ -178,11 +180,11 @@ const styles = StyleSheet.create({
   },
   id: {
     fontSize: 13,
-    color: 'rgba(0,0,0,0.5)',
+    color: 'rgba(255,255,255,0.5)',
     paddingBottom: 2
   },
   name: {
-    color: '#666',
+    color: '#fff',
     textAlign: 'center',
     fontSize: 15
   }

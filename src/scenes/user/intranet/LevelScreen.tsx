@@ -140,7 +140,7 @@ export default class LevelScreen extends React.Component<
     return (
       <View style={[styles.container]}>
         <FlexibleGrid
-          itemWidth={200}
+          itemWidth={280}
           itemMargin={5}
           showsVerticalScrollIndicator={true}
           data={items}

@@ -101,13 +101,13 @@ export default class Grade {
     return levels;
   }
 
-  static async getPrograms(levelGrades: string): Promise<ProgramModel[]> {
+  static async getPrograms(levelGrade: string): Promise<ProgramModel[]> {
     let programs: ProgramModel[] = [];
     try {
       let params = {
         f: 'YAAFIMA',
         a: 'CTRL_CBO_PROGRAMA',
-        codigo_uno: levelGrades,
+        codigo_uno: levelGrade,
         codigo_dos: '_afima_'
       };
 

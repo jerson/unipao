@@ -20,6 +20,7 @@ import {
 import { Theme } from '../../../themes/styles';
 import NavigationButton from '../../../components/ui/NavigationButton';
 import { tabsOptions } from '../../../routers/Tabs';
+import EnrollmentScreen from './EnrollmentScreen';
 
 export interface EnrollmentTabsScreenProps {
   navigation: NavigationScreenProp<null, null>;
@@ -103,12 +104,7 @@ export default class EnrollmentTabsScreen extends React.Component<
       let periodCode = name.slice(4, 7);
       tabs['tab' + i] = {
         screen: ({ navigation, screenProps }: NavigationScreenConfigProps) => {
-          return (
-            <View
-            // level={level}
-            // period={period.id}
-            />
-          );
+          return <EnrollmentScreen level={level} period={period.id} />;
         },
         navigationOptions: {
           tabBarLabel: `${year}-${periodCode}`

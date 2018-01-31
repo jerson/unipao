@@ -153,97 +153,99 @@ export default class LoginScreen extends React.Component<
     let { height } = Dimensions.get('window');
     let { isLoading, loadedCredentials, defaults } = this.state;
     return (
-      <ScrollView
-        contentContainerStyle={[styles.content, { minHeight: height }]}
-        style={[styles.container]}
-        showsVerticalScrollIndicator={true}
-        keyboardShouldPersistTaps={'handled'}
-      >
+      <View style={{ flex: 1 }}>
         <Background />
-        <View style={[styles.imageContainer, Theme.shadowLarge]}>
-          <Image
-            style={styles.logo}
-            resizeMode={'contain'}
-            source={require('../images/icon.png')}
-          />
-        </View>
-        <Image
-          style={styles.logoName}
-          resizeMode={'contain'}
-          source={require('../images/name_alter.png')}
-        />
-
-        {!loadedCredentials && <Loading margin />}
-        {loadedCredentials && (
-          <View style={[styles.formContainer]}>
-            <View style={[styles.inputsContainer, Theme.shadowLarge]}>
-              <Input
-                containerStyle={styles.inputFirst}
-                style={styles.input}
-                ref={'username'}
-                placeholder={_('Código de alumno ó Usuario')}
-                defaultValue={defaults.username}
-                returnKeyType={'next'}
-                autoCorrect={false}
-                blurOnSubmit={false}
-                onSubmitEditing={() => this.refs.password.focus()}
-              />
-              <Input
-                secureTextEntry
-                containerStyle={styles.inputLast}
-                style={styles.input}
-                ref={'password'}
-                placeholder={_('Contraseña')}
-                defaultValue={defaults.password}
-                returnKeyType={'go'}
-                blurOnSubmit={true}
-                onSubmitEditing={this.login}
-              />
-            </View>
-            <ViewSpacer size={'medium'} />
-            <InputSwitch
-              useLabel
-              center
-              onValueChange={this.onRememberChange}
-              defaultValue={!!defaults.remember}
-              ref={'remember'}
-              placeholder={_('Recordar mis credenciales')}
+        <ScrollView
+          contentContainerStyle={[styles.content, { minHeight: height }]}
+          style={[styles.container]}
+          showsVerticalScrollIndicator={true}
+          keyboardShouldPersistTaps={'handled'}
+        >
+          <View style={[styles.imageContainer, Theme.shadowLarge]}>
+            <Image
+              style={styles.logo}
+              resizeMode={'contain'}
+              source={require('../images/icon.png')}
             />
           </View>
-        )}
-
-        {loadedCredentials && (
-          <Button
-            isLoading={isLoading}
-            type={'primary'}
-            onPress={this.login}
-            label={_('Iniciar sesión')}
-            icon={'user'}
-            iconType={'FontAwesome'}
+          <Image
+            style={styles.logoName}
+            resizeMode={'contain'}
+            source={require('../images/name_alter.png')}
           />
-        )}
 
-        {loadedCredentials && (
+          {!loadedCredentials && <Loading margin />}
+          {loadedCredentials && (
+            <View style={[styles.formContainer]}>
+              <View style={[styles.inputsContainer, Theme.shadowLarge]}>
+                <Input
+                  containerStyle={styles.inputFirst}
+                  style={styles.input}
+                  ref={'username'}
+                  placeholder={_('Código de alumno ó Usuario')}
+                  defaultValue={defaults.username}
+                  returnKeyType={'next'}
+                  autoCorrect={false}
+                  blurOnSubmit={false}
+                  onSubmitEditing={() => this.refs.password.focus()}
+                />
+                <Input
+                  secureTextEntry
+                  containerStyle={styles.inputLast}
+                  style={styles.input}
+                  ref={'password'}
+                  placeholder={_('Contraseña')}
+                  defaultValue={defaults.password}
+                  returnKeyType={'go'}
+                  blurOnSubmit={true}
+                  onSubmitEditing={this.login}
+                />
+              </View>
+              <ViewSpacer size={'medium'} />
+              <InputSwitch
+                useLabel
+                center
+                onValueChange={this.onRememberChange}
+                defaultValue={!!defaults.remember}
+                ref={'remember'}
+                placeholder={_('Recordar mis credenciales')}
+              />
+            </View>
+          )}
+
+          {loadedCredentials && (
+            <Button
+              isLoading={isLoading}
+              type={'primary'}
+              onPress={this.login}
+              label={_('Iniciar sesión')}
+              icon={'user'}
+              iconType={'FontAwesome'}
+            />
+          )}
+
+          {loadedCredentials && (
+            <Button
+              type={'info'}
+              onPress={this.loginFallback}
+              label={_('Iniciar sesión usando la web')}
+              icon={'link-external'}
+              iconType={'Octicons'}
+            />
+          )}
+
+          <ViewSpacer size={'large'} />
           <Button
-            type={'info'}
-            onPress={this.loginFallback}
-            label={_('Iniciar sesión usando la web')}
-            icon={'link-external'}
-            iconType={'Octicons'}
+            type={'link'}
+            onPress={() => {
+              this.props.navigation.navigate('About');
+            }}
+            label={_('Acerca de')}
           />
-        )}
 
-        <ViewSpacer size={'large'} />
-        <Button
-          type={'link'}
-          onPress={() => {
-            this.props.navigation.navigate('About');
-          }}
-          label={_('Acerca de')}
-        />
-
-        <KeyboardSpacer />
-      </ScrollView>
+          <KeyboardSpacer />
+        </ScrollView>
+      </View>
     );
   }
 }
