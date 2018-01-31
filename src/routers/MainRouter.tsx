@@ -17,9 +17,6 @@ import NewsScreen from '../scenes/user/upao/NewsScreen';
 import SettingsScreen from '../scenes/user/SettingsScreen';
 import AgendaListScreen from '../scenes/user/upao/AgendaListScreen';
 import ScheduleScreen from '../scenes/deprecated/ScheduleScreen';
-import AssistsScreen from '../scenes/deprecated/AssistsScreen';
-import EnrollmentScreen from '../scenes/deprecated/EnrollmentScreen';
-import AssistDetailScreen from '../scenes/deprecated/AssistDetailScreen';
 import { _ } from '../modules/i18n/Translator';
 import IntroScreen from '../scenes/IntroScreen';
 import MailScreen from '../scenes/user/MailScreen';
@@ -41,6 +38,7 @@ import IntranetTabsScreen from '../scenes/user/IntranetTabsScreen';
 import PaymentsScreen from '../scenes/user/intranet/PaymentsScreen';
 import HistoryCoursesScreen from '../scenes/user/intranet/HistoryCoursesScreen';
 import GradesReportTabsScreen from '../scenes/user/intranet/GradesReportTabsScreen';
+import EnrollmentTabsScreen from '../scenes/user/intranet/EnrollmentTabsScreen';
 
 const NewsNavigator = StackNavigator(
   {
@@ -181,14 +179,8 @@ const IntranetNavigator = StackNavigator(
     Schedule: {
       screen: ScheduleScreen
     },
-    Assists: {
-      screen: AssistsScreen
-    },
-    AssistDetail: {
-      screen: AssistDetailScreen
-    },
     Enrollment: {
-      screen: EnrollmentScreen
+      screen: EnrollmentTabsScreen
     },
     Course: {
       screen: CourseScreen

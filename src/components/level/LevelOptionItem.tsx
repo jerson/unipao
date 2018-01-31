@@ -41,7 +41,7 @@ export default class LevelOptionItem extends React.Component<
               )}
             <View style={styles.content}>
               <Text style={styles.name}>{item.name}</Text>
-              <Text numberOfLines={2} style={styles.description}>
+              <Text numberOfLines={3} style={styles.description}>
                 {item.description}
               </Text>
             </View>
@@ -83,7 +83,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     minHeight: 70,
-    padding: 5
+    padding: 5,
+    paddingTop: 15,
+    paddingBottom: 15
   },
   icon: {
     fontSize: 30,

@@ -59,7 +59,7 @@ export default class LevelScreen extends React.Component<
     items: [
       {
         route: 'HistoryCourses',
-        name: _('Cursos anteriores'),
+        name: _('Historial de cursos'),
         description: _(
           'Cursos de ciclos anteriores, revisa tus notas, silabos y asistencias'
         ),
@@ -74,7 +74,7 @@ export default class LevelScreen extends React.Component<
         iconType: 'Ionicons'
       },
       {
-        route: 'HistoryCourses',
+        route: 'Enrollment',
         name: _('Ficha de matricula'),
         description: _(
           'Los cursos a los que te inscribiste y cuantos creditos valen'

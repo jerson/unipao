@@ -7,7 +7,7 @@ import AlertMessage from '../../../components/ui/AlertMessage';
 import { _ } from '../../../modules/i18n/Translator';
 import CacheStorage from '../../../modules/storage/CacheStorage';
 import UPAO from '../../../scraping/UPAO';
-import { LevelModel } from '../../../scraping/student/Intranet';
+import { PeriodModel } from '../../../scraping/student/Intranet';
 import {
   NavigationContainer,
   NavigationRouteConfigMap,
@@ -20,10 +20,8 @@ import {
 import { Theme } from '../../../themes/styles';
 import NavigationButton from '../../../components/ui/NavigationButton';
 import { tabsOptions } from '../../../routers/Tabs';
-import GradesReportScreen from './GradesReportScreen';
-import { ProgramModel } from '../../../scraping/student/intranet/Grade';
 
-export interface GradesReportTabsScreenProps {
+export interface EnrollmentTabsScreenProps {
   navigation: NavigationScreenProp<null, null>;
   level: string;
 }
@@ -32,13 +30,13 @@ export interface State {
   isLoading: boolean;
   isRefreshing: boolean;
   cacheLoaded: boolean;
-  programs?: ProgramModel[];
+  periods?: PeriodModel[];
   Tabs?: NavigationContainer;
 }
 
-const TAG = 'GradesReportTabsScreen';
-export default class GradesReportTabsScreen extends React.Component<
-  GradesReportTabsScreenProps,
+const TAG = 'EnrollmentTabsScreen';
+export default class EnrollmentTabsScreen extends React.Component<
+  EnrollmentTabsScreenProps,
   State
 > {
   static contextTypes = {
@@ -48,7 +46,7 @@ export default class GradesReportTabsScreen extends React.Component<
     navigation,
     screenProps
   }: NavigationScreenConfigProps): NavigationStackScreenOptions => ({
-    title: _('Reporte de notas'),
+    title: _('Ficha de matricula'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
     headerTintColor: Theme.subTintColor,
@@ -70,7 +68,7 @@ export default class GradesReportTabsScreen extends React.Component<
     isLoading: true,
     cacheLoaded: false,
     isRefreshing: false,
-    programs: [],
+    periods: [],
     Tabs: undefined
   };
   load = async () => {
@@ -83,7 +81,7 @@ export default class GradesReportTabsScreen extends React.Component<
   };
   getCacheKey = () => {
     let { level } = this.getParams();
-    return `gradesReportPrograms_${level || '_'}`;
+    return `enrollmentPeriods_${level || '_'}`;
   };
   checkCache = async () => {
     try {
@@ -93,28 +91,30 @@ export default class GradesReportTabsScreen extends React.Component<
       Log.info(TAG, 'checkCache', e);
     }
   };
-  loadResponse = (
-    data: { programs: ProgramModel[]; levelGrade?: LevelModel },
-    cacheLoaded = false
-  ) => {
-    let { programs, levelGrade } = data;
+  loadResponse = (periods: PeriodModel[], cacheLoaded = false) => {
     let tabs: NavigationRouteConfigMap = {};
+    let { level } = this.getParams();
 
-    for (let program of programs) {
-      let name = program.name || 'ERR';
-      tabs[name] = {
+    let i = 0;
+    for (let period of periods) {
+      let name = period.name || 'ERR';
+
+      let year = name.slice(0, 4);
+      let periodCode = name.slice(4, 7);
+      tabs['tab' + i] = {
         screen: ({ navigation, screenProps }: NavigationScreenConfigProps) => {
           return (
-            <GradesReportScreen
-              level={levelGrade ? levelGrade.id : 'error'}
-              program={program}
+            <View
+            // level={level}
+            // period={period.id}
             />
           );
         },
         navigationOptions: {
-          tabBarLabel: program.name
+          tabBarLabel: `${year}-${periodCode}`
         } as NavigationTabScreenOptions
       };
+      i++;
     }
     let totalTabs = Object.keys(tabs);
     if (totalTabs.length < 1) {
@@ -133,13 +133,18 @@ export default class GradesReportTabsScreen extends React.Component<
       ...tabsOptions,
       tabBarOptions: {
         ...tabsOptions.tabBarOptions,
-        scrollEnabled: totalTabs.length > 2
+        scrollEnabled: totalTabs.length > 3,
+        tabStyle: {
+          flexDirection: 'row',
+          width: 80,
+          padding: 4
+        }
       }
     });
 
     this.setState({
       cacheLoaded,
-      programs,
+      periods,
       Tabs,
       isLoading: false,
       isRefreshing: false
@@ -150,18 +155,15 @@ export default class GradesReportTabsScreen extends React.Component<
 
     try {
       let { level } = this.getParams();
-      let levelGrade = await UPAO.Student.Intranet.Grade.getLevelByCode(level);
-      let programs = await UPAO.Student.Intranet.Grade.getPrograms(
-        levelGrade.id
-      );
-      let data = { programs, levelGrade };
-      this.loadResponse(data);
-      CacheStorage.set(this.getCacheKey(), data);
+      let periods = await UPAO.Student.Intranet.Enrollment.getPeriods(level);
+
+      this.loadResponse(periods);
+      CacheStorage.set(this.getCacheKey(), periods);
     } catch (e) {
       Log.warn(TAG, 'load', e);
       if (!cacheLoaded) {
         Log.info(TAG, 'loadRequest', '!cacheLoaded');
-        this.loadResponse({ programs: [], levelGrade: undefined });
+        this.loadResponse([]);
       } else {
         Log.info(TAG, 'loadRequest', 'cacheLoaded');
         this.setState({ isLoading: false, isRefreshing: false });
@@ -183,8 +185,7 @@ export default class GradesReportTabsScreen extends React.Component<
   }
 
   componentWillUnmount() {
-    UPAO.abort('Grade.getLevels');
-    UPAO.abort('Grade.getPrograms');
+    UPAO.abort('Enrollment.getPeriods');
   }
 
   componentDidMount() {

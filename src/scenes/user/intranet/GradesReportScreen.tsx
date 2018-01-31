@@ -13,13 +13,14 @@ import AlertMessage from '../../../components/ui/AlertMessage';
 import { _ } from '../../../modules/i18n/Translator';
 import CacheStorage from '../../../modules/storage/CacheStorage';
 import UPAO from '../../../scraping/UPAO';
+
+import GradeReportItem from '../../../components/grade/GradesReportItem';
+import GradeReportHeader from '../../../components/grade/GradeReportHeader';
 import {
   GradeReportCourseModel,
   GradeReportModel,
   ProgramModel
-} from '../../../scraping/student/Intranet';
-import GradeReportItem from '../../../components/grade/GradesReportItem';
-import GradeReportHeader from '../../../components/grade/GradeReportHeader';
+} from '../../../scraping/student/intranet/Grade';
 
 export interface GradesReportScreenProps {
   program: ProgramModel;
@@ -98,10 +99,7 @@ export default class GradesReportScreen extends React.Component<
     try {
       let { level, program } = this.props;
       console.log(level, program);
-      let report = await UPAO.Student.Intranet.getGradesReport(
-        level,
-        program.id
-      );
+      let report = await UPAO.Student.Intranet.Grade.get(level, program.id);
       this.loadResponse(report);
       CacheStorage.set(this.getCacheKey(), report);
     } catch (e) {
@@ -126,7 +124,7 @@ export default class GradesReportScreen extends React.Component<
   };
 
   componentWillUnmount() {
-    UPAO.abort('Intranet.getGradesReport');
+    UPAO.abort('Grade.get');
   }
 
   componentDidMount() {
