@@ -15,7 +15,72 @@
       },
       "oauth_client": [
         {
-          "client_id": "657737990913-mcj1q123fggfiajc51tueeu3t4sliddj.apps.googleusercontent.com",
+          "client_id":
+            "657737990913-mcj1q123fggfiajc51tueeu3t4sliddj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9AuPORf-mITOlv6XZQwfq6LqNHy2Skns"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:657737990913:android:7e5781560f750b0f",
+        "android_client_info": {
+          "package_name": "com.unipao.app.beta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id":
+            "657737990913-mcj1q123fggfiajc51tueeu3t4sliddj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9AuPORf-mITOlv6XZQwfq6LqNHy2Skns"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:657737990913:android:23ea0e87ea7a2900",
+        "android_client_info": {
+          "package_name": "com.unipao.app.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id":
+            "657737990913-mcj1q123fggfiajc51tueeu3t4sliddj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
