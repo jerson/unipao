@@ -59,7 +59,7 @@ export default class CourseItem extends React.Component<
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    borderColor: '#f4f4f4',
+    borderBottomColor: '#f4f4f4',
     borderBottomWidth: 1,
     padding: 10,
     flexDirection: 'row',
