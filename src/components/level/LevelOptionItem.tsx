@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   content: {
-    flex: 1,
+    // flex: 1,
     alignItems: 'flex-start',
     flexDirection: 'column',
     paddingRight: 5

@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     opacity: 0.5
   },
   info: {
-    // flex: 1,
+    flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
