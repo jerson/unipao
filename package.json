@@ -73,7 +73,6 @@
     "react": "16.2.0",
     "react-native-cancelable-fetch": "^0.1.1",
     "react-native-custom-android-webview": "^1.0.5",
-    "react-native-fence-html": "^1.0.6",
     "react-native-fs": "^2.9.7",
     "react-native-image-pan-zoom": "^2.0.16",
     "react-native": "^0.52.2",
