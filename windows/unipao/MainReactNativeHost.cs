@@ -9,6 +9,7 @@ using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Push;
 using Microsoft.AppCenter.Crashes;
+using RNFS;
 
 namespace unipao
 {
@@ -55,6 +56,7 @@ namespace unipao
             new MainReactPackage(),
             new RNDeviceInfoPackage(),
             new RNSharePackage(),
+            new RNFSPackage(),
             codePushReactPackage
         };
     }

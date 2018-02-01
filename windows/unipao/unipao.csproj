@@ -271,6 +271,10 @@
       <Project>{c56790ce-79e5-4d7d-beb7-8403e70bb0e4}</Project>
       <Name>RNDeviceInfo</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\node_modules\react-native-fs\windows\RNFS\RNFS.csproj">
+      <Project>{746610d0-8693-11e7-a20d-bf83f7366778}</Project>
+      <Name>RNFS</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\node_modules\react-native-share\windows\RNShare\RNShare.csproj">
       <Project>{4acdd44c-e556-423e-bd74-b4cef3e67ff0}</Project>
       <Name>RNShare</Name>
