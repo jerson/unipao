@@ -52,16 +52,13 @@ export default class PreferenceItemSelect extends React.Component<
 
   async componentDidMount() {
     let defaultValue = this.getDefaultValue();
-    let value = defaultValue;
-
-    if (!value) {
-      try {
-        let data = await Storage.get(this.props.name);
-        value = data ? data.toString() : defaultValue;
-      } catch (e) {
-        Log.warn(e);
-        value = defaultValue;
-      }
+    let value = '';
+    try {
+      let data = await Storage.get(this.props.name);
+      value = data ? data.toString() : defaultValue;
+    } catch (e) {
+      Log.warn(e);
+      value = defaultValue;
     }
 
     this.setState({ value });
