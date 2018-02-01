@@ -77,8 +77,7 @@
     "react-native-image-pan-zoom": "^2.0.16",
     "react-native": "^0.52.2",
     "react-native-code-push": "^5.2.1",
-    "react-native-device-info":
-      "https://github.com/rebeccahughes/react-native-device-info",
+    "react-native-device-info": "^0.14.0",
     "react-native-htmlview": "^0.12.1",
     "react-native-linear-gradient": "^2.4.0",
     "react-native-modal": "^5.0.0",
