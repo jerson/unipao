@@ -30,6 +30,7 @@ class App extends React.Component<AppProps, State> {
 
   async componentDidMount() {
     Emitter.on('onLocaleChange', this.onLocaleChange);
+    //
     await Translator.init({
       defaultLocale: 'es',
       translations: {
