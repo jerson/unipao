@@ -90,7 +90,7 @@ export default class Translator {
   static async getUserLocale(): Promise<string> {
     try {
       let data = await PreferencesStorage.get('locale');
-      let locale = data.toString();
+      let locale = (data || '').toString();
       return locale ? locale : this.getSystemLocale();
     } catch (e) {
       return this.getSystemLocale();
