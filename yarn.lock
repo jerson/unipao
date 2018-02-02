@@ -4964,9 +4964,9 @@ react-native-custom-android-webview@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/react-native-custom-android-webview/-/react-native-custom-android-webview-1.0.5.tgz#bb18566cd18ab5fbe3b1cc9e014cb1d5e74ae836"
 
-"react-native-device-info@https://github.com/rebeccahughes/react-native-device-info":
+react-native-device-info@^0.14.0:
   version "0.14.0"
-  resolved "https://github.com/rebeccahughes/react-native-device-info#2f4d19deb3d991b4397e81a15346ed4c5ba83efb"
+  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-0.14.0.tgz#b77d0368e197c7a6fc8de612f8272d3526847bd4"
 
 react-native-dismiss-keyboard@1.0.0:
   version "1.0.0"
