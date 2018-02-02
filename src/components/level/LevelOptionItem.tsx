@@ -73,12 +73,13 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   content: {
-    // flex: 1,
+    flex: 1,
     alignItems: 'flex-start',
     flexDirection: 'column',
     paddingRight: 5
   },
   info: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
