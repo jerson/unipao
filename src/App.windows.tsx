@@ -35,9 +35,11 @@ class App extends React.Component<AppProps, State> {
         pt
       }
     });
-    codePush.sync({
-      installMode: codePush.InstallMode.IMMEDIATE
-    });
+    if (!__DEV__) {
+      codePush.sync({
+        installMode: codePush.InstallMode.IMMEDIATE
+      });
+    }
   }
 
   componentWillMount() {

@@ -19,6 +19,7 @@ import {
   NavigationStackScreenOptions
 } from 'react-navigation';
 import { AgendaModel } from '../../../scraping/info/Agenda';
+import AlertMessage from '../../../components/ui/AlertMessage';
 
 const moment = require('moment');
 
@@ -166,6 +167,13 @@ export default class AgendaListScreen extends React.Component<
     let { isLoading, isRefreshing, agendaList } = this.state;
     return (
       <View style={[styles.container]}>
+        {!isLoading &&
+          agendaList.length < 1 && (
+            <AlertMessage
+              type={'warning'}
+              title={_('No se encontraron datos')}
+            />
+          )}
         {isLoading && <Loading margin />}
         <FlatList
           ref={'list'}

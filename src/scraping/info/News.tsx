@@ -76,6 +76,7 @@ export default class News {
 
   static async get(id: string): Promise<NewsDetailModel> {
     let item: NewsDetailModel;
+
     try {
       let $ = await RequestUtil.fetch(
         'http://www.upao.edu.pe/actualidad/' + id,

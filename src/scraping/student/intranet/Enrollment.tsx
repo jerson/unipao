@@ -2,7 +2,6 @@ import RequestUtil from '../../utils/RequestUtil';
 import { LevelModel, PeriodModel } from '../Intranet';
 import ParamsUtils from '../../utils/ParamsUtils';
 import Log from '../../../modules/logger/Log';
-import { GradeReportModel } from './Grade';
 
 const TAG = 'Enrollment';
 export default class Enrollment {

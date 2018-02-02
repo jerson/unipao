@@ -11,6 +11,7 @@ export interface State {
   messages: Message[];
 }
 
+let counter = 0;
 const TAG = 'MessageCenter';
 export default class MessageCenter extends React.Component<
   MessageCenterProps,
@@ -23,13 +24,13 @@ export default class MessageCenter extends React.Component<
   };
 
   refs: {
-    [string: string]: MessageItem;
+    [string: string]: any;
   };
 
   async show(params: Message): Promise<string> {
-    MessageCenter.counter++;
+    counter++;
     if (!params.id) {
-      params.id = MessageCenter.counter.toString();
+      params.id = counter.toString();
     }
 
     let messages = this.state.messages;
@@ -48,7 +49,7 @@ export default class MessageCenter extends React.Component<
       });
     }
 
-    Log.info(TAG, 'show', messages.length, MessageCenter.counter);
+    Log.info(TAG, 'show', messages.length, counter);
 
     return new Promise<string>((resolve, reject) => {
       this.setState({ messages }, () => {

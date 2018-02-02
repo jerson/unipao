@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
     paddingRight: 5
   },
   info: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',

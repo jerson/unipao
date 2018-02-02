@@ -25,11 +25,15 @@ export default class RequestUtil {
     let tag = options.tag || url;
     try {
       Log.debug(TAG, 'fetch', tag, url);
-      let response = await fetch(url, {
-        redirect: 'follow',
-        credentials: 'include',
-        ...params
-      });
+      let response = await fetchCancelable(
+        url,
+        {
+          redirect: 'follow',
+          credentials: 'include',
+          ...params
+        },
+        tag
+      );
       html = await response.text();
     } catch (e) {
       Log.error(TAG, 'fetch', e);
