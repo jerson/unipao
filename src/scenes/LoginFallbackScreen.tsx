@@ -161,7 +161,11 @@ document.getElementsByTagName( "head" )[0].appendChild( link );
           }}
           source={{
             uri:
-              'https://campusvirtual.upao.edu.pe/login.aspx?ReturnUrl=%2fdefault.aspx'
+              'https://campusvirtual.upao.edu.pe/login.aspx?ReturnUrl=%2fdefault.aspx',
+            headers: {
+              'User-Agent':
+                'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36'
+            }
           }}
         />
 
