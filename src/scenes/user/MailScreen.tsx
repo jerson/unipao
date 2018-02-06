@@ -101,7 +101,7 @@ export default class MailScreen extends React.Component<
             uri: 'https://mail.google.com/a/upao.edu.pe',
             headers: {
               'User-Agent':
-                'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.62 Mobile Safari/537.36'
+                'Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19'
             }
           }}
         />
