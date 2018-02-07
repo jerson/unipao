@@ -17,7 +17,7 @@ export default class ParamsUtils {
   static getFormData3(obj: any) {
     let data = [];
     for (let key of Object.keys(obj)) {
-      data.push(`${key}=${encodeURI(obj[key])}`);
+      data.push(`${key}=${encodeURIComponent(obj[key])}`);
     }
     Log.info(data.join('&'));
     return data.join('&');
