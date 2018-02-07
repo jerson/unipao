@@ -263,10 +263,15 @@ const UsersTabNavigator = TabNavigator(
       } as NavigationTabScreenOptions
     },
     Settings: {
-      screen: ({ navigation }: NavigationScreenConfigProps) => {
+      screen: ({ navigation, screenProps }: NavigationScreenConfigProps) => {
         return (
           <View style={{ flex: 1 }}>
-            <SettingsNavigator screenProps={{ tabNavigation: navigation }} />
+            <SettingsNavigator
+              screenProps={{
+                tabNavigation: navigation,
+                rootNavigation: screenProps.rootNavigation
+              }}
+            />
           </View>
         );
       },
