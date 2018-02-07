@@ -188,6 +188,13 @@ export default class LoginScreen extends React.Component<
                   )}
                 />
               )}
+              {isLoading && (
+                <AlertMessage
+                  type={'info'}
+                  isLoading={true}
+                  message={_('Estamos iniciando sesión, espera unos segundos')}
+                />
+              )}
               <View style={[styles.inputsContainer, Theme.shadowLarge]}>
                 <Input
                   containerStyle={styles.inputFirst}

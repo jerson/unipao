@@ -53,6 +53,41 @@ export default class UPAO {
     }
 
     delete params.btn_valida;
+    let keysFirst = Object.keys(params);
+    for (let key of keysFirst) {
+      if (key.indexOf('_id') !== -1) {
+        params[key] = username;
+        params['__EVENTTARGET'] = key;
+      } else if (key.indexOf('_nip') !== -1) {
+        params[key] = password;
+      }
+    }
+
+    await ParamsUtils.delay(4 * 1000);
+
+    try {
+      let $ = await RequestUtil.fetch(
+        loginUrl,
+        {
+          method: 'POST',
+          body: ParamsUtils.getFormData(params),
+          headers: {
+            Referer: 'https://campusvirtual.upao.edu.pe' + loginUrl,
+            'User-Agent':
+              'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36'
+          }
+        },
+        { tag: 'login', checkSession: false }
+      );
+
+      params = ParamsUtils.getFormParams($);
+    } catch (e) {
+      Log.info(TAG, 'login', e);
+      throw e;
+    }
+
+    await ParamsUtils.delay(4 * 1000);
+    delete params.btn_valida;
 
     let keys = Object.keys(params);
     for (let key of keys) {
@@ -64,8 +99,6 @@ export default class UPAO {
     }
     params['btn_valida.x'] = NumberUtils.getRandomInt(5, 25);
     params['btn_valida.y'] = NumberUtils.getRandomInt(5, 25);
-
-    await ParamsUtils.delay(4 * 1000);
 
     try {
       let $ = await RequestUtil.fetch(
