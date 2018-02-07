@@ -6,6 +6,14 @@ export interface Params {
 
 const TAG = 'ParamsUtils';
 export default class ParamsUtils {
+  static delay(duration: number) {
+    return new Promise<void>(function(resolve, reject) {
+      setTimeout(function() {
+        resolve();
+      }, duration);
+    });
+  }
+
   static getFormData3(obj: any) {
     let data = [];
     for (let key of Object.keys(obj)) {

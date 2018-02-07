@@ -39,9 +39,10 @@ export default class UPAO {
       Log.info(TAG, 'login', e);
     }
 
+    const loginUrl = '/login.aspx?ReturnUrl=%2fdefault.aspx';
     try {
       let $ = await RequestUtil.fetch(
-        '/login.aspx?ReturnUrl=%2fdefault.aspx',
+        loginUrl,
         {},
         { tag: 'login', checkSession: false }
       );
@@ -64,12 +65,19 @@ export default class UPAO {
     params['btn_valida.x'] = NumberUtils.getRandomInt(5, 25);
     params['btn_valida.y'] = NumberUtils.getRandomInt(5, 25);
 
+    await ParamsUtils.delay(4 * 1000);
+
     try {
       let $ = await RequestUtil.fetch(
-        '/login.aspx',
+        loginUrl,
         {
           method: 'POST',
-          body: ParamsUtils.getFormData(params)
+          body: ParamsUtils.getFormData(params),
+          headers: {
+            Referer: 'https://campusvirtual.upao.edu.pe' + loginUrl,
+            'User-Agent':
+              'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36'
+          }
         },
         { tag: 'login', checkSession: false }
       );

@@ -21,6 +21,7 @@ import {
   NavigationScreenProp,
   NavigationStackScreenOptions
 } from 'react-navigation';
+import AlertMessage from '../components/ui/AlertMessage';
 
 export interface LoginScreenProps {
   navigation: NavigationScreenProp<null, null>;
@@ -28,6 +29,7 @@ export interface LoginScreenProps {
 
 export interface State {
   isLoading: boolean;
+  failedLogin: boolean;
   loadedCredentials: boolean;
   defaults: {
     username?: string;
@@ -54,6 +56,7 @@ export default class LoginScreen extends React.Component<
   };
 
   state: State = {
+    failedLogin: false,
     isLoading: false,
     loadedCredentials: false,
     defaults: {}
@@ -106,7 +109,7 @@ export default class LoginScreen extends React.Component<
       this.context.notification.show({
         type: 'warning',
         title: _(
-          'Usuario y/o contraseña incorrectos, parece que la universidad nos esta bloqueando los accesos, lo solucionaremos pronto'
+          'Usuario y/o contraseña incorrectos, si tus datos son correctos probablemente sea un problema del campus, lo arreglaremos en unos minutos'
         ),
         icon: 'error-outline',
         id: 'login',
@@ -115,7 +118,7 @@ export default class LoginScreen extends React.Component<
       });
     }
 
-    this.setState({ isLoading: false });
+    this.setState({ isLoading: false, failedLogin: !success });
   };
   onLoginStatus = (success: boolean) => {
     success && RouterUtil.resetTo(this.props.navigation, 'User');
@@ -151,7 +154,7 @@ export default class LoginScreen extends React.Component<
 
   render() {
     let { height } = Dimensions.get('window');
-    let { isLoading, loadedCredentials, defaults } = this.state;
+    let { isLoading, loadedCredentials, failedLogin, defaults } = this.state;
     return (
       <View style={{ flex: 1 }}>
         <Background />
@@ -177,6 +180,14 @@ export default class LoginScreen extends React.Component<
           {!loadedCredentials && <Loading margin />}
           {loadedCredentials && (
             <View style={[styles.formContainer]}>
+              {failedLogin && (
+                <AlertMessage
+                  type={'info'}
+                  message={_(
+                    'Nota: recuerda que si tienes problemas para iniciar sesión, tenemos un inicio de sesión web que usa el campus oficial.'
+                  )}
+                />
+              )}
               <View style={[styles.inputsContainer, Theme.shadowLarge]}>
                 <Input
                   containerStyle={styles.inputFirst}
@@ -285,6 +296,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   inputsContainer: {
+    marginTop: 4,
     borderRadius: 6
   },
   inputFirst: {
