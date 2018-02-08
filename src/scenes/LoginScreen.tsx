@@ -237,7 +237,7 @@ export default class LoginScreen extends React.Component<
                   ref={'password'}
                   placeholder={_('Contraseña')}
                   defaultValue={defaults.password}
-                  returnKeyType={'go'}
+                  returnKeyType={'next'}
                   blurOnSubmit={false}
                   onSubmitEditing={() => this.refs.captcha.focus()}
                   // onSubmitEditing={this.login}
