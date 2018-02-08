@@ -25,7 +25,11 @@ export default class UPAO {
     Intranet
   };
 
-  static async login(username: string, password: string): Promise<boolean> {
+  static async login(
+    username: string,
+    password: string,
+    captcha?: string
+  ): Promise<boolean> {
     let ok = false;
     let params: Params = {};
 
@@ -63,7 +67,7 @@ export default class UPAO {
       }
     }
 
-    await ParamsUtils.delay(4 * 1000);
+    await ParamsUtils.delay(5 * 1000);
 
     try {
       let $ = await RequestUtil.fetch(
@@ -86,7 +90,7 @@ export default class UPAO {
       throw e;
     }
 
-    await ParamsUtils.delay(4 * 1000);
+    await ParamsUtils.delay(5 * 1000 + 100);
     delete params.btn_valida;
 
     let keys = Object.keys(params);
@@ -95,6 +99,8 @@ export default class UPAO {
         params[key] = username;
       } else if (key.indexOf('_nip') !== -1) {
         params[key] = password;
+      } else if (key.indexOf('_img') !== -1) {
+        params[key] = captcha || '';
       }
     }
     params['btn_valida.x'] = NumberUtils.getRandomInt(5, 25);

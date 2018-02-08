@@ -22,6 +22,7 @@ import {
   NavigationStackScreenOptions
 } from 'react-navigation';
 import AlertMessage from '../components/ui/AlertMessage';
+import WebViewDownloader from '../components/ui/WebViewDownloader';
 
 export interface LoginScreenProps {
   navigation: NavigationScreenProp<null, null>;
@@ -64,6 +65,7 @@ export default class LoginScreen extends React.Component<
   refs: {
     username: Input;
     password: Input;
+    captcha: Input;
     remember: Input;
   };
 
@@ -79,14 +81,27 @@ export default class LoginScreen extends React.Component<
   login = async () => {
     let username = this.refs.username.getValue();
     let password = this.refs.password.getValue();
+    let captcha = this.refs.captcha.getValue();
     let remember = this.refs.remember.getValue();
+
+    if (!username || !captcha) {
+      this.context.notification.show({
+        type: 'warning',
+        title: _('Ingresa tus datos y el código de imágen'),
+        icon: 'error-outline',
+        id: 'login',
+        autoDismiss: 2,
+        iconType: 'MaterialIcons'
+      });
+      return;
+    }
 
     this.setState({ isLoading: true });
 
     let success = false;
 
     try {
-      let valid = await UPAO.login(username, password);
+      let valid = await UPAO.login(username, password, captcha);
       if (valid) {
         success = await Auth.login();
         if (success) {
@@ -155,6 +170,14 @@ export default class LoginScreen extends React.Component<
   render() {
     let { height } = Dimensions.get('window');
     let { isLoading, loadedCredentials, failedLogin, defaults } = this.state;
+    const captchaHTML = `
+    <html>
+    <style>body,html{padding:0;margin:0;background: transparent !important;overflow:hidden} img{border-radius: 4px;width:100px;heigh:50px}</style>
+    <body>
+    <img src="https://campusvirtual.upao.edu.pe/captcha.ashx"/>
+    </body>
+    </html>
+`;
     return (
       <View style={{ flex: 1 }}>
         <Background />
@@ -192,7 +215,7 @@ export default class LoginScreen extends React.Component<
                 <AlertMessage
                   type={'info'}
                   isLoading={true}
-                  message={_('Estamos iniciando sesión, espera unos segundos')}
+                  message={_('Iniciando sesión, demorará varios segundos...')}
                 />
               )}
               <View style={[styles.inputsContainer, Theme.shadowLarge]}>
@@ -215,8 +238,9 @@ export default class LoginScreen extends React.Component<
                   placeholder={_('Contraseña')}
                   defaultValue={defaults.password}
                   returnKeyType={'go'}
-                  blurOnSubmit={true}
-                  onSubmitEditing={this.login}
+                  blurOnSubmit={false}
+                  onSubmitEditing={() => this.refs.captcha.focus()}
+                  // onSubmitEditing={this.login}
                 />
               </View>
               <ViewSpacer size={'medium'} />
@@ -228,6 +252,54 @@ export default class LoginScreen extends React.Component<
                 ref={'remember'}
                 placeholder={_('Recordar mis credenciales')}
               />
+              <View style={{ flexDirection: 'row' }}>
+                {isLoading && (
+                  <View
+                    style={[
+                      {
+                        width: 100,
+                        height: 35,
+                        marginTop: 5,
+                        backgroundColor: 'transparent',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                      }
+                    ]}
+                  >
+                    <Loading />
+                  </View>
+                )}
+                {!isLoading && (
+                  <WebViewDownloader
+                    style={[
+                      {
+                        width: 100,
+                        height: 50,
+                        marginTop: 5,
+                        backgroundColor: 'transparent'
+                      }
+                    ]}
+                    source={{
+                      html: captchaHTML,
+                      baseUrl: 'https://campusvirtual.upao.edu.pe/',
+                      headers: {
+                        Referer:
+                          'https://campusvirtual.upao.edu.pe/login.aspx?ReturnUrl=%2fdefault.aspx',
+                        'User-Agent':
+                          'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.62 Safari/537.36'
+                      }
+                    }}
+                  />
+                )}
+                <Input
+                  style={styles.inputCaptcha}
+                  ref={'captcha'}
+                  placeholder={_('Código de imágen')}
+                  returnKeyType={'go'}
+                  blurOnSubmit={true}
+                  onSubmitEditing={this.login}
+                />
+              </View>
             </View>
           )}
 
@@ -295,6 +367,12 @@ const styles = StyleSheet.create({
   input: {
     padding: 10,
     fontSize: 15
+  },
+  inputCaptcha: {
+    // flex:1,
+    width: 190
+    // padding: 10,
+    // fontSize: 15
   },
   formContainer: {
     marginTop: 20,
