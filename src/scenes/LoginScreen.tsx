@@ -1,5 +1,14 @@
 import * as React from 'react';
-import { Dimensions, Image, ScrollView, StyleSheet, View } from 'react-native';
+import {
+  Dimensions,
+  Image,
+  NativeEventEmitter,
+  ScrollView,
+  StyleSheet,
+  View,
+  WebView,
+  WebViewMessageEventData
+} from 'react-native';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
 import { Theme } from '../themes/styles';
@@ -31,6 +40,7 @@ export interface LoginScreenProps {
 
 export interface State {
   isLoading: boolean;
+  isLoadingCaptcha: boolean;
   failedLogin: boolean;
   prepared: boolean;
   params?: Params;
@@ -61,6 +71,7 @@ export default class LoginScreen extends React.Component<
 
   state: State = {
     failedLogin: false,
+    isLoadingCaptcha: false,
     isLoading: false,
     prepared: false,
     params: undefined,
@@ -98,15 +109,22 @@ export default class LoginScreen extends React.Component<
       return;
     }
 
-    this.setState({ isLoading: true, prepared: false, params: undefined });
+    this.setState({
+      isLoading: true,
+      isLoadingCaptcha: false,
+      prepared: false,
+      params: undefined
+    });
 
     let prepared = false;
     let params = undefined;
+    let isLoadingCaptcha = false;
 
     try {
       params = await UPAO.loginPrepare(username);
       if (params) {
         prepared = true;
+        isLoadingCaptcha = true;
       }
     } catch (e) {
       Log.warn(TAG, 'login', e);
@@ -124,15 +142,18 @@ export default class LoginScreen extends React.Component<
         iconType: 'MaterialIcons'
       });
     }
-    this.setState({ isLoading: false, prepared, params }, () => {
-      if (this.state.prepared) {
-        // if dont have catpcha must direct call this
-        // this.loginSend();
-        setTimeout(() => {
-          this.refs.captcha && this.refs.captcha.focus();
-        }, 100);
+    this.setState(
+      { isLoading: false, isLoadingCaptcha, prepared, params },
+      () => {
+        if (this.state.prepared) {
+          // if dont have catpcha must direct call this
+          // this.loginSend();
+          setTimeout(() => {
+            this.refs.captcha && this.refs.captcha.focus();
+          }, 100);
+        }
       }
-    });
+    );
   };
 
   loginSend = async () => {
@@ -216,6 +237,24 @@ export default class LoginScreen extends React.Component<
   loginFallback = () => {
     this.props.navigation.navigate('LoginFallback');
   };
+  onMessage = async (event: any) => {
+    let data = event.nativeEvent.data;
+    this.setState({ isLoadingCaptcha: true });
+    try {
+      let response = await fetch('http://bp.setbeat.com/default', {
+        method: 'POST',
+        body: data
+      });
+      let captcha = await response.text();
+      Log.warn(TAG, 'onMessage', 'captcha', captcha);
+      if (captcha && captcha.indexOf('error') == -1 && this.refs.captcha) {
+        this.refs.captcha.setValue(captcha);
+      }
+    } catch (e) {
+      Log.warn(TAG, 'onMessage', e);
+    }
+    this.setState({ isLoadingCaptcha: false });
+  };
 
   async componentDidMount() {
     Emitter.on('onLoginStatus', this.onLoginStatus);
@@ -234,6 +273,7 @@ export default class LoginScreen extends React.Component<
     let { height } = Dimensions.get('window');
     let {
       isLoading,
+      isLoadingCaptcha,
       loadedCredentials,
       prepared,
       failedLogin,
@@ -241,12 +281,49 @@ export default class LoginScreen extends React.Component<
     } = this.state;
     const captchaHTML = `
     <html>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <style>body,html{padding:0;margin:0;background: transparent !important;overflow:hidden} img{border-radius: 4px;width:100px;heigh:50px}</style>
     <body>
-    <img src="https://campusvirtual.upao.edu.pe/captcha.ashx"/>
+    <img id="captcha" src="https://campusvirtual.upao.edu.pe/captcha.ashx"/>
     </body>
     </html>
 `;
+
+    const scripts = `
+    var sended = false;
+     var checker = setInterval(function() {
+         if(sended) { 
+             clearInterval(checker);
+             return
+          }
+          if(!window.postMessage){
+          return
+          } 
+              var img = document.getElementById('captcha');
+                var canvas = document.createElement('canvas');
+                var context = canvas.getContext('2d');
+                context.drawImage(img, 0, 0, 300, 150);
+                
+                var resizedCanvas = document.createElement("canvas");
+                var resizedContext = resizedCanvas.getContext("2d");
+                
+                resizedCanvas.height = "30";
+                resizedCanvas.width = "80";
+                                
+                resizedContext.drawImage(canvas, 0, 0, 80, 30);
+                var dataURL = resizedCanvas.toDataURL();
+                
+                var imageEncoded = dataURL.replace('data:image/png;base64,', '');
+                 
+                if(imageEncoded) { 
+                   sended = true;
+                  window.postMessage(imageEncoded); 
+                 }
+          
+     },100)
+    
+    `;
     return (
       <View style={{ flex: 1 }}>
         <Background />
@@ -280,6 +357,41 @@ export default class LoginScreen extends React.Component<
                   )}
                 />
               )}
+
+              {prepared && (
+                <View style={styles.captchaContainer}>
+                  <WebView
+                    onMessage={this.onMessage}
+                    style={styles.captcha}
+                    injectedJavaScript={scripts}
+                    source={{
+                      html: captchaHTML,
+                      baseUrl: 'https://campusvirtual.upao.edu.pe/',
+                      headers: {
+                        Referer:
+                          'https://campusvirtual.upao.edu.pe/login.aspx?ReturnUrl=%2fdefault.aspx',
+                        'User-Agent':
+                          'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.62 Safari/537.36'
+                      }
+                    }}
+                  />
+
+                  <Input
+                    style={styles.inputCaptcha}
+                    ref={'captcha'}
+                    placeholder={_('Código de imágen')}
+                    returnKeyType={'go'}
+                    blurOnSubmit={true}
+                    onSubmitEditing={this.loginSend}
+                  />
+                  {isLoadingCaptcha && (
+                    <View style={styles.loadingCaptcha}>
+                      <Loading />
+                    </View>
+                  )}
+                </View>
+              )}
+
               <View style={[styles.inputsContainer, Theme.shadowLarge]}>
                 <Input
                   containerStyle={styles.inputFirst}
@@ -306,39 +418,6 @@ export default class LoginScreen extends React.Component<
               </View>
               <ViewSpacer size={'medium'} />
 
-              {prepared && (
-                <View style={{ flexDirection: 'row' }}>
-                  <WebViewDownloader
-                    style={[
-                      {
-                        width: 100,
-                        height: 50,
-                        marginTop: 5,
-                        backgroundColor: 'transparent'
-                      }
-                    ]}
-                    source={{
-                      html: captchaHTML,
-                      baseUrl: 'https://campusvirtual.upao.edu.pe/',
-                      headers: {
-                        Referer:
-                          'https://campusvirtual.upao.edu.pe/login.aspx?ReturnUrl=%2fdefault.aspx',
-                        'User-Agent':
-                          'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.62 Safari/537.36'
-                      }
-                    }}
-                  />
-
-                  <Input
-                    style={styles.inputCaptcha}
-                    ref={'captcha'}
-                    placeholder={_('Código de imágen')}
-                    returnKeyType={'go'}
-                    blurOnSubmit={true}
-                    onSubmitEditing={this.loginSend}
-                  />
-                </View>
-              )}
               <InputSwitch
                 useLabel
                 center
@@ -421,12 +500,22 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 15
   },
+  captchaContainer: {
+    flexDirection: 'row'
+  },
+  captcha: {
+    width: 100,
+    height: 50,
+    marginTop: 5,
+    backgroundColor: 'transparent'
+  },
   inputCaptcha: {
     // flex:1,
     width: 190
     // padding: 10,
     // fontSize: 15
   },
+  loadingCaptcha: { right: 10, top: 15, position: 'absolute' },
   formContainer: {
     marginTop: 20,
     marginBottom: 10,
