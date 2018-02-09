@@ -127,7 +127,8 @@ export default class Button extends React.Component<ButtonProps, State> {
                 styles.text,
                 Theme.textShadow,
                 label ? styles.iconWithLabel : undefined,
-                textStyle
+                textStyle,
+                textSizeStyle
               ]}
               type={iconType}
             />

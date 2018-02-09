@@ -10,6 +10,11 @@ import Agenda from './info/Agenda';
 import News from './info/News';
 import Gallery from './info/Gallery';
 
+export interface LoginPrepareData {
+  params: Params;
+  requireCaptcha: boolean;
+}
+
 const TAG = 'UPAO';
 export default class UPAO {
   static Info = {
@@ -27,8 +32,9 @@ export default class UPAO {
 
   private static loginUrl = '/login.aspx?ReturnUrl=%2fdefault.aspx';
 
-  static async loginPrepare(username: string): Promise<Params> {
+  static async loginPrepare(username: string): Promise<LoginPrepareData> {
     let params: Params = {};
+    let requireCaptcha = false;
 
     try {
       await RequestUtil.fetch(
@@ -47,6 +53,7 @@ export default class UPAO {
         { tag: 'login', checkSession: false }
       );
       params = ParamsUtils.getFormParams($);
+      requireCaptcha = $('img[src*="captcha"]').length > 0;
     } catch (e) {
       Log.info(TAG, 'login', e);
       throw e;
@@ -87,7 +94,10 @@ export default class UPAO {
     //   throw e;
     // }
 
-    return params;
+    return {
+      params,
+      requireCaptcha
+    };
   }
 
   static async loginSend(

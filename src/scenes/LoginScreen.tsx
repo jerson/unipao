@@ -2,12 +2,10 @@ import * as React from 'react';
 import {
   Dimensions,
   Image,
-  NativeEventEmitter,
   ScrollView,
   StyleSheet,
   View,
-  WebView,
-  WebViewMessageEventData
+  WebView
 } from 'react-native';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
@@ -31,8 +29,8 @@ import {
   NavigationStackScreenOptions
 } from 'react-navigation';
 import AlertMessage from '../components/ui/AlertMessage';
-import WebViewDownloader from '../components/ui/WebViewDownloader';
 import { Params } from '../scraping/utils/ParamsUtils';
+const fetchCancelable = require('react-native-cancelable-fetch');
 
 export interface LoginScreenProps {
   navigation: NavigationScreenProp<null, null>;
@@ -41,8 +39,9 @@ export interface LoginScreenProps {
 export interface State {
   isLoading: boolean;
   isLoadingCaptcha: boolean;
+  requireCaptcha: boolean;
+  isReloadingCaptcha: boolean;
   failedLogin: boolean;
-  prepared: boolean;
   params?: Params;
   loadedCredentials: boolean;
   defaults: {
@@ -71,9 +70,10 @@ export default class LoginScreen extends React.Component<
 
   state: State = {
     failedLogin: false,
+    isReloadingCaptcha: false,
     isLoadingCaptcha: false,
+    requireCaptcha: false,
     isLoading: false,
-    prepared: false,
     params: undefined,
     loadedCredentials: false,
     defaults: {}
@@ -112,25 +112,26 @@ export default class LoginScreen extends React.Component<
     this.setState({
       isLoading: true,
       isLoadingCaptcha: false,
-      prepared: false,
+      requireCaptcha: false,
       params: undefined
     });
 
-    let prepared = false;
     let params = undefined;
     let isLoadingCaptcha = false;
+    let requireCaptcha = false;
 
     try {
-      params = await UPAO.loginPrepare(username);
-      if (params) {
-        prepared = true;
+      let data = await UPAO.loginPrepare(username);
+      if (data && data.params) {
+        params = data.params;
+        requireCaptcha = data.requireCaptcha;
         isLoadingCaptcha = true;
       }
     } catch (e) {
       Log.warn(TAG, 'login', e);
     }
 
-    if (!prepared) {
+    if (!params) {
       this.context.notification.show({
         type: 'warning',
         title: _(
@@ -143,14 +144,16 @@ export default class LoginScreen extends React.Component<
       });
     }
     this.setState(
-      { isLoading: false, isLoadingCaptcha, prepared, params },
+      { isLoading: false, isLoadingCaptcha, requireCaptcha, params },
       () => {
-        if (this.state.prepared) {
-          // if dont have catpcha must direct call this
-          // this.loginSend();
-          setTimeout(() => {
-            this.refs.captcha && this.refs.captcha.focus();
-          }, 100);
+        if (this.state.params) {
+          if (!this.state.requireCaptcha) {
+            this.loginSend();
+          } else {
+            setTimeout(() => {
+              this.refs.captcha && this.refs.captcha.focus();
+            }, 100);
+          }
         }
       }
     );
@@ -159,11 +162,11 @@ export default class LoginScreen extends React.Component<
   loginSend = async () => {
     let username = this.refs.username.getValue();
     let password = this.refs.password.getValue();
-    let captcha = this.refs.captcha.getValue();
+    let captcha = this.refs.captcha ? this.refs.captcha.getValue() : '';
     let remember = this.refs.remember.getValue();
-    let { params } = this.state;
+    let { params, requireCaptcha } = this.state;
 
-    if (!captcha) {
+    if (!captcha && requireCaptcha) {
       this.context.notification.show({
         type: 'warning',
         title: _('Ingresa el código de imágen'),
@@ -217,7 +220,11 @@ export default class LoginScreen extends React.Component<
       });
     }
 
-    this.setState({ isLoading: false, prepared: false, failedLogin: !success });
+    this.setState({
+      isLoading: false,
+      requireCaptcha: false,
+      failedLogin: !success
+    });
   };
   onLoginStatus = (success: boolean) => {
     success && RouterUtil.resetTo(this.props.navigation, 'User');
@@ -237,17 +244,32 @@ export default class LoginScreen extends React.Component<
   loginFallback = () => {
     this.props.navigation.navigate('LoginFallback');
   };
+  onChangeCaptcha = () => {
+    let { isLoadingCaptcha } = this.state;
+    if (isLoadingCaptcha) {
+      this.setState({ isLoadingCaptcha: false });
+    }
+  };
   onMessage = async (event: any) => {
     let data = event.nativeEvent.data;
     this.setState({ isLoadingCaptcha: true });
     try {
-      let response = await fetch('http://bp.setbeat.com/default', {
-        method: 'POST',
-        body: data
-      });
+      let response = await fetchCancelable(
+        'http://bp.setbeat.com/default',
+        {
+          method: 'POST',
+          body: data
+        },
+        'captcha'
+      );
       let captcha = await response.text();
       Log.warn(TAG, 'onMessage', 'captcha', captcha);
-      if (captcha && captcha.indexOf('error') == -1 && this.refs.captcha) {
+      if (
+        captcha &&
+        captcha.indexOf('error') == -1 &&
+        this.refs.captcha &&
+        this.state.isLoadingCaptcha
+      ) {
         this.refs.captcha.setValue(captcha);
       }
     } catch (e) {
@@ -275,7 +297,9 @@ export default class LoginScreen extends React.Component<
       isLoading,
       isLoadingCaptcha,
       loadedCredentials,
-      prepared,
+      params,
+      isReloadingCaptcha,
+      requireCaptcha,
       failedLogin,
       defaults
     } = this.state;
@@ -358,23 +382,43 @@ export default class LoginScreen extends React.Component<
                 />
               )}
 
-              {prepared && (
+              {requireCaptcha && (
                 <View style={styles.captchaContainer}>
-                  <WebView
-                    onMessage={this.onMessage}
-                    style={styles.captcha}
-                    injectedJavaScript={scripts}
-                    source={{
-                      html: captchaHTML,
-                      baseUrl: 'https://campusvirtual.upao.edu.pe/',
-                      headers: {
-                        Referer:
-                          'https://campusvirtual.upao.edu.pe/login.aspx?ReturnUrl=%2fdefault.aspx',
-                        'User-Agent':
-                          'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.62 Safari/537.36'
-                      }
+                  <Button
+                    type={'default'}
+                    style={{
+                      height: 30,
+                      width: 30,
+                      top: -3,
+                      borderRadius: 35 / 2
                     }}
+                    onPress={() => {
+                      this.setState({ isReloadingCaptcha: true }, () => {
+                        this.setState({ isReloadingCaptcha: false });
+                      });
+                    }}
+                    icon={'refresh'}
+                    size={'small'}
+                    iconType={'FontAwesome'}
                   />
+                  {isReloadingCaptcha && <View style={styles.captcha} />}
+                  {!isReloadingCaptcha && (
+                    <WebView
+                      onMessage={this.onMessage}
+                      style={styles.captcha}
+                      injectedJavaScript={scripts}
+                      source={{
+                        html: captchaHTML,
+                        baseUrl: 'https://campusvirtual.upao.edu.pe/',
+                        headers: {
+                          Referer:
+                            'https://campusvirtual.upao.edu.pe/login.aspx?ReturnUrl=%2fdefault.aspx',
+                          'User-Agent':
+                            'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.62 Safari/537.36'
+                        }
+                      }}
+                    />
+                  )}
 
                   <Input
                     style={styles.inputCaptcha}
@@ -382,6 +426,7 @@ export default class LoginScreen extends React.Component<
                     placeholder={_('Código de imágen')}
                     returnKeyType={'go'}
                     blurOnSubmit={true}
+                    onChangeText={this.onChangeCaptcha}
                     onSubmitEditing={this.loginSend}
                   />
                   {isLoadingCaptcha && (
@@ -434,7 +479,7 @@ export default class LoginScreen extends React.Component<
               isLoading={isLoading}
               type={'primary'}
               onPress={() => {
-                if (prepared) {
+                if (requireCaptcha) {
                   this.loginSend();
                 } else {
                   this.loginPrepare();
@@ -511,11 +556,15 @@ const styles = StyleSheet.create({
   },
   inputCaptcha: {
     // flex:1,
-    width: 190
+    width: 150
     // padding: 10,
     // fontSize: 15
   },
-  loadingCaptcha: { right: 10, top: 15, position: 'absolute' },
+  loadingCaptcha: {
+    right: 10,
+    top: 15,
+    position: 'absolute'
+  },
   formContainer: {
     marginTop: 20,
     marginBottom: 10,
