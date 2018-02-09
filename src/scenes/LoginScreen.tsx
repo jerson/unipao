@@ -394,6 +394,7 @@ export default class LoginScreen extends React.Component<
                       borderRadius: 35 / 2
                     }}
                     onPress={() => {
+                      this.refs.captcha && this.refs.captcha.setValue('');
                       this.setState({ isReloadingCaptcha: true }, () => {
                         this.setState({ isReloadingCaptcha: false });
                       });
