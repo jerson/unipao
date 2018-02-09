@@ -23,6 +23,7 @@ import {
 } from 'react-navigation';
 import AlertMessage from '../components/ui/AlertMessage';
 import WebViewDownloader from '../components/ui/WebViewDownloader';
+import { Params } from '../scraping/utils/ParamsUtils';
 
 export interface LoginScreenProps {
   navigation: NavigationScreenProp<null, null>;
@@ -31,6 +32,8 @@ export interface LoginScreenProps {
 export interface State {
   isLoading: boolean;
   failedLogin: boolean;
+  prepared: boolean;
+  params?: Params;
   loadedCredentials: boolean;
   defaults: {
     username?: string;
@@ -59,6 +62,8 @@ export default class LoginScreen extends React.Component<
   state: State = {
     failedLogin: false,
     isLoading: false,
+    prepared: false,
+    params: undefined,
     loadedCredentials: false,
     defaults: {}
   };
@@ -78,16 +83,69 @@ export default class LoginScreen extends React.Component<
     !remember && this.clearCredentials();
   };
 
-  login = async () => {
+  loginPrepare = async () => {
+    let username = this.refs.username.getValue();
+
+    if (!username) {
+      this.context.notification.show({
+        type: 'warning',
+        title: _('Ingresa tus datos'),
+        icon: 'error-outline',
+        id: 'login',
+        autoDismiss: 2,
+        iconType: 'MaterialIcons'
+      });
+      return;
+    }
+
+    this.setState({ isLoading: true, prepared: false, params: undefined });
+
+    let prepared = false;
+    let params = undefined;
+
+    try {
+      params = await UPAO.loginPrepare(username);
+      if (params) {
+        prepared = true;
+      }
+    } catch (e) {
+      Log.warn(TAG, 'login', e);
+    }
+
+    if (!prepared) {
+      this.context.notification.show({
+        type: 'warning',
+        title: _(
+          'Error al intentar iniciar sesión, lo arreglaremos en unos minutos'
+        ),
+        icon: 'error-outline',
+        id: 'login',
+        autoDismiss: 8,
+        iconType: 'MaterialIcons'
+      });
+    }
+    this.setState({ isLoading: false, prepared, params }, () => {
+      if (this.state.prepared) {
+        // if dont have catpcha must direct call this
+        // this.loginSend();
+        setTimeout(() => {
+          this.refs.captcha && this.refs.captcha.focus();
+        }, 100);
+      }
+    });
+  };
+
+  loginSend = async () => {
     let username = this.refs.username.getValue();
     let password = this.refs.password.getValue();
     let captcha = this.refs.captcha.getValue();
     let remember = this.refs.remember.getValue();
+    let { params } = this.state;
 
-    if (!username || !captcha) {
+    if (!captcha) {
       this.context.notification.show({
         type: 'warning',
-        title: _('Ingresa tus datos y el código de imágen'),
+        title: _('Ingresa el código de imágen'),
         icon: 'error-outline',
         id: 'login',
         autoDismiss: 2,
@@ -101,7 +159,12 @@ export default class LoginScreen extends React.Component<
     let success = false;
 
     try {
-      let valid = await UPAO.login(username, password, captcha);
+      let valid = await UPAO.loginSend(
+        params || {},
+        username,
+        password,
+        captcha
+      );
       if (valid) {
         success = await Auth.login();
         if (success) {
@@ -133,7 +196,7 @@ export default class LoginScreen extends React.Component<
       });
     }
 
-    this.setState({ isLoading: false, failedLogin: !success });
+    this.setState({ isLoading: false, prepared: false, failedLogin: !success });
   };
   onLoginStatus = (success: boolean) => {
     success && RouterUtil.resetTo(this.props.navigation, 'User');
@@ -169,7 +232,13 @@ export default class LoginScreen extends React.Component<
 
   render() {
     let { height } = Dimensions.get('window');
-    let { isLoading, loadedCredentials, failedLogin, defaults } = this.state;
+    let {
+      isLoading,
+      loadedCredentials,
+      prepared,
+      failedLogin,
+      defaults
+    } = this.state;
     const captchaHTML = `
     <html>
     <style>body,html{padding:0;margin:0;background: transparent !important;overflow:hidden} img{border-radius: 4px;width:100px;heigh:50px}</style>
@@ -211,13 +280,6 @@ export default class LoginScreen extends React.Component<
                   )}
                 />
               )}
-              {isLoading && (
-                <AlertMessage
-                  type={'info'}
-                  isLoading={true}
-                  message={_('Iniciando sesión, demorará varios segundos...')}
-                />
-              )}
               <View style={[styles.inputsContainer, Theme.shadowLarge]}>
                 <Input
                   containerStyle={styles.inputFirst}
@@ -239,37 +301,13 @@ export default class LoginScreen extends React.Component<
                   defaultValue={defaults.password}
                   returnKeyType={'next'}
                   blurOnSubmit={false}
-                  onSubmitEditing={() => this.refs.captcha.focus()}
-                  // onSubmitEditing={this.login}
+                  onSubmitEditing={this.loginPrepare}
                 />
               </View>
               <ViewSpacer size={'medium'} />
-              <InputSwitch
-                useLabel
-                center
-                onValueChange={this.onRememberChange}
-                defaultValue={!!defaults.remember}
-                ref={'remember'}
-                placeholder={_('Recordar mis credenciales')}
-              />
-              <View style={{ flexDirection: 'row' }}>
-                {isLoading && (
-                  <View
-                    style={[
-                      {
-                        width: 100,
-                        height: 35,
-                        marginTop: 5,
-                        backgroundColor: 'transparent',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                      }
-                    ]}
-                  >
-                    <Loading />
-                  </View>
-                )}
-                {!isLoading && (
+
+              {prepared && (
+                <View style={{ flexDirection: 'row' }}>
                   <WebViewDownloader
                     style={[
                       {
@@ -290,16 +328,25 @@ export default class LoginScreen extends React.Component<
                       }
                     }}
                   />
-                )}
-                <Input
-                  style={styles.inputCaptcha}
-                  ref={'captcha'}
-                  placeholder={_('Código de imágen')}
-                  returnKeyType={'go'}
-                  blurOnSubmit={true}
-                  onSubmitEditing={this.login}
-                />
-              </View>
+
+                  <Input
+                    style={styles.inputCaptcha}
+                    ref={'captcha'}
+                    placeholder={_('Código de imágen')}
+                    returnKeyType={'go'}
+                    blurOnSubmit={true}
+                    onSubmitEditing={this.loginSend}
+                  />
+                </View>
+              )}
+              <InputSwitch
+                useLabel
+                center
+                onValueChange={this.onRememberChange}
+                defaultValue={!!defaults.remember}
+                ref={'remember'}
+                placeholder={_('Recordar mis credenciales')}
+              />
             </View>
           )}
 
@@ -307,7 +354,13 @@ export default class LoginScreen extends React.Component<
             <Button
               isLoading={isLoading}
               type={'primary'}
-              onPress={this.login}
+              onPress={() => {
+                if (prepared) {
+                  this.loginSend();
+                } else {
+                  this.loginPrepare();
+                }
+              }}
               label={_('Iniciar sesión')}
               icon={'user'}
               iconType={'FontAwesome'}

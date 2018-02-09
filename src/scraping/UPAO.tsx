@@ -25,12 +25,9 @@ export default class UPAO {
     Intranet
   };
 
-  static async login(
-    username: string,
-    password: string,
-    captcha?: string
-  ): Promise<boolean> {
-    let ok = false;
+  private static loginUrl = '/login.aspx?ReturnUrl=%2fdefault.aspx';
+
+  static async loginPrepare(username: string): Promise<Params> {
     let params: Params = {};
 
     try {
@@ -43,10 +40,9 @@ export default class UPAO {
       Log.info(TAG, 'login', e);
     }
 
-    const loginUrl = '/login.aspx?ReturnUrl=%2fdefault.aspx';
     try {
       let $ = await RequestUtil.fetch(
-        loginUrl,
+        this.loginUrl,
         {},
         { tag: 'login', checkSession: false }
       );
@@ -56,41 +52,52 @@ export default class UPAO {
       throw e;
     }
 
-    delete params.btn_valida;
-    let keysFirst = Object.keys(params);
-    for (let key of keysFirst) {
-      if (key.indexOf('_id') !== -1) {
-        params[key] = username;
-        params['__EVENTTARGET'] = key;
-      } else if (key.indexOf('_nip') !== -1) {
-        params[key] = password;
-      }
-    }
+    // disabled now is disabled temp
+    // delete params.btn_valida;
+    // let keysFirst = Object.keys(params);
+    // for (let key of keysFirst) {
+    //   if (key.indexOf('_id') !== -1) {
+    //     params[key] = username;
+    //     params['__EVENTTARGET'] = key;
+    //   } else if (key.indexOf('_nip') !== -1) {
+    //     params[key] = password;
+    //   }
+    // }
+    //
+    // await ParamsUtils.delay(5 * 1000);
+    //
+    // try {
+    //   let $ = await RequestUtil.fetch(
+    //     this.loginUrl,
+    //     {
+    //       method: 'POST',
+    //       body: ParamsUtils.getFormData(params),
+    //       headers: {
+    //         Referer: 'https://campusvirtual.upao.edu.pe' + loginUrl,
+    //         'User-Agent':
+    //           'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36'
+    //       }
+    //     },
+    //     { tag: 'login', checkSession: false }
+    //   );
+    //
+    //   params = ParamsUtils.getFormParams($);
+    // } catch (e) {
+    //   Log.info(TAG, 'login', e);
+    //   throw e;
+    // }
 
-    await ParamsUtils.delay(5 * 1000);
+    return params;
+  }
 
-    try {
-      let $ = await RequestUtil.fetch(
-        loginUrl,
-        {
-          method: 'POST',
-          body: ParamsUtils.getFormData(params),
-          headers: {
-            Referer: 'https://campusvirtual.upao.edu.pe' + loginUrl,
-            'User-Agent':
-              'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36'
-          }
-        },
-        { tag: 'login', checkSession: false }
-      );
+  static async loginSend(
+    params: Params,
+    username: string,
+    password: string,
+    captcha?: string
+  ): Promise<boolean> {
+    let ok = false;
 
-      params = ParamsUtils.getFormParams($);
-    } catch (e) {
-      Log.info(TAG, 'login', e);
-      throw e;
-    }
-
-    await ParamsUtils.delay(5 * 1000 + 100);
     delete params.btn_valida;
 
     let keys = Object.keys(params);
@@ -108,12 +115,12 @@ export default class UPAO {
 
     try {
       let $ = await RequestUtil.fetch(
-        loginUrl,
+        this.loginUrl,
         {
           method: 'POST',
           body: ParamsUtils.getFormData(params),
           headers: {
-            Referer: 'https://campusvirtual.upao.edu.pe' + loginUrl,
+            Referer: 'https://campusvirtual.upao.edu.pe' + this.loginUrl,
             'User-Agent':
               'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36'
           }
