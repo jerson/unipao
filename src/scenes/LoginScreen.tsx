@@ -248,6 +248,7 @@ export default class LoginScreen extends React.Component<
     let { isLoadingCaptcha } = this.state;
     if (isLoadingCaptcha) {
       this.setState({ isLoadingCaptcha: false });
+      fetchCancelable.abort('captcha');
     }
   };
   onMessage = async (event: any) => {
