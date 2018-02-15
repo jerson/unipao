@@ -308,7 +308,7 @@ export default class LoginScreen extends React.Component<
     <html>
     <meta name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
-    <style>body,html{padding:0;margin:0;background: transparent !important;overflow:hidden} img{border-radius: 4px;width:100px;heigh:50px}</style>
+    <style>body,html{padding:0;margin:0;background: transparent !important;overflow:hidden} img{background-color: #fff;border-radius: 4px;width:100px;height:40px}</style>
     <body>
     <img id="captcha" src="https://campusvirtual.upao.edu.pe/captcha.ashx"/>
     </body>

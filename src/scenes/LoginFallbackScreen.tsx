@@ -160,9 +160,9 @@ document.getElementsByTagName( "head" )[0].appendChild( link );
             this.props.navigation.setParams({ isLoading: false });
           }}
           source={{
-            uri:
-              'https://campusvirtual.upao.edu.pe/login.aspx?ReturnUrl=%2fdefault.aspx',
+            uri: 'https://campusvirtual.upao.edu.pe/login.aspx',
             headers: {
+              Referer: 'https://upao.edu.pe',
               'User-Agent':
                 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36'
             }
