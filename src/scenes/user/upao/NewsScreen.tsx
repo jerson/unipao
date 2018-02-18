@@ -7,7 +7,7 @@ import {
   Text,
   View
 } from 'react-native';
-import { Theme } from '../../../themes/styles';
+import { Color, Theme } from '../../../themes/styles';
 import * as PropTypes from 'prop-types';
 import ImageUtil from '../../../modules/util/ImageUtil';
 import HTMLView from 'react-native-htmlview';
@@ -48,7 +48,7 @@ export default class NewsListScreen extends React.Component<
     title: '',
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
-    headerTintColor: Theme.subTintColor,
+    headerTintColor: Color.subTintColor,
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,

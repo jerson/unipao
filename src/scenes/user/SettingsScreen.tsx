@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Alert, Dimensions, ScrollView, StyleSheet } from 'react-native';
 import PreferenceHeader from '../../components/preference/PreferenceHeader';
-import { Theme } from '../../themes/styles';
+import { Color, Theme } from '../../themes/styles';
 import PreferenceItem from '../../components/preference/PreferenceItem';
 import Button from '../../components/ui/Button';
 import Auth from '../../modules/session/Auth';
@@ -52,7 +52,7 @@ export default class SettingsScreen extends React.Component<
     title: _('Ajustes'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
-    headerTintColor: Theme.tintColor,
+    headerTintColor: Color.tintColor,
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,

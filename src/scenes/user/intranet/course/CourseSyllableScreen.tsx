@@ -6,7 +6,7 @@ import {
   StyleSheet,
   View
 } from 'react-native';
-import { Theme } from '../../../../themes/styles';
+import { Color, Theme } from '../../../../themes/styles';
 import * as PropTypes from 'prop-types';
 import Log from '../../../../modules/logger/Log';
 import Loading from '../../../../components/ui/Loading';
@@ -45,7 +45,7 @@ export default class CourseSyllableScreen extends React.Component<
     title: _('Silabos del curso'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
-    headerTintColor: Theme.subTintColor,
+    headerTintColor: Color.subTintColor,
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,

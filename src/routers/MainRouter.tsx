@@ -12,7 +12,7 @@ import AboutScreen from '../scenes/AboutScreen';
 import ProfileScreen from '../scenes/user/ProfileScreen';
 import NewsListScreen from '../scenes/user/upao/NewsListScreen';
 import Icon from '../components/ui/Icon';
-import { Theme } from '../themes/styles';
+import { Color, Theme } from '../themes/styles';
 import NewsScreen from '../scenes/user/upao/NewsScreen';
 import SettingsScreen from '../scenes/user/SettingsScreen';
 import AgendaListScreen from '../scenes/user/upao/AgendaListScreen';
@@ -134,7 +134,7 @@ const UPAONavigator = StackNavigator(
         title: _('Actualidad'),
         headerBackTitle: null,
         headerTitleStyle: [Theme.title, Theme.subtitle],
-        headerTintColor: Theme.subTintColor,
+        headerTintColor: Color.subTintColor,
         headerStyle: [Theme.navigationBar, Theme.subNavigationBar]
       }
     }

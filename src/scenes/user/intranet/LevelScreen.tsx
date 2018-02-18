@@ -11,7 +11,7 @@ import {
 } from 'react-navigation';
 import LevelOptionItem from '../../../components/level/LevelOptionItem';
 import LevelOptionHeader from '../../../components/level/LevelOptionHeader';
-import { Theme } from '../../../themes/styles';
+import { Color, Theme } from '../../../themes/styles';
 
 export interface LevelOptionItemModel {
   route: string;
@@ -47,7 +47,7 @@ export default class LevelScreen extends React.Component<
       : _('Nivel académico'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
-    headerTintColor: Theme.subTintColor,
+    headerTintColor: Color.subTintColor,
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,

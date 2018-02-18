@@ -17,7 +17,11 @@ export const tabsOptions: TabNavigatorConfig = {
     inactiveTintColor: '#444',
     style: {
       backgroundColor: '#fff',
-      ...Theme.shadowDefault
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.2,
+      shadowRadius: 2,
+      elevation: 1
     },
     labelStyle: {
       fontSize: 12,
@@ -69,7 +73,11 @@ export const tabsOptionsSub: TabNavigatorConfig = {
     style: {
       backgroundColor: '#fff',
       padding: 1,
-      ...Theme.shadowDefault
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.2,
+      shadowRadius: 2,
+      elevation: 1
     },
     labelStyle: {
       fontSize: 12,

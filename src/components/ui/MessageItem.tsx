@@ -40,8 +40,8 @@ export default class MessageItem extends React.Component<
     itemHeight: 0
   };
 
-  animation: CompositeAnimation;
-  timeoutDismiss: number;
+  animation: any = new Animated.Value(0);
+  timeoutDismiss: number = 0;
 
   onLayout = (event: LayoutChangeEvent) => {
     let itemHeight = event.nativeEvent.layout.height;

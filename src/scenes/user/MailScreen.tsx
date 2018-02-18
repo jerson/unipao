@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Theme } from '../../themes/styles';
+import { Color, Theme } from '../../themes/styles';
 import { _ } from '../../modules/i18n/Translator';
 import NavigationButton from '../../components/ui/NavigationButton';
 import Loading from '../../components/ui/Loading';
@@ -36,7 +36,7 @@ export default class MailScreen extends React.Component<
     title: _('Correo UPAO'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
-    headerTintColor: Theme.tintColor,
+    headerTintColor: Color.tintColor,
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,

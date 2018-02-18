@@ -17,7 +17,7 @@ import {
   NavigationTabScreenOptions,
   TabNavigator
 } from 'react-navigation';
-import { Theme } from '../../../themes/styles';
+import { Color, Theme } from '../../../themes/styles';
 import NavigationButton from '../../../components/ui/NavigationButton';
 import { tabsOptions } from '../../../routers/Tabs';
 import GradesReportScreen from './GradesReportScreen';
@@ -51,7 +51,7 @@ export default class GradesReportTabsScreen extends React.Component<
     title: _('Reporte de notas'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
-    headerTintColor: Theme.subTintColor,
+    headerTintColor: Color.subTintColor,
     headerStyle: [Theme.navigationBar, Theme.subNavigationBar],
     headerRight: (
       <View style={{ flexDirection: 'row' }}>

@@ -8,7 +8,7 @@ import {
   Text,
   View
 } from 'react-native';
-import { Theme } from '../../../themes/styles';
+import { Color, Theme } from '../../../themes/styles';
 import * as PropTypes from 'prop-types';
 import NavigationButton from '../../../components/ui/NavigationButton';
 import ImageZoom from 'react-native-image-pan-zoom';
@@ -45,7 +45,7 @@ export default class GalleryPhotoScreen extends React.PureComponent<
     title: '',
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
-    headerTintColor: Theme.subTintColor,
+    headerTintColor: Color.subTintColor,
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,

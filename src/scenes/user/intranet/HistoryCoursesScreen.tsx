@@ -25,7 +25,7 @@ import {
   NavigationScreenProp,
   NavigationStackScreenOptions
 } from 'react-navigation';
-import { Theme } from '../../../themes/styles';
+import { Color, Theme } from '../../../themes/styles';
 import NavigationButton from '../../../components/ui/NavigationButton';
 
 export interface HistoryCoursesScreenProps {
@@ -61,7 +61,7 @@ export default class HistoryCoursesScreen extends React.Component<
     title: _('Cursos anteriores'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
-    headerTintColor: Theme.subTintColor,
+    headerTintColor: Color.subTintColor,
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,

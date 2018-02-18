@@ -6,7 +6,7 @@ import {
   Text,
   View
 } from 'react-native';
-import { Theme } from '../../../themes/styles';
+import { Color, Theme } from '../../../themes/styles';
 import * as PropTypes from 'prop-types';
 import CacheStorage from '../../../modules/storage/CacheStorage';
 import Log from '../../../modules/logger/Log';
@@ -50,7 +50,7 @@ export default class GalleryScreen extends React.PureComponent<
     title: '',
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
-    headerTintColor: Theme.subTintColor,
+    headerTintColor: Color.subTintColor,
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,

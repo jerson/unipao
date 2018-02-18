@@ -5,7 +5,7 @@ import {
   StyleSheet,
   View
 } from 'react-native';
-import { Theme } from '../../../themes/styles';
+import { Theme, Color } from '../../../themes/styles';
 import * as PropTypes from 'prop-types';
 import Log from '../../../modules/logger/Log';
 import GalleryItem from '../../../components/gallery/GalleryItem';
@@ -48,7 +48,7 @@ export default class GalleriesScreen extends React.Component<
     title: _('Galerías'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
-    headerTintColor: Theme.tintColor,
+    headerTintColor: Color.tintColor,
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,

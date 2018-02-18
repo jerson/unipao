@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FlatList, ListRenderItemInfo, StyleSheet, View } from 'react-native';
-import { Theme } from '../../themes/styles';
+import { Color, Theme } from '../../themes/styles';
 import * as PropTypes from 'prop-types';
 import AssistDetailItem from '../../components/assist/AssistDetailItem';
 import AssistHeader from '../../components/assist/AssistHeader';
@@ -29,7 +29,7 @@ export default class AssistDetailScreen extends React.Component<
     title: _('Mis Asistencias'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
-    headerTintColor: Theme.subTintColor,
+    headerTintColor: Color.subTintColor,
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,

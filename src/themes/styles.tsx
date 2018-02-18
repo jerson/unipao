@@ -1,13 +1,15 @@
-import { Platform, TextStyle, ViewStyle } from 'react-native';
+import { Platform, StyleSheet, TextStyle, ViewStyle } from 'react-native';
 
 let isAndroid = Platform.OS === 'android';
 
-export const Theme = {
+export const Color = {
+  tintColor: 'rgba(255,255,255,0.7)',
+  subTintColor: 'rgba(0,0,0,0.7)'
+};
+export const Theme = StyleSheet.create({
   tabTarIcon: {
     fontSize: 25
   } as TextStyle,
-  tintColor: 'rgba(255,255,255,0.7)',
-  subTintColor: 'rgba(0,0,0,0.7)',
   navigationBar: {
     elevation: 0,
     borderWidth: 0,
@@ -69,4 +71,4 @@ export const Theme = {
       width: 0
     }
   } as TextStyle
-};
+});

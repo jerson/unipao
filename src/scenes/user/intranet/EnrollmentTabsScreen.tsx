@@ -17,7 +17,7 @@ import {
   NavigationTabScreenOptions,
   TabNavigator
 } from 'react-navigation';
-import { Theme } from '../../../themes/styles';
+import { Color, Theme } from '../../../themes/styles';
 import NavigationButton from '../../../components/ui/NavigationButton';
 import { tabsOptions } from '../../../routers/Tabs';
 import EnrollmentScreen from './EnrollmentScreen';
@@ -50,7 +50,7 @@ export default class EnrollmentTabsScreen extends React.Component<
     title: _('Ficha de matricula'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
-    headerTintColor: Theme.subTintColor,
+    headerTintColor: Color.subTintColor,
     headerStyle: [Theme.navigationBar, Theme.subNavigationBar],
     headerRight: (
       <View style={{ flexDirection: 'row' }}>

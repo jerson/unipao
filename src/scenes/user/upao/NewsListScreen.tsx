@@ -5,7 +5,7 @@ import {
   StyleSheet,
   View
 } from 'react-native';
-import { Theme } from '../../../themes/styles';
+import { Color, Theme } from '../../../themes/styles';
 import * as PropTypes from 'prop-types';
 import Log from '../../../modules/logger/Log';
 import NewsItem from '../../../components/news/NewsItem';
@@ -48,7 +48,7 @@ export default class NewsListScreen extends React.Component<
     title: _('Últimas noticias'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
-    headerTintColor: Theme.tintColor,
+    headerTintColor: Color.tintColor,
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,

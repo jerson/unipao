@@ -48,8 +48,10 @@ buck-out/
 scripts/tmp
 flow-typed/
 .expo/
-/src/Config.js
-/src/Config.tsx
+src/Config.tsx
 .project
 .settings
 .classpath
+src/**/*.js
+src/**/*.js.map
+src/**/*.d.ts

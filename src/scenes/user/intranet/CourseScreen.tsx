@@ -7,7 +7,7 @@ import {
   StyleSheet,
   View
 } from 'react-native';
-import { Theme } from '../../../themes/styles';
+import { Color, Theme } from '../../../themes/styles';
 import * as PropTypes from 'prop-types';
 import { _ } from '../../../modules/i18n/Translator';
 import DimensionUtil from '../../../modules/util/DimensionUtil';
@@ -53,7 +53,7 @@ export default class CourseScreen extends React.Component<
     title: '',
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
-    headerTintColor: Theme.tintColor,
+    headerTintColor: Color.tintColor,
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,

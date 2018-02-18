@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Dimensions, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Button from '../components/ui/Button';
 import Icon from '../components/ui/Icon';
-import { Theme } from '../themes/styles';
+import { Color, Theme } from '../themes/styles';
 import * as PropTypes from 'prop-types';
 import KeyboardSpacer from '../components/ui/KeyboardSpacer';
 import Background from '../components/ui/Background';
@@ -32,7 +32,7 @@ export default class AboutScreen extends React.Component<
     title: _('Acerca de'),
     headerBackTitle: null,
     headerTitleStyle: Theme.title,
-    headerTintColor: Theme.tintColor,
+    headerTintColor: Color.tintColor,
     headerStyle: [Theme.navigationBar]
   };
 

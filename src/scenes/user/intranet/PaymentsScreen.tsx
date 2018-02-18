@@ -21,7 +21,7 @@ import {
 } from 'react-navigation';
 import PaymentItem from '../../../components/payment/PaymentItem';
 import PaymentHeader from '../../../components/payment/PaymentHeader';
-import { Theme } from '../../../themes/styles';
+import { Color, Theme } from '../../../themes/styles';
 import NavigationButton from '../../../components/ui/NavigationButton';
 
 export interface PaymentsScreenProps {
@@ -51,7 +51,7 @@ export default class PaymentsScreen extends React.Component<
     title: _('Historial de pagos'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
-    headerTintColor: Theme.subTintColor,
+    headerTintColor: Color.subTintColor,
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,

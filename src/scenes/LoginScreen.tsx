@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
-import { Theme } from '../themes/styles';
+import { Theme, Color } from '../themes/styles';
 import * as PropTypes from 'prop-types';
 import Log from '../modules/logger/Log';
 import Emitter from '../modules/listener/Emitter';
@@ -64,7 +64,7 @@ export default class LoginScreen extends React.Component<
     title: Config.app.name,
     headerBackTitle: null,
     headerTitleStyle: Theme.title,
-    headerTintColor: Theme.tintColor,
+    headerTintColor: Color.tintColor,
     headerStyle: [Theme.navigationBar]
   };
 
@@ -308,7 +308,7 @@ export default class LoginScreen extends React.Component<
     <html>
     <meta name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
-    <style>body,html{padding:0;margin:0;background: transparent !important;overflow:hidden} img{background-color: #fff;border-radius: 4px;width:100px;height:40px}</style>
+    <style>body,html{padding:0;margin:0;background: transparent !important;overflow:hidden} img{background-color: #fff;border-radius: 4px;width:100px;height:30px}</style>
     <body>
     <img id="captcha" src="https://campusvirtual.upao.edu.pe/captcha.ashx"/>
     </body>
@@ -407,7 +407,7 @@ export default class LoginScreen extends React.Component<
                   {!isReloadingCaptcha && (
                     <WebView
                       onMessage={this.onMessage}
-                      style={styles.captcha}
+                      style={[styles.captcha, { top: 5 }]}
                       injectedJavaScript={scripts}
                       source={{
                         html: captchaHTML,
