@@ -78,12 +78,7 @@ export default class LoginScreen extends React.Component<
     loadedCredentials: false,
     defaults: {}
   };
-  refs: {
-    username: Input;
-    password: Input;
-    captcha: Input;
-    remember: Input;
-  };
+  refs: any;
 
   clearCredentials = () => {
     SingleStorage.remove('username');

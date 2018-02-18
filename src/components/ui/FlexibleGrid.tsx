@@ -38,10 +38,7 @@ export default class FlexibleGrid<ItemT> extends React.Component<
     numColumns: 1
   };
 
-  refs: {
-    [string: string]: any;
-    input: TextInput;
-  };
+  refs: any;
 
   renderItem = (data: ListRenderItemInfo<ItemT>) => {
     let { renderItem, itemMargin } = this.props;

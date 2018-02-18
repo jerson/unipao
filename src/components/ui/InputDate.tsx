@@ -22,10 +22,7 @@ export default class InputDate extends React.Component<InputDateProps, State> {
     isVisiblePicker: false
   };
 
-  refs: {
-    [string: string]: any;
-    input: TextInput;
-  };
+  refs: any;
   togglePicker = () => {
     this.setState({ isVisiblePicker: !this.state.isVisiblePicker });
   };

@@ -77,9 +77,7 @@ export default class AssistsScreen extends React.Component<
     )
   });
 
-  refs: {
-    periods: PeriodModal;
-  };
+  refs: any;
   state: State = {
     isLoading: true,
     period: null,

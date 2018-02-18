@@ -23,9 +23,7 @@ export default class MessageCenter extends React.Component<
     messages: []
   };
 
-  refs: {
-    [string: string]: any;
-  };
+  refs: any;
 
   async show(params: Message): Promise<string> {
     counter++;

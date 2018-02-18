@@ -57,10 +57,7 @@ export default class AgendaListScreen extends React.Component<
     ]
   };
 
-  refs: {
-    [string: string]: any;
-    input: FlatList<AgendaModel>;
-  };
+  refs: any;
   state: State = {
     agendaList: [],
     month: moment().format('MM'),

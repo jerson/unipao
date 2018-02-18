@@ -32,10 +32,7 @@ export default class Input extends React.Component<InputProps, State> {
     value: ''
   };
 
-  refs: {
-    [string: string]: any;
-    input: TextInput;
-  };
+  refs: any;
   onChangeText = (text: string) => {
     let { onChangeText } = this.props;
     this.setValue(text);

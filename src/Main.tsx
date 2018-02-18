@@ -28,11 +28,7 @@ export default class Main extends React.Component<MainProps, State> {
   static childContextTypes = {
     notification: PropTypes.object
   };
-  refs: {
-    [string: string]: any;
-    notification: MessageCenter;
-    navigation: NavigationScreenProp<null, null>;
-  };
+  refs: any;
   onForceLogout = async () => {
     if (this.forcedLogout) {
       return;

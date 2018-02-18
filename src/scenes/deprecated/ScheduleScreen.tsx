@@ -67,9 +67,7 @@ export default class ScheduleScreen extends React.Component<
     )
   });
 
-  refs: {
-    periods: PeriodModal;
-  };
+  refs: any;
   state: State = {
     isLoading: true,
     cacheLoaded: false,

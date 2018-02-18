@@ -188,9 +188,7 @@ export default class EnrollmentScreen extends React.Component<
     }
   };
 
-  refs: {
-    periods: PeriodModal;
-  };
+  refs: any;
   reload = () => {
     this.load(true);
   };

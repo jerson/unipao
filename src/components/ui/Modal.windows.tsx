@@ -27,10 +27,7 @@ export default class ModalWindows extends React.Component<ModalProps, State> {
     loaded: false
   };
 
-  refs: {
-    [string: string]: any;
-    list: View;
-  };
+  refs: any;
 
   componentDidUpdate(prevProps: ModalProps, prevState: State) {
     if (this.props.isVisible) {

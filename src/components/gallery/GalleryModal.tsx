@@ -61,10 +61,7 @@ export default class GalleryModal extends React.PureComponent<
     height: Dimensions.get('window').height
   };
 
-  refs: {
-    [string: string]: any;
-    list: FlatList<GalleryImageModel>;
-  };
+  refs: any;
   renderItem = ({ item, index }: ListRenderItemInfo<GalleryImageModel>) => {
     let { width, height } = this.state;
 

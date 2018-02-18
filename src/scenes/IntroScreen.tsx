@@ -66,10 +66,7 @@ export default class IntroScreen extends React.Component<
     ]
   };
 
-  refs: {
-    [string: string]: any;
-    list: FlatList<IntroPage>;
-  };
+  refs: any;
 
   renderItem = ({ item, index }: ListRenderItemInfo<IntroPage>) => {
     let { width } = this.state;
