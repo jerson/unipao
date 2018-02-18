@@ -40,7 +40,7 @@ export default class MessageItem extends React.Component<
     itemHeight: 0
   };
 
-  animation: any = new Animated.Value(0);
+  animation: any = undefined;
   timeoutDismiss: number = 0;
 
   onLayout = (event: LayoutChangeEvent) => {

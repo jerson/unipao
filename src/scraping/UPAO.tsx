@@ -9,6 +9,7 @@ import RequestUtil from './utils/RequestUtil';
 import Agenda from './info/Agenda';
 import News from './info/News';
 import Gallery from './info/Gallery';
+import Config from './Config';
 
 export interface LoginPrepareData {
   params: Params;
@@ -82,7 +83,7 @@ export default class UPAO {
     //       headers: {
     //         Referer: 'https://campusvirtual.upao.edu.pe' + loginUrl,
     //         'User-Agent':
-    //           'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36'
+    //          this.getUserAgentDesktop()
     //       }
     //     },
     //     { tag: 'login', checkSession: false }
@@ -130,9 +131,10 @@ export default class UPAO {
           method: 'POST',
           body: ParamsUtils.getFormData(params),
           headers: {
+            // 'X-Requested-With':'',
+            // 'X-Request-Id':'',
             Referer: 'https://campusvirtual.upao.edu.pe' + this.loginUrl,
-            'User-Agent':
-              'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36'
+            'User-Agent': this.getUserAgentDesktop()
           }
         },
         { tag: 'login', checkSession: false }
@@ -179,5 +181,19 @@ export default class UPAO {
 
   static abort(tag: string) {
     RequestUtil.abort(tag);
+  }
+
+  static getUserAgentMobile() {
+    let agents = [
+      'Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19'
+    ];
+    return agents[NumberUtils.getRandomInt(0, agents.length - 1)];
+  }
+
+  static getUserAgentDesktop() {
+    let agents = [
+      'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36'
+    ];
+    return agents[NumberUtils.getRandomInt(0, agents.length - 1)];
   }
 }

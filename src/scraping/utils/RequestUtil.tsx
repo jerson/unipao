@@ -2,6 +2,7 @@ import * as cio from 'cheerio-without-node-native';
 import Log from '../../modules/logger/Log';
 import Emitter from '../../modules/listener/Emitter';
 import Config from '../Config';
+import UPAO from '../UPAO';
 
 const fetchCancelable = require('react-native-cancelable-fetch');
 
@@ -28,11 +29,12 @@ export default class RequestUtil {
       let response = await fetchCancelable(
         url,
         {
-          redirect: 'follow',
-          credentials: 'include',
+          // redirect: 'follow',
+          // credentials: 'include',
           headers: {
-            'User-Agent':
-              'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36'
+            // 'X-Requested-With':'',
+            // 'X-Request-Id':'',
+            'User-Agent': UPAO.getUserAgentDesktop()
           },
           ...params
         },

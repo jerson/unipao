@@ -408,10 +408,11 @@ export default class LoginScreen extends React.Component<
                         html: captchaHTML,
                         baseUrl: 'https://campusvirtual.upao.edu.pe/',
                         headers: {
+                          'X-Requested-With': '',
+                          'X-Request-Id': '',
                           Referer:
                             'https://campusvirtual.upao.edu.pe/login.aspx?ReturnUrl=%2fdefault.aspx',
-                          'User-Agent':
-                            'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.62 Safari/537.36'
+                          'User-Agent': UPAO.getUserAgentDesktop()
                         }
                       }}
                     />

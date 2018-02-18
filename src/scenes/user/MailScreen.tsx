@@ -11,6 +11,7 @@ import {
   NavigationScreenProp,
   NavigationStackScreenOptions
 } from 'react-navigation';
+import UPAO from '../../scraping/UPAO';
 
 export interface MailScreenProps {
   navigation: NavigationScreenProp<null, null>;
@@ -100,9 +101,10 @@ export default class MailScreen extends React.Component<
           source={{
             uri: 'https://mail.google.com/a/upao.edu.pe',
             headers: {
+              'X-Requested-With': '',
+              'X-Request-Id': '',
               Referer: 'https://campusvirtual.upao.edu.pe/',
-              'User-Agent':
-                'Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19'
+              'User-Agent': UPAO.getUserAgentMobile()
             }
           }}
         />
