@@ -236,20 +236,21 @@ try{
             this.props.navigation.setParams({ isLoading: false });
           }}
           source={{
-            html,
-            baseUrl: 'https://campusvirtual.upao.edu.pe/',
-            // uri: 'https://campusvirtual.upao.edu.pe/login.aspx?ReturnUrl=%2fdefault.aspx',
+            // html,
+            // baseUrl: 'https://campusvirtual.upao.edu.pe/',
+            uri:
+              'https://campusvirtual.upao.edu.pe/login.aspx?ReturnUrl=%2fdefault.aspx',
             // uri:'https://requestb.in/1adqj3o1',
             headers: {
               'X-Requested-With': '',
               'X-Request-Id': '',
-              Accept:
-                'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-              Connection: 'keep-alive',
-              Pragma: 'no-cache',
-              'Accept-Language': 'es-ES,es;q=0.9,en;q=0.8,pt;q=0.7',
-              'Cache-Control': 'no-cache',
-              'Upgrade-Insecure-Requests': '1',
+              // Accept:
+              //   'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+              // Connection: 'keep-alive',
+              // Pragma: 'no-cache',
+              // 'Accept-Language': 'es-ES,es;q=0.9,en;q=0.8,pt;q=0.7',
+              // 'Cache-Control': 'no-cache',
+              // 'Upgrade-Insecure-Requests': '1',
               Referer: 'https://campusvirtual.upao.edu.pe/',
               'User-Agent': UPAO.getUserAgentDesktop()
             }

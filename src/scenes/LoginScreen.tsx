@@ -120,7 +120,7 @@ export default class LoginScreen extends React.Component<
       if (data && data.params) {
         params = data.params;
         requireCaptcha = data.requireCaptcha;
-        isLoadingCaptcha = true;
+        isLoadingCaptcha = false;
       }
     } catch (e) {
       Log.warn(TAG, 'login', e);
@@ -405,7 +405,8 @@ export default class LoginScreen extends React.Component<
                       style={[styles.captcha, { top: 5 }]}
                       injectedJavaScript={scripts}
                       source={{
-                        html: captchaHTML,
+                        uri: 'https://campusvirtual.upao.edu.pe/captcha.ashx',
+                        // html: captchaHTML,
                         baseUrl: 'https://campusvirtual.upao.edu.pe/',
                         headers: {
                           'X-Requested-With': '',
@@ -547,14 +548,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   captcha: {
-    width: 100,
+    width: 120,
     height: 50,
     marginTop: 5,
     backgroundColor: 'transparent'
   },
   inputCaptcha: {
     // flex:1,
-    width: 150
+    width: 130
     // padding: 10,
     // fontSize: 15
   },
