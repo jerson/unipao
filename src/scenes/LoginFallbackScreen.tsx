@@ -207,7 +207,7 @@ try{
 
   componentDidMount() {
     this.props.navigation.setParams({ reload: this.reload });
-    // this.load();
+    this.load();
   }
 
   componentWillUnmount() {
