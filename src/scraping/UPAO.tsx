@@ -138,7 +138,6 @@ export default class UPAO {
         { tag: 'login', checkSession: false }
       );
 
-      Log.info($('html').html());
       let labelError = $('#lbl_error').text();
       if (labelError) {
         Log.info(TAG, labelError);
@@ -222,7 +221,6 @@ export default class UPAO {
         { tag: 'login', checkSession: false }
       );
 
-      Log.info($('html').html());
       let labelError = $('#lbl_error').text();
       if (labelError) {
         Log.info(TAG, labelError);
