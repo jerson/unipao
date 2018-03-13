@@ -207,7 +207,7 @@ try{
 
   componentDidMount() {
     this.props.navigation.setParams({ reload: this.reload });
-    this.load();
+    // this.load();
   }
 
   componentWillUnmount() {
@@ -251,7 +251,8 @@ try{
               // 'Accept-Language': 'es-ES,es;q=0.9,en;q=0.8,pt;q=0.7',
               // 'Cache-Control': 'no-cache',
               // 'Upgrade-Insecure-Requests': '1',
-              Referer: 'https://campusvirtual.upao.edu.pe/',
+              Referer:
+                'https://campusvirtual.upao.edu.pe/login.aspx?ReturnUrl=%2fdefault.aspx',
               'User-Agent': UPAO.getUserAgentDesktop()
             }
           }}

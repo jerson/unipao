@@ -184,6 +184,11 @@ export default class LoginScreen extends React.Component<
         password,
         captcha
       );
+      // let valid = await UPAO.loginDirect(
+      //     username,
+      //     password,
+      //     captcha
+      // );
       if (valid) {
         success = await Auth.login();
         if (success) {
