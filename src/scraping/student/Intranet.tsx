@@ -183,7 +183,7 @@ export default class Intranet {
         { tag: 'Intranet.getHistoryCourses', checkSession: true }
       );
       let $content = $('#lst_historial_inig');
-      $(' > table > tr:nth-of-type(n+2) > td:nth-child(2)', $content).each(
+      $(' > table > tr:nth-of-type(n+1) > td:nth-child(2)', $content).each(
         (index, value) => {
           if (!periods[index]) {
             periods[index] = { period: '', courses: [] };
@@ -194,7 +194,7 @@ export default class Intranet {
         }
       );
 
-      $(' > table > tr:nth-of-type(n+2) > td[align=center]', $content).each(
+      $(' > table > tr:nth-of-type(n+1) > td[align=center]', $content).each(
         (index, value) => {
           if (!periods[index]) {
             periods[index] = { period: '', courses: [] };

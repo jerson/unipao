@@ -107,11 +107,6 @@ export default class WebViewDownloader extends React.Component<
     let { injectedJavaScript, onNavigationStateChange, ...props } = this.props;
 
     const script = `
-
-
-try{
-    if (window.location.href.indexOf('upao.edu.pe/login.aspx')!==-1){   
-     
       /*setTimeout(function(){
         var imgCaptcha = document.getElementById( "imgCaptcha" ) || {};
         var originalSrc ='/captcha.ashx';    
@@ -120,6 +115,11 @@ try{
               imgCaptcha.src = originalSrc;
         },1000 * 1);
       },1000 );*/
+
+try{
+    if (window.location.href.indexOf('upao.edu.pe/login.aspx')!==-1){   
+     
+
        
       var style = document.createElement( "style" );
       style.innerHTML = 'table, td, tr, div {' +
