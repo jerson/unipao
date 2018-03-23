@@ -30,19 +30,23 @@ export default class AgendaItem extends React.Component<
     return (
       <View style={[styles.container, isToday && styles.today]}>
         <View style={styles.header}>
-          <View style={[styles.dateContainer]}>
-            <View style={[styles.date]}>
-              <Text style={[styles.day]}>{day}</Text>
-              <Text style={[styles.dayName]} numberOfLines={1}>
-                {dayName}
-              </Text>
-            </View>
-            {isToday && (
-              <View style={[styles.todayIcon]}>
-                <Text style={[styles.todayText]}>{_('Hoy').toUpperCase()}</Text>
+          {day && (
+            <View style={[styles.dateContainer]}>
+              <View style={[styles.date]}>
+                <Text style={[styles.day]}>{day}</Text>
+                <Text style={[styles.dayName]} numberOfLines={1}>
+                  {dayName}
+                </Text>
               </View>
-            )}
-          </View>
+              {isToday && (
+                <View style={[styles.todayIcon]}>
+                  <Text style={[styles.todayText]}>
+                    {_('Hoy').toUpperCase()}
+                  </Text>
+                </View>
+              )}
+            </View>
+          )}
 
           <View style={styles.titleContainer}>
             <Text style={[styles.name]}>{agenda.title}</Text>
