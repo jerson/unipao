@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "react-native start",
+    "start": "node node_modules/react-native/local-cli/cli.js start",
     "build:android:release": "cd android && ./gradlew assembleRelease",
     "build:android:beta": "cd android && ./gradlew assembleReleaseBeta",
     "build:windows:assets":
-      "react-native bundle --platform windows --entry-file index.js --bundle-output windows\\unipao\\ReactAssets\\index.windows.bundle --assets-dest windows\\unipao\\ReactAssets  --dev false",
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
-    "windows": "react-native run-windows",
+      "node node_modules/react-native/local-cli/cli.js bundle --platform windows --entry-file index.js --bundle-output windows\\unipao\\ReactAssets\\index.windows.bundle --assets-dest windows\\unipao\\ReactAssets  --dev false",
+    "android": "node node_modules/react-native/local-cli/cli.js run-android",
+    "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
+    "windows": "node node_modules/react-native/local-cli/cli.js run-windows",
     "stats:android":
       "appcenter codepush deployment list -a jeral17/UniPAOAndroid",
     "stats:ios": "appcenter codepush deployment list -a jeral17/UniPAOIOS",

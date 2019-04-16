@@ -279,6 +279,26 @@
       <Project>{4acdd44c-e556-423e-bd74-b4cef3e67ff0}</Project>
       <Name>RNShare</Name>
     </ProjectReference>
+    <ProjectReference Include="..\../\node_modules\react-native-device-info\windows\RNDeviceInfo\RNDeviceInfo.csproj">
+      <Project>{A8C0D290-F49E-4ACF-ABF4-FF8A95D29887}</Project>
+      <Name>RNDeviceInfo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\../\node_modules\react-native-fs\windows\RNFS\RNFS.csproj">
+      <Project>{746610D0-8693-11E7-A20D-BF83F7366778}</Project>
+      <Name>RNFS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\../\node_modules\react-native-linear-gradient\windows\LinearGradient\LinearGradient.csproj">
+      <Project>{BE471D3D-8DF5-4BDB-B020-2C44667443FF}</Project>
+      <Name>LinearGradient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\../\node_modules\react-native-share\windows\RNShare\RNShare.csproj">
+      <Project>{4ACDD44C-E556-423E-BD74-B4CEF3E67FF0}</Project>
+      <Name>RNShare</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\../\node_modules\react-native-windows\ReactWindows\ReactNative.Net46\ReactNative.Net46.csproj">
+      <Project>{22CBFF9C-FE36-43E8-A246-266C7635E662}</Project>
+      <Name>ReactNative.Net46</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\node_modules\react-native-windows\ReactWindows\ReactNative\ReactNative.csproj">
       <Project>{c7673ad5-e3aa-468c-a5fd-fa38154e205c}</Project>
       <Name>ReactNative</Name>

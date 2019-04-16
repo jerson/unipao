@@ -1,5 +1,10 @@
 using ReactNative;
 using ReactNative.Modules.Core;
+using ReactNative;
+using Cl.Json.RNShare;
+using LinearGradient;
+using RNFS;
+using RNDeviceInfo;
 using ReactNative.Shell;
 using System.Collections.Generic;
 using RNDeviceInfo;
@@ -54,6 +59,11 @@ namespace unipao
         protected override List<IReactPackage> Packages => new List<IReactPackage>
         {
             new MainReactPackage(),
+            new MainReactPackage(),
+            new RNSharePackage(),
+            new LinearGradientPackage(),
+            new RNFSPackage(),
+            new RNDeviceInfoPackage(),
             new RNDeviceInfoPackage(),
             new RNSharePackage(),
             new RNFSPackage(),
