@@ -21,10 +21,10 @@ DerivedData
 *.ipa
 *.xcuserstate
 project.xcworkspace
+ios/Podfile.lock
 
-# Android/IntelliJ
+# Android/IJ
 #
-build/
 .idea
 .gradle
 local.properties
@@ -34,23 +34,25 @@ local.properties
 #
 node_modules/
 npm-debug.log
-yarn-error.log
-
-# BUCK
-buck-out/
-\.buckd/
-*.keystore
-
-# fastlane
-#
-# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
-# screenshots whenever they are needed.
-# For more information about the recommended setup visit:
-# https://docs.fastlane.tools/best-practices/source-control/
-
-*/fastlane/report.xml
-*/fastlane/Preview.html
-*/fastlane/screenshots
-
-# Bundle artifact
 *.jsbundle
+*.swp
+*.zip
+*.log
+ios/Pods/
+ios/ipa/
+ios/fastlane/report.xml
+android/gradle.properties
+ios/main.jsbundle.meta
+.buckd/
+buck-out/
+scripts/tmp
+flow-typed/
+.expo/
+.vscode/
+src/Config.tsx
+.project
+.settings
+.classpath
+src/**/*.js
+src/**/*.js.map
+src/**/*.d.ts
