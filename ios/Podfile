@@ -30,3 +30,20 @@ target 'upao-tvOS' do
   end
 
 end
+
+post_install do |installer|
+  installer.pods_project.build_configurations.each do |config|
+    if config.name == 'ReleaseBeta'
+      config.build_settings['CONFIGURATION_TEMP_DIR'] = '$(PROJECT_TEMP_DIR)/Release$(EFFECTIVE_PLATFORM_NAME)'
+      config.build_settings['CONFIGURATION_BUILD_DIR'] = '$(BUILD_DIR)/Release$(EFFECTIVE_PLATFORM_NAME)'
+    end
+  end
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      if config.name == 'ReleaseBeta'
+        config.build_settings['CONFIGURATION_TEMP_DIR'] = '$(PROJECT_TEMP_DIR)/Release$(EFFECTIVE_PLATFORM_NAME)'
+        config.build_settings['PODS_CONFIGURATION_BUILD_DIR'] = '${PODS_BUILD_DIR}/Release$(EFFECTIVE_PLATFORM_NAME)'
+      end
+    end
+  end
+end
