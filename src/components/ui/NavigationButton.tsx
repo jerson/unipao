@@ -3,7 +3,7 @@ import {
   GestureResponderEvent,
   StyleProp,
   StyleSheet,
-  ViewStyle
+  ViewStyle,
 } from 'react-native';
 import Touchable, { TouchableProps } from './Touchable';
 import Icon, { IconType } from './Icon';
@@ -25,7 +25,7 @@ export default class NavigationButton extends React.Component<
   State
 > {
   render() {
-    let {
+    const {
       icon,
       iconType,
       subMenu,
@@ -46,7 +46,7 @@ export default class NavigationButton extends React.Component<
             styles.icon,
             subMenu ? styles.subMenuIcon : undefined,
             subMenu ? Theme.textShadow : undefined,
-            active ? styles.subMenuIcon : undefined
+            active ? styles.subMenuIcon : undefined,
           ]}
           name={icon || ''}
           type={iconType}
@@ -59,7 +59,7 @@ export default class NavigationButton extends React.Component<
 const styles = StyleSheet.create({
   icon: {
     fontSize: 25,
-    color: '#f59331'
+    color: '#f59331',
   },
   subMenu: {
     position: 'absolute',
@@ -69,10 +69,10 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     width: 50,
     zIndex: 10,
-    backgroundColor: 'rgba(0,0,0,0.2)'
+    backgroundColor: 'rgba(0,0,0,0.2)',
   },
   subMenuIcon: {
-    color: '#fff'
+    color: '#fff',
   },
 
   button: {
@@ -80,6 +80,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginRight: 3,
     width: 40,
-    height: 50
-  }
+    height: 50,
+  },
 });

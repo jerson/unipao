@@ -16,7 +16,7 @@ export default class ViewSpacer extends React.Component<
   State
 > {
   render() {
-    let { size, children, ...props } = this.props;
+    const { size, children, ...props } = this.props;
     let spacing = 5;
     switch (size) {
       case 'small':

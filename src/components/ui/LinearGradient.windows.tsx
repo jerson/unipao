@@ -13,7 +13,7 @@ export default class LinearGradientWindows extends React.Component<
   State
 > {
   render() {
-    let { colors, style, ...props } = this.props;
+    const { colors, style, ...props } = this.props;
     return (
       <View style={[styles.absolute, styles.backdrop, style]} {...props} />
     );
@@ -25,6 +25,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
-    bottom: 0
-  }
+    bottom: 0,
+  },
 });

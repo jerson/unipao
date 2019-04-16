@@ -16,11 +16,11 @@ export default class EnrollmentItem extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   state: State = {
-    expanded: false
+    expanded: false,
   };
 
   toggle = () => {
@@ -28,7 +28,7 @@ export default class EnrollmentItem extends React.Component<
   };
 
   render() {
-    let { expanded } = this.state;
+    const { expanded } = this.state;
     let { enrollment } = this.props;
     enrollment = enrollment || {};
 
@@ -58,14 +58,14 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     paddingBottom: 3,
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   item: {
     flex: 1,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   text: {
     color: '#999',
-    fontSize: 12
-  }
+    fontSize: 12,
+  },
 });

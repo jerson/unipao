@@ -23,17 +23,17 @@ export default class Course {
   static async getExamsHTML(section: SectionModel): Promise<string> {
     let html = '';
     try {
-      let params = {
+      const params = {
         f: 'YAAHIST',
         a: 'BODY_EXAMEN',
-        valor: section.code
+        valor: section.code,
       };
 
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         '/controlador/cargador.aspx',
         {
           method: 'POST',
-          body: ParamsUtils.getFormData(params)
+          body: ParamsUtils.getFormData(params),
         },
         { tag: 'Course.getExamsHTML', checkSession: true, ajax: true }
       );
@@ -50,17 +50,17 @@ export default class Course {
   static async getJobsHTML(section: SectionModel): Promise<string> {
     let html = '';
     try {
-      let params = {
+      const params = {
         f: 'YAAHIST',
         a: 'BODY_TRABAJO',
-        valor: section.code
+        valor: section.code,
       };
 
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         '/controlador/cargador.aspx',
         {
           method: 'POST',
-          body: ParamsUtils.getFormData(params)
+          body: ParamsUtils.getFormData(params),
         },
         { tag: 'Course.getJobsHTML', checkSession: true, ajax: true }
       );
@@ -77,17 +77,17 @@ export default class Course {
   static async getAssistsHTML(section: SectionModel): Promise<string> {
     let html = '';
     try {
-      let params = {
+      const params = {
         f: 'YAAHIST',
         a: 'BODY_ASISTENCIA',
-        valor: section.code
+        valor: section.code,
       };
 
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         '/controlador/cargador.aspx',
         {
           method: 'POST',
-          body: ParamsUtils.getFormData(params)
+          body: ParamsUtils.getFormData(params),
         },
         { tag: 'Course.getAssistsHTML', checkSession: true, ajax: true }
       );
@@ -109,17 +109,17 @@ export default class Course {
   static async getMaterialsHTML(section: SectionModel): Promise<string> {
     let html = '';
     try {
-      let params = {
+      const params = {
         f: 'YAAHIST',
         a: 'BODY_MATERIAL',
-        valor: section.code
+        valor: section.code,
       };
 
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         '/controlador/cargador.aspx',
         {
           method: 'POST',
-          body: ParamsUtils.getFormData(params)
+          body: ParamsUtils.getFormData(params),
         },
         { tag: 'Course.getMaterialsHTML', checkSession: true, ajax: true }
       );
@@ -142,17 +142,17 @@ export default class Course {
   static async getForumHTML(section: SectionModel): Promise<string> {
     let html = '';
     try {
-      let params = {
+      const params = {
         f: 'YAAHIST',
         a: 'BODY_FORO',
-        valor: section.code
+        valor: section.code,
       };
 
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         '/controlador/cargador.aspx',
         {
           method: 'POST',
-          body: ParamsUtils.getFormData(params)
+          body: ParamsUtils.getFormData(params),
         },
         { tag: 'Course.getForumHTML', checkSession: true, ajax: true }
       );
@@ -169,23 +169,23 @@ export default class Course {
   static async getGradesHTML(course: CourseModel): Promise<string> {
     let html = '';
     try {
-      let params = {
+      const params = {
         f: 'YAAHIST',
         a: 'SHOW_NOTAS',
         valor: course.code,
-        codigo: course.id
+        codigo: course.id,
       };
 
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         '/controlador/cargador.aspx',
         {
           method: 'POST',
-          body: ParamsUtils.getFormData(params)
+          body: ParamsUtils.getFormData(params),
         },
         { tag: 'Course.getGradesHTML', checkSession: true }
       );
 
-      let table = $('table')
+      const table = $('table')
         .first()
         .html();
       html = table ? `<table>${table}</table>` : '';
@@ -198,27 +198,27 @@ export default class Course {
   }
 
   static async getSyllables(course: CourseModel): Promise<SyllableModel[]> {
-    let items: SyllableModel[] = [];
+    const items: SyllableModel[] = [];
     try {
-      let params = {
+      const params = {
         f: 'YAAHIST',
         a: 'SHOW_SILABO',
         valor: course.code,
-        codigo: course.id
+        codigo: course.id,
       };
 
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         '/controlador/cargador.aspx',
         {
           method: 'POST',
-          body: ParamsUtils.getFormData(params)
+          body: ParamsUtils.getFormData(params),
         },
         { tag: 'Course.getSyllables', checkSession: true }
       );
 
       $('table a').each((index, value) => {
-        let url = $(value).attr('href') || '';
-        let name = $(value)
+        const url = $(value).attr('href') || '';
+        const name = $(value)
           .text()
           .trim();
 
@@ -229,7 +229,7 @@ export default class Course {
         items.push({
           id: url,
           url,
-          name
+          name,
         });
       });
     } catch (e) {
@@ -245,18 +245,18 @@ export default class Course {
   ): Promise<SectionModel[]> {
     let items = [];
     try {
-      let params = {
+      const params = {
         f: 'YAAHIST',
         a: 'SECC_MATERIAL',
         valor: course.code,
-        codigo: course.id
+        codigo: course.id,
       };
 
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         '/controlador/cargador.aspx',
         {
           method: 'POST',
-          body: ParamsUtils.getFormData(params)
+          body: ParamsUtils.getFormData(params),
         },
         { tag: 'Course.getMaterialsSections', checkSession: true }
       );
@@ -275,18 +275,18 @@ export default class Course {
   ): Promise<SectionModel[]> {
     let items = [];
     try {
-      let params = {
+      const params = {
         f: 'YAAHIST',
         a: 'SECC_ASISTENCIAS',
         valor: course.code,
-        codigo: course.id
+        codigo: course.id,
       };
 
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         '/controlador/cargador.aspx',
         {
           method: 'POST',
-          body: ParamsUtils.getFormData(params)
+          body: ParamsUtils.getFormData(params),
         },
         { tag: 'Course.getAssistsSections', checkSession: true }
       );
@@ -303,18 +303,18 @@ export default class Course {
   static async getForumSections(course: CourseModel): Promise<SectionModel[]> {
     let items = [];
     try {
-      let params = {
+      const params = {
         f: 'YAAHIST',
         a: 'SECC_FORO',
         valor: course.code,
-        codigo: course.id
+        codigo: course.id,
       };
 
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         '/controlador/cargador.aspx',
         {
           method: 'POST',
-          body: ParamsUtils.getFormData(params)
+          body: ParamsUtils.getFormData(params),
         },
         { tag: 'Course.getForumSections', checkSession: true }
       );
@@ -331,18 +331,18 @@ export default class Course {
   static async getJobsSections(course: CourseModel): Promise<SectionModel[]> {
     let items = [];
     try {
-      let params = {
+      const params = {
         f: 'YAAHIST',
         a: 'SECC_TRABAJO',
         valor: course.code,
-        codigo: course.id
+        codigo: course.id,
       };
 
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         '/controlador/cargador.aspx',
         {
           method: 'POST',
-          body: ParamsUtils.getFormData(params)
+          body: ParamsUtils.getFormData(params),
         },
         { tag: 'Course.getJobsSections', checkSession: true }
       );
@@ -359,18 +359,18 @@ export default class Course {
   static async getExamsSections(course: CourseModel): Promise<SectionModel[]> {
     let items = [];
     try {
-      let params = {
+      const params = {
         f: 'YAAHIST',
         a: 'SECC_EXAMEN',
         valor: course.code,
-        codigo: course.id
+        codigo: course.id,
       };
 
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         '/controlador/cargador.aspx',
         {
           method: 'POST',
-          body: ParamsUtils.getFormData(params)
+          body: ParamsUtils.getFormData(params),
         },
         { tag: 'Course.getExamsSections', checkSession: true }
       );
@@ -385,25 +385,28 @@ export default class Course {
   }
 
   static parseSections($: JQueryStatic): SectionModel[] {
-    let items: SectionModel[] = [];
+    const items: SectionModel[] = [];
 
     if (!$) {
       return items;
     }
     $('.yaahist_mtrl').each((index, value) => {
-      let id = $(value).attr('id') || '';
-      let codeString = $(value).attr('onclick') || '';
+      const id = $(value).attr('id') || '';
+      const codeString = $(value).attr('onclick') || '';
 
-      let parts = codeString.split("','");
-      let code = (parts[1] || '').replace("');", '').trim();
-      let teacher = $('table > tr > td:nth-child(3) > div:nth-child(1)', value)
+      const parts = codeString.split("','");
+      const code = (parts[1] || '').replace("');", '').trim();
+      const teacher = $(
+        'table > tr > td:nth-child(3) > div:nth-child(1)',
+        value
+      )
         .text()
         .trim();
-      let nrc = $('table > tr > td:nth-child(3) > div:nth-child(2)', value)
+      const nrc = $('table > tr > td:nth-child(3) > div:nth-child(2)', value)
         .text()
         .replace('NRC:', '')
         .trim();
-      let name = $('table > tr > td:nth-child(3) > div:nth-child(3)', value)
+      const name = $('table > tr > td:nth-child(3) > div:nth-child(3)', value)
         .text()
         .trim();
       items.push({
@@ -411,7 +414,7 @@ export default class Course {
         code,
         name,
         nrc,
-        teacher
+        teacher,
       });
     });
 

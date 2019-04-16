@@ -19,12 +19,12 @@ export default class SyllableItem extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   state: State = {};
   onPress = () => {
-    let { syllable } = this.props;
+    const { syllable } = this.props;
 
     this.openRemoteLink(syllable.url);
   };
@@ -35,7 +35,7 @@ export default class SyllableItem extends React.Component<
       id: 'browser',
       message: _('Abriendo enlace en tu navegador'),
       isLoading: true,
-      autoDismiss: 4
+      autoDismiss: 4,
     });
     setTimeout(() => {
       this.openExternalLink(url);
@@ -44,7 +44,7 @@ export default class SyllableItem extends React.Component<
 
   async openExternalLink(url: string) {
     try {
-      let supported = await Linking.canOpenURL(url);
+      const supported = await Linking.canOpenURL(url);
 
       if (!supported) {
         Clipboard.setString(url);
@@ -56,7 +56,7 @@ export default class SyllableItem extends React.Component<
           ),
           icon: 'file-download',
           level: 'warning',
-          autoDismiss: 5
+          autoDismiss: 5,
         });
         return;
       }
@@ -67,7 +67,7 @@ export default class SyllableItem extends React.Component<
   }
 
   render() {
-    let { syllable } = this.props;
+    const { syllable } = this.props;
     let url = syllable.url || '';
     url = url
       .replace('static.upao.edu.pe/upload/silabo/', '')
@@ -102,25 +102,25 @@ const styles = StyleSheet.create({
     borderColor: '#f1f1f1',
     flexDirection: 'row',
     alignItems: 'center',
-    height: 58
+    height: 58,
   },
   icon: {
     fontSize: 28,
     padding: 5,
     width: 50,
     color: '#e80019',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   info: {
     flex: 1,
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   name: {
     fontSize: 14,
-    color: '#666'
+    color: '#666',
   },
   subtitle: {
     fontSize: 12,
-    color: '#999'
-  }
+    color: '#999',
+  },
 });

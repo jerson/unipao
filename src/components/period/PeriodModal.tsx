@@ -29,7 +29,7 @@ export default class PeriodModal extends React.PureComponent<
 > {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
-    navigation: PropTypes.object.isRequired
+    navigation: PropTypes.object.isRequired,
   };
 
   state: State = {
@@ -37,7 +37,7 @@ export default class PeriodModal extends React.PureComponent<
     showModal: false,
     cacheLoaded: false,
     periods: [],
-    period: {}
+    period: {},
   };
 
   show = () => {
@@ -50,9 +50,9 @@ export default class PeriodModal extends React.PureComponent<
     this.setState({ showModal: !this.state.showModal });
   };
   onChange = (value: string) => {
-    let { periods } = this.state;
-    let { onChange } = this.props;
-    let period = periods.find(period => {
+    const { periods } = this.state;
+    const { onChange } = this.props;
+    const period = periods.find(period => {
       return period.PERIODO === value;
     });
 
@@ -73,7 +73,7 @@ export default class PeriodModal extends React.PureComponent<
   };
   checkCache = async () => {
     try {
-      let data = await CacheStorage.get(this.getCacheKey());
+      const data = await CacheStorage.get(this.getCacheKey());
       data && this.loadResponse(data, true);
     } catch (e) {
       Log.info(TAG, 'checkCache', e);
@@ -81,20 +81,20 @@ export default class PeriodModal extends React.PureComponent<
   };
 
   loadResponse = (body: any, cacheLoaded = false) => {
-    let { onLoaded } = this.props;
+    const { onLoaded } = this.props;
     if (body.data) {
-      let periods = JSON.parse(body.data);
+      const periods = JSON.parse(body.data);
       // periods.sort((a, b) => {
       //   let value1 = this.parseLevelSort(a.NIVEL);
       //   let value2 = this.parseLevelSort(b.NIVEL);
       //   return value1 < value2;
       // });
       periods.sort((a: any, b: any) => {
-        let value1 = parseFloat(a.PERIODO);
-        let value2 = parseFloat(b.PERIODO);
+        const value1 = parseFloat(a.PERIODO);
+        const value2 = parseFloat(b.PERIODO);
         return value1 < value2;
       });
-      let period = this.state.period || periods[0] || {};
+      const period = this.state.period || periods[0] || {};
       this.setState({ cacheLoaded, periods, period, isLoading: false });
 
       if (typeof onLoaded === 'function') {
@@ -103,17 +103,17 @@ export default class PeriodModal extends React.PureComponent<
     }
   };
   loadRequest = async () => {
-    let { cacheLoaded } = this.state;
+    const { cacheLoaded } = this.state;
     try {
-      let response = await Request.post(
+      const response = await Request.post(
         'av/ej/fichamatricula',
         {
-          accion: 'LIS_PERIODO'
+          accion: 'LIS_PERIODO',
         },
         { secure: true }
       );
 
-      let { body } = response;
+      const { body } = response;
       this.loadResponse(body);
       CacheStorage.set(this.getCacheKey(), body);
     } catch (e) {
@@ -160,37 +160,36 @@ export default class PeriodModal extends React.PureComponent<
   };
 
   componentDidMount() {
-    let { isVisible, period } = this.props;
+    const { isVisible, period } = this.props;
     this.setState({ showModal: !!isVisible, period }, () => {
       this.load();
     });
   }
 
   render() {
-    let { periods, showModal, isLoading, period } = this.state;
+    const { periods, showModal, isLoading, period } = this.state;
 
     return (
       <View>
-        {!isLoading &&
-          periods.length > 0 && (
-            <SelectModal
-              isVisible={showModal}
-              title={_('Elige el periodo')}
-              onCancel={this.hide}
-              values={periods.map(period => {
-                return {
-                  value: period.PERIODO,
-                  label: period.PERIODO,
-                  icon: 'timelapse',
-                  //iconType: 'MaterialCommunityIcons',
+        {!isLoading && periods.length > 0 && (
+          <SelectModal
+            isVisible={showModal}
+            title={_('Elige el periodo')}
+            onCancel={this.hide}
+            values={periods.map(period => {
+              return {
+                value: period.PERIODO,
+                label: period.PERIODO,
+                icon: 'timelapse',
+                // iconType: 'MaterialCommunityIcons',
 
-                  subtitle: this.parseLevel(period.NIVEL)
-                };
-              })}
-              onValueChange={this.onChange}
-              selectedValue={period.PERIODO}
-            />
-          )}
+                subtitle: this.parseLevel(period.NIVEL),
+              };
+            })}
+            onValueChange={this.onChange}
+            selectedValue={period.PERIODO}
+          />
+        )}
       </View>
     );
   }

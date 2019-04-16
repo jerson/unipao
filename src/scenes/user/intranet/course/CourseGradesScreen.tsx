@@ -13,11 +13,11 @@ import WebViewDownloader from '../../../../components/ui/WebViewDownloader';
 import {
   NavigationScreenConfigProps,
   NavigationScreenProp,
-  NavigationStackScreenOptions
+  NavigationStackScreenOptions,
 } from 'react-navigation';
 
 export interface CourseGradesScreenProps {
-  navigation: NavigationScreenProp<null, null>;
+  navigation: NavigationScreenProp<any, any>;
 }
 
 export interface State {
@@ -32,11 +32,12 @@ export default class CourseGradesScreen extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
+
   static navigationOptions = ({
     navigation,
-    screenProps
+    screenProps,
   }: NavigationScreenConfigProps): NavigationStackScreenOptions => ({
     headerBackTitle: null,
     title: _('Notas del curso'),
@@ -45,49 +46,49 @@ export default class CourseGradesScreen extends React.Component<
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,
-      Theme.shadowDefault
+      Theme.shadowDefault,
     ],
     headerRight: (
       <View style={{ flexDirection: 'row' }}>
         <NavigationButton
           onPress={() => {
-            navigation.state.params.reload();
+            navigation.state.params!.reload();
           }}
           icon={'refresh'}
           iconType={'MaterialIcons'}
         />
       </View>
-    )
+    ),
   });
-
   state: State = {
     html: '',
     isLoading: true,
-    cacheLoaded: false
+    cacheLoaded: false,
   };
+
   load = async () => {
     this.setState({ isLoading: true, cacheLoaded: false });
     await this.checkCache();
     await this.loadRequest();
   };
   getCacheKey = () => {
-    let { course } = this.getParams();
+    const { course } = this.getParams();
     return `grades_${course.id || '_'}`;
   };
   checkCache = async () => {
     try {
-      let data = await CacheStorage.get(this.getCacheKey());
+      const data = await CacheStorage.get(this.getCacheKey());
       data && this.loadResponse(data, true);
     } catch (e) {
       Log.info(TAG, 'checkCache', e);
     }
   };
   loadRequest = async () => {
-    let { cacheLoaded } = this.state;
+    const { cacheLoaded } = this.state;
 
     try {
-      let { course } = this.getParams();
-      let html = await UPAO.Student.Intranet.Course.getGradesHTML(course);
+      const { course } = this.getParams();
+      const html = await UPAO.Student.Intranet.Course.getGradesHTML(course);
 
       this.loadResponse(html);
       CacheStorage.set(this.getCacheKey(), html);
@@ -104,7 +105,7 @@ export default class CourseGradesScreen extends React.Component<
     this.setState({
       cacheLoaded,
       html,
-      isLoading: false
+      isLoading: false,
     });
   };
   reload = () => {
@@ -115,7 +116,7 @@ export default class CourseGradesScreen extends React.Component<
   };
 
   getParams(): any {
-    let { params } = this.props.navigation.state || { params: {} };
+    const { params } = this.props.navigation.state || { params: {} };
     return params;
   }
 
@@ -129,8 +130,8 @@ export default class CourseGradesScreen extends React.Component<
   }
 
   render() {
-    let { html: content, isLoading } = this.state;
-    let html = `
+    const { html: content, isLoading } = this.state;
+    const html = `
 <html>
 <head>
     <meta name="viewport"
@@ -211,7 +212,7 @@ ${content}
             style={[styles.container]}
             source={{
               html,
-              baseUrl: Config.URL
+              baseUrl: Config.URL,
             }}
           />
         )}
@@ -222,6 +223,6 @@ ${content}
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });

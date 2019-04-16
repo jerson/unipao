@@ -4,7 +4,7 @@ import {
   ListRenderItemInfo,
   RefreshControl,
   StyleSheet,
-  View
+  View,
 } from 'react-native';
 import * as PropTypes from 'prop-types';
 import Loading from '../../../components/ui/Loading';
@@ -17,7 +17,7 @@ import { PaymentModel } from '../../../scraping/student/Intranet';
 import {
   NavigationScreenConfigProps,
   NavigationScreenProp,
-  NavigationStackScreenOptions
+  NavigationStackScreenOptions,
 } from 'react-navigation';
 import PaymentItem from '../../../components/payment/PaymentItem';
 import PaymentHeader from '../../../components/payment/PaymentHeader';
@@ -25,7 +25,7 @@ import { Color, Theme } from '../../../themes/styles';
 import NavigationButton from '../../../components/ui/NavigationButton';
 
 export interface PaymentsScreenProps {
-  navigation: NavigationScreenProp<null, null>;
+  navigation: NavigationScreenProp<any, any>;
   level: string;
 }
 
@@ -42,11 +42,12 @@ export default class PaymentsScreen extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
+
   static navigationOptions = ({
     navigation,
-    screenProps
+    screenProps,
   }: NavigationScreenConfigProps): NavigationStackScreenOptions => ({
     title: _('Historial de pagos'),
     headerBackTitle: null,
@@ -55,38 +56,37 @@ export default class PaymentsScreen extends React.Component<
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,
-      Theme.shadowDefault
+      Theme.shadowDefault,
     ],
     headerRight: (
       <View style={{ flexDirection: 'row' }}>
         <NavigationButton
           onPress={() => {
-            navigation.state.params.reload();
+            navigation.state.params!.reload();
           }}
           icon={'refresh'}
           iconType={'MaterialIcons'}
         />
       </View>
-    )
+    ),
   });
-
   state: State = {
     isLoading: true,
     cacheLoaded: false,
     isRefreshing: false,
-    payments: []
+    payments: [],
   };
 
   renderItem = ({ item, index }: ListRenderItemInfo<PaymentModel>) => {
     return <PaymentItem payment={item} />;
   };
   renderHeader = () => {
-    let { payments } = this.state;
+    const { payments } = this.state;
     return <PaymentHeader payments={payments} />;
   };
 
   load = async () => {
-    let { isRefreshing } = this.state;
+    const { isRefreshing } = this.state;
     if (!isRefreshing) {
       this.setState({ isLoading: true, cacheLoaded: false });
       await this.checkCache();
@@ -94,12 +94,12 @@ export default class PaymentsScreen extends React.Component<
     await this.loadRequest();
   };
   getCacheKey = () => {
-    let { level } = this.getParams();
+    const { level } = this.getParams();
     return `payments_${level || '_'}`;
   };
   checkCache = async () => {
     try {
-      let data = await CacheStorage.get(this.getCacheKey());
+      const data = await CacheStorage.get(this.getCacheKey());
       data && this.loadResponse(data, true);
     } catch (e) {
       Log.info(TAG, 'checkCache', e);
@@ -111,15 +111,15 @@ export default class PaymentsScreen extends React.Component<
       cacheLoaded,
       payments,
       isLoading: false,
-      isRefreshing: false
+      isRefreshing: false,
     });
   };
   loadRequest = async () => {
-    let { cacheLoaded } = this.state;
+    const { cacheLoaded } = this.state;
 
     try {
-      let { level } = this.getParams();
-      let payments = await UPAO.Student.Intranet.getPayments(level);
+      const { level } = this.getParams();
+      const payments = await UPAO.Student.Intranet.getPayments(level);
       this.loadResponse(payments);
       CacheStorage.set(this.getCacheKey(), payments);
     } catch (e) {
@@ -143,7 +143,7 @@ export default class PaymentsScreen extends React.Component<
   };
 
   getParams(): any {
-    let { params } = this.props.navigation.state || { params: {} };
+    const { params } = this.props.navigation.state || { params: {} };
     return params;
   }
 
@@ -158,17 +158,13 @@ export default class PaymentsScreen extends React.Component<
   }
 
   render() {
-    let { payments, isLoading, isRefreshing } = this.state;
+    const { payments, isLoading, isRefreshing } = this.state;
 
     return (
       <View style={[styles.container]}>
-        {!isLoading &&
-          payments.length < 1 && (
-            <AlertMessage
-              type={'warning'}
-              title={_('No se encontraron datos')}
-            />
-          )}
+        {!isLoading && payments.length < 1 && (
+          <AlertMessage type={'warning'} title={_('No se encontraron datos')} />
+        )}
         {isLoading && <Loading margin />}
         {!isLoading && (
           <FlatList
@@ -196,6 +192,6 @@ export default class PaymentsScreen extends React.Component<
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
-  }
+    backgroundColor: '#fff',
+  },
 });

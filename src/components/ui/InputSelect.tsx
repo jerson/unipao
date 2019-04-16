@@ -31,16 +31,16 @@ export default class InputSelect extends React.Component<
   state: State = {
     value: '',
     selected: {},
-    isModalVisible: false
+    isModalVisible: false,
   };
   toggleModal = () => {
     this.setState({ isModalVisible: !this.state.isModalVisible });
   };
   hideModal = () => {
     this.setState({ isModalVisible: false }, () => {
-      let { onSubmitEditing } = this.props;
+      const { onSubmitEditing } = this.props;
       if (typeof onSubmitEditing === 'function') {
-        onSubmitEditing({ nativeEvent: { text: '' } });
+        onSubmitEditing({ nativeEvent: { text: '' } } as any);
       }
     });
   };
@@ -51,9 +51,9 @@ export default class InputSelect extends React.Component<
   };
 
   setValue(value: string) {
-    let { options } = this.props;
+    const { options } = this.props;
     let selected = {};
-    for (let option of options) {
+    for (const option of options) {
       if (option.value === value) {
         selected = option;
         break;
@@ -71,14 +71,14 @@ export default class InputSelect extends React.Component<
   }
 
   componentDidMount() {
-    let { defaultValue } = this.props;
+    const { defaultValue } = this.props;
     if (defaultValue) {
       this.setValue(defaultValue);
     }
   }
 
   render() {
-    let {
+    const {
       defaultValue,
       hasError,
       labelStyle,
@@ -91,11 +91,11 @@ export default class InputSelect extends React.Component<
       ...props
     } = this.props;
 
-    let newProps = { ...props };
-    let { isModalVisible, selected, value } = this.state;
+    const newProps = { ...props };
+    const { isModalVisible, selected, value } = this.state;
     newProps.value = selected.label;
 
-    let titleDefault = title || 'Elige un valor';
+    const titleDefault = title || 'Elige un valor';
 
     return (
       <View style={[styles.container]}>
@@ -110,7 +110,7 @@ export default class InputSelect extends React.Component<
           style={[
             styles.inputContainer,
             hasError && styles.inputContainerError,
-            containerStyle
+            containerStyle,
           ]}
         >
           <TextInput
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     left: 0,
     top: 0,
     right: 0,
-    bottom: 0
+    bottom: 0,
   },
   icon: {
     position: 'absolute',
@@ -153,15 +153,15 @@ const styles = StyleSheet.create({
     right: 10,
     bottom: 0,
     fontSize: 20,
-    color: '#999'
+    color: '#999',
   },
   label: {
     color: '#444',
     textAlign: 'center',
-    padding: 4
+    padding: 4,
   },
   labelError: {
-    color: 'red'
+    color: 'red',
   },
   inputContainer: {
     marginTop: 4,
@@ -169,11 +169,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderColor: '#f9f9f9',
     borderWidth: 1,
-    borderRadius: 6
+    borderRadius: 6,
   },
   inputContainerError: {
     backgroundColor: '#ffacb6',
-    borderColor: '#f35f94'
+    borderColor: '#f35f94',
   },
   input: {
     height: 38,
@@ -183,10 +183,10 @@ const styles = StyleSheet.create({
     fontSize: 13,
     padding: 4,
     paddingLeft: 10,
-    paddingRight: 10
+    paddingRight: 10,
   },
   inputError: {
     backgroundColor: 'transparent',
-    color: 'red'
-  }
+    color: 'red',
+  },
 });

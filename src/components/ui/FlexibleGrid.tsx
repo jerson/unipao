@@ -7,8 +7,7 @@ import {
   ListRenderItemInfo,
   ScaledSize,
   StyleSheet,
-  TextInput,
-  View
+  View,
 } from 'react-native';
 import Loading from './Loading';
 
@@ -35,15 +34,15 @@ export default class FlexibleGrid<ItemT> extends React.Component<
 > {
   state: State = {
     itemWidth: 0,
-    numColumns: 1
+    numColumns: 1,
   };
 
   refs: any;
 
   renderItem = (data: ListRenderItemInfo<ItemT>) => {
-    let { renderItem, itemMargin } = this.props;
-    let { itemWidth } = this.state;
-    let customStyle = { margin: itemMargin, width: 0 };
+    const { renderItem, itemMargin } = this.props;
+    const { itemWidth } = this.state;
+    const customStyle = { margin: itemMargin, width: 0 };
 
     if (itemWidth > 0) {
       customStyle.width = itemWidth;
@@ -52,17 +51,17 @@ export default class FlexibleGrid<ItemT> extends React.Component<
   };
 
   onDimensionsChange = ({ window, screen }: DimensionsChange) => {
-    let { itemMargin, itemWidth } = this.props;
-    let { width, height } = window;
+    const { itemMargin, itemWidth } = this.props;
+    const { width, height } = window;
 
     let cols = Math.floor(width / itemWidth);
     cols = cols < 1 ? 1 : cols;
 
-    let windowWidth = width - itemMargin * ((cols + 1) * 2) - 1;
+    const windowWidth = width - itemMargin * ((cols + 1) * 2) - 1;
 
     this.setState({
       itemWidth: windowWidth / cols,
-      numColumns: cols
+      numColumns: cols,
     });
   };
 
@@ -80,14 +79,14 @@ export default class FlexibleGrid<ItemT> extends React.Component<
   }
 
   render() {
-    let {
+    const {
       renderItem,
       itemMargin,
       contentContainerStyle,
       itemWidth: old,
       ...props
     } = this.props;
-    let { itemWidth, numColumns } = this.state;
+    const { itemWidth, numColumns } = this.state;
     if (itemWidth === 0) {
       return <Loading margin />;
     }

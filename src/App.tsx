@@ -8,9 +8,9 @@ import codePush from 'react-native-code-push';
 import * as Push from 'appcenter-push';
 
 console.disableYellowBox = true;
-let codePushOptions = {
+const codePushOptions = {
   installMode: codePush.InstallMode.ON_NEXT_RESUME,
-  checkFrequency: codePush.CheckFrequency.ON_APP_RESUME
+  checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
 };
 
 export interface AppProps {}
@@ -21,7 +21,7 @@ export interface State {
 
 class App extends React.Component<AppProps, State> {
   state: State = {
-    isLoaded: false
+    isLoaded: false,
   };
 
   onLocaleChange = () => {
@@ -34,8 +34,8 @@ class App extends React.Component<AppProps, State> {
       defaultLocale: 'es',
       translations: {
         en,
-        pt
-      }
+        pt,
+      },
     });
   }
 
@@ -44,7 +44,7 @@ class App extends React.Component<AppProps, State> {
   }
 
   render() {
-    let { isLoaded } = this.state;
+    const { isLoaded } = this.state;
     if (!isLoaded) {
       return <Loading style={{ margin: 50 }} />;
     }
@@ -55,9 +55,9 @@ class App extends React.Component<AppProps, State> {
 }
 
 Push.setListener({
-  onPushNotificationReceived: function(pushNotification: any) {
-    let message = pushNotification.message;
-    let title = pushNotification.title;
+  onPushNotificationReceived(pushNotification: any) {
+    const message = pushNotification.message;
+    const title = pushNotification.title;
 
     // if (message === null || message === undefined) {
     //     // Android messages received in the background don't include a message. On Android, that fact can be used to
@@ -80,6 +80,6 @@ Push.setListener({
     //     // in the foreground before displaying any UI. You could use AppState.addEventListener to be notified
     //     // when the app is fully in the foreground.
     // }
-  }
+  },
 });
 export default (__DEV__ ? App : codePush(codePushOptions)(App));

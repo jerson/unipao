@@ -12,13 +12,12 @@ import WebViewDownloader from '../components/ui/WebViewDownloader';
 import {
   NavigationScreenConfigProps,
   NavigationScreenProp,
-  NavigationStackScreenOptions
+  NavigationStackScreenOptions,
 } from 'react-navigation';
-import Config from '../scraping/Config';
 import UPAO from '../scraping/UPAO';
 
 export interface LoginFallbackScreenProps {
-  navigation: NavigationScreenProp<null, null>;
+  navigation: NavigationScreenProp<any, any>;
 }
 
 export interface State {
@@ -33,11 +32,12 @@ export default class LoginFallbackScreen extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
+
   static navigationOptions = ({
     navigation,
-    screenProps
+    screenProps,
   }: NavigationScreenConfigProps): NavigationStackScreenOptions => ({
     title: _('Iniciar sesión'),
     headerBackTitle: null,
@@ -46,7 +46,7 @@ export default class LoginFallbackScreen extends React.Component<
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,
-      Theme.shadowDefault
+      Theme.shadowDefault,
     ],
     headerRight: (
       <View style={{ flexDirection: 'row' }}>
@@ -60,19 +60,18 @@ export default class LoginFallbackScreen extends React.Component<
           )}
         <NavigationButton
           onPress={() => {
-            navigation && navigation.state.params.reload();
+            navigation && navigation.state.params!.reload();
           }}
           icon={'refresh'}
           iconType={'MaterialIcons'}
         />
       </View>
-    )
+    ),
   });
-
   state: State = {
     html: '',
     isLoading: true,
-    isReloading: false
+    isReloading: false,
   };
 
   reload = () => {
@@ -82,9 +81,9 @@ export default class LoginFallbackScreen extends React.Component<
     this.load();
   };
   onNavigationStateChange = async (navState: NavState) => {
-    let url = navState.url || '';
+    const url = navState.url || '';
     if (url.indexOf('upao.edu.pe/default.aspx') !== -1) {
-      let success = await Auth.login();
+      const success = await Auth.login();
       success && RouterUtil.resetTo(this.props.navigation, 'User');
     }
   };
@@ -92,12 +91,12 @@ export default class LoginFallbackScreen extends React.Component<
     this.setState({ isLoading: true });
 
     try {
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         '/login.aspx?ReturnUrl=%2fdefault.aspx',
         {},
         {
           tag: 'login',
-          checkSession: false
+          checkSession: false,
         }
       );
       //       $('iframe')
@@ -122,7 +121,7 @@ export default class LoginFallbackScreen extends React.Component<
       // `);
       $('body').append(`
         <script>
-        
+
 
 try{
       var style = document.createElement( "style" );
@@ -162,21 +161,21 @@ try{
       '  width: 100% !important;' +
       '}';
       document.getElementsByTagName( "head" )[0].appendChild( style );
-      
-      
+
+
       var element = document.getElementsByTagName("iframe"), index;
       for (index = element.length - 1; index >= 0; index--) {
-         element[index].parentNode.parentNode.removeChild(element[index].parentNode); 
+         element[index].parentNode.parentNode.removeChild(element[index].parentNode);
       }
-      
-      
+
+
       var element3 = document.getElementsByTagName("a"), index3;
       for (index3 = element3.length - 1; index3 >= 0; index3--) {
         element3[index3].parentNode.removeChild(element3[index3]);
       }
-      
-    
-      
+
+
+
       var hash = Math.random();
       var link = document.createElement( "link" );
       link.href = "https://unipao.com/app.css?"+hash;
@@ -184,12 +183,12 @@ try{
       link.rel = "stylesheet";
       link.media = "screen,print";
       document.getElementsByTagName( "head" )[0].appendChild( link );
-    
+
       var metaTag=document.createElement('meta');
-      metaTag.name = "viewport"
-      metaTag.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+      metaTag.name = "viewport";
+      metaTag.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0";
       document.getElementsByTagName('head')[0].appendChild(metaTag);
-  
+
 }catch(e){
 }
 
@@ -198,7 +197,7 @@ try{
       this.setState({
         isLoading: false,
         isReloading: false,
-        html: $('html').html()
+        html: $('html').html(),
       });
     } catch (e) {
       this.setState({ isLoading: false, isReloading: false });
@@ -215,7 +214,7 @@ try{
   }
 
   render() {
-    let { isReloading, html } = this.state;
+    const { isReloading, html } = this.state;
 
     if (isReloading) {
       return <Loading margin />;
@@ -253,8 +252,8 @@ try{
               // 'Upgrade-Insecure-Requests': '1',
               Referer:
                 'https://campusvirtual.upao.edu.pe/login.aspx?ReturnUrl=%2fdefault.aspx',
-              'User-Agent': UPAO.getUserAgentDesktop()
-            }
+              'User-Agent': UPAO.getUserAgentDesktop(),
+            },
           }}
         />
 
@@ -279,6 +278,6 @@ try{
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });

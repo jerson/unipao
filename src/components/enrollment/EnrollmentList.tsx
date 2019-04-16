@@ -20,11 +20,11 @@ export default class EnrollmentList extends React.Component<
 > {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
-    navigation: PropTypes.object.isRequired
+    navigation: PropTypes.object.isRequired,
   };
 
   state: State = {
-    sections: []
+    sections: [],
   };
 
   renderItem = ({ item }: ListRenderItemInfo<any>) => {
@@ -41,30 +41,30 @@ export default class EnrollmentList extends React.Component<
   };
 
   componentDidMount() {
-    let { enrollments } = this.props;
-    let courses: { [key: string]: any } = {};
-    let first = enrollments[0] || {};
+    const { enrollments } = this.props;
+    const courses: { [key: string]: any } = {};
+    const first = enrollments[0] || {};
 
-    for (let enrollment of enrollments) {
-      let name = enrollment.NOMBRE_CURSO || 'ERR';
+    for (const enrollment of enrollments) {
+      const name = enrollment.NOMBRE_CURSO || 'ERR';
       if (!courses[name]) {
         courses[name] = [];
       }
 
       courses[name].push(enrollment);
     }
-    let sections = [
+    const sections = [
       {
         data: [],
-        title: first
-      }
+        title: first,
+      },
     ];
-    let keys = Object.keys(courses);
+    const keys = Object.keys(courses);
 
-    for (let key of keys) {
+    for (const key of keys) {
       sections.push({
         data: courses[key],
-        title: key
+        title: key,
       });
     }
 
@@ -72,7 +72,7 @@ export default class EnrollmentList extends React.Component<
   }
 
   render() {
-    let { sections } = this.state;
+    const { sections } = this.state;
 
     if (sections.length < 2) {
       return null;

@@ -9,12 +9,12 @@ import WebViewDownloader from '../../components/ui/WebViewDownloader';
 import {
   NavigationScreenConfigProps,
   NavigationScreenProp,
-  NavigationStackScreenOptions
+  NavigationStackScreenOptions,
 } from 'react-navigation';
 import UPAO from '../../scraping/UPAO';
 
 export interface MailScreenProps {
-  navigation: NavigationScreenProp<null, null>;
+  navigation: NavigationScreenProp<any, any>;
 }
 
 export interface State {
@@ -28,11 +28,12 @@ export default class MailScreen extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
+
   static navigationOptions = ({
     navigation,
-    screenProps
+    screenProps,
   }: NavigationScreenConfigProps): NavigationStackScreenOptions => ({
     title: _('Correo UPAO'),
     headerBackTitle: null,
@@ -41,7 +42,7 @@ export default class MailScreen extends React.Component<
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,
-      Theme.shadowDefault
+      Theme.shadowDefault,
     ],
     headerRight: (
       <View style={{ flexDirection: 'row' }}>
@@ -55,18 +56,17 @@ export default class MailScreen extends React.Component<
           )}
         <NavigationButton
           onPress={() => {
-            navigation && navigation.state.params.reload();
+            navigation && navigation.state.params!.reload();
           }}
           icon={'refresh'}
           iconType={'MaterialIcons'}
         />
       </View>
-    )
+    ),
   });
-
   state: State = {
     isLoading: true,
-    isReloading: false
+    isReloading: false,
   };
 
   reload = () => {
@@ -80,7 +80,7 @@ export default class MailScreen extends React.Component<
   }
 
   render() {
-    let { isReloading } = this.state;
+    const { isReloading } = this.state;
 
     if (isReloading) {
       return <Loading margin />;
@@ -104,8 +104,8 @@ export default class MailScreen extends React.Component<
               'X-Requested-With': '',
               'X-Request-Id': '',
               Referer: 'https://campusvirtual.upao.edu.pe/',
-              'User-Agent': UPAO.getUserAgentMobile()
-            }
+              'User-Agent': UPAO.getUserAgentMobile(),
+            },
           }}
         />
       </View>
@@ -115,6 +115,6 @@ export default class MailScreen extends React.Component<
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });

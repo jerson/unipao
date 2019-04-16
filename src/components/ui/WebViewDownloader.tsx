@@ -6,7 +6,7 @@ import {
   Platform,
   StyleSheet,
   WebView,
-  WebViewProperties
+  WebViewProperties,
 } from 'react-native';
 import Log from '../../modules/logger/Log';
 import { _ } from '../../modules/i18n/Translator';
@@ -25,18 +25,18 @@ export default class WebViewDownloader extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
   onNavigationStateChange = (navState: NavState) => {
-    let url = navState.url || '';
+    const url = navState.url || '';
     if (url.indexOf('http') !== 0) {
       return;
     }
-    let lastPart = url.substr(url.lastIndexOf('.') + 1);
+    const lastPart = url.substr(url.lastIndexOf('.') + 1);
 
     Log.warn(TAG, 'onNavigationStateChange', url);
 
-    let { onNavigationStateChange } = this.props;
+    const { onNavigationStateChange } = this.props;
     if (typeof onNavigationStateChange === 'function') {
       onNavigationStateChange(navState);
     }
@@ -71,7 +71,7 @@ export default class WebViewDownloader extends React.Component<
       id: 'browser',
       message: _('Abriendo enlace en tu navegador'),
       isLoading: true,
-      autoDismiss: 4
+      autoDismiss: 4,
     });
     setTimeout(() => {
       this.openExternalLink(url);
@@ -80,7 +80,7 @@ export default class WebViewDownloader extends React.Component<
 
   async openExternalLink(url: string) {
     try {
-      let supported = await Linking.canOpenURL(url);
+      const supported = await Linking.canOpenURL(url);
 
       if (!supported) {
         Clipboard.setString(url);
@@ -93,7 +93,7 @@ export default class WebViewDownloader extends React.Component<
             ),
             icon: 'file-download',
             level: 'warning',
-            autoDismiss: 5
+            autoDismiss: 5,
           });
         return;
       }
@@ -104,7 +104,11 @@ export default class WebViewDownloader extends React.Component<
   }
 
   render() {
-    let { injectedJavaScript, onNavigationStateChange, ...props } = this.props;
+    const {
+      injectedJavaScript,
+      onNavigationStateChange,
+      ...props
+    } = this.props;
 
     const script = `
       /*setTimeout(function(){
@@ -222,6 +226,6 @@ try{
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });

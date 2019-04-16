@@ -20,23 +20,23 @@ export default class EnrollmentHeader extends React.Component<
 > {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
-    navigation: PropTypes.object.isRequired
+    navigation: PropTypes.object.isRequired,
   };
 
   state: State = {};
 
   componentDidMount() {
-    let { enrollments, title } = this.props;
-    let first = enrollments[0] || {};
+    const { enrollments, title } = this.props;
+    const first = enrollments[0] || {};
 
     this.setState({
-      first
+      first,
     });
   }
 
   render() {
-    let { enrollments } = this.props;
-    let { first } = this.state;
+    const { enrollments } = this.props;
+    const { first } = this.state;
 
     if (!first) {
       return null;
@@ -82,45 +82,45 @@ const styles = StyleSheet.create({
   title: {
     color: '#999',
     fontSize: 10,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   headerItem: {
     flex: 1,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   legendText: {
     flex: 1,
     color: '#999',
     textAlign: 'center',
-    fontSize: 11
+    fontSize: 11,
   },
   container: {
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
   header: {
     justifyContent: 'space-between',
     paddingTop: 3,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   name: {
     flex: 1,
     color: '#fff',
     fontWeight: 'bold',
-    fontSize: 12
+    fontSize: 12,
   },
   code: {
     color: 'rgba(255,255,255,0.8)',
-    fontSize: 12
+    fontSize: 12,
   },
   career: {
     padding: 10,
     flexDirection: 'row',
-    backgroundColor: '#0d61ac'
+    backgroundColor: '#0d61ac',
   },
   legend: {
     padding: 3,
     flexDirection: 'row',
     borderColor: '#f4f4f4',
-    borderBottomWidth: 1
-  }
+    borderBottomWidth: 1,
+  },
 });

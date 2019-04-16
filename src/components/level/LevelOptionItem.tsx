@@ -19,26 +19,21 @@ export default class LevelOptionItem extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   state: State = {};
 
   render() {
-    let { item, onChooseItem } = this.props;
+    const { item, onChooseItem } = this.props;
 
     return (
       <Touchable style={styles.button} onPress={onChooseItem}>
         <View style={[styles.container, Theme.shadowDefault]}>
           <View style={styles.info}>
-            {item.icon &&
-              item.iconType && (
-                <Icon
-                  style={styles.icon}
-                  name={item.icon}
-                  type={item.iconType}
-                />
-              )}
+            {item.icon && item.iconType && (
+              <Icon style={styles.icon} name={item.icon} type={item.iconType} />
+            )}
             <View style={styles.content}>
               <Text style={styles.name}>{item.name}</Text>
               <Text numberOfLines={3} style={styles.description}>
@@ -61,22 +56,22 @@ export default class LevelOptionItem extends React.Component<
 
 const styles = StyleSheet.create({
   button: {
-    padding: 5
+    padding: 5,
   },
   container: {
     backgroundColor: '#fafafa',
     flexDirection: 'row',
     borderRadius: 4,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   options: {
-    alignItems: 'center'
+    alignItems: 'center',
   },
   content: {
     flex: 1,
     alignItems: 'flex-start',
     flexDirection: 'column',
-    paddingRight: 5
+    paddingRight: 5,
   },
   info: {
     flex: 1,
@@ -86,27 +81,27 @@ const styles = StyleSheet.create({
     minHeight: 70,
     padding: 5,
     paddingTop: 15,
-    paddingBottom: 15
+    paddingBottom: 15,
   },
   icon: {
     fontSize: 30,
     padding: 5,
     width: 50,
     textAlign: 'center',
-    color: '#f59331'
+    color: '#f59331',
   },
   option: {
     fontSize: 30,
     padding: 5,
     textAlign: 'center',
-    color: '#999'
+    color: '#999',
   },
   name: {
     fontSize: 14,
-    color: '#666'
+    color: '#666',
   },
   description: {
     fontSize: 12,
-    color: '#999'
-  }
+    color: '#999',
+  },
 });

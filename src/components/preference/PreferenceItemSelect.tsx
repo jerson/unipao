@@ -3,7 +3,7 @@ import Select from '../ui/Select';
 import Storage from '../../modules/storage/PreferencesStorage';
 import PreferenceItem, { PreferenceItemProps } from './PreferenceItem';
 import Log from '../../modules/logger/Log';
-import { InputSelectOption } from 'components/ui/InputSelect';
+import { InputSelectOption } from '../../components/ui/InputSelect';
 
 export interface PreferenceItemSelectProps extends PreferenceItemProps {
   onChange: (value: string) => void;
@@ -20,11 +20,11 @@ export default class PreferenceItemSelect extends React.Component<
   State
 > {
   state: State = {
-    value: ''
+    value: '',
   };
 
   onChange = (value: string) => {
-    let { onChange } = this.props;
+    const { onChange } = this.props;
     if (value !== this.state.value) {
       this.setState({ value }, () => {
         if (typeof onChange === 'function') {
@@ -35,8 +35,8 @@ export default class PreferenceItemSelect extends React.Component<
   };
 
   updateStorage() {
-    let { name } = this.props;
-    let { value } = this.state;
+    const { name } = this.props;
+    const { value } = this.state;
     Storage.set(name, value);
   }
 
@@ -51,10 +51,10 @@ export default class PreferenceItemSelect extends React.Component<
   }
 
   async componentDidMount() {
-    let defaultValue = this.getDefaultValue();
+    const defaultValue = this.getDefaultValue();
     let value = '';
     try {
-      let data = await Storage.get(this.props.name);
+      const data = await Storage.get(this.props.name);
       value = data ? data.toString() : defaultValue;
     } catch (e) {
       Log.warn(e);
@@ -65,8 +65,8 @@ export default class PreferenceItemSelect extends React.Component<
   }
 
   render() {
-    let { values, title, onChange, ...props } = this.props;
-    let { value } = this.state;
+    const { values, title, onChange, ...props } = this.props;
+    const { value } = this.state;
 
     return (
       <PreferenceItem title={title} {...props}>

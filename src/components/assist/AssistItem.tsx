@@ -19,13 +19,13 @@ export default class AssistItem extends React.Component<
 > {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
-    navigation: PropTypes.object.isRequired
+    navigation: PropTypes.object.isRequired,
   };
 
   state = {};
 
   onPress = () => {
-    let { assist, disabledPress } = this.props;
+    const { assist, disabledPress } = this.props;
     if (disabledPress) {
       return;
     }
@@ -33,8 +33,8 @@ export default class AssistItem extends React.Component<
   };
 
   render() {
-    let { assist } = this.props;
-    let disabledText = assist.ESTAINHABILITADO.replace(/(<([^>]+)>)/gi, '');
+    const { assist } = this.props;
+    const disabledText = assist.ESTAINHABILITADO.replace(/(<([^>]+)>)/gi, '');
     return (
       <Touchable onPress={this.onPress}>
         <View style={[styles.container]}>
@@ -75,7 +75,7 @@ export default class AssistItem extends React.Component<
                       { fontWeight: 'bold' },
                       disabledText.toLowerCase().indexOf('inha') !== -1
                         ? { color: '#be2924' }
-                        : { color: '#69d258' }
+                        : { color: '#69d258' },
                     ]}
                   >
                     {disabledText}
@@ -101,72 +101,72 @@ const styles = StyleSheet.create({
     borderColor: '#f4f4f4',
     borderBottomWidth: 1,
     padding: 10,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   imageContainer: {
     padding: 5,
     paddingLeft: 0,
     position: 'relative',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   image: {
     width: 50,
     height: 50,
-    borderRadius: 50 / 2
+    borderRadius: 50 / 2,
   },
   imagePlaceholder: {
     position: 'absolute',
     left: 0,
     width: 50,
     height: 50,
-    borderRadius: 50 / 2
+    borderRadius: 50 / 2,
   },
   infoContainer: {
-    flex: 1
+    flex: 1,
   },
   info: {
     flexDirection: 'row',
     flex: 1,
-    paddingLeft: 5
+    paddingLeft: 5,
   },
   item: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   title: {
     paddingLeft: 5,
     fontSize: 13,
     color: '#222',
-    paddingBottom: 5
+    paddingBottom: 5,
   },
   name: {
     fontSize: 11,
     color: '#666',
-    flex: 1
+    flex: 1,
   },
   percent: {
     fontSize: 18,
     color: '#ff9e30',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   percentLabel: {
     fontSize: 12,
-    color: '#666'
+    color: '#666',
   },
   period: {
     fontSize: 12,
     fontWeight: 'bold',
     color: '#444',
-    flex: 1
+    flex: 1,
   },
   value: {
     fontSize: 11,
-    flex: 1
+    flex: 1,
   },
   left: {
-    flex: 1
+    flex: 1,
   },
   right: {
     alignItems: 'center',
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 });

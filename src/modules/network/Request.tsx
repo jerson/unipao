@@ -47,7 +47,7 @@ export default class Request {
   }
 
   static abort(id: string) {
-    //TODO
+    // TODO
   }
 
   static async get(
@@ -55,11 +55,11 @@ export default class Request {
     body?: Body,
     options?: Options
   ): Promise<Response> {
-    let form: string[] = [];
+    const form: string[] = [];
     let query = '';
     let requestBody: Body = {};
     if (body) {
-      let params = { ...body };
+      const params = { ...body };
       this.addItemsToForm(form, [], params);
       requestBody = {};
     } else {
@@ -78,11 +78,11 @@ export default class Request {
     body?: Body,
     options?: Options
   ): Promise<Response> {
-    let form: string[] = [];
+    const form: string[] = [];
     let query = '';
     let requestBody: Body = {};
     if (body) {
-      let params = { ...body };
+      const params = { ...body };
       this.addItemsToForm(form, [], params);
       requestBody = {};
     } else {
@@ -101,11 +101,11 @@ export default class Request {
     body: Body,
     options?: Options
   ): Promise<Response> {
-    let form: string[] = [];
+    const form: string[] = [];
     let query = '';
     let requestBody: Body = {};
     if (body) {
-      let params = { ...body };
+      const params = { ...body };
       this.addItemsToForm(form, [], params);
       requestBody = {};
     } else {
@@ -149,7 +149,7 @@ export default class Request {
     body: Body,
     options?: Options
   ): Promise<Response> {
-    let isMultipart = body instanceof FormData;
+    const isMultipart = body instanceof FormData;
     let requestHeaders: Headers = {};
     if (options) {
       requestHeaders = this.getHeaders(options);
@@ -158,17 +158,17 @@ export default class Request {
       requestHeaders['Accept'] = 'application/json';
       requestHeaders['Content-Type'] = 'application/json';
     }
-    let fullPath = this.getFullPath(path);
+    const fullPath = this.getFullPath(path);
     let response: Response = {
       status: 500,
       body: { error: true, code: 0, message: 'Desconocido' },
-      headers: {}
+      headers: {},
     };
 
     try {
       Log.debug('[FETCH]', method, fullPath, body);
       let requestBody: any;
-      let allowBody = !(method === 'GET' || method === 'HEAD');
+      const allowBody = !(method === 'GET' || method === 'HEAD');
       if (allowBody) {
         if (isMultipart) {
           requestBody = body;
@@ -184,32 +184,33 @@ export default class Request {
         }
       }
 
-      let fetchResponse = await fetch(fullPath, {
+      const fetchResponse = await fetch(fullPath, {
         method,
         headers: {
-          ...requestHeaders
+          ...requestHeaders,
         },
-        body: requestBody
+        body: requestBody,
       });
-      let headers: Headers = {};
-      fetchResponse.headers.forEach((name, key) => {
+      const headers: Headers = {};
+      fetchResponse.headers.forEach((name: string, key: string) => {
         headers[key] = name;
       });
 
-      let resBody = await fetchResponse.json();
-      let success = typeof resBody.success === 'number' ? resBody.success : -1;
+      const resBody = await fetchResponse.json();
+      const success =
+        typeof resBody.success === 'number' ? resBody.success : -1;
       if (success === 0) {
         // Emitter.emit('onForceLogout', true);
         response = {
           status: 555,
           headers: headers || {},
-          body: resBody
+          body: resBody,
         };
       } else {
         response = {
           status: fetchResponse.status,
           headers: headers || {},
-          body: resBody
+          body: resBody,
         };
       }
     } catch (e) {
@@ -226,9 +227,8 @@ export default class Request {
 
     if (response.status === 200) {
       return response;
-    } else {
-      throw response;
     }
+    throw response;
   }
 
   private static getHeaders(options: Options): Headers {
@@ -278,7 +278,7 @@ export default class Request {
   }
 
   private static addItemToForm(form: string[], names: string[], value: string) {
-    let name = encodeURIComponent(names.join('.').replace(/\.\[/g, '['));
+    const name = encodeURIComponent(names.join('.').replace(/\.\[/g, '['));
     value = encodeURIComponent(value.toString());
     form.push(`${name}=${value}`);
   }

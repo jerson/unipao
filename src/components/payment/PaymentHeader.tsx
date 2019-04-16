@@ -24,23 +24,23 @@ export default class PaymentHeader extends React.PureComponent<
 > {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
-    navigation: PropTypes.object.isRequired
+    navigation: PropTypes.object.isRequired,
   };
 
   state: State = {
     totalPayments: 0,
     totalCargo: 0,
     totalSaldo: 0,
-    totalInteres: 0
+    totalInteres: 0,
   };
 
   componentDidMount() {
-    let { payments } = this.props;
+    const { payments } = this.props;
     let totalPayments = 0;
     let totalCargo = 0;
     let totalSaldo = 0;
     let totalInteres = 0;
-    for (let payment of payments) {
+    for (const payment of payments) {
       totalPayments += payment.payment;
       totalCargo += payment.charge;
       totalSaldo += payment.balance;
@@ -51,18 +51,18 @@ export default class PaymentHeader extends React.PureComponent<
       totalPayments,
       totalCargo,
       totalSaldo,
-      totalInteres
+      totalInteres,
     });
   }
 
   render() {
-    let { payments } = this.props;
+    const { payments } = this.props;
 
     if (!payments || payments.length < 1) {
       return null;
     }
 
-    let { totalPayments, totalCargo, totalSaldo, totalInteres } = this.state;
+    const { totalPayments, totalCargo, totalSaldo, totalInteres } = this.state;
     return (
       <View style={[styles.container]}>
         <View style={styles.item}>
@@ -91,23 +91,23 @@ export default class PaymentHeader extends React.PureComponent<
 const styles = StyleSheet.create({
   item: {
     padding: 2,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   description: {
     color: 'rgba(255,255,255,0.6)',
     flex: 1,
     textAlign: 'right',
     fontSize: 16,
-    paddingRight: 5
+    paddingRight: 5,
   },
   value: {
     color: '#fff',
     flex: 1,
     fontSize: 16,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   container: {
     padding: 10,
-    backgroundColor: '#69d258'
-  }
+    backgroundColor: '#69d258',
+  },
 });

@@ -13,7 +13,7 @@ import {
   StyleSheet,
   Text,
   View,
-  ViewStyle
+  ViewStyle,
 } from 'react-native';
 import * as PropTypes from 'prop-types';
 import { Theme } from '../../themes/styles';
@@ -52,18 +52,18 @@ export default class GalleryModal extends React.PureComponent<
 > {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
-    navigation: PropTypes.object.isRequired
+    navigation: PropTypes.object.isRequired,
   };
 
   state = {
     currentIndex: 0,
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height
+    height: Dimensions.get('window').height,
   };
 
   refs: any;
   renderItem = ({ item, index }: ListRenderItemInfo<GalleryImageModel>) => {
-    let { width, height } = this.state;
+    const { width, height } = this.state;
 
     return (
       <View style={{ width, flex: 1 }}>
@@ -84,8 +84,8 @@ export default class GalleryModal extends React.PureComponent<
           style={[
             styles.background,
             Platform.OS === 'windows' && {
-              backgroundColor: 'rgba(0,0,0,0.3)'
-            }
+              backgroundColor: 'rgba(0,0,0,0.3)',
+            },
           ]}
         >
           <View style={styles.content}>
@@ -99,34 +99,34 @@ export default class GalleryModal extends React.PureComponent<
   };
 
   prev = () => {
-    let { width, currentIndex } = this.state;
+    const { width, currentIndex } = this.state;
     let page = currentIndex;
     page--;
     page = page < 0 ? 0 : page;
     this.refs.list &&
       this.refs.list.scrollToOffset({
-        offset: page * width
+        offset: page * width,
       });
   };
 
   next = () => {
-    let { images } = this.props;
-    let { width, currentIndex } = this.state;
+    const { images } = this.props;
+    const { width, currentIndex } = this.state;
     let page = currentIndex;
     page++;
     page = page >= images.length ? 0 : page;
     this.refs.list &&
       this.refs.list.scrollToOffset({
-        offset: page * width
+        offset: page * width,
       });
   };
   onScroll = (e?: NativeSyntheticEvent<NativeScrollEvent>) => {
     if (!e) {
       return;
     }
-    let { currentIndex, width } = this.state;
-    let contentOffset = e.nativeEvent.contentOffset;
-    let newIndex = Math.round(contentOffset.x / width);
+    const { currentIndex, width } = this.state;
+    const contentOffset = e.nativeEvent!.contentOffset;
+    const newIndex = Math.round(contentOffset.x / width);
 
     if (currentIndex === newIndex) {
       return;
@@ -135,19 +135,19 @@ export default class GalleryModal extends React.PureComponent<
     this.setState({ currentIndex: newIndex });
   };
   onDimensionsChange = ({ window, screen }: DimensionsChange) => {
-    let { width, height } = window;
+    const { width, height } = window;
 
     this.setState(
       {
         width,
-        height
+        height,
       },
       () => {
-        let { currentIndex } = this.state;
+        const { currentIndex } = this.state;
         this.refs.list &&
           this.refs.list.scrollToOffset({
             offset: currentIndex * width,
-            animated: false
+            animated: false,
           });
       }
     );
@@ -155,7 +155,7 @@ export default class GalleryModal extends React.PureComponent<
 
   componentDidMount() {
     setTimeout(() => {
-      let { index } = this.props;
+      const { index } = this.props;
       this.setState({ currentIndex: index }, () => {
         Dimensions.addEventListener('change', this.onDimensionsChange);
         this.onDimensionsChange({ window: Dimensions.get('window') });
@@ -168,8 +168,8 @@ export default class GalleryModal extends React.PureComponent<
   }
 
   render() {
-    let { images, onBackButtonPress, ...props } = this.props;
-    let { width, height } = this.state;
+    const { images, onBackButtonPress, ...props } = this.props;
+    const { width, height } = this.state;
 
     return (
       <Modal
@@ -212,22 +212,22 @@ export default class GalleryModal extends React.PureComponent<
 
 const styles = StyleSheet.create({
   list: {
-    flex: 1
+    flex: 1,
   },
   modal: { margin: 0, flex: 1, backgroundColor: '#222' },
   content: {
-    padding: 20
+    padding: 20,
   },
   background: {
     alignItems: 'center',
     position: 'absolute',
     left: 0,
     right: 0,
-    bottom: 0
+    bottom: 0,
   },
   imageTitle: {
     color: 'rgba(255,255,255,0.95)',
     fontSize: 14,
-    backgroundColor: 'transparent'
-  }
+    backgroundColor: 'transparent',
+  },
 });

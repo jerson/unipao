@@ -15,8 +15,8 @@ export default class ParamsUtils {
   }
 
   static getFormData3(obj: any) {
-    let data = [];
-    for (let key of Object.keys(obj)) {
+    const data = [];
+    for (const key of Object.keys(obj)) {
       data.push(`${key}=${encodeURIComponent(obj[key])}`);
     }
     Log.info(data.join('&'));
@@ -24,10 +24,10 @@ export default class ParamsUtils {
   }
 
   static getFormData(obj: any, form: any = null, namespace: any = null) {
-    let fd = form || new FormData();
+    const fd = form || new FormData();
     let formKey;
 
-    for (let property in obj) {
+    for (const property in obj) {
       if (obj.hasOwnProperty(property) && obj[property]) {
         if (namespace) {
           formKey = namespace + '[' + property + ']';
@@ -52,15 +52,15 @@ export default class ParamsUtils {
   }
 
   static getFormParams($: JQueryStatic): Params {
-    let params: Params = {};
+    const params: Params = {};
     $('input').each((index, value) => {
-      let name = $(value).attr('name');
+      const name = $(value).attr('name');
       if (name) {
         params[name] = $(value).attr('value') || '';
       }
     });
     $('select').each((index, value) => {
-      let name = $(value).attr('name');
+      const name = $(value).attr('name');
       if (name) {
         params[name] = $('option:selected', value).attr('value') || '';
       }

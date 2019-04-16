@@ -25,11 +25,11 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 16,
     paddingBottom: 16,
-    paddingLeft: 12
+    paddingLeft: 12,
     // backgroundColor: 'rgba(0,0,0,0.05)'
   },
   title: {
     fontSize: 15,
-    color: '#f59331'
-  }
+    color: '#f59331',
+  },
 });

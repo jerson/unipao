@@ -4,7 +4,7 @@ import {
   StyleProp,
   StyleSheet,
   View,
-  ViewStyle
+  ViewStyle,
 } from 'react-native';
 
 export type LoadingSize = 'small' | 'large' | number;
@@ -34,6 +34,6 @@ export default class Loading extends React.Component<LoadingProps, State> {
 const styles = StyleSheet.create({
   margin: {
     margin: 20,
-    alignSelf: 'center'
-  }
+    alignSelf: 'center',
+  },
 });

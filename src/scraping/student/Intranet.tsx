@@ -52,10 +52,10 @@ export default class Intranet {
   static Schedule = Schedule;
 
   static async getPayments(level: string): Promise<PaymentModel[]> {
-    let payments: PaymentModel[] = [];
+    const payments: PaymentModel[] = [];
     let $;
     try {
-      //litle hack
+      // litle hack
       await RequestUtil.fetch(
         '/aulavirtual.aspx?f=YAGMURO&r=A',
         {},
@@ -71,61 +71,61 @@ export default class Intranet {
       throw e;
     }
 
-    let code = this.getLevelCode($, level);
-    let params = {
+    const code = this.getLevelCode($, level);
+    const params = {
       f: 'YACACTA',
       a: 'LIST_REPORTE',
-      codigo_uno: code
+      codigo_uno: code,
     };
 
     try {
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         '/controlador/cargador.aspx',
         {
           method: 'POST',
-          body: ParamsUtils.getFormData(params)
+          body: ParamsUtils.getFormData(params),
         },
         { tag: 'Intranet.getPayments', checkSession: true }
       );
       $('table tr').each((index, value) => {
-        let receipt = $('td:nth-child(1)', value)
+        const receipt = $('td:nth-child(1)', value)
           .text()
           .trim();
 
-        let receiptCheck = parseInt(receipt, 10);
+        const receiptCheck = parseInt(receipt, 10);
 
         if (receiptCheck > 0) {
-          let period = $('td:nth-child(2)', value)
+          const period = $('td:nth-child(2)', value)
             .text()
             .trim();
-          let concept = $('td:nth-child(3)', value)
+          const concept = $('td:nth-child(3)', value)
             .text()
             .trim();
-          let description = $('td:nth-child(4)', value)
+          const description = $('td:nth-child(4)', value)
             .text()
             .trim();
-          let conceptPayment = $('td:nth-child(5)', value)
+          const conceptPayment = $('td:nth-child(5)', value)
             .text()
             .trim();
-          let date = $('td:nth-child(6)', value)
+          const date = $('td:nth-child(6)', value)
             .text()
             .trim();
-          let charge = parseFloat(
+          const charge = parseFloat(
             $('td:nth-child(7)', value)
               .text()
               .trim()
           );
-          let payment = parseFloat(
+          const payment = parseFloat(
             $('td:nth-child(8)', value)
               .text()
               .trim()
           );
-          let balance = parseFloat(
+          const balance = parseFloat(
             $('td:nth-child(9)', value)
               .text()
               .trim()
           );
-          let interest = parseFloat(
+          const interest = parseFloat(
             $('td:nth-child(10)', value)
               .text()
               .trim()
@@ -141,7 +141,7 @@ export default class Intranet {
             charge,
             payment,
             balance,
-            interest
+            interest,
           });
         }
       });
@@ -153,7 +153,7 @@ export default class Intranet {
   }
 
   static async getHistoryCourses(level: string): Promise<PeriodDetailModel[]> {
-    let periods: PeriodDetailModel[] = [];
+    const periods: PeriodDetailModel[] = [];
     let $;
     try {
       $ = await RequestUtil.fetch(
@@ -166,23 +166,23 @@ export default class Intranet {
       throw e;
     }
 
-    let code = this.getLevelCode($, level);
-    let params = {
+    const code = this.getLevelCode($, level);
+    const params = {
       f: 'YAAHIST',
       a: 'INI_HISTORIAL',
-      codigo_uno: code
+      codigo_uno: code,
     };
 
     try {
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         '/controlador/cargador.aspx',
         {
           method: 'POST',
-          body: ParamsUtils.getFormData(params)
+          body: ParamsUtils.getFormData(params),
         },
         { tag: 'Intranet.getHistoryCourses', checkSession: true }
       );
-      let $content = $('#lst_historial_inig');
+      const $content = $('#lst_historial_inig');
       $(' > table > tr:nth-of-type(n+1) > td:nth-child(2)', $content).each(
         (index, value) => {
           if (!periods[index]) {
@@ -200,9 +200,9 @@ export default class Intranet {
             periods[index] = { period: '', courses: [] };
           }
 
-          let items: CourseModel[] = [];
+          const items: CourseModel[] = [];
           $('> div', value).each((index, value) => {
-            let level = $(
+            const level = $(
               'div:nth-child(1) > table > tr > td:nth-child(1)',
               value
             )
@@ -213,7 +213,7 @@ export default class Intranet {
               return;
             }
 
-            let name = $(
+            const name = $(
               'div:nth-child(1) > table > tr > td:nth-child(2) > span:nth-child(3)',
               value
             )
@@ -223,38 +223,38 @@ export default class Intranet {
               return;
             }
 
-            let image = $(
+            const image = $(
               'div:nth-child(1) > table > tr > td:nth-child(2) > img',
               value
             ).attr('src');
-            let nrc = $(
+            const nrc = $(
               'div:nth-child(1) > table > tr > td:nth-child(2) > span:nth-child(2)',
               value
             )
               .text()
               .trim();
 
-            let $first = $('.yaahist_btn_colora', value).first();
+            const $first = $('.yaahist_btn_colora', value).first();
 
-            let codeString = $first ? $first.attr('onclick') || '' : '';
-            let idString = $first ? $first.attr('id') || '' : '';
+            const codeString = $first ? $first.attr('onclick') || '' : '';
+            const idString = $first ? $first.attr('id') || '' : '';
 
-            let id = idString
+            const id = idString
               .replace('idlstcrse_', '')
               .replace('_sil', '')
               .trim();
-            let parts = codeString.split(",'_sil','");
-            let code = (parts[parts.length - 1] || '')
+            const parts = codeString.split(",'_sil','");
+            const code = (parts[parts.length - 1] || '')
               .replace("');", '')
               .trim();
 
-            let item: CourseModel = {
+            const item: CourseModel = {
               id,
               code,
               level,
               image,
               nrc,
-              name
+              name,
             };
 
             items.push(item);

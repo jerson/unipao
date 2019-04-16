@@ -4,7 +4,7 @@ import {
   StyleProp,
   TouchableOpacity,
   TouchableOpacityProperties,
-  ViewStyle
+  ViewStyle,
 } from 'react-native';
 
 export interface TouchableProps extends TouchableOpacityProperties {
@@ -16,7 +16,7 @@ export interface State {}
 
 export default class Touchable extends React.Component<TouchableProps, State> {
   render() {
-    let { ...props } = this.props;
+    const { ...props } = this.props;
     return <TouchableOpacity {...props} />;
   }
 }

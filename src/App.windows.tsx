@@ -7,8 +7,8 @@ import Emitter from './modules/listener/Emitter';
 import codePush from 'react-native-code-push';
 
 console.disableYellowBox = true;
-let codePushOptions = {
-  checkFrequency: codePush.CheckFrequency.MANUAL
+const codePushOptions = {
+  checkFrequency: codePush.CheckFrequency.MANUAL,
 };
 
 export interface AppProps {}
@@ -19,7 +19,7 @@ export interface State {
 
 class App extends React.Component<AppProps, State> {
   state: State = {
-    isLoaded: false
+    isLoaded: false,
   };
 
   onLocaleChange = () => {
@@ -32,12 +32,12 @@ class App extends React.Component<AppProps, State> {
       defaultLocale: 'es',
       translations: {
         en,
-        pt
-      }
+        pt,
+      },
     });
     if (!__DEV__) {
       codePush.sync({
-        installMode: codePush.InstallMode.IMMEDIATE
+        installMode: codePush.InstallMode.IMMEDIATE,
       });
     }
   }
@@ -47,7 +47,7 @@ class App extends React.Component<AppProps, State> {
   }
 
   render() {
-    let { isLoaded } = this.state;
+    const { isLoaded } = this.state;
     if (!isLoaded) {
       return <Loading margin />;
     }

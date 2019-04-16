@@ -27,13 +27,13 @@ export default class Profile {
   static async me(): Promise<ProfileModel> {
     let item: ProfileModel;
     try {
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         `/?f=yggpers`,
         {},
         { tag: 'Profile.getPublic', checkSession: true }
       );
 
-      let $user = $('#ctl00_lbl_usua');
+      const $user = $('#ctl00_lbl_usua');
       if (!$user.length) {
         throw Error('no inicio correctamente');
       }
@@ -66,25 +66,27 @@ export default class Profile {
         .text();
       religion = religion === 'None' ? '' : religion;
 
-      let gender = $('#ctl00_ContentPlaceHolder1_ctl00_PCONGEN2_ctl00_rb_sexo')
+      const gender = $(
+        '#ctl00_ContentPlaceHolder1_ctl00_PCONGEN2_ctl00_rb_sexo'
+      )
         .find('option[selected=checked]')
         .text();
 
-      let birthday = $(
+      const birthday = $(
         '#ctl00_ContentPlaceHolder1_ctl00_PCONGEN2_ctl00_txt_cumple'
       ).attr('value');
 
-      let document = $(
+      const document = $(
         '#ctl00_ContentPlaceHolder1_ctl00_PCONGEN2_ctl00_txt_dni'
       ).attr('value');
 
-      let name = $user
+      const name = $user
         .text()
         .replace(/[0-9]/g, '')
         .replace(/\s+/g, ' ')
         .trim();
 
-      let id = $('#ctl00_hdid').attr('value') || '';
+      const id = $('#ctl00_hdid').attr('value') || '';
 
       item = {
         id,
@@ -95,7 +97,7 @@ export default class Profile {
         ethnic,
         civilStatus,
         religion,
-        gender
+        gender,
       };
     } catch (e) {
       Log.info(TAG, 'me', e);

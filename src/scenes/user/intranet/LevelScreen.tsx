@@ -7,7 +7,7 @@ import FlexibleGrid from '../../../components/ui/FlexibleGrid';
 import {
   NavigationScreenConfigProps,
   NavigationScreenProp,
-  NavigationStackScreenOptions
+  NavigationStackScreenOptions,
 } from 'react-navigation';
 import LevelOptionItem from '../../../components/level/LevelOptionItem';
 import LevelOptionHeader from '../../../components/level/LevelOptionHeader';
@@ -22,7 +22,7 @@ export interface LevelOptionItemModel {
 }
 
 export interface LevelScreenProps {
-  navigation: NavigationScreenProp<null, null>;
+  navigation: NavigationScreenProp<any, any>;
 }
 
 export interface State {
@@ -35,15 +35,15 @@ export default class LevelScreen extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   static navigationOptions = ({
     navigation,
-    screenProps
+    screenProps,
   }: NavigationScreenConfigProps): NavigationStackScreenOptions => ({
     title: navigation
-      ? navigation.state.params.item.name
+      ? navigation.state.params!.item.name
       : _('Nivel académico'),
     headerBackTitle: null,
     headerTitleStyle: [Theme.title, Theme.subtitle],
@@ -51,10 +51,9 @@ export default class LevelScreen extends React.Component<
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,
-      Theme.shadowDefault
-    ]
+      Theme.shadowDefault,
+    ],
   });
-
   state: State = {
     items: [
       {
@@ -64,14 +63,14 @@ export default class LevelScreen extends React.Component<
           'Cursos de ciclos anteriores, revisa tus notas, silabos y asistencias'
         ),
         icon: 'book',
-        iconType: 'Entypo'
+        iconType: 'Entypo',
       },
       {
         route: 'GradesReport',
         name: _('Reporte de notas'),
         description: _('Reportes de notas de ciclos anteriores'),
         icon: 'ios-paper',
-        iconType: 'Ionicons'
+        iconType: 'Ionicons',
       },
       {
         route: 'Enrollment',
@@ -80,7 +79,7 @@ export default class LevelScreen extends React.Component<
           'Los cursos a los que te inscribiste y cuantos creditos valen'
         ),
         icon: 'folder',
-        iconType: 'Entypo'
+        iconType: 'Entypo',
       },
       {
         route: 'Payments',
@@ -89,9 +88,9 @@ export default class LevelScreen extends React.Component<
           'Todos los pagos realizados incluyendo derechos de tramite'
         ),
         icon: 'monetization-on',
-        iconType: 'MaterialIcons'
-      }
-    ]
+        iconType: 'MaterialIcons',
+      },
+    ],
   };
 
   renderItem = ({ item, index }: ListRenderItemInfo<LevelOptionItemModel>) => {
@@ -106,10 +105,10 @@ export default class LevelScreen extends React.Component<
   };
 
   onChooseItem = (option: LevelOptionItemModel) => {
-    let { item } = this.getParams();
+    const { item } = this.getParams();
     this.props.navigation.navigate(option.route, {
       item: option,
-      level: item.level
+      level: item.level,
     });
   };
 
@@ -121,7 +120,7 @@ export default class LevelScreen extends React.Component<
   };
 
   getParams(): any {
-    let { params } = this.props.navigation.state || { params: {} };
+    const { params } = this.props.navigation.state || { params: {} };
     return params;
   }
 
@@ -134,8 +133,8 @@ export default class LevelScreen extends React.Component<
   }
 
   render() {
-    let { items } = this.state;
-    let { height } = Dimensions.get('window');
+    const { items } = this.state;
+    const { height } = Dimensions.get('window');
 
     return (
       <View style={[styles.container]}>
@@ -159,10 +158,10 @@ export default class LevelScreen extends React.Component<
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f4f4f4'
+    backgroundColor: '#f4f4f4',
   },
   content: {
     justifyContent: 'center',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 });

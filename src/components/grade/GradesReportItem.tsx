@@ -19,13 +19,13 @@ export default class GradeReportItem extends React.PureComponent<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   state: State = {};
 
   render() {
-    let { item } = this.props;
+    const { item } = this.props;
 
     return (
       <View style={[styles.container]}>
@@ -60,46 +60,46 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(0,0,0,0.04)',
     flexDirection: 'row',
     alignItems: 'center',
-    height: 58
+    height: 58,
   },
   item: {
     padding: 2,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   description: {
     color: 'rgba(0,0,0,0.6)',
     flex: 1,
     textAlign: 'right',
     fontSize: 12,
-    paddingRight: 5
+    paddingRight: 5,
   },
   value: {
     color: '#000',
     flex: 1,
     fontSize: 12,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   info: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    paddingLeft: 5
+    paddingLeft: 5,
   },
   right: {
-    alignItems: 'center'
+    alignItems: 'center',
   },
   name: {
     fontSize: 13,
-    color: '#666'
+    color: '#666',
   },
   subtitle: {
     fontSize: 12,
-    color: '#999'
+    color: '#999',
   },
   grade: {
     fontSize: 14,
     fontWeight: 'bold',
-    color: '#fff'
+    color: '#fff',
   },
   gradeContainer: {
     padding: 4,
@@ -108,6 +108,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 30,
     borderRadius: 15,
-    backgroundColor: '#666b76'
-  }
+    backgroundColor: '#666b76',
+  },
 });

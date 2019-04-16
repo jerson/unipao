@@ -25,13 +25,13 @@ export default class MaterialsSectionScreen extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   state: State = {
     html: '',
     isLoading: true,
-    cacheLoaded: false
+    cacheLoaded: false,
   };
   load = async () => {
     this.setState({ isLoading: true, cacheLoaded: false });
@@ -39,12 +39,12 @@ export default class MaterialsSectionScreen extends React.Component<
     await this.loadRequest();
   };
   getCacheKey = () => {
-    let { section } = this.props;
+    const { section } = this.props;
     return `materials_section_${section.id}`;
   };
   checkCache = async () => {
     try {
-      let data = await CacheStorage.get(this.getCacheKey());
+      const data = await CacheStorage.get(this.getCacheKey());
       data && this.loadResponse(data, true);
     } catch (e) {
       Log.info(TAG, 'checkCache', e);
@@ -54,15 +54,15 @@ export default class MaterialsSectionScreen extends React.Component<
     this.setState({
       cacheLoaded,
       html,
-      isLoading: false
+      isLoading: false,
     });
   };
   loadRequest = async () => {
-    let { section } = this.props;
-    let { cacheLoaded } = this.state;
+    const { section } = this.props;
+    const { cacheLoaded } = this.state;
 
     try {
-      let item = await UPAO.Student.Intranet.Course.getMaterialsHTML(section);
+      const item = await UPAO.Student.Intranet.Course.getMaterialsHTML(section);
       this.loadResponse(item);
       CacheStorage.set(this.getCacheKey(), item);
     } catch (e) {
@@ -71,7 +71,7 @@ export default class MaterialsSectionScreen extends React.Component<
         this.loadResponse('');
       } else {
         this.setState({
-          isLoading: false
+          isLoading: false,
         });
       }
     }
@@ -86,8 +86,8 @@ export default class MaterialsSectionScreen extends React.Component<
   }
 
   render() {
-    let { html: content, isLoading } = this.state;
-    let html = `
+    const { html: content, isLoading } = this.state;
+    const html = `
 <html>
 <head>
     <meta name="viewport"
@@ -189,7 +189,7 @@ ${content}
             // openInternally={['campusvirtual.upao.edu.pe']}
             source={{
               html,
-              baseUrl: Config.URL
+              baseUrl: Config.URL,
             }}
           />
         )}
@@ -201,6 +201,6 @@ ${content}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffff'
-  }
+    backgroundColor: '#ffff',
+  },
 });

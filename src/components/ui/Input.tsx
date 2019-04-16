@@ -8,7 +8,7 @@ import {
   TextInputProperties,
   TextStyle,
   View,
-  ViewStyle
+  ViewStyle,
 } from 'react-native';
 
 export interface InputProps extends TextInputProperties {
@@ -29,12 +29,12 @@ export interface State {
 
 export default class Input extends React.Component<InputProps, State> {
   state: State = {
-    value: ''
+    value: '',
   };
 
   refs: any;
   onChangeText = (text: string) => {
-    let { onChangeText } = this.props;
+    const { onChangeText } = this.props;
     this.setValue(text);
     if (typeof onChangeText === 'function') {
       onChangeText(text);
@@ -54,14 +54,14 @@ export default class Input extends React.Component<InputProps, State> {
   }
 
   componentDidMount() {
-    let { defaultValue } = this.props;
+    const { defaultValue } = this.props;
     if (defaultValue) {
       this.setValue(defaultValue);
     }
   }
 
   render() {
-    let {
+    const {
       defaultValue,
       hasError,
       labelStyle,
@@ -72,8 +72,8 @@ export default class Input extends React.Component<InputProps, State> {
       ...props
     } = this.props;
 
-    let { value } = this.state;
-    let newProps = { ...props };
+    const { value } = this.state;
+    const newProps = { ...props };
     newProps.value = value;
     newProps.onChangeText = this.onChangeText;
 
@@ -90,7 +90,7 @@ export default class Input extends React.Component<InputProps, State> {
           style={[
             styles.inputContainer,
             hasError && styles.inputContainerError,
-            containerStyle
+            containerStyle,
           ]}
         >
           <TextInput
@@ -112,10 +112,10 @@ const styles = StyleSheet.create({
   label: {
     color: '#444',
     textAlign: 'center',
-    padding: 4
+    padding: 4,
   },
   labelError: {
-    color: 'red'
+    color: 'red',
   },
   inputContainer: {
     marginTop: 4,
@@ -123,11 +123,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderColor: '#f9f9f9',
     borderWidth: 1,
-    borderRadius: 6
+    borderRadius: 6,
   },
   inputContainerError: {
     backgroundColor: '#ffacb6',
-    borderColor: '#f35f94'
+    borderColor: '#f35f94',
   },
   input: {
     height: 38,
@@ -140,10 +140,10 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     borderColor: 'transparent',
     paddingLeft: 10,
-    paddingRight: 10
+    paddingRight: 10,
   },
   inputError: {
     backgroundColor: 'transparent',
-    color: 'red'
-  }
+    color: 'red',
+  },
 });

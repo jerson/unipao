@@ -14,7 +14,7 @@ export default class LinearGradient extends React.Component<
   State
 > {
   render() {
-    let { ...props } = this.props;
+    const { ...props } = this.props;
     return <LinearGradientBase {...props} />;
   }
 }

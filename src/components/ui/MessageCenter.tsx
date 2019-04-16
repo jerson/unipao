@@ -20,7 +20,7 @@ export default class MessageCenter extends React.Component<
   static counter = 0;
 
   state: State = {
-    messages: []
+    messages: [],
   };
 
   refs: any;
@@ -32,7 +32,7 @@ export default class MessageCenter extends React.Component<
     }
 
     let messages = this.state.messages;
-    let exist = messages.some(message => {
+    const exist = messages.some(message => {
       return params.id === message.id;
     });
 
@@ -57,14 +57,14 @@ export default class MessageCenter extends React.Component<
   }
 
   remove(id: string) {
-    let messages = this.state.messages.filter((item: Message) => {
+    const messages = this.state.messages.filter((item: Message) => {
       return item.id !== id;
     });
     this.setState({ messages });
   }
 
   onHideItem(id: string) {
-    let messageRef: MessageItem = this.refs[`message${id}`];
+    const messageRef: MessageItem = this.refs[`message${id}`];
     if (messageRef) {
       messageRef.hide(() => {
         this.remove(id);
@@ -73,8 +73,8 @@ export default class MessageCenter extends React.Component<
   }
 
   render() {
-    let { messages } = this.state;
-    let { topOffset } = this.props;
+    const { messages } = this.state;
+    const { topOffset } = this.props;
     let top = topOffset || 5;
 
     top += 50 + 20;
@@ -87,7 +87,7 @@ export default class MessageCenter extends React.Component<
               <MessageItem
                 key={item.id}
                 ref={`message${item.id}`}
-                onHide={this.onHideItem.bind(this, item.id)}
+                onHide={this.onHideItem.bind(this, item.id!)}
                 item={item}
               />
             );
@@ -101,7 +101,7 @@ export default class MessageCenter extends React.Component<
 const styles = StyleSheet.create({
   content: {
     zIndex: 100,
-    minWidth: 200
+    minWidth: 200,
   },
   container: {
     zIndex: 300,
@@ -109,6 +109,6 @@ const styles = StyleSheet.create({
     flex: 1,
     position: 'absolute',
     right: 5,
-    left: 5
-  }
+    left: 5,
+  },
 });

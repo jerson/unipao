@@ -5,7 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  View
+  View,
 } from 'react-native';
 import { Color, Theme } from '../../../themes/styles';
 import * as PropTypes from 'prop-types';
@@ -22,11 +22,11 @@ import NavigationButton from '../../../components/ui/NavigationButton';
 import { NewsDetailModel } from '../../../scraping/info/News';
 import {
   NavigationScreenProp,
-  NavigationStackScreenOptions
+  NavigationStackScreenOptions,
 } from 'react-navigation';
 
 export interface NewsListScreenProps {
-  navigation: NavigationScreenProp<null, null>;
+  navigation: NavigationScreenProp<any, any>;
 }
 
 export interface State {
@@ -41,7 +41,7 @@ export default class NewsListScreen extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   static navigationOptions: NavigationStackScreenOptions = {
@@ -52,12 +52,12 @@ export default class NewsListScreen extends React.Component<
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,
-      Theme.shadowDefault
-    ]
+      Theme.shadowDefault,
+    ],
   };
   state: State = {
     cacheLoaded: false,
-    isLoading: true
+    isLoading: true,
   };
   load = async () => {
     this.setState({ isLoading: true, cacheLoaded: false });
@@ -65,12 +65,12 @@ export default class NewsListScreen extends React.Component<
     await this.loadRequest();
   };
   getCacheKey = () => {
-    let { news } = this.getParams();
+    const { news } = this.getParams();
     return `news_${news.id}`;
   };
   checkCache = async () => {
     try {
-      let data = await CacheStorage.get(this.getCacheKey());
+      const data = await CacheStorage.get(this.getCacheKey());
       data && this.loadResponse(data, true);
     } catch (e) {
       Log.info(TAG, 'checkCache', e);
@@ -80,15 +80,15 @@ export default class NewsListScreen extends React.Component<
     this.setState({
       cacheLoaded,
       news,
-      isLoading: false
+      isLoading: false,
     });
   };
   loadRequest = async () => {
-    let { news } = this.getParams();
-    let { cacheLoaded } = this.state;
+    const { news } = this.getParams();
+    const { cacheLoaded } = this.state;
 
     try {
-      let item = await UPAO.Info.News.get(news.id);
+      const item = await UPAO.Info.News.get(news.id);
       this.loadResponse(item);
       CacheStorage.set(this.getCacheKey(), item);
     } catch (e) {
@@ -97,7 +97,7 @@ export default class NewsListScreen extends React.Component<
         this.loadResponse(undefined);
       } else {
         this.setState({
-          isLoading: false
+          isLoading: false,
         });
       }
     }
@@ -108,7 +108,7 @@ export default class NewsListScreen extends React.Component<
   }
 
   getParams(): any {
-    let { params } = this.props.navigation.state || { params: {} };
+    const { params } = this.props.navigation.state || { params: {} };
     return params;
   }
 
@@ -117,15 +117,15 @@ export default class NewsListScreen extends React.Component<
   }
 
   render() {
-    let { news, isLoading } = this.state;
-    let content = news
+    const { news, isLoading } = this.state;
+    const content = news
       ? news.content
           .replace(new RegExp('o:', 'gm'), '')
           .replace(/(\r\n|\n|\r)/gm, '')
       : '';
-    let subtitle = news ? news.subtitle : '';
-    let { height } = Dimensions.get('window');
-    let itemHeight = height / 2;
+    const subtitle = news ? news.subtitle : '';
+    const { height } = Dimensions.get('window');
+    const itemHeight = height / 2;
 
     return (
       <View style={[styles.container]}>
@@ -144,12 +144,12 @@ export default class NewsListScreen extends React.Component<
                 <View style={styles.infoContainer}>
                   <Touchable
                     onPress={() => {
-                      //test
-                      let options = {
+                      // test
+                      const options = {
                         title: news ? news.title : '',
                         message: _('Lee esta noticia en UniPAO'),
                         url: 'http://unipao.com/',
-                        subject: _('Compartir')
+                        subject: _('Compartir'),
                       };
                       Share.open(options);
                     }}
@@ -191,62 +191,62 @@ const stylesSubHTML = StyleSheet.create({
   p: {
     color: '#999',
     marginTop: 2,
-    backgroundColor: 'transparent'
-  }
+    backgroundColor: 'transparent',
+  },
 });
 const stylesHTML = StyleSheet.create({
   p: {
     color: '#555',
     marginTop: 2,
     marginBottom: 2,
-    textAlign: 'justify'
+    textAlign: 'justify',
   },
   span: {},
   div: {
     color: '#555',
     marginTop: 0,
     marginBottom: 0,
-    textAlign: 'justify'
+    textAlign: 'justify',
   },
   ul: {
     marginTop: 5,
-    marginBottom: 5
+    marginBottom: 5,
   },
   ol: {
     marginTop: 5,
-    marginBottom: 5
+    marginBottom: 5,
   },
   strong: {
     color: '#111',
-    fontWeight: 'bold'
-  }
+    fontWeight: 'bold',
+  },
 });
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
   scroll: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
   contentContainer: {
     padding: 10,
-    paddingTop: 0
+    paddingTop: 0,
   },
   name: {
     color: '#444',
     fontSize: 16,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   content: {
     maxWidth: 600,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   infoContainer: {
-    padding: 10
+    padding: 10,
   },
   image: {
-    height: 350
-  }
+    height: 350,
+  },
 });

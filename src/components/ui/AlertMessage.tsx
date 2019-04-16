@@ -5,7 +5,7 @@ import {
   Text,
   TextStyle,
   View,
-  ViewStyle
+  ViewStyle,
 } from 'react-native';
 import Icon, { IconType } from './Icon';
 import Touchable from './Touchable';
@@ -43,7 +43,7 @@ export default class AlertMessage extends React.Component<
   State
 > {
   state: State = {
-    isVisible: true
+    isVisible: true,
   };
 
   close = () => {
@@ -51,7 +51,7 @@ export default class AlertMessage extends React.Component<
   };
 
   render() {
-    let {
+    const {
       message,
       isLoading,
       icon,
@@ -62,10 +62,10 @@ export default class AlertMessage extends React.Component<
       title,
       titleStyle,
       type,
-      style
+      style,
     } = this.props;
 
-    let { isVisible } = this.state;
+    const { isVisible } = this.state;
 
     if (!isVisible) {
       return null;
@@ -112,7 +112,7 @@ export default class AlertMessage extends React.Component<
         typeTitleStyle = styles.titleSuccess;
         break;
     }
-    let sizeIcon = 30;
+    const sizeIcon = 30;
 
     return (
       <View
@@ -125,15 +125,14 @@ export default class AlertMessage extends React.Component<
             size={sizeIcon}
           />
         )}
-        {icon &&
-          !isLoading && (
-            <Icon
-              style={[styles.icon, { color: typeIconColor }, iconStyle]}
-              type={iconType}
-              name={icon}
-              size={sizeIcon}
-            />
-          )}
+        {icon && !isLoading && (
+          <Icon
+            style={[styles.icon, { color: typeIconColor }, iconStyle]}
+            type={iconType}
+            name={icon}
+            size={sizeIcon}
+          />
+        )}
         <View style={styles.alert}>
           {title && (
             <Text style={[styles.title, typeTitleStyle, titleStyle]}>
@@ -163,7 +162,7 @@ export default class AlertMessage extends React.Component<
 
 const styles = StyleSheet.create({
   icon: {
-    marginRight: 6
+    marginRight: 6,
   },
   container: {
     marginTop: 4,
@@ -174,60 +173,60 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     padding: 10,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   containerPrimary: {
-    backgroundColor: '#0d61ac'
+    backgroundColor: '#0d61ac',
   },
   containerDanger: {
-    backgroundColor: '#cf4346'
+    backgroundColor: '#cf4346',
   },
   containerWarning: {
-    backgroundColor: '#f59331'
+    backgroundColor: '#f59331',
   },
   containerInfo: {
-    backgroundColor: '#2e91cf'
+    backgroundColor: '#2e91cf',
   },
   containerSuccess: {
-    backgroundColor: '#74cf67'
+    backgroundColor: '#74cf67',
   },
   alert: { flex: 1 },
   text: {
     fontSize: 13,
-    color: '#000'
+    color: '#000',
   },
   textPrimary: {
-    color: '#fff'
+    color: '#fff',
   },
   textDanger: {
-    color: '#fff'
+    color: '#fff',
   },
   textWarning: {
-    color: '#fff'
+    color: '#fff',
   },
   textInfo: {
-    color: '#fff'
+    color: '#fff',
   },
   textSuccess: {
-    color: '#fff'
+    color: '#fff',
   },
   title: {
     fontSize: 15,
-    color: '#fff'
+    color: '#fff',
   },
   titlePrimary: {
-    color: '#fff'
+    color: '#fff',
   },
   titleDanger: {
-    color: '#fff'
+    color: '#fff',
   },
   titleWarning: {
-    color: '#fff'
+    color: '#fff',
   },
   titleInfo: {
-    color: '#fff'
+    color: '#fff',
   },
   titleSuccess: {
-    color: '#fff'
-  }
+    color: '#fff',
+  },
 });

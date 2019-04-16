@@ -19,13 +19,13 @@ export default class GradeReportHeader extends React.PureComponent<
 > {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
-    navigation: PropTypes.object.isRequired
+    navigation: PropTypes.object.isRequired,
   };
 
   state: State = {};
 
   render() {
-    let { report } = this.props;
+    const { report } = this.props;
 
     return (
       <View style={[styles.container]}>
@@ -69,20 +69,20 @@ export default class GradeReportHeader extends React.PureComponent<
 const styles = StyleSheet.create({
   item: {
     padding: 1,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   description: {
     color: 'rgba(255,255,255,0.6)',
     fontSize: 12,
-    paddingRight: 5
+    paddingRight: 5,
   },
   value: {
     color: '#fff',
     fontSize: 12,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   container: {
     padding: 10,
-    backgroundColor: '#0d61ac'
-  }
+    backgroundColor: '#0d61ac',
+  },
 });

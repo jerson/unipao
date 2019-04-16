@@ -10,11 +10,11 @@ import ViewSpacer from '../components/ui/ViewSpacer';
 import { _ } from '../modules/i18n/Translator';
 import {
   NavigationScreenProp,
-  NavigationStackScreenOptions
+  NavigationStackScreenOptions,
 } from 'react-navigation';
 
 export interface AboutScreenProps {
-  navigation: NavigationScreenProp<null, null>;
+  navigation: NavigationScreenProp<any, any>;
 }
 
 export interface State {}
@@ -25,7 +25,7 @@ export default class AboutScreen extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   static navigationOptions: NavigationStackScreenOptions = {
@@ -33,7 +33,7 @@ export default class AboutScreen extends React.Component<
     headerBackTitle: null,
     headerTitleStyle: Theme.title,
     headerTintColor: Color.tintColor,
-    headerStyle: [Theme.navigationBar]
+    headerStyle: [Theme.navigationBar],
   };
 
   state: State = {};
@@ -51,7 +51,7 @@ export default class AboutScreen extends React.Component<
   }
 
   render() {
-    let minHeight = Dimensions.get('window').height;
+    const minHeight = Dimensions.get('window').height;
     return (
       <View style={{ flex: 1 }}>
         <Background />
@@ -116,26 +116,26 @@ const styles = StyleSheet.create({
   content: {
     paddingTop: 30,
     paddingBottom: 10,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   icon: {
     fontSize: 60,
     alignSelf: 'center',
     color: '#fff',
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   sectionTitle: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   text: {
     color: '#fff',
     backgroundColor: 'transparent',
-    padding: 5
+    padding: 5,
   },
   formContainer: {
     marginTop: 10,
     marginBottom: 10,
     width: 300,
-    alignSelf: 'center'
-  }
+    alignSelf: 'center',
+  },
 });

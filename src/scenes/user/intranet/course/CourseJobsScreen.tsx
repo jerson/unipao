@@ -6,13 +6,13 @@ import NavigationButton from '../../../../components/ui/NavigationButton';
 import Loading from '../../../../components/ui/Loading';
 import * as PropTypes from 'prop-types';
 import {
+  createMaterialTopTabNavigator,
   NavigationContainer,
   NavigationRouteConfigMap,
   NavigationScreenConfigProps,
   NavigationScreenProp,
   NavigationStackScreenOptions,
   NavigationTabScreenOptions,
-  TabNavigator
 } from 'react-navigation';
 import { tabsOptions } from '../../../../routers/Tabs';
 import Log from '../../../../modules/logger/Log';
@@ -23,7 +23,7 @@ import { SectionModel } from '../../../../scraping/student/intranet/Course';
 import AlertMessage from '../../../../components/ui/AlertMessage';
 
 export interface CourseJobsScreenProps {
-  navigation: NavigationScreenProp<null, null>;
+  navigation: NavigationScreenProp<any, any>;
 }
 
 export interface State {
@@ -39,11 +39,12 @@ export default class CourseJobsScreen extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
+
   static navigationOptions = ({
     navigation,
-    screenProps
+    screenProps,
   }: NavigationScreenConfigProps): NavigationStackScreenOptions => ({
     headerBackTitle: null,
     title: _('Trabajos del curso'),
@@ -54,32 +55,32 @@ export default class CourseJobsScreen extends React.Component<
       <View style={{ flexDirection: 'row' }}>
         <NavigationButton
           onPress={() => {
-            navigation.state.params.reload();
+            navigation.state.params!.reload();
           }}
           icon={'refresh'}
           iconType={'MaterialIcons'}
         />
       </View>
-    )
+    ),
   });
-
   state: State = {
     isLoading: true,
     cacheLoaded: false,
-    isReloading: false
+    isReloading: false,
   };
+
   load = async () => {
     this.setState({ isLoading: true, cacheLoaded: false });
     await this.checkCache();
     await this.loadRequest();
   };
   getCacheKey = () => {
-    let { course } = this.getParams();
+    const { course } = this.getParams();
     return `jobs_sections_${course.id || '_'}`;
   };
   checkCache = async () => {
     try {
-      let data = await CacheStorage.get(this.getCacheKey());
+      const data = await CacheStorage.get(this.getCacheKey());
       data && this.loadResponse(data, true);
     } catch (e) {
       Log.info(TAG, 'checkCache', e);
@@ -88,20 +89,20 @@ export default class CourseJobsScreen extends React.Component<
   loadResponse = (data: SectionModel[], cacheLoaded = false) => {
     let tabs: NavigationRouteConfigMap = {};
 
-    for (let item of data) {
+    for (const item of data) {
       if (!tabs[item.name]) {
         tabs[item.name] = {
           screen: () => {
             return <JobsSectionScreen section={item} />;
           },
           navigationOptions: {
-            tabBarLabel: item.name
-          } as NavigationTabScreenOptions
+            tabBarLabel: item.name,
+          } as NavigationTabScreenOptions,
         };
       }
     }
 
-    let totalTabs = Object.keys(tabs);
+    const totalTabs = Object.keys(tabs);
     if (totalTabs.length < 1) {
       tabs = {
         NO: {
@@ -109,30 +110,32 @@ export default class CourseJobsScreen extends React.Component<
             return <AlertMessage message={_('No hay datos')} />;
           },
           navigationOptions: {
-            tabBarLabel: _('Error')
-          } as NavigationTabScreenOptions
-        }
+            tabBarLabel: _('Error'),
+          } as NavigationTabScreenOptions,
+        },
       };
     }
-    let Tabs = TabNavigator(tabs, {
+    const Tabs = createMaterialTopTabNavigator(tabs, {
       ...tabsOptions,
       tabBarOptions: {
         ...tabsOptions.tabBarOptions,
-        scrollEnabled: false
-      }
+        scrollEnabled: false,
+      },
     });
     this.setState({
       cacheLoaded,
       Tabs,
-      isLoading: false
+      isLoading: false,
     });
   };
   loadRequest = async () => {
-    let { cacheLoaded } = this.state;
+    const { cacheLoaded } = this.state;
 
     try {
-      let { course } = this.getParams();
-      let sections = await UPAO.Student.Intranet.Course.getJobsSections(course);
+      const { course } = this.getParams();
+      const sections = await UPAO.Student.Intranet.Course.getJobsSections(
+        course
+      );
 
       this.loadResponse(sections);
       CacheStorage.set(this.getCacheKey(), sections);
@@ -154,7 +157,7 @@ export default class CourseJobsScreen extends React.Component<
   }
 
   getParams(): any {
-    let { params } = this.props.navigation.state || { params: {} };
+    const { params } = this.props.navigation.state || { params: {} };
     return params;
   }
 
@@ -164,7 +167,7 @@ export default class CourseJobsScreen extends React.Component<
   }
 
   render() {
-    let { Tabs, isLoading } = this.state;
+    const { Tabs, isLoading } = this.state;
 
     return (
       <View style={[styles.container]}>
@@ -177,6 +180,6 @@ export default class CourseJobsScreen extends React.Component<
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });

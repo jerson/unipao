@@ -4,7 +4,7 @@ import {
   ListRenderItemInfo,
   RefreshControl,
   StyleSheet,
-  View
+  View,
 } from 'react-native';
 import { Color, Theme } from '../../../themes/styles';
 import * as PropTypes from 'prop-types';
@@ -16,7 +16,7 @@ import CacheStorage from '../../../modules/storage/CacheStorage';
 import UPAO from '../../../scraping/UPAO';
 import {
   NavigationScreenProp,
-  NavigationStackScreenOptions
+  NavigationStackScreenOptions,
 } from 'react-navigation';
 import { AgendaModel } from '../../../scraping/info/Agenda';
 import AlertMessage from '../../../components/ui/AlertMessage';
@@ -24,7 +24,7 @@ import AlertMessage from '../../../components/ui/AlertMessage';
 const moment = require('moment');
 
 export interface AgendaListScreenProps {
-  navigation: NavigationScreenProp<null, null>;
+  navigation: NavigationScreenProp<any, any>;
 }
 
 export interface State {
@@ -42,7 +42,7 @@ export default class AgendaListScreen extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   static navigationOptions: NavigationStackScreenOptions = {
@@ -53,8 +53,8 @@ export default class AgendaListScreen extends React.Component<
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,
-      Theme.shadowDefault
-    ]
+      Theme.shadowDefault,
+    ],
   };
 
   refs: any;
@@ -64,11 +64,11 @@ export default class AgendaListScreen extends React.Component<
     year: moment().format('YYYY'),
     isRefreshing: false,
     cacheLoaded: false,
-    isLoading: true
+    isLoading: true,
   };
 
   load = async () => {
-    let { isRefreshing } = this.state;
+    const { isRefreshing } = this.state;
 
     if (!isRefreshing) {
       this.setState({ isLoading: true, cacheLoaded: false });
@@ -77,12 +77,12 @@ export default class AgendaListScreen extends React.Component<
     await this.loadRequest();
   };
   getCacheKey = () => {
-    let { month, year } = this.state;
+    const { month, year } = this.state;
     return `agendaList_${month}_${year}`;
   };
   checkCache = async () => {
     try {
-      let data = await CacheStorage.get(this.getCacheKey());
+      const data = await CacheStorage.get(this.getCacheKey());
       data && this.loadResponse(data, true);
     } catch (e) {
       Log.info(TAG, 'checkCache', e);
@@ -94,8 +94,8 @@ export default class AgendaListScreen extends React.Component<
     let i = 0;
     if (data) {
       exist = false;
-      for (let item of data) {
-        let isToday = this.isToday(item);
+      for (const item of data) {
+        const isToday = this.isToday(item);
         if (isToday) {
           exist = true;
           break;
@@ -114,17 +114,17 @@ export default class AgendaListScreen extends React.Component<
             this.refs.list.scrollToIndex({
               animated: true,
               index: i,
-              viewPosition: 0.5
+              viewPosition: 0.5,
             });
         }, 1000);
       }
     );
   };
   loadRequest = async () => {
-    let { cacheLoaded, month, year } = this.state;
+    const { cacheLoaded, month, year } = this.state;
 
     try {
-      let items = await UPAO.Info.Agenda.getList(1);
+      const items = await UPAO.Info.Agenda.getList(1);
       this.loadResponse(items);
       CacheStorage.set(this.getCacheKey(), items);
     } catch (e) {
@@ -137,13 +137,13 @@ export default class AgendaListScreen extends React.Component<
     }
   };
   isToday = (item: AgendaModel) => {
-    let { month, year } = this.state;
-    let day = item.dayOfMonth;
-    let date = `${day}/${month}/${year}`;
+    const { month, year } = this.state;
+    const day = item.dayOfMonth;
+    const date = `${day}/${month}/${year}`;
     return date === moment().format('DD/MM/YYYY');
   };
   renderItem = ({ item, index }: ListRenderItemInfo<AgendaModel>) => {
-    let isToday = this.isToday(item);
+    const isToday = this.isToday(item);
     return <AgendaItem isToday={isToday} agenda={item} />;
   };
   onRefresh = () => {
@@ -161,23 +161,19 @@ export default class AgendaListScreen extends React.Component<
   }
 
   render() {
-    let { isLoading, isRefreshing, agendaList } = this.state;
+    const { isLoading, isRefreshing, agendaList } = this.state;
     return (
       <View style={[styles.container]}>
-        {!isLoading &&
-          agendaList.length < 1 && (
-            <AlertMessage
-              type={'warning'}
-              title={_('No se encontraron datos')}
-            />
-          )}
+        {!isLoading && agendaList.length < 1 && (
+          <AlertMessage type={'warning'} title={_('No se encontraron datos')} />
+        )}
         {isLoading && <Loading margin />}
         <FlatList
           ref={'list'}
           data={agendaList}
           showsVerticalScrollIndicator={true}
           getItemLayout={(data, index) => {
-            let height = 145;
+            const height = 145;
             return { length: height, offset: height * index, index };
           }}
           refreshControl={
@@ -199,6 +195,6 @@ export default class AgendaListScreen extends React.Component<
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
-  }
+    backgroundColor: '#fff',
+  },
 });

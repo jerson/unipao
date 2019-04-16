@@ -12,28 +12,28 @@ export interface AgendaModel {
 const TAG = 'Agenda';
 export default class Agenda {
   static async getList(page: number): Promise<AgendaModel[]> {
-    let items: AgendaModel[] = [];
-    let defaultItem: AgendaModel = {
+    const items: AgendaModel[] = [];
+    const defaultItem: AgendaModel = {
       dayOfMonth: 0,
       dayName: '',
       description: '',
       title: '',
-      property: ''
+      property: '',
     };
     try {
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         'http://www.upao.edu.pe/actualidad/?mod=mod_act&s=age&Page=' + page,
         {},
         { tag: 'Agenda.getList', checkSession: false }
       );
 
-      let $container = $('#ctl00_ContentPlaceHolder1_ctl00_ctl00_cont');
+      const $container = $('#ctl00_ContentPlaceHolder1_ctl00_ctl00_cont');
 
       $('.calendario', $container).each((index, value) => {
         if (!items[index]) {
           items[index] = { ...defaultItem };
         }
-        let dayOfMonth = $('.dia', value)
+        const dayOfMonth = $('.dia', value)
           .text()
           .trim();
         items[index].dayOfMonth = parseInt(dayOfMonth, 10);

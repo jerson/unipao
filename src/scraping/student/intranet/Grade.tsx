@@ -34,7 +34,7 @@ export interface GradeReportModel {
 const TAG = 'Grade';
 export default class Grade {
   static async getLevelByCode(levelCode: string): Promise<LevelModel> {
-    let levels = await this.getLevels();
+    const levels = await this.getLevels();
     let name = '';
     switch (levelCode.toUpperCase()) {
       case 'UT':
@@ -55,7 +55,7 @@ export default class Grade {
     }
 
     console.log(levels);
-    for (let level of levels) {
+    for (const level of levels) {
       if (level.name.indexOf(name) !== -1) {
         return level;
       }
@@ -64,33 +64,33 @@ export default class Grade {
   }
 
   static async getLevels(): Promise<LevelModel[]> {
-    let levels: LevelModel[] = [];
+    const levels: LevelModel[] = [];
     try {
-      //litle hack
+      // litle hack
       await RequestUtil.fetch(
         '/aulavirtual.aspx?f=YAGMURO&r=A',
         {},
         { tag: 'Grade.getLevels', checkSession: true }
       );
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         '/aulavirtual.aspx?f=YAAFIMA&r=A',
         {},
         { tag: 'Grade.getLevels', checkSession: true }
       );
 
-      let $content = $('#cbo_afima_nivel');
+      const $content = $('#cbo_afima_nivel');
       $('option', $content).each((index, value) => {
-        let id = ($(value).attr('value') || '').trim();
+        const id = ($(value).attr('value') || '').trim();
 
         if (!id) {
           return;
         }
-        let name = $(value)
+        const name = $(value)
           .text()
           .trim();
         levels.push({
           id,
-          name
+          name,
         });
       });
     } catch (e) {
@@ -102,37 +102,37 @@ export default class Grade {
   }
 
   static async getPrograms(levelGrade: string): Promise<ProgramModel[]> {
-    let programs: ProgramModel[] = [];
+    const programs: ProgramModel[] = [];
     try {
-      let params = {
+      const params = {
         f: 'YAAFIMA',
         a: 'CTRL_CBO_PROGRAMA',
         codigo_uno: levelGrade,
-        codigo_dos: '_afima_'
+        codigo_dos: '_afima_',
       };
 
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         '/controlador/cargador.aspx',
         {
           method: 'POST',
-          body: ParamsUtils.getFormData(params)
+          body: ParamsUtils.getFormData(params),
         },
         { tag: 'Grade.getPrograms', checkSession: true }
       );
 
-      let $content = $('#cbo_afima_programa');
+      const $content = $('#cbo_afima_programa');
       $('option', $content).each((index, value) => {
-        let id = ($(value).attr('value') || '').trim();
+        const id = ($(value).attr('value') || '').trim();
 
         if (!id) {
           return;
         }
-        let name = $(value)
+        const name = $(value)
           .text()
           .trim();
         programs.push({
           id,
-          name
+          name,
         });
       });
     } catch (e) {
@@ -147,14 +147,14 @@ export default class Grade {
     levelGrade: string,
     program: string
   ): Promise<GradeReportModel> {
-    let report: GradeReportModel = {
+    const report: GradeReportModel = {
       items: [],
       weightedAverageCumulative: 0,
       approvedCourses: 0,
       lastAcademicSemester: 0,
       semiannualWeightedAverage: 0,
       approvedCredits: 0,
-      graduated: false
+      graduated: false,
     };
     let $;
     try {
@@ -175,60 +175,60 @@ export default class Grade {
       .replace(/&apos;/g, '')
       .replace(/'/g, '');
 
-    let params = {
+    const params = {
       f: 'YAAFIMA',
       a: 'LIST_REPORTE_NOTAS',
       codigo_uno: levelGrade,
       codigo_dos: program,
-      codigo_tres: codeScript
+      codigo_tres: codeScript,
     };
 
     try {
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         '/controlador/cargador.aspx',
         {
           method: 'POST',
-          body: ParamsUtils.getFormData(params)
+          body: ParamsUtils.getFormData(params),
         },
         { tag: 'Grade.get', checkSession: true, ajax: true }
       );
-      let $tableReport = $('table:first-child');
+      const $tableReport = $('table:first-child');
       $('> tr', $tableReport).each((index, value) => {
-        let cycle = $('td:nth-child(1)', value)
+        const cycle = $('td:nth-child(1)', value)
           .text()
           .trim();
 
-        let cycleCheck = parseInt(cycle, 10);
+        const cycleCheck = parseInt(cycle, 10);
 
         if (cycleCheck > 0) {
-          let cycle = $('td:nth-child(1)', value)
+          const cycle = $('td:nth-child(1)', value)
             .text()
             .trim();
-          let course = $('td:nth-child(2)', value)
+          const course = $('td:nth-child(2)', value)
             .text()
             .trim();
-          let description = $('td:nth-child(3)', value)
+          const description = $('td:nth-child(3)', value)
             .text()
             .trim();
-          let credits = $('td:nth-child(4)', value)
+          const credits = $('td:nth-child(4)', value)
             .text()
             .trim();
-          let semester = $('td:nth-child(5)', value)
+          const semester = $('td:nth-child(5)', value)
             .text()
             .trim();
-          let type = $('td:nth-child(6)', value)
+          const type = $('td:nth-child(6)', value)
             .text()
             .trim();
-          let finalGrade = $('td:nth-child(7)', value)
+          const finalGrade = $('td:nth-child(7)', value)
             .text()
             .trim();
-          let apl = $('td:nth-child(8)', value)
+          const apl = $('td:nth-child(8)', value)
             .text()
             .trim();
-          let ppa = $('td:nth-child(9)', value)
+          const ppa = $('td:nth-child(9)', value)
             .text()
             .trim();
-          let pps = $('td:nth-child(10)', value)
+          const pps = $('td:nth-child(10)', value)
             .text()
             .trim();
 
@@ -242,41 +242,41 @@ export default class Grade {
             finalGrade,
             apl,
             ppa,
-            pps
+            pps,
           });
         }
       });
 
-      let $tableResume = $('table:nth-child(2)');
-      let weightedAverageCumulative = parseFloat(
+      const $tableResume = $('table:nth-child(2)');
+      const weightedAverageCumulative = parseFloat(
         $('> tr:nth-child(1) > td:nth-child(2)', $tableResume)
           .text()
           .trim()
       );
-      let approvedCourses = parseInt(
+      const approvedCourses = parseInt(
         $('> tr:nth-child(1) > td:nth-child(4)', $tableResume)
           .text()
           .trim(),
         10
       );
-      let lastAcademicSemester = parseInt(
+      const lastAcademicSemester = parseInt(
         $('> tr:nth-child(1) > td:nth-child(6)', $tableResume)
           .text()
           .trim(),
         10
       );
-      let semiannualWeightedAverage = parseFloat(
+      const semiannualWeightedAverage = parseFloat(
         $('> tr:nth-child(2) > td:nth-child(2)', $tableResume)
           .text()
           .trim()
       );
-      let approvedCredits = parseInt(
+      const approvedCredits = parseInt(
         $('> tr:nth-child(2) > td:nth-child(4)', $tableResume)
           .text()
           .trim(),
         10
       );
-      let graduated =
+      const graduated =
         $('tr:nth-child(2) > td:nth-child(6)', $tableResume)
           .text()
           .trim() === 'SI';

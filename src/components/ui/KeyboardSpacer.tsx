@@ -5,7 +5,7 @@ import {
   LayoutAnimation,
   Platform,
   StyleSheet,
-  View
+  View,
 } from 'react-native';
 
 export interface KeyboardSpacerProps {
@@ -32,7 +32,7 @@ export default class KeyboardSpacer extends React.Component<
 class KeyboardSpacerBase extends React.Component<KeyboardSpacerProps, State> {
   static defaultProps = {
     topSpacing: 0,
-    onToggle: () => null
+    onToggle: () => null,
   };
   private _listeners: any;
   private _updateKeyboardSpace: any;
@@ -42,7 +42,7 @@ class KeyboardSpacerBase extends React.Component<KeyboardSpacerProps, State> {
     super(props, context);
     this.state = {
       keyboardSpace: 0,
-      isKeyboardOpened: false
+      isKeyboardOpened: false,
     };
     this._listeners = null;
     this._updateKeyboardSpace = this.updateKeyboardSpace.bind(this);
@@ -56,7 +56,7 @@ class KeyboardSpacerBase extends React.Component<KeyboardSpacerProps, State> {
       Platform.OS === 'android' ? 'keyboardDidHide' : 'keyboardWillHide';
     this._listeners = [
       Keyboard.addListener(updateListener, this._updateKeyboardSpace),
-      Keyboard.addListener(resetListener, this._resetKeyboardSpace)
+      Keyboard.addListener(resetListener, this._resetKeyboardSpace),
     ];
   }
 
@@ -89,7 +89,7 @@ class KeyboardSpacerBase extends React.Component<KeyboardSpacerProps, State> {
     this.setState(
       {
         keyboardSpace,
-        isKeyboardOpened: true
+        isKeyboardOpened: true,
       },
       this.props.onToggle(true, keyboardSpace)
     );
@@ -109,7 +109,7 @@ class KeyboardSpacerBase extends React.Component<KeyboardSpacerProps, State> {
     this.setState(
       {
         keyboardSpace: 0,
-        isKeyboardOpened: false
+        isKeyboardOpened: false,
       },
       this.props.onToggle(false, 0)
     );
@@ -121,7 +121,7 @@ class KeyboardSpacerBase extends React.Component<KeyboardSpacerProps, State> {
         style={[
           styles.container,
           { height: this.state.keyboardSpace },
-          this.props.style
+          this.props.style,
         ]}
       />
     );
@@ -132,8 +132,8 @@ const styles = StyleSheet.create({
   container: {
     left: 0,
     right: 0,
-    bottom: 0
-  }
+    bottom: 0,
+  },
 });
 
 // From: https://medium.com/man-moon/writing-modern-react-native-ui-e317ff956f02
@@ -142,10 +142,10 @@ const defaultAnimation = {
   create: {
     duration: 300,
     type: LayoutAnimation.Types.easeInEaseOut,
-    property: LayoutAnimation.Properties.opacity
+    property: LayoutAnimation.Properties.opacity,
   },
   update: {
     type: LayoutAnimation.Types.spring,
-    springDamping: 200
-  }
+    springDamping: 200,
+  },
 };

@@ -31,7 +31,7 @@ export default class IntranetScreen extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   state: State = {
@@ -42,7 +42,7 @@ export default class IntranetScreen extends React.Component<
         description: _('22 carreras Profesionales'),
         icon: 'user-o',
         level: 'UG',
-        iconType: 'FontAwesome'
+        iconType: 'FontAwesome',
       },
       {
         route: 'Level',
@@ -50,7 +50,7 @@ export default class IntranetScreen extends React.Component<
         description: _('Inglés, Francés y Portugues'),
         icon: 'language',
         level: 'UB',
-        iconType: 'Entypo'
+        iconType: 'Entypo',
       },
       {
         route: 'Level',
@@ -58,7 +58,7 @@ export default class IntranetScreen extends React.Component<
         description: _('Estudios de Postgrado'),
         icon: 'graduation-cap',
         level: 'GR',
-        iconType: 'Entypo'
+        iconType: 'Entypo',
       },
       {
         route: 'Level',
@@ -66,14 +66,14 @@ export default class IntranetScreen extends React.Component<
         description: _('Plan de estudios actualizados'),
         icon: 'work',
         level: 'UT',
-        iconType: 'MaterialIcons'
-      }
-    ]
+        iconType: 'MaterialIcons',
+      },
+    ],
   };
 
   renderItem = ({
     item,
-    index
+    index,
   }: ListRenderItemInfo<IntranetOptionItemModel>) => {
     return (
       <IntranetOptionItem
@@ -105,8 +105,8 @@ export default class IntranetScreen extends React.Component<
   }
 
   render() {
-    let { items } = this.state;
-    let { height } = Dimensions.get('window');
+    const { items } = this.state;
+    const { height } = Dimensions.get('window');
 
     return (
       <View style={[styles.container]}>
@@ -130,10 +130,10 @@ export default class IntranetScreen extends React.Component<
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f4f4f4'
+    backgroundColor: '#f4f4f4',
   },
   content: {
     justifyContent: 'center',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 });

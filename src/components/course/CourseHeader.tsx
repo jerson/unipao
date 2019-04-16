@@ -18,7 +18,7 @@ export default class CourseHeader extends React.Component<
 > {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
-    navigation: PropTypes.object.isRequired
+    navigation: PropTypes.object.isRequired,
   };
 
   state: State = {};
@@ -26,14 +26,14 @@ export default class CourseHeader extends React.Component<
   onPress = () => {};
 
   render() {
-    let paddingTop = DimensionUtil.getStatusBarPadding();
-    let { course } = this.props;
+    const paddingTop = DimensionUtil.getStatusBarPadding();
+    const { course } = this.props;
     return (
       <Touchable onPress={this.onPress}>
         <View
           style={[
             styles.container,
-            { paddingTop: Platform.OS === 'ios' ? 30 : 10 }
+            { paddingTop: Platform.OS === 'ios' ? 30 : 10 },
           ]}
         >
           {/*<LinearGradient*/}
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: 100,
-    bottom: 0
+    bottom: 0,
   },
   container: {
     backgroundColor: '#f4f4f4',
@@ -80,41 +80,41 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingBottom: 20,
     // flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   imageContainer: {
     padding: 5,
     paddingLeft: 0,
     position: 'relative',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   image: {
     width: 100,
     height: 100,
-    borderRadius: 100 / 2
+    borderRadius: 100 / 2,
   },
   imagePlaceholder: {
     position: 'absolute',
     left: 0,
     width: 100,
     height: 100,
-    borderRadius: 100 / 2
+    borderRadius: 100 / 2,
   },
   infoContainer: {
     paddingLeft: 5,
-    alignItems: 'center'
+    alignItems: 'center',
     // flex: 1
   },
   title: {
     fontSize: 17,
     color: '#666',
-    textAlign: 'center'
+    textAlign: 'center',
     // fontWeight: 'bold'
   },
   subtitle: {
     fontSize: 14,
     textAlign: 'center',
     color: '#0d61ac',
-    fontWeight: 'bold'
-  }
+    fontWeight: 'bold',
+  },
 });

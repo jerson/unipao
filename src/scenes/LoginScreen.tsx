@@ -5,11 +5,11 @@ import {
   ScrollView,
   StyleSheet,
   View,
-  WebView
+  WebView,
 } from 'react-native';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
-import { Theme, Color } from '../themes/styles';
+import { Color, Theme } from '../themes/styles';
 import * as PropTypes from 'prop-types';
 import Log from '../modules/logger/Log';
 import Emitter from '../modules/listener/Emitter';
@@ -26,14 +26,15 @@ import { _ } from '../modules/i18n/Translator';
 import UPAO from '../scraping/UPAO';
 import {
   NavigationScreenProp,
-  NavigationStackScreenOptions
+  NavigationStackScreenOptions,
 } from 'react-navigation';
 import AlertMessage from '../components/ui/AlertMessage';
 import { Params } from '../scraping/utils/ParamsUtils';
+
 const fetchCancelable = require('react-native-cancelable-fetch');
 
 export interface LoginScreenProps {
-  navigation: NavigationScreenProp<null, null>;
+  navigation: NavigationScreenProp<any, any>;
 }
 
 export interface State {
@@ -57,7 +58,7 @@ export default class LoginScreen extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   static navigationOptions: NavigationStackScreenOptions = {
@@ -65,7 +66,7 @@ export default class LoginScreen extends React.Component<
     headerBackTitle: null,
     headerTitleStyle: Theme.title,
     headerTintColor: Color.tintColor,
-    headerStyle: [Theme.navigationBar]
+    headerStyle: [Theme.navigationBar],
   };
 
   state: State = {
@@ -76,7 +77,7 @@ export default class LoginScreen extends React.Component<
     isLoading: false,
     params: undefined,
     loadedCredentials: false,
-    defaults: {}
+    defaults: {},
   };
   refs: any;
 
@@ -90,7 +91,7 @@ export default class LoginScreen extends React.Component<
   };
 
   loginPrepare = async () => {
-    let username = this.refs.username.getValue();
+    const username = this.refs.username.getValue();
 
     if (!username) {
       this.context.notification.show({
@@ -99,7 +100,7 @@ export default class LoginScreen extends React.Component<
         icon: 'error-outline',
         id: 'login',
         autoDismiss: 2,
-        iconType: 'MaterialIcons'
+        iconType: 'MaterialIcons',
       });
       return;
     }
@@ -108,15 +109,15 @@ export default class LoginScreen extends React.Component<
       isLoading: true,
       isLoadingCaptcha: false,
       requireCaptcha: false,
-      params: undefined
+      params: undefined,
     });
 
-    let params = undefined;
+    let params;
     let isLoadingCaptcha = false;
     let requireCaptcha = false;
 
     try {
-      let data = await UPAO.loginPrepare(username);
+      const data = await UPAO.loginPrepare(username);
       if (data && data.params) {
         params = data.params;
         requireCaptcha = data.requireCaptcha;
@@ -135,7 +136,7 @@ export default class LoginScreen extends React.Component<
         icon: 'error-outline',
         id: 'login',
         autoDismiss: 8,
-        iconType: 'MaterialIcons'
+        iconType: 'MaterialIcons',
       });
     }
     this.setState(
@@ -155,11 +156,11 @@ export default class LoginScreen extends React.Component<
   };
 
   loginSend = async () => {
-    let username = this.refs.username.getValue();
-    let password = this.refs.password.getValue();
-    let captcha = this.refs.captcha ? this.refs.captcha.getValue() : '';
-    let remember = this.refs.remember.getValue();
-    let { params, requireCaptcha } = this.state;
+    const username = this.refs.username.getValue();
+    const password = this.refs.password.getValue();
+    const captcha = this.refs.captcha ? this.refs.captcha.getValue() : '';
+    const remember = this.refs.remember.getValue();
+    const { params, requireCaptcha } = this.state;
 
     if (!captcha && requireCaptcha) {
       this.context.notification.show({
@@ -168,7 +169,7 @@ export default class LoginScreen extends React.Component<
         icon: 'error-outline',
         id: 'login',
         autoDismiss: 2,
-        iconType: 'MaterialIcons'
+        iconType: 'MaterialIcons',
       });
       return;
     }
@@ -178,7 +179,7 @@ export default class LoginScreen extends React.Component<
     let success = false;
 
     try {
-      let valid = await UPAO.loginSend(
+      const valid = await UPAO.loginSend(
         params || {},
         username,
         password,
@@ -216,14 +217,14 @@ export default class LoginScreen extends React.Component<
         icon: 'error-outline',
         id: 'login',
         autoDismiss: 8,
-        iconType: 'MaterialIcons'
+        iconType: 'MaterialIcons',
       });
     }
 
     this.setState({
       isLoading: false,
       requireCaptcha: false,
-      failedLogin: !success
+      failedLogin: !success,
     });
   };
   onLoginStatus = (success: boolean) => {
@@ -233,37 +234,37 @@ export default class LoginScreen extends React.Component<
     this.forceUpdate();
   };
   loadDefaultCredentials = async () => {
-    let username = await SingleStorage.get('username');
-    let password = await SingleStorage.get('password');
-    let remember = await SingleStorage.get('remember');
+    const username = await SingleStorage.get('username');
+    const password = await SingleStorage.get('password');
+    const remember = await SingleStorage.get('remember');
     this.setState({
       loadedCredentials: true,
-      defaults: { remember, username, password }
+      defaults: { remember, username, password },
     });
   };
   loginFallback = () => {
     this.props.navigation.navigate('LoginFallback');
   };
   onChangeCaptcha = () => {
-    let { isLoadingCaptcha } = this.state;
+    const { isLoadingCaptcha } = this.state;
     if (isLoadingCaptcha) {
       this.setState({ isLoadingCaptcha: false });
       fetchCancelable.abort('captcha');
     }
   };
   onMessage = async (event: any) => {
-    let data = event.nativeEvent.data;
+    const data = event.nativeEvent.data;
     this.setState({ isLoadingCaptcha: true });
     try {
-      let response = await fetchCancelable(
+      const response = await fetchCancelable(
         'http://bp.setbeat.com/default',
         {
           method: 'POST',
-          body: data
+          body: data,
         },
         'captcha'
       );
-      let captcha = await response.text();
+      const captcha = await response.text();
       Log.warn(TAG, 'onMessage', 'captcha', captcha);
       if (
         captcha &&
@@ -293,8 +294,8 @@ export default class LoginScreen extends React.Component<
   }
 
   render() {
-    let { height } = Dimensions.get('window');
-    let {
+    const { height } = Dimensions.get('window');
+    const {
       isLoading,
       isLoadingCaptcha,
       loadedCredentials,
@@ -302,7 +303,7 @@ export default class LoginScreen extends React.Component<
       isReloadingCaptcha,
       requireCaptcha,
       failedLogin,
-      defaults
+      defaults,
     } = this.state;
     const captchaHTML = `
     <html>
@@ -318,36 +319,36 @@ export default class LoginScreen extends React.Component<
     const scripts = `
     var sended = false;
      var checker = setInterval(function() {
-         if(sended) { 
+         if(sended) {
              clearInterval(checker);
              return
           }
           if(!window.postMessage){
           return
-          } 
+          }
               var img = document.getElementById('captcha');
                 var canvas = document.createElement('canvas');
                 var context = canvas.getContext('2d');
                 context.drawImage(img, 0, 0, 300, 150);
-                
+
                 var resizedCanvas = document.createElement("canvas");
                 var resizedContext = resizedCanvas.getContext("2d");
-                
+
                 resizedCanvas.height = "30";
                 resizedCanvas.width = "80";
-                                
+
                 resizedContext.drawImage(canvas, 0, 0, 80, 30);
                 var dataURL = resizedCanvas.toDataURL();
-                
+
                 var imageEncoded = dataURL.replace('data:image/png;base64,', '');
-                 
-                if(imageEncoded) { 
+
+                if(imageEncoded) {
                    sended = true;
-                  window.postMessage(imageEncoded); 
+                  window.postMessage(imageEncoded);
                  }
-          
+
      },100)
-    
+
     `;
     return (
       <View style={{ flex: 1 }}>
@@ -391,7 +392,7 @@ export default class LoginScreen extends React.Component<
                       height: 30,
                       width: 30,
                       top: -3,
-                      borderRadius: 35 / 2
+                      borderRadius: 35 / 2,
                     }}
                     onPress={() => {
                       this.refs.captcha && this.refs.captcha.setValue('');
@@ -418,8 +419,8 @@ export default class LoginScreen extends React.Component<
                           'X-Request-Id': '',
                           Referer:
                             'https://campusvirtual.upao.edu.pe/login.aspx?ReturnUrl=%2fdefault.aspx',
-                          'User-Agent': UPAO.getUserAgentDesktop()
-                        }
+                          'User-Agent': UPAO.getUserAgentDesktop(),
+                        },
                       }}
                     />
                   )}
@@ -525,13 +526,13 @@ const styles = StyleSheet.create({
   content: {
     paddingTop: 20,
     paddingBottom: 30,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   container: {},
   logoName: {
     width: 125,
     height: 50,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   imageContainer: {
     backgroundColor: '#f59331',
@@ -539,57 +540,57 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 24,
     marginBottom: 5,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   logo: {
     width: 100,
-    height: 100
+    height: 100,
   },
   input: {
     padding: 10,
-    fontSize: 15
+    fontSize: 15,
   },
   captchaContainer: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   captcha: {
     width: 120,
     height: 50,
     marginTop: 5,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   inputCaptcha: {
     // flex:1,
-    width: 130
+    width: 130,
     // padding: 10,
     // fontSize: 15
   },
   loadingCaptcha: {
     right: 10,
     top: 15,
-    position: 'absolute'
+    position: 'absolute',
   },
   formContainer: {
     marginTop: 20,
     marginBottom: 10,
     width: 300,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   inputsContainer: {
     marginTop: 4,
-    borderRadius: 6
+    borderRadius: 6,
   },
   inputFirst: {
     marginBottom: 0,
     marginTop: 0,
     borderBottomWidth: 0,
     borderBottomRightRadius: 0,
-    borderBottomLeftRadius: 0
+    borderBottomLeftRadius: 0,
   },
   inputLast: {
     marginBottom: 0,
     marginTop: 0,
     borderTopRightRadius: 0,
-    borderTopLeftRadius: 0
-  }
+    borderTopLeftRadius: 0,
+  },
 });

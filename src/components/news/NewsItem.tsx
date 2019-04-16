@@ -19,15 +19,15 @@ const TAG = 'NewsItem';
 export default class NewsItem extends React.Component<NewsItemProps, State> {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
-    navigation: PropTypes.object.isRequired
+    navigation: PropTypes.object.isRequired,
   };
 
   state: State = {};
 
   render() {
-    let { news } = this.props;
-    let ago = moment(news.date || '').fromNow();
-    let itemHeight = 200;
+    const { news } = this.props;
+    const ago = moment(news.date || '').fromNow();
+    const itemHeight = 200;
     return (
       <View style={[styles.container]}>
         <Touchable
@@ -60,23 +60,23 @@ export default class NewsItem extends React.Component<NewsItemProps, State> {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10
+    padding: 10,
   },
   info: {
     borderRadius: 2,
     flex: 1,
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   name: {
     color: '#666',
     fontSize: 15,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   ago: {
     color: '#999',
     marginTop: 2,
     fontSize: 12,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   header: {},
   infoContainer: {
@@ -85,11 +85,11 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 2,
     padding: 5,
     paddingLeft: 8,
-    paddingBottom: 8
+    paddingBottom: 8,
   },
   image: {
     borderTopLeftRadius: 2,
     borderTopRightRadius: 2,
-    height: 200
-  }
+    height: 200,
+  },
 });

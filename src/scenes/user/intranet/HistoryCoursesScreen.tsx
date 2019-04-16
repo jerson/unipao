@@ -5,7 +5,7 @@ import {
   SectionList,
   SectionListData,
   StyleSheet,
-  View
+  View,
 } from 'react-native';
 import * as PropTypes from 'prop-types';
 import Loading from '../../../components/ui/Loading';
@@ -18,18 +18,18 @@ import PeriodHeader from '../../../components/period/PeriodHeader';
 import CourseItem from '../../../components/course/CourseItem';
 import {
   CourseModel,
-  PeriodDetailModel
+  PeriodDetailModel,
 } from '../../../scraping/student/Intranet';
 import {
   NavigationScreenConfigProps,
   NavigationScreenProp,
-  NavigationStackScreenOptions
+  NavigationStackScreenOptions,
 } from 'react-navigation';
 import { Color, Theme } from '../../../themes/styles';
 import NavigationButton from '../../../components/ui/NavigationButton';
 
 export interface HistoryCoursesScreenProps {
-  navigation: NavigationScreenProp<null, null>;
+  navigation: NavigationScreenProp<any, any>;
   level: string;
 }
 
@@ -51,12 +51,12 @@ export default class HistoryCoursesScreen extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   static navigationOptions = ({
     navigation,
-    screenProps
+    screenProps,
   }: NavigationScreenConfigProps): NavigationStackScreenOptions => ({
     title: _('Cursos anteriores'),
     headerBackTitle: null,
@@ -65,39 +65,39 @@ export default class HistoryCoursesScreen extends React.Component<
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,
-      Theme.shadowDefault
+      Theme.shadowDefault,
     ],
     headerRight: (
       <View style={{ flexDirection: 'row' }}>
         <NavigationButton
           onPress={() => {
-            navigation.state.params.reload();
+            navigation.state.params!.reload();
           }}
           icon={'refresh'}
           iconType={'MaterialIcons'}
         />
       </View>
-    )
+    ),
   });
-
   state: State = {
     isLoading: true,
     cacheLoaded: false,
     isRefreshing: false,
-    sections: []
+    sections: [],
   };
+
   renderItem = ({ item, index }: ListRenderItemInfo<CourseModel>) => {
     return <CourseItem course={item} />;
   };
   renderHeader = ({
-    section
+    section,
   }: {
     section: SectionListData<PeriodDetailModel>;
   }) => {
     return <PeriodHeader title={section.title} />;
   };
   load = async () => {
-    let { isRefreshing } = this.state;
+    const { isRefreshing } = this.state;
     if (!isRefreshing) {
       this.setState({ isLoading: true, cacheLoaded: false });
       await this.checkCache();
@@ -105,37 +105,37 @@ export default class HistoryCoursesScreen extends React.Component<
     await this.loadRequest();
   };
   getCacheKey = () => {
-    let { level } = this.getParams();
+    const { level } = this.getParams();
     return `level_${level || '_'}`;
   };
   checkCache = async () => {
     try {
-      let data = await CacheStorage.get(this.getCacheKey());
+      const data = await CacheStorage.get(this.getCacheKey());
       data && this.loadResponse(data, true);
     } catch (e) {
       Log.info(TAG, 'checkCache', e);
     }
   };
   loadResponse = (data: Section[], cacheLoaded = false) => {
-    let sections = data;
+    const sections = data;
     this.setState({
       cacheLoaded,
       sections,
       isLoading: false,
-      isRefreshing: false
+      isRefreshing: false,
     });
   };
   loadRequest = async () => {
-    let { cacheLoaded } = this.state;
+    const { cacheLoaded } = this.state;
 
     try {
-      let { level } = this.getParams();
-      let periods = await UPAO.Student.Intranet.getHistoryCourses(level);
+      const { level } = this.getParams();
+      const periods = await UPAO.Student.Intranet.getHistoryCourses(level);
 
-      let sections = periods.map(period => {
+      const sections = periods.map(period => {
         return {
           title: period.period,
-          data: period.courses
+          data: period.courses,
         };
       });
 
@@ -162,7 +162,7 @@ export default class HistoryCoursesScreen extends React.Component<
   };
 
   getParams(): any {
-    let { params } = this.props.navigation.state || { params: {} };
+    const { params } = this.props.navigation.state || { params: {} };
     return params;
   }
 
@@ -177,17 +177,13 @@ export default class HistoryCoursesScreen extends React.Component<
   }
 
   render() {
-    let { sections, isLoading, isRefreshing } = this.state;
+    const { sections, isLoading, isRefreshing } = this.state;
 
     return (
       <View style={[styles.container]}>
-        {!isLoading &&
-          sections.length < 1 && (
-            <AlertMessage
-              type={'warning'}
-              title={_('No se encontraron datos')}
-            />
-          )}
+        {!isLoading && sections.length < 1 && (
+          <AlertMessage type={'warning'} title={_('No se encontraron datos')} />
+        )}
         {isLoading && <Loading margin />}
         {!isLoading && (
           <SectionList
@@ -215,6 +211,6 @@ export default class HistoryCoursesScreen extends React.Component<
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
-  }
+    backgroundColor: '#fff',
+  },
 });

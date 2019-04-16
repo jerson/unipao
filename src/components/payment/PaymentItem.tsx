@@ -24,11 +24,11 @@ export default class PaymentItem extends React.PureComponent<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   state: State = {
-    expanded: false
+    expanded: false,
   };
 
   toggle = () => {
@@ -36,8 +36,8 @@ export default class PaymentItem extends React.PureComponent<
   };
 
   render() {
-    let { expanded } = this.state;
-    let { payment } = this.props;
+    const { expanded } = this.state;
+    const { payment } = this.props;
 
     return (
       <View>
@@ -132,10 +132,10 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(0,0,0,0.04)',
     flexDirection: 'row',
     alignItems: 'center',
-    height: 58
+    height: 58,
   },
   modal: {
-    alignItems: 'center'
+    alignItems: 'center',
   },
   modalContainer: {
     maxWidth: 300,
@@ -143,56 +143,56 @@ const styles = StyleSheet.create({
     width: 300,
     paddingBottom: 10,
     backgroundColor: '#fff',
-    borderRadius: 4
+    borderRadius: 4,
   },
   item: {
     padding: 2,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   description: {
     color: 'rgba(0,0,0,0.6)',
     flex: 1,
     textAlign: 'right',
     fontSize: 12,
-    paddingRight: 5
+    paddingRight: 5,
   },
   value: {
     color: '#000',
     flex: 1,
     fontSize: 12,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   info: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    paddingLeft: 5
+    paddingLeft: 5,
   },
   payment: {
-    alignItems: 'center'
+    alignItems: 'center',
   },
   title: {
     fontSize: 13,
     color: '#222',
     fontWeight: 'bold',
     textAlign: 'center',
-    padding: 5
+    padding: 5,
   },
   name: {
     fontSize: 13,
-    color: '#666'
+    color: '#666',
   },
   subtitle: {
     fontSize: 12,
-    color: '#999'
+    color: '#999',
   },
   amount: {
     fontSize: 14,
-    color: '#fff'
+    color: '#fff',
   },
   amountContainer: {
     padding: 4,
     borderRadius: 4,
-    backgroundColor: '#69d258'
-  }
+    backgroundColor: '#69d258',
+  },
 });

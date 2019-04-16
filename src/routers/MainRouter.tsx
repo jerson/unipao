@@ -1,10 +1,12 @@
 import LoginScreen from '../scenes/LoginScreen';
 import {
+  createBottomTabNavigator,
+  createMaterialTopTabNavigator,
+  createStackNavigator,
   NavigationContainer,
   NavigationScreenConfigProps,
   NavigationTabScreenOptions,
-  StackNavigator,
-  TabNavigator
+  createAppContainer,
 } from 'react-navigation';
 import { View } from 'react-native';
 import * as React from 'react';
@@ -40,47 +42,47 @@ import HistoryCoursesScreen from '../scenes/user/intranet/HistoryCoursesScreen';
 import GradesReportTabsScreen from '../scenes/user/intranet/GradesReportTabsScreen';
 import EnrollmentTabsScreen from '../scenes/user/intranet/EnrollmentTabsScreen';
 
-const NewsNavigator = StackNavigator(
+const NewsNavigator = createStackNavigator(
   {
     Home: {
-      screen: NewsListScreen
+      screen: NewsListScreen,
     },
     News: {
-      screen: NewsScreen
-    }
+      screen: NewsScreen,
+    },
   },
   {
-    headerMode: 'none'
+    headerMode: 'none',
   }
 );
-const GalleryNavigator = StackNavigator(
+const GalleryNavigator = createStackNavigator(
   {
     Home: {
-      screen: GalleriesScreen
+      screen: GalleriesScreen,
     },
     Gallery: {
-      screen: GalleryScreen
+      screen: GalleryScreen,
     },
     Photo: {
-      screen: GalleryPhotoScreen
-    }
+      screen: GalleryPhotoScreen,
+    },
   },
   {
-    headerMode: 'none'
+    headerMode: 'none',
   }
 );
-const AgendaNavigator = StackNavigator(
+const AgendaNavigator = createStackNavigator(
   {
     Home: {
-      screen: AgendaListScreen
-    }
+      screen: AgendaListScreen,
+    },
   },
   {
-    headerMode: 'none'
+    headerMode: 'none',
   }
 );
 
-const UPAOTabNavigator = TabNavigator(
+const UPAOTabNavigator = createMaterialTopTabNavigator(
   {
     Gallery: {
       screen: GalleryNavigator,
@@ -91,8 +93,8 @@ const UPAOTabNavigator = TabNavigator(
             name={'photo'}
             style={[Theme.tabTarIcon, { color: tintColor || '#444' }]}
           />
-        )
-      } as NavigationTabScreenOptions
+        ),
+      } as NavigationTabScreenOptions,
     },
     News: {
       screen: NewsNavigator,
@@ -104,8 +106,8 @@ const UPAOTabNavigator = TabNavigator(
             type={'FontAwesome'}
             style={[Theme.tabTarIcon, { color: tintColor || '#444' }]}
           />
-        )
-      } as NavigationTabScreenOptions
+        ),
+      } as NavigationTabScreenOptions,
     },
     Agenda: {
       screen: AgendaNavigator,
@@ -117,16 +119,16 @@ const UPAOTabNavigator = TabNavigator(
             type={'MaterialCommunityIcons'}
             style={[Theme.tabTarIcon, { color: tintColor || '#444' }]}
           />
-        )
-      } as NavigationTabScreenOptions
-    }
+        ),
+      } as NavigationTabScreenOptions,
+    },
   },
   {
-    ...tabsOptionsSub
+    ...tabsOptionsSub,
   }
 );
 
-const UPAONavigator = StackNavigator(
+const UPAONavigator = createStackNavigator(
   {
     Home: {
       screen: UPAOTabNavigator,
@@ -135,84 +137,84 @@ const UPAONavigator = StackNavigator(
         headerBackTitle: null,
         headerTitleStyle: [Theme.title, Theme.subtitle],
         headerTintColor: Color.subTintColor,
-        headerStyle: [Theme.navigationBar, Theme.subNavigationBar]
-      }
-    }
+        headerStyle: [Theme.navigationBar, Theme.subNavigationBar],
+      },
+    },
   },
   {}
 );
-const MailNavigator = StackNavigator(
+const MailNavigator = createStackNavigator(
   {
     Home: {
-      screen: MailScreen
-    }
-  },
-  {}
-);
-
-const SettingsNavigator = StackNavigator(
-  {
-    Home: {
-      screen: SettingsScreen
-    }
+      screen: MailScreen,
+    },
   },
   {}
 );
 
-const IntranetNavigator = StackNavigator(
+const SettingsNavigator = createStackNavigator(
   {
     Home: {
-      screen: IntranetTabsScreen
+      screen: SettingsScreen,
+    },
+  },
+  {}
+);
+
+const IntranetNavigator = createStackNavigator(
+  {
+    Home: {
+      screen: IntranetTabsScreen,
     },
     Level: {
-      screen: LevelScreen
+      screen: LevelScreen,
     },
     Payments: {
-      screen: PaymentsScreen
+      screen: PaymentsScreen,
     },
     GradesReport: {
-      screen: GradesReportTabsScreen
+      screen: GradesReportTabsScreen,
     },
     HistoryCourses: {
-      screen: HistoryCoursesScreen
+      screen: HistoryCoursesScreen,
     },
     Schedule: {
-      screen: ScheduleScreen
+      screen: ScheduleScreen,
     },
     Enrollment: {
-      screen: EnrollmentTabsScreen
+      screen: EnrollmentTabsScreen,
     },
     Course: {
-      screen: CourseScreen
+      screen: CourseScreen,
     },
     CourseMaterials: {
-      screen: CourseMaterialsScreen
+      screen: CourseMaterialsScreen,
     },
     CourseSyllable: {
-      screen: CourseSyllableScreen
+      screen: CourseSyllableScreen,
     },
     CourseAssists: {
-      screen: CourseAssistsScreen
+      screen: CourseAssistsScreen,
     },
     CourseGrades: {
-      screen: CourseGradesScreen
+      screen: CourseGradesScreen,
     },
     CourseForum: {
-      screen: CourseForumScreen
+      screen: CourseForumScreen,
     },
     CourseJobs: {
-      screen: CourseJobsScreen
+      screen: CourseJobsScreen,
     },
     CourseExams: {
-      screen: CourseExamsScreen
-    }
+      screen: CourseExamsScreen,
+    },
   },
   {}
 );
-const UsersTabNavigator = TabNavigator(
+const UsersTabNavigator = createBottomTabNavigator(
   {
     Profile: {
-      screen: ProfileScreen
+      screen: ProfileScreen,
     },
     Intranet: {
       screen: ({ navigation }: NavigationScreenConfigProps) => {
@@ -228,8 +230,8 @@ const UsersTabNavigator = TabNavigator(
             type={'Entypo'}
             style={[Theme.tabTarIcon, { color: tintColor || '#444' }]}
           />
-        )
-      } as NavigationTabScreenOptions
+        ),
+      } as NavigationTabScreenOptions,
     },
 
     Recent: {
@@ -244,8 +246,8 @@ const UsersTabNavigator = TabNavigator(
             type={'FontAwesome'}
             style={[Theme.tabTarIcon, { color: tintColor || '#444' }]}
           />
-        )
-      } as NavigationTabScreenOptions
+        ),
+      } as NavigationTabScreenOptions,
     },
     Mail: {
       screen: ({ navigation }: NavigationScreenConfigProps) => {
@@ -259,8 +261,8 @@ const UsersTabNavigator = TabNavigator(
             type={'MaterialCommunityIcons'}
             style={[Theme.tabTarIcon, { color: tintColor || '#444' }]}
           />
-        )
-      } as NavigationTabScreenOptions
+        ),
+      } as NavigationTabScreenOptions,
     },
     Settings: {
       screen: ({ navigation, screenProps }: NavigationScreenConfigProps) => {
@@ -269,7 +271,7 @@ const UsersTabNavigator = TabNavigator(
             <SettingsNavigator
               screenProps={{
                 tabNavigation: navigation,
-                rootNavigation: screenProps.rootNavigation
+                rootNavigation: screenProps.rootNavigation,
               }}
             />
           </View>
@@ -283,38 +285,38 @@ const UsersTabNavigator = TabNavigator(
             type={'MaterialCommunityIcons'}
             style={[Theme.tabTarIcon, { color: tintColor || '#444' }]}
           />
-        )
-      } as NavigationTabScreenOptions
-    }
+        ),
+      } as NavigationTabScreenOptions,
+    },
   },
   { ...tabsOptionsMain }
 );
 
-const MainNavigator = StackNavigator(
+const MainNavigator = createStackNavigator(
   {
     Login: {
-      screen: LoginScreen
+      screen: LoginScreen,
     },
     LoginFallback: {
-      screen: LoginFallbackScreen
+      screen: LoginFallbackScreen,
     },
     About: {
-      screen: AboutScreen
+      screen: AboutScreen,
     },
     Intro: {
-      screen: IntroScreen
+      screen: IntroScreen,
     },
     User: {
       screen: ({ navigation }: NavigationScreenConfigProps) => (
         <UsersTabNavigator screenProps={{ rootNavigation: navigation }} />
-      )
-    }
+      ),
+    },
   },
   {
     headerMode: 'none',
     cardStyle: {
-      backgroundColor: '#fff'
-    }
+      backgroundColor: '#fff',
+    },
   }
 );
-export default MainNavigator as NavigationContainer;
+export default createAppContainer(MainNavigator) as NavigationContainer;

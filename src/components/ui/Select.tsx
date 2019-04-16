@@ -23,7 +23,7 @@ export default class Select extends React.Component<SelectProps, State> {
   state: State = {
     showModal: false,
     selectedLabel: 'Default',
-    selectedValue: ''
+    selectedValue: '',
   };
   toggle = () => {
     this.setState({ showModal: !this.state.showModal });
@@ -33,7 +33,7 @@ export default class Select extends React.Component<SelectProps, State> {
     this.setState({
       selectedValue: value,
       selectedLabel: this.props.values[index].label,
-      showModal: false
+      showModal: false,
     });
   };
 
@@ -42,11 +42,11 @@ export default class Select extends React.Component<SelectProps, State> {
   }
 
   componentDidUpdate(prevProps: SelectProps, prevState: State) {
-    let { selectedValue } = this.props;
+    const { selectedValue } = this.props;
     if (selectedValue !== prevProps.selectedValue) {
       this.setState({
-        selectedValue: selectedValue,
-        selectedLabel: this.getLabelForValue(selectedValue)
+        selectedValue,
+        selectedLabel: this.getLabelForValue(selectedValue),
       });
     }
     if (this.state.selectedValue !== prevState.selectedValue) {
@@ -68,17 +68,17 @@ export default class Select extends React.Component<SelectProps, State> {
   }
 
   componentDidMount() {
-    let { selectedValue } = this.props;
+    const { selectedValue } = this.props;
     if (selectedValue) {
       this.setState({
-        selectedLabel: this.getLabelForValue(selectedValue)
+        selectedLabel: this.getLabelForValue(selectedValue),
       });
     }
   }
 
   render() {
-    let { selectedLabel } = this.state;
-    let { values, title, selectedValue } = this.props;
+    const { selectedLabel } = this.state;
+    const { values, title, selectedValue } = this.props;
 
     return (
       <View>
@@ -114,17 +114,17 @@ const styles = StyleSheet.create({
     overflow: 'visible',
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   icon: {
     marginLeft: 4,
     fontSize: 20,
     height: 20,
     width: 20,
-    color: '#fff'
+    color: '#fff',
   },
   label: {
     color: '#fff',
-    fontSize: 13
-  }
+    fontSize: 13,
+  },
 });

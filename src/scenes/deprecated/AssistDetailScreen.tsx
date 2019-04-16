@@ -7,11 +7,11 @@ import AssistHeader from '../../components/assist/AssistHeader';
 import { _ } from '../../modules/i18n/Translator';
 import {
   NavigationScreenProp,
-  NavigationStackScreenOptions
+  NavigationStackScreenOptions,
 } from 'react-navigation';
 
 export interface AssistDetailScreenProps {
-  navigation: NavigationScreenProp<null, null>;
+  navigation: NavigationScreenProp<any, any>;
 }
 
 export interface State {}
@@ -22,7 +22,7 @@ export default class AssistDetailScreen extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   static navigationOptions: NavigationStackScreenOptions = {
@@ -33,8 +33,8 @@ export default class AssistDetailScreen extends React.Component<
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,
-      Theme.shadowDefault
-    ]
+      Theme.shadowDefault,
+    ],
   };
 
   state: State = {};
@@ -44,17 +44,17 @@ export default class AssistDetailScreen extends React.Component<
   };
 
   renderHeader = () => {
-    let { assist } = this.getParams();
+    const { assist } = this.getParams();
     return <AssistHeader assist={assist} />;
   };
 
   getParams(): any {
-    let { params } = this.props.navigation.state || { params: {} };
+    const { params } = this.props.navigation.state || { params: {} };
     return params;
   }
 
   render() {
-    let { assist } = this.getParams();
+    const { assist } = this.getParams();
 
     return (
       <View style={[styles.container]}>
@@ -75,6 +75,6 @@ export default class AssistDetailScreen extends React.Component<
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
-  }
+    backgroundColor: '#fff',
+  },
 });

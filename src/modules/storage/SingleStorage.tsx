@@ -18,7 +18,7 @@ export default class SingleStorage {
   static async get(key: string): Promise<string> {
     let data = '';
     try {
-      data = await AsyncStorage.getItem(key);
+      data = (await AsyncStorage.getItem(key)) || '';
     } catch (e) {
       return data;
     }

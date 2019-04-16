@@ -15,13 +15,13 @@ export default class AssistDetailItem extends React.Component<
 > {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
-    navigation: PropTypes.object.isRequired
+    navigation: PropTypes.object.isRequired,
   };
 
   state: State = {};
 
   render() {
-    let { detail } = this.props;
+    const { detail } = this.props;
     return (
       <View style={[styles.container]}>
         <View style={[styles.secondary, { width: 60 }]}>
@@ -41,7 +41,7 @@ export default class AssistDetailItem extends React.Component<
               styles.text,
               detail.ASISTENCIA.toLowerCase().indexOf('a') !== -1
                 ? { color: '#69d258' }
-                : { color: '#be2924' }
+                : { color: '#be2924' },
             ]}
           >
             {detail.ASISTENCIA.replace(/(<([^>]+)>)/gi, '').trim()}
@@ -58,27 +58,27 @@ const styles = StyleSheet.create({
     borderColor: '#f4f4f4',
     borderBottomWidth: 1,
     padding: 5,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   primary: {
-    flex: 1
+    flex: 1,
   },
   secondary: {
     width: 40,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   nrc: {
     fontSize: 12,
     color: '#999',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   text: {
     fontSize: 12,
     color: '#444',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   subtitle: {
     fontSize: 12,
-    color: '#999'
-  }
+    color: '#999',
+  },
 });

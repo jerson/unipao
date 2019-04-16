@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ListRenderItemInfo, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import * as PropTypes from 'prop-types';
 import Loading from '../../../components/ui/Loading';
 import Log from '../../../modules/logger/Log';
@@ -25,13 +25,13 @@ export default class EnrollmentScreen extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   state: State = {
     html: '',
     isLoading: true,
-    cacheLoaded: false
+    cacheLoaded: false,
   };
   load = async () => {
     this.setState({ isLoading: true, cacheLoaded: false });
@@ -39,23 +39,23 @@ export default class EnrollmentScreen extends React.Component<
     await this.loadRequest();
   };
   getCacheKey = () => {
-    let { level, period } = this.props;
+    const { level, period } = this.props;
     return `enrollment_detail_${period || '_'}`;
   };
   checkCache = async () => {
     try {
-      let data = await CacheStorage.get(this.getCacheKey());
+      const data = await CacheStorage.get(this.getCacheKey());
       data && this.loadResponse(data, true);
     } catch (e) {
       Log.info(TAG, 'checkCache', e);
     }
   };
   loadRequest = async () => {
-    let { cacheLoaded } = this.state;
+    const { cacheLoaded } = this.state;
 
     try {
-      let { level, period } = this.props;
-      let html = await UPAO.Student.Intranet.Enrollment.get(level, period);
+      const { level, period } = this.props;
+      const html = await UPAO.Student.Intranet.Enrollment.get(level, period);
 
       this.loadResponse(html);
       CacheStorage.set(this.getCacheKey(), html);
@@ -72,7 +72,7 @@ export default class EnrollmentScreen extends React.Component<
     this.setState({
       cacheLoaded,
       html,
-      isLoading: false
+      isLoading: false,
     });
   };
   reload = () => {
@@ -97,9 +97,9 @@ export default class EnrollmentScreen extends React.Component<
   }
 
   render() {
-    let { html: content, isLoading } = this.state;
+    const { html: content, isLoading } = this.state;
 
-    let html = `
+    const html = `
 <html>
 <head>
     <meta name="viewport"
@@ -168,7 +168,7 @@ ${content}
             style={[styles.container]}
             source={{
               html,
-              baseUrl: Config.URL
+              baseUrl: Config.URL,
             }}
           />
         )}
@@ -179,6 +179,6 @@ ${content}
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });

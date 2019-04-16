@@ -23,23 +23,23 @@ export interface NewsDetailModel {
 const TAG = 'News';
 export default class News {
   static async getList(page: number): Promise<NewsModel[]> {
-    let items: NewsModel[] = [];
-    let defaultItem: NewsModel = {
+    const items: NewsModel[] = [];
+    const defaultItem: NewsModel = {
       id: '',
       title: '',
       date: '',
       url: '',
-      subtitle: ''
+      subtitle: '',
     };
     try {
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         'http://www.upao.edu.pe/actualidad/?mod=mod_act&s=not&Page=' + page,
         {},
 
         { tag: 'News.getList', checkSession: false }
       );
 
-      let $container = $('.centro1');
+      const $container = $('.centro1');
 
       $('.col_ent1', $container).each((index, value) => {
         if (!items[index]) {
@@ -54,7 +54,7 @@ export default class News {
         if (!items[index]) {
           items[index] = { ...defaultItem };
         }
-        let href = $('a', value).attr('href') || '';
+        const href = $('a', value).attr('href') || '';
         items[index].image = $('img', value).attr('src');
         items[index].url = href;
         items[index].id = href;
@@ -78,29 +78,29 @@ export default class News {
     let item: NewsDetailModel;
 
     try {
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         'http://www.upao.edu.pe/actualidad/' + id,
         {},
         { tag: 'News.get', checkSession: false }
       );
 
-      let title = $(
+      const title = $(
         '#ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_lbl_titulo'
       ).text();
-      let subtitle = $(
+      const subtitle = $(
         '#ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_lbl_subtitulo'
       ).text();
-      let image = $('#ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_Image2').attr(
-        'src'
-      );
-      let content = $('.opnotici').html();
+      const image = $(
+        '#ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_Image2'
+      ).attr('src');
+      const content = $('.opnotici').html();
 
       item = {
         id,
         title,
         subtitle,
         image,
-        content
+        content,
       };
     } catch (e) {
       Log.info(TAG, 'get', e);

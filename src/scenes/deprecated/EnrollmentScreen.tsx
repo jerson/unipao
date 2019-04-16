@@ -8,12 +8,12 @@ import Log from '../../modules/logger/Log';
 import Request from '../../modules/network/Request';
 import EnrollmentList from '../../components/enrollment/EnrollmentList';
 import {
+  createMaterialTopTabNavigator,
   NavigationRouteConfigMap,
   NavigationScreenConfigProps,
   NavigationScreenProp,
   NavigationStackScreenOptions,
   NavigationTabScreenOptions,
-  TabNavigator
 } from 'react-navigation';
 import { tabsOptions } from '../../routers/Tabs';
 import PeriodModal from '../../components/period/PeriodModal';
@@ -21,7 +21,7 @@ import { _ } from '../../modules/i18n/Translator';
 import CacheStorage from '../../modules/storage/CacheStorage';
 
 export interface EnrollmentScreenProps {
-  navigation: NavigationScreenProp<null, null>;
+  navigation: NavigationScreenProp<any, any>;
 }
 
 export interface State {
@@ -38,12 +38,12 @@ export default class EnrollmentScreen extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   static navigationOptions = ({
     navigation,
-    screenProps
+    screenProps,
   }: NavigationScreenConfigProps): NavigationStackScreenOptions => ({
     title: _('Ficha de matrícula'),
     headerBackTitle: null,
@@ -54,29 +54,29 @@ export default class EnrollmentScreen extends React.Component<
       <View style={{ flexDirection: 'row' }}>
         <NavigationButton
           onPress={() => {
-            navigation.state.params.togglePeriods();
+            navigation.state.params!.togglePeriods();
           }}
           icon={'filter'}
           iconType={'Feather'}
         />
         <NavigationButton
           onPress={() => {
-            navigation.state.params.reload();
+            navigation.state.params!.reload();
           }}
           icon={'refresh'}
           iconType={'MaterialIcons'}
         />
       </View>
-    )
+    ),
   });
-
   state: State = {
     isLoading: true,
     period: null,
     cacheLoaded: false,
     tabs: null,
-    careers: {}
+    careers: {},
   };
+  refs: any;
 
   onChangePeriod = (period: any) => {
     this.setState({ period }, () => {
@@ -91,13 +91,15 @@ export default class EnrollmentScreen extends React.Component<
     }
     await this.loadRequest();
   };
+
   getCacheKey = () => {
-    let { period } = this.state;
+    const { period } = this.state;
     return `enrollment_${period.PERIODO || '_'}`;
   };
+
   checkCache = async () => {
     try {
-      let data = await CacheStorage.get(this.getCacheKey());
+      const data = await CacheStorage.get(this.getCacheKey());
       data && this.loadResponse(data, true);
     } catch (e) {
       Log.info(TAG, 'checkCache', e);
@@ -105,13 +107,13 @@ export default class EnrollmentScreen extends React.Component<
   };
 
   loadResponse = (body: any, cacheLoaded = false) => {
-    let careers: any = {};
+    const careers: any = {};
     let tabs: NavigationRouteConfigMap = {};
 
     if (body.data) {
-      let enrollments = JSON.parse(body.data);
-      for (let enrollment of enrollments) {
-        let name = enrollment.CARR || 'ERR';
+      const enrollments = JSON.parse(body.data);
+      for (const enrollment of enrollments) {
+        const name = enrollment.CARR || 'ERR';
         if (!careers[name]) {
           careers[name] = [];
         }
@@ -119,22 +121,22 @@ export default class EnrollmentScreen extends React.Component<
           tabs[name] = {
             screen: ({
               navigation,
-              screenProps
+              screenProps,
             }: NavigationScreenConfigProps) => {
-              let careers = screenProps ? screenProps.careers || {} : {};
-              let enrollments = careers[name] || [];
+              const careers = screenProps ? screenProps.careers || {} : {};
+              const enrollments = careers[name] || [];
               return <EnrollmentList enrollments={enrollments} />;
             },
             navigationOptions: {
-              tabBarLabel: enrollment.CARRERA
-            } as NavigationTabScreenOptions
+              tabBarLabel: enrollment.CARRERA,
+            } as NavigationTabScreenOptions,
           };
         }
         careers[name].push(enrollment);
       }
     }
 
-    let totalTabs = Object.keys(tabs);
+    const totalTabs = Object.keys(tabs);
     if (totalTabs.length < 1) {
       tabs = {
         NO: {
@@ -142,40 +144,41 @@ export default class EnrollmentScreen extends React.Component<
             return <EnrollmentList enrollments={[]} />;
           },
           navigationOptions: {
-            tabBarLabel: _('No se encontraron datos')
-          } as NavigationTabScreenOptions
-        }
+            tabBarLabel: _('No se encontraron datos'),
+          } as NavigationTabScreenOptions,
+        },
       };
     }
-    let EnrollmentTabs = TabNavigator(tabs, {
+    const EnrollmentTabs = createMaterialTopTabNavigator(tabs, {
       ...tabsOptions,
       tabBarOptions: {
         ...tabsOptions.tabBarOptions,
-        scrollEnabled: false
-      }
+        scrollEnabled: false,
+      },
     });
     this.setState({
       careers,
       cacheLoaded,
       tabs: EnrollmentTabs,
-      isLoading: false
+      isLoading: false,
     });
   };
+
   loadRequest = async () => {
-    let { cacheLoaded, period } = this.state;
+    const { cacheLoaded, period } = this.state;
 
     try {
-      let response = await Request.post(
+      const response = await Request.post(
         'av/ej/fichamatricula',
         {
           accion: 'LIS_MATRICULA',
           nivel: period.NIVEL,
-          periodo: period.PERIODO
+          periodo: period.PERIODO,
         },
         { secure: true }
       );
 
-      let { body } = response;
+      const { body } = response;
       this.loadResponse(body);
       CacheStorage.set(this.getCacheKey(), body);
     } catch (e) {
@@ -188,7 +191,6 @@ export default class EnrollmentScreen extends React.Component<
     }
   };
 
-  refs: any;
   reload = () => {
     this.load(true);
   };
@@ -197,23 +199,23 @@ export default class EnrollmentScreen extends React.Component<
   };
 
   getParams(): any {
-    let { params } = this.props.navigation.state || { params: {} };
+    const { params } = this.props.navigation.state || { params: {} };
     return params;
   }
 
   componentDidMount() {
     this.props.navigation.setParams({
       reload: this.reload,
-      togglePeriods: this.togglePeriods
+      togglePeriods: this.togglePeriods,
     });
 
-    let { period } = this.getParams();
+    const { period } = this.getParams();
     this.onChangePeriod(period);
   }
 
   render() {
-    let { careers, period, tabs, isLoading } = this.state;
-    let EnrollmentTabs = tabs;
+    const { careers, period, tabs, isLoading } = this.state;
+    const EnrollmentTabs = tabs;
     return (
       <View style={[styles.container]}>
         {period && (
@@ -225,8 +227,9 @@ export default class EnrollmentScreen extends React.Component<
         )}
 
         {isLoading && <Loading margin />}
-        {!isLoading &&
-          EnrollmentTabs && <EnrollmentTabs screenProps={{ careers }} />}
+        {!isLoading && EnrollmentTabs && (
+          <EnrollmentTabs screenProps={{ careers }} />
+        )}
       </View>
     );
   }
@@ -235,6 +238,6 @@ export default class EnrollmentScreen extends React.Component<
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
-  }
+    backgroundColor: '#fff',
+  },
 });

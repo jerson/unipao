@@ -8,7 +8,7 @@ export interface State {}
 const TAG = 'Modal';
 export default class Modal extends React.Component<ModalProps, State> {
   render() {
-    let { ...props } = this.props;
+    const { ...props } = this.props;
 
     return <BaseModal {...props} />;
   }

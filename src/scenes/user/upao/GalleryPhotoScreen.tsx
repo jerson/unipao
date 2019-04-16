@@ -6,7 +6,7 @@ import {
   ScaledSize,
   StyleSheet,
   Text,
-  View
+  View,
 } from 'react-native';
 import { Color, Theme } from '../../../themes/styles';
 import * as PropTypes from 'prop-types';
@@ -15,11 +15,11 @@ import ImageZoom from 'react-native-image-pan-zoom';
 import LinearGradient from '../../../components/ui/LinearGradient';
 import {
   NavigationScreenProp,
-  NavigationStackScreenOptions
+  NavigationStackScreenOptions,
 } from 'react-navigation';
 
 export interface GalleryPhotoScreenProps {
-  navigation: NavigationScreenProp<null, null>;
+  navigation: NavigationScreenProp<any, any>;
 }
 
 export interface State {
@@ -38,7 +38,7 @@ export default class GalleryPhotoScreen extends React.PureComponent<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   static navigationOptions: NavigationStackScreenOptions = {
@@ -49,21 +49,21 @@ export default class GalleryPhotoScreen extends React.PureComponent<
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,
-      Theme.shadowDefault
-    ]
+      Theme.shadowDefault,
+    ],
   };
   state: State = {
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height - 180
+    height: Dimensions.get('window').height - 180,
   };
   onDimensionsChange = ({ window, screen }: DimensionsChange) => {
-    let { width, height } = window;
+    const { width, height } = window;
 
     this.setState({ width, height: height - 180 });
   };
 
   getParams(): any {
-    let { params } = this.props.navigation.state || { params: {} };
+    const { params } = this.props.navigation.state || { params: {} };
     return params;
   }
 
@@ -77,8 +77,8 @@ export default class GalleryPhotoScreen extends React.PureComponent<
   }
 
   render() {
-    let { image } = this.getParams();
-    let { width, height } = this.state;
+    const { image } = this.getParams();
+    const { width, height } = this.state;
 
     return (
       <View style={[styles.container]}>
@@ -107,8 +107,8 @@ export default class GalleryPhotoScreen extends React.PureComponent<
           style={[
             styles.background,
             Platform.OS === 'windows' && {
-              backgroundColor: 'rgba(0,0,0,0.8)'
-            }
+              backgroundColor: 'rgba(0,0,0,0.8)',
+            },
           ]}
         >
           <View style={styles.content}>
@@ -124,26 +124,26 @@ export default class GalleryPhotoScreen extends React.PureComponent<
 
 const styles = StyleSheet.create({
   list: {
-    flex: 1
+    flex: 1,
   },
   container: {
     backgroundColor: '#222',
-    flex: 1
+    flex: 1,
   },
   modal: { margin: 0, flex: 1, backgroundColor: '#222' },
   content: {
-    padding: 20
+    padding: 20,
   },
   background: {
     alignItems: 'center',
     position: 'absolute',
     left: 0,
     right: 0,
-    bottom: 0
+    bottom: 0,
   },
   imageTitle: {
     color: 'rgba(255,255,255,0.95)',
     fontSize: 14,
-    backgroundColor: 'transparent'
-  }
+    backgroundColor: 'transparent',
+  },
 });

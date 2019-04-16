@@ -17,13 +17,13 @@ export default class AssistHeader extends React.Component<
 > {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
-    navigation: PropTypes.object.isRequired
+    navigation: PropTypes.object.isRequired,
   };
 
   state: State = {};
 
   render() {
-    let { assist } = this.props;
+    const { assist } = this.props;
     return (
       <View style={[styles.container]}>
         <AssistItem disabledPress assist={assist} />
@@ -45,22 +45,22 @@ export default class AssistHeader extends React.Component<
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   header: {
     flexDirection: 'row',
     backgroundColor: '#0d61ac',
-    padding: 5
+    padding: 5,
   },
   title: {
-    color: 'rgba(255,255,255,0.8)'
+    color: 'rgba(255,255,255,0.8)',
   },
   primary: {
     flex: 1,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   secondary: {
     width: 40,
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 });

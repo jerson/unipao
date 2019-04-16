@@ -5,7 +5,7 @@ import {
   Platform,
   RefreshControl,
   StyleSheet,
-  View
+  View,
 } from 'react-native';
 import { Color, Theme } from '../../../themes/styles';
 import * as PropTypes from 'prop-types';
@@ -17,7 +17,7 @@ import Loading from '../../../components/ui/Loading';
 import NavigationButton from '../../../components/ui/NavigationButton';
 import {
   NavigationScreenProp,
-  NavigationStackScreenOptions
+  NavigationStackScreenOptions,
 } from 'react-navigation';
 import { IconType } from '../../../components/ui/Icon';
 
@@ -30,7 +30,7 @@ export interface CourseItemModel {
 }
 
 export interface CourseScreenProps {
-  navigation: NavigationScreenProp<null, null>;
+  navigation: NavigationScreenProp<any, any>;
 }
 
 export interface State {
@@ -46,7 +46,7 @@ export default class CourseScreen extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   static navigationOptions: NavigationStackScreenOptions = {
@@ -57,9 +57,9 @@ export default class CourseScreen extends React.Component<
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,
-      { backgroundColor: 'transparent' }
+      { backgroundColor: 'transparent' },
     ],
-    header: null
+    header: null,
   };
 
   state: State = {
@@ -71,45 +71,45 @@ export default class CourseScreen extends React.Component<
         route: 'CourseSyllable',
         name: _('Silabo'),
         icon: 'file-document',
-        iconType: 'MaterialCommunityIcons'
+        iconType: 'MaterialCommunityIcons',
       },
       {
         route: 'CourseAssists',
         name: _('Asistencia'),
         icon: 'calendar-today',
-        iconType: 'MaterialCommunityIcons'
+        iconType: 'MaterialCommunityIcons',
       },
       {
         route: 'CourseGrades',
         name: _('Notas'),
         icon: 'grade',
-        iconType: 'MaterialIcons'
+        iconType: 'MaterialIcons',
       },
       {
         route: 'CourseMaterials',
         name: _('Material (beta)'),
         icon: 'archive',
-        iconType: 'MaterialIcons'
+        iconType: 'MaterialIcons',
       },
       {
         route: 'CourseForum',
         name: _('Foro (beta)'),
         icon: 'forum',
-        iconType: 'MaterialIcons'
+        iconType: 'MaterialIcons',
       },
       {
         route: 'CourseJobs',
         name: _('Trabajo (beta)'),
         icon: 'archive',
-        iconType: 'Entypo'
+        iconType: 'Entypo',
       },
       {
         route: 'CourseExams',
         name: _('Examenes (beta)'),
         icon: 'ios-paper',
-        iconType: 'Ionicons'
-      }
-    ]
+        iconType: 'Ionicons',
+      },
+    ],
   };
 
   renderItem = ({ item, index }: ListRenderItemInfo<CourseItemModel>) => {
@@ -124,12 +124,12 @@ export default class CourseScreen extends React.Component<
   };
 
   onChooseItem = (item: CourseItemModel) => {
-    let { course } = this.getParams();
+    const { course } = this.getParams();
     this.props.navigation.navigate(item.route, { course });
   };
 
   renderHeader = () => {
-    let { course } = this.getParams();
+    const { course } = this.getParams();
     return <CourseHeader course={course} />;
   };
   load = () => {
@@ -147,7 +147,7 @@ export default class CourseScreen extends React.Component<
   };
 
   getParams(): any {
-    let { params } = this.props.navigation.state || { params: {} };
+    const { params } = this.props.navigation.state || { params: {} };
     return params;
   }
 
@@ -157,8 +157,8 @@ export default class CourseScreen extends React.Component<
   }
 
   render() {
-    let { items, isRefreshing, isLoading } = this.state;
-    let paddingTop = DimensionUtil.getNavigationBarHeight();
+    const { items, isRefreshing, isLoading } = this.state;
+    const paddingTop = DimensionUtil.getNavigationBarHeight();
 
     return (
       <View style={[styles.container]}>
@@ -197,6 +197,6 @@ export default class CourseScreen extends React.Component<
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
-  }
+    backgroundColor: '#fff',
+  },
 });

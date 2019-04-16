@@ -20,14 +20,14 @@ export default class GalleryItem extends React.Component<
 > {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
-    navigation: PropTypes.object.isRequired
+    navigation: PropTypes.object.isRequired,
   };
 
   state: State = {};
 
   render() {
-    let { gallery } = this.props;
-    let itemHeight = 200;
+    const { gallery } = this.props;
+    const itemHeight = 200;
     return (
       <View style={[styles.container]}>
         <Touchable
@@ -47,8 +47,8 @@ export default class GalleryItem extends React.Component<
             style={[
               styles.gradient,
               Platform.OS === 'windows' && {
-                backgroundColor: 'rgba(0,0,0,0.3)'
-              }
+                backgroundColor: 'rgba(0,0,0,0.3)',
+              },
             ]}
           >
             <View style={styles.infoContainer}>
@@ -69,23 +69,23 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
-    bottom: 0
+    bottom: 0,
   },
   info: {
     flex: 1,
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   name: {
     color: 'rgba(255,255,255,0.95)',
     fontSize: 18,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   header: {},
   infoContainer: {
     padding: 5,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   image: {
-    height: 200
-  }
+    height: 200,
+  },
 });

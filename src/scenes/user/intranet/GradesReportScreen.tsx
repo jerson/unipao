@@ -4,7 +4,7 @@ import {
   ListRenderItemInfo,
   RefreshControl,
   StyleSheet,
-  View
+  View,
 } from 'react-native';
 import * as PropTypes from 'prop-types';
 import Loading from '../../../components/ui/Loading';
@@ -19,7 +19,7 @@ import GradeReportHeader from '../../../components/grade/GradeReportHeader';
 import {
   GradeReportCourseModel,
   GradeReportModel,
-  ProgramModel
+  ProgramModel,
 } from '../../../scraping/student/intranet/Grade';
 
 export interface GradesReportScreenProps {
@@ -40,24 +40,24 @@ export default class GradesReportScreen extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   state: State = {
     isLoading: true,
     cacheLoaded: false,
     isRefreshing: false,
-    report: undefined
+    report: undefined,
   };
 
   renderItem = ({
     item,
-    index
+    index,
   }: ListRenderItemInfo<GradeReportCourseModel>) => {
     return <GradeReportItem item={item} />;
   };
   renderHeader = () => {
-    let { report } = this.state;
+    const { report } = this.state;
     if (!report) {
       return <View />;
     }
@@ -65,7 +65,7 @@ export default class GradesReportScreen extends React.Component<
   };
 
   load = async () => {
-    let { isRefreshing } = this.state;
+    const { isRefreshing } = this.state;
     if (!isRefreshing) {
       this.setState({ isLoading: true, cacheLoaded: false });
       await this.checkCache();
@@ -73,12 +73,12 @@ export default class GradesReportScreen extends React.Component<
     await this.loadRequest();
   };
   getCacheKey = () => {
-    let { level, program } = this.props;
+    const { level, program } = this.props;
     return `gradesReport_${level || '_'}_${program.id || '_'}`;
   };
   checkCache = async () => {
     try {
-      let data = await CacheStorage.get(this.getCacheKey());
+      const data = await CacheStorage.get(this.getCacheKey());
       data && this.loadResponse(data, true);
     } catch (e) {
       Log.info(TAG, 'checkCache', e);
@@ -90,16 +90,16 @@ export default class GradesReportScreen extends React.Component<
       cacheLoaded,
       report,
       isLoading: false,
-      isRefreshing: false
+      isRefreshing: false,
     });
   };
   loadRequest = async () => {
-    let { cacheLoaded } = this.state;
+    const { cacheLoaded } = this.state;
 
     try {
-      let { level, program } = this.props;
+      const { level, program } = this.props;
       console.log(level, program);
-      let report = await UPAO.Student.Intranet.Grade.get(level, program.id);
+      const report = await UPAO.Student.Intranet.Grade.get(level, program.id);
       this.loadResponse(report);
       CacheStorage.set(this.getCacheKey(), report);
     } catch (e) {
@@ -132,37 +132,32 @@ export default class GradesReportScreen extends React.Component<
   }
 
   render() {
-    let { report, isLoading, isRefreshing } = this.state;
-    let items = report ? report.items || [] : [];
+    const { report, isLoading, isRefreshing } = this.state;
+    const items = report ? report.items || [] : [];
     return (
       <View style={[styles.container]}>
-        {!isLoading &&
-          items.length < 1 && (
-            <AlertMessage
-              type={'warning'}
-              title={_('No se encontraron datos')}
-            />
-          )}
+        {!isLoading && items.length < 1 && (
+          <AlertMessage type={'warning'} title={_('No se encontraron datos')} />
+        )}
         {isLoading && <Loading margin />}
-        {!isLoading &&
-          report && (
-            <FlatList
-              data={items}
-              extraData={items.length}
-              showsVerticalScrollIndicator={true}
-              renderItem={this.renderItem}
-              ListHeaderComponent={this.renderHeader}
-              refreshControl={
-                <RefreshControl
-                  refreshing={isRefreshing}
-                  onRefresh={this.onRefresh}
-                />
-              }
-              keyExtractor={(item, index) => {
-                return index.toString();
-              }}
-            />
-          )}
+        {!isLoading && report && (
+          <FlatList
+            data={items}
+            extraData={items.length}
+            showsVerticalScrollIndicator={true}
+            renderItem={this.renderItem}
+            ListHeaderComponent={this.renderHeader}
+            refreshControl={
+              <RefreshControl
+                refreshing={isRefreshing}
+                onRefresh={this.onRefresh}
+              />
+            }
+            keyExtractor={(item, index) => {
+              return index.toString();
+            }}
+          />
+        )}
       </View>
     );
   }
@@ -171,6 +166,6 @@ export default class GradesReportScreen extends React.Component<
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
-  }
+    backgroundColor: '#fff',
+  },
 });

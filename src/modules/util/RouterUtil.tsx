@@ -1,7 +1,8 @@
 import {
   NavigationActions,
+  NavigationScreenProp,
+  StackActions,
   NavigationParams,
-  NavigationScreenProp
 } from 'react-navigation';
 
 export default class RouterUtil {
@@ -10,9 +11,9 @@ export default class RouterUtil {
     routeName: string,
     params: NavigationParams = {}
   ) {
-    const resetAction = NavigationActions.reset({
+    const resetAction = StackActions.reset({
       index: 0,
-      actions: [NavigationActions.navigate({ routeName, params })]
+      actions: [NavigationActions.navigate({ routeName, params })],
     });
     navigation.dispatch(resetAction);
   }

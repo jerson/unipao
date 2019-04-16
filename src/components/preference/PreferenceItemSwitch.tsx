@@ -18,11 +18,11 @@ export default class PreferenceItemSwitch extends React.Component<
   State
 > {
   state: State = {
-    value: false
+    value: false,
   };
 
   onChange = (value: boolean) => {
-    let { onChange } = this.props;
+    const { onChange } = this.props;
     this.setState({ value });
     if (typeof onChange === 'function') {
       onChange(value);
@@ -44,10 +44,10 @@ export default class PreferenceItemSwitch extends React.Component<
   }
 
   async componentDidMount() {
-    let defaultValue = this.getDefaultValue();
+    const defaultValue = this.getDefaultValue();
     let value = defaultValue;
     try {
-      let data = await Storage.get(this.props.name);
+      const data = await Storage.get(this.props.name);
       value = typeof data === 'boolean' ? data : defaultValue;
     } catch (e) {
       Log.warn(e);
@@ -57,7 +57,7 @@ export default class PreferenceItemSwitch extends React.Component<
   }
 
   render() {
-    let { onChange, ...props } = this.props;
+    const { onChange, ...props } = this.props;
 
     return (
       <PreferenceItem {...props}>

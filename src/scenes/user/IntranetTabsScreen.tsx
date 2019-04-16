@@ -1,16 +1,15 @@
 import * as React from 'react';
-import { ListRenderItemInfo } from 'react-native';
 import { Color, Theme } from '../../themes/styles';
 import * as PropTypes from 'prop-types';
 import { _ } from '../../modules/i18n/Translator';
 import {
   NavigationScreenProp,
-  NavigationStackScreenOptions
+  NavigationStackScreenOptions,
 } from 'react-navigation';
 import IntranetScreen from './IntranetScreen';
 
 export interface IntranetTabsScreenProps {
-  navigation: NavigationScreenProp<null, null>;
+  navigation: NavigationScreenProp<any, any>;
 }
 
 export interface State {}
@@ -21,7 +20,7 @@ export default class IntranetTabsScreen extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   static navigationOptions: NavigationStackScreenOptions = {
@@ -32,33 +31,13 @@ export default class IntranetTabsScreen extends React.Component<
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,
-      Theme.shadowDefault
-    ]
+      Theme.shadowDefault,
+    ],
   };
 
   render() {
-    let { navigation } = this.props;
+    const { navigation } = this.props;
     return <IntranetScreen screenProps={{ rootNavigation: navigation }} />;
     // return <Tabs screenProps={{ rootNavigation: navigation }} />;
   }
 }
-
-// const Tabs = TabNavigator(
-//   {
-//     Home: {
-//       screen: IntranetScreen,
-//       navigationOptions: {
-//         tabBarLabel: _('Nivel académico')
-//       } as NavigationTabScreenOptions
-//     }
-//     // Messages: {
-//     //   screen: IntranetScreen,
-//     //   navigationOptions: {
-//     //     tabBarLabel: _('Mensajes')
-//     //   } as NavigationTabScreenOptions
-//     // }
-//   },
-//   {
-//     ...tabsOptionsSub
-//   }
-// );

@@ -10,17 +10,17 @@ import PreferenceItemSelect from '../../components/preference/PreferenceItemSele
 import PreferencesStorage from '../../modules/storage/PreferencesStorage';
 import Translator, { _ } from '../../modules/i18n/Translator';
 import codePush from 'react-native-code-push';
-import * as DeviceInfo from 'react-native-device-info';
+import DeviceInfo from 'react-native-device-info';
 import {
   NavigationScreenProp,
-  NavigationStackScreenOptions
+  NavigationStackScreenOptions,
 } from 'react-navigation';
 import { InputSelectOption } from '../../components/ui/InputSelect';
 
 export interface SettingsScreenProps {
-  navigation: NavigationScreenProp<null, null>;
+  navigation: NavigationScreenProp<any, any>;
   screenProps: {
-    rootNavigation: NavigationScreenProp<null, null>;
+    rootNavigation: NavigationScreenProp<any, any>;
   };
 }
 
@@ -29,20 +29,20 @@ export interface State {}
 const localeValues: InputSelectOption[] = [
   {
     value: 'auto',
-    label: _('Automático')
+    label: _('Automático'),
   },
   {
     value: 'es',
-    label: _('Español')
+    label: _('Español'),
   },
   {
     value: 'en',
-    label: _('English')
+    label: _('English'),
   },
   {
     value: 'pt',
-    label: _('Portuguese')
-  }
+    label: _('Portuguese'),
+  },
 ];
 export default class SettingsScreen extends React.Component<
   SettingsScreenProps,
@@ -56,8 +56,8 @@ export default class SettingsScreen extends React.Component<
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,
-      Theme.shadowDefault
-    ]
+      Theme.shadowDefault,
+    ],
   };
 
   state = {};
@@ -70,16 +70,16 @@ export default class SettingsScreen extends React.Component<
       {
         text: _('Cancelar'),
         onPress: () => {},
-        style: 'cancel'
+        style: 'cancel',
       },
       {
         text: _('Cerrar sesión'),
         onPress: async () => {
           await Auth.logout();
-          let { screenProps } = this.props;
+          const { screenProps } = this.props;
           RouterUtil.resetTo(screenProps.rootNavigation, 'Login');
-        }
-      }
+        },
+      },
     ]);
   };
   onChangeLocale = async (locale: string) => {
@@ -97,7 +97,7 @@ export default class SettingsScreen extends React.Component<
   }
 
   render() {
-    let minHeight = Dimensions.get('window').height;
+    const minHeight = Dimensions.get('window').height;
     return (
       <ScrollView
         style={styles.container}
@@ -154,6 +154,6 @@ export default class SettingsScreen extends React.Component<
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fafafa'
-  }
+    backgroundColor: '#fafafa',
+  },
 });

@@ -16,11 +16,11 @@ export default class EnrollmentInfoHeader extends React.Component<
 > {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
-    navigation: PropTypes.object.isRequired
+    navigation: PropTypes.object.isRequired,
   };
 
   render() {
-    let { first } = this.props;
+    const { first } = this.props;
 
     if (!first) {
       return null;
@@ -48,24 +48,24 @@ export default class EnrollmentInfoHeader extends React.Component<
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    padding: 10
+    padding: 10,
   },
 
   item: {
     padding: 2,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   description: {
     color: 'rgba(0,0,0,0.6)',
     flex: 1,
     textAlign: 'right',
     fontSize: 12,
-    paddingRight: 5
+    paddingRight: 5,
   },
   value: {
     color: '#000',
     flex: 2,
     fontSize: 12,
-    fontWeight: 'bold'
-  }
+    fontWeight: 'bold',
+  },
 });

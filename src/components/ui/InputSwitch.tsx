@@ -6,7 +6,7 @@ import {
   Text,
   TextStyle,
   View,
-  ViewStyle
+  ViewStyle,
 } from 'react-native';
 import Switch from './Switch';
 import { Theme } from '../../themes/styles';
@@ -32,10 +32,10 @@ export default class InputSwitch extends React.Component<
   State
 > {
   state: State = {
-    value: false
+    value: false,
   };
   onValueChange = (text: boolean) => {
-    let { onValueChange } = this.props;
+    const { onValueChange } = this.props;
     this.setValue(text);
     if (typeof onValueChange === 'function') {
       onValueChange(text);
@@ -53,14 +53,14 @@ export default class InputSwitch extends React.Component<
   focus() {}
 
   componentDidMount() {
-    let { defaultValue } = this.props;
+    const { defaultValue } = this.props;
     if (defaultValue) {
       this.setValue(defaultValue);
     }
   }
 
   render() {
-    let {
+    const {
       defaultValue,
       hasError,
       labelStyle,
@@ -72,7 +72,7 @@ export default class InputSwitch extends React.Component<
       ...props
     } = this.props;
 
-    let newProps = { ...props };
+    const newProps = { ...props };
     newProps.value = this.state.value;
     newProps.onValueChange = this.onValueChange;
 
@@ -82,7 +82,7 @@ export default class InputSwitch extends React.Component<
           style={[
             styles.inputContainer,
             hasError && styles.inputContainerError,
-            containerStyle
+            containerStyle,
           ]}
         >
           <Switch {...newProps} />
@@ -92,7 +92,7 @@ export default class InputSwitch extends React.Component<
                 styles.label,
                 Theme.textShadow,
                 hasError && styles.labelError,
-                labelStyle
+                labelStyle,
               ]}
             >
               {placeholder}
@@ -107,23 +107,23 @@ export default class InputSwitch extends React.Component<
 const styles = StyleSheet.create({
   container: {},
   containerCenter: {
-    alignItems: 'center'
+    alignItems: 'center',
   },
   label: {
     color: '#fff',
     textAlign: 'left',
     padding: 4,
     paddingLeft: 10,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   labelError: {
-    color: '#f35f94'
+    color: '#f35f94',
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 4,
-    marginBottom: 10
+    marginBottom: 10,
   },
-  inputContainerError: {}
+  inputContainerError: {},
 });

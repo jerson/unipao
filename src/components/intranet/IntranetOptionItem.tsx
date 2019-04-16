@@ -20,13 +20,13 @@ export default class IntranetOptionItem extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   state: State = {};
 
   onPress = () => {
-    let { item, onChooseItem } = this.props;
+    const { item, onChooseItem } = this.props;
     if (item.disabled) {
       this.context.notification.show({
         type: 'warning',
@@ -34,7 +34,7 @@ export default class IntranetOptionItem extends React.Component<
         title: _('Esta opción no esta implementada'),
         icon: 'error-outline',
         autoDismiss: 4,
-        iconType: 'MaterialIcons'
+        iconType: 'MaterialIcons',
       });
       return;
     }
@@ -45,7 +45,7 @@ export default class IntranetOptionItem extends React.Component<
   };
 
   render() {
-    let { item } = this.props;
+    const { item } = this.props;
 
     return (
       <Touchable style={styles.button} onPress={this.onPress}>
@@ -53,18 +53,13 @@ export default class IntranetOptionItem extends React.Component<
           style={[
             styles.container,
             Theme.shadowLarge,
-            item.disabled && styles.disabled
+            item.disabled && styles.disabled,
           ]}
         >
           <View style={styles.info}>
-            {item.icon &&
-              item.iconType && (
-                <Icon
-                  style={styles.icon}
-                  name={item.icon}
-                  type={item.iconType}
-                />
-              )}
+            {item.icon && item.iconType && (
+              <Icon style={styles.icon} name={item.icon} type={item.iconType} />
+            )}
             <Text style={styles.name}>{item.name}</Text>
             <Text style={styles.description}>{item.description}</Text>
           </View>
@@ -76,7 +71,7 @@ export default class IntranetOptionItem extends React.Component<
 
 const styles = StyleSheet.create({
   button: {
-    padding: 5
+    padding: 5,
   },
   container: {
     backgroundColor: '#fafafa',
@@ -84,11 +79,11 @@ const styles = StyleSheet.create({
     // borderColor: '#f1f1f1',
     flexDirection: 'row',
     borderRadius: 8,
-    alignItems: 'center'
+    alignItems: 'center',
     // height: 58
   },
   disabled: {
-    opacity: 0.5
+    opacity: 0.5,
   },
   info: {
     flex: 1,
@@ -96,23 +91,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: 120,
-    padding: 5
+    padding: 5,
   },
   icon: {
     fontSize: 30,
     padding: 5,
     width: 50,
     color: '#f59331',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   name: {
     textAlign: 'center',
     fontSize: 14,
-    color: '#666'
+    color: '#666',
   },
   description: {
     textAlign: 'center',
     fontSize: 12,
-    color: '#999'
-  }
+    color: '#999',
+  },
 });

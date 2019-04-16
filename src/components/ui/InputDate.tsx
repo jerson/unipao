@@ -19,7 +19,7 @@ export interface State {
 export default class InputDate extends React.Component<InputDateProps, State> {
   state: State = {
     value: undefined,
-    isVisiblePicker: false
+    isVisiblePicker: false,
   };
 
   refs: any;
@@ -47,15 +47,15 @@ export default class InputDate extends React.Component<InputDateProps, State> {
   }
 
   componentDidMount() {
-    let { defaultValue } = this.props;
+    const { defaultValue } = this.props;
     if (defaultValue) {
-      let value = moment(defaultValue, 'DD/MM/YYYY').toDate();
+      const value = moment(defaultValue, 'DD/MM/YYYY').toDate();
       this.setValue(value);
     }
   }
 
   render() {
-    let {
+    const {
       hasError,
       labelStyle,
       containerStyle,
@@ -66,8 +66,8 @@ export default class InputDate extends React.Component<InputDateProps, State> {
       ...props
     } = this.props;
 
-    let newProps = { ...props };
-    let { isVisiblePicker, value } = this.state;
+    const newProps = { ...props };
+    const { isVisiblePicker, value } = this.state;
     if (value) {
       newProps.value = moment(value).format('DD/MM/YYYY');
     }
@@ -85,7 +85,7 @@ export default class InputDate extends React.Component<InputDateProps, State> {
           style={[
             styles.inputContainer,
             hasError && styles.inputContainerError,
-            containerStyle
+            containerStyle,
           ]}
         >
           <TextInput
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     left: 0,
     top: 0,
     right: 0,
-    bottom: 0
+    bottom: 0,
   },
   icon: {
     position: 'absolute',
@@ -129,15 +129,15 @@ const styles = StyleSheet.create({
     right: 5,
     bottom: 0,
     fontSize: 25,
-    color: '#999'
+    color: '#999',
   },
   label: {
     color: '#444',
     textAlign: 'center',
-    padding: 4
+    padding: 4,
   },
   labelError: {
-    color: 'red'
+    color: 'red',
   },
   inputContainer: {
     marginTop: 4,
@@ -145,11 +145,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderColor: '#f9f9f9',
     borderWidth: 1,
-    borderRadius: 6
+    borderRadius: 6,
   },
   inputContainerError: {
     backgroundColor: '#ffacb6',
-    borderColor: '#f35f94'
+    borderColor: '#f35f94',
   },
   input: {
     height: 38,
@@ -159,10 +159,10 @@ const styles = StyleSheet.create({
     fontSize: 13,
     padding: 4,
     paddingLeft: 10,
-    paddingRight: 10
+    paddingRight: 10,
   },
   inputError: {
     backgroundColor: 'transparent',
-    color: 'red'
-  }
+    color: 'red',
+  },
 });

@@ -13,7 +13,6 @@ import { _ } from './modules/i18n/Translator';
 import SingleStorage from './modules/storage/SingleStorage';
 import CacheStorage from './modules/storage/CacheStorage';
 import DimensionUtil from './modules/util/DimensionUtil';
-import { NavigationScreenProp } from 'react-navigation';
 import { Message } from './components/ui/MessageItem';
 
 const numeral = require('numeral');
@@ -26,9 +25,11 @@ export interface State {}
 
 export default class Main extends React.Component<MainProps, State> {
   static childContextTypes = {
-    notification: PropTypes.object
+    notification: PropTypes.object,
   };
   refs: any;
+  private forcedLogout = false;
+
   onForceLogout = async () => {
     if (this.forcedLogout) {
       return;
@@ -41,7 +42,7 @@ export default class Main extends React.Component<MainProps, State> {
       ),
       icon: 'error-outline',
       autoDismiss: 8,
-      iconType: 'MaterialIcons'
+      iconType: 'MaterialIcons',
     });
 
     await Auth.logout();
@@ -50,21 +51,20 @@ export default class Main extends React.Component<MainProps, State> {
       this.forcedLogout = false;
     }, 1000);
   };
-  private forcedLogout = false;
 
   getChildContext() {
     return {
       notification: {
         show: (params: Message) => {
           this.refs.notification && this.refs.notification.show(params);
-        }
-      }
+        },
+      },
     };
   }
 
   componentWillMount() {
     Request.init({
-      baseUrl: Config.url.server
+      baseUrl: Config.url.server,
     });
     Emitter.off(this.onForceLogout);
   }
@@ -72,19 +72,19 @@ export default class Main extends React.Component<MainProps, State> {
   componentDidMount() {
     Auth.init({
       authPath: 'user/me',
-      hashToken: Config.token.app
+      hashToken: Config.token.app,
     });
     CacheStorage.init({
       path: 'cache.db',
-      schemaVersion: 1
+      schemaVersion: 1,
     });
     Emitter.on('onForceLogout', this.onForceLogout);
     this.showIntro();
   }
 
   async showIntro() {
-    let val = '104';
-    let intro = await SingleStorage.get('intro');
+    const val = '104';
+    const intro = await SingleStorage.get('intro');
     if (intro !== val) {
       RouterUtil.resetTo(this.refs.navigation, 'Intro');
       SingleStorage.set('intro', val);
@@ -92,7 +92,7 @@ export default class Main extends React.Component<MainProps, State> {
   }
 
   render() {
-    let paddingTop = DimensionUtil.getStatusBarPadding();
+    const paddingTop = DimensionUtil.getStatusBarPadding();
     return (
       <View style={{ paddingTop, flex: 1 }}>
         <StatusBar

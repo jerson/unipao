@@ -15,8 +15,8 @@ const CacheSchema = {
   primaryKey: 'key',
   properties: {
     key: 'string',
-    value: 'string'
-  }
+    value: 'string',
+  },
 };
 
 export interface Cache {
@@ -51,8 +51,8 @@ export default class CacheStorageWindows {
   static async get(key: string): Promise<string> {
     let data = '';
     try {
-      data = await AsyncStorage.getItem(key);
-      data = JSON.parse(data);
+      const dataStored = await AsyncStorage.getItem(key);
+      data = JSON.parse(dataStored || '');
     } catch (e) {
       return data;
     }

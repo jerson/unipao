@@ -9,55 +9,55 @@ export default class Enrollment {
     return [
       {
         id: 'UG',
-        name: 'Pregrado'
+        name: 'Pregrado',
       },
       {
         id: 'UB',
-        name: 'Centro de idiomas'
+        name: 'Centro de idiomas',
       },
       {
         id: 'GR',
-        name: 'Postgrado'
+        name: 'Postgrado',
       },
       {
         id: 'UT',
-        name: 'Gente que trabaja'
-      }
+        name: 'Gente que trabaja',
+      },
     ];
   }
 
   static async getPeriods(level: string): Promise<PeriodModel[]> {
-    let periods: PeriodModel[] = [];
+    const periods: PeriodModel[] = [];
     try {
-      let params = {
+      const params = {
         f: 'YAAANOT',
         a: 'CTRL_CBO_PERIODOS',
         codigo_nivel: level,
-        codigo_ctrl: '_anot_'
+        codigo_ctrl: '_anot_',
       };
 
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         '/controlador/cargador.aspx',
         {
           method: 'POST',
-          body: ParamsUtils.getFormData(params)
+          body: ParamsUtils.getFormData(params),
         },
         { tag: 'Enrollment.getPeriods', checkSession: true }
       );
 
-      let $content = $('#cbo_anot_periodo');
+      const $content = $('#cbo_anot_periodo');
       $('option', $content).each((index, value) => {
-        let id = ($(value).attr('value') || '').trim();
+        const id = ($(value).attr('value') || '').trim();
 
         if (!id) {
           return;
         }
-        let name = $(value)
+        const name = $(value)
           .text()
           .trim();
         periods.push({
           id,
-          name
+          name,
         });
       });
     } catch (e) {
@@ -82,18 +82,18 @@ export default class Enrollment {
       throw e;
     }
 
-    let params = {
+    const params = {
       f: 'YAAANOT',
       a: 'LIST_MATRICULA',
-      codigo_uno: period
+      codigo_uno: period,
     };
 
     try {
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         '/controlador/cargador.aspx',
         {
           method: 'POST',
-          body: ParamsUtils.getFormData(params)
+          body: ParamsUtils.getFormData(params),
         },
         { tag: 'Enrollment.get', checkSession: true, ajax: true }
       );

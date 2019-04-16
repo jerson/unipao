@@ -37,26 +37,26 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingLeft: 10,
     borderBottomWidth: 1,
-    borderColor: 'rgba(0,0,0,0.03)'
+    borderColor: 'rgba(0,0,0,0.03)',
   },
   infoContainer: {
     backgroundColor: 'transparent',
     flex: 1,
     marginRight: 5,
-    marginLeft: 5
+    marginLeft: 5,
   },
   input: {
-    marginBottom: 0
+    marginBottom: 0,
   },
   title: {
     fontSize: 14,
     fontWeight: 'normal',
-    color: '#555'
+    color: '#555',
   },
 
   description: {
     fontSize: 13,
     fontWeight: 'normal',
-    color: 'rgba(0,0,0,0.4)'
-  }
+    color: 'rgba(0,0,0,0.4)',
+  },
 });

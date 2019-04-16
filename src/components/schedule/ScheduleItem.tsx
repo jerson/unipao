@@ -17,13 +17,13 @@ export default class ScheduleItem extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   state = {};
 
   render() {
-    let { item } = this.props;
+    const { item } = this.props;
 
     let type = item.TIPO_CURSO;
     let color = '#69d258';
@@ -71,11 +71,11 @@ export default class ScheduleItem extends React.Component<
       type = _('Taller');
     }
 
-    let hours = (item.HORA || '').split(' - ');
-    let hourBegin = hours[0]
+    const hours = (item.HORA || '').split(' - ');
+    const hourBegin = hours[0]
       ? moment(hours[0].trim(), 'HHmm').format('hh:mm a')
       : '';
-    let hourEnd = hours[1]
+    const hourEnd = hours[1]
       ? moment(hours[1].trim(), 'HHmm').format('hh:mm a')
       : '';
 
@@ -114,35 +114,35 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderBottomWidth: 1,
     borderColor: 'rgba(0,0,0,0.05)',
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   course: {
     fontSize: 13,
     fontWeight: 'bold',
-    color: '#555'
+    color: '#555',
   },
   type: {
     fontSize: 13,
-    color: '#999'
+    color: '#999',
   },
   subtitle: {
     fontSize: 12,
-    color: '#999'
+    color: '#999',
   },
   info: {
     flexDirection: 'row',
     padding: 5,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   detail: {
     flex: 1,
-    paddingLeft: 5
+    paddingLeft: 5,
   },
   typeKey: {
     fontSize: 20,
     color: '#fff',
     fontWeight: 'bold',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   typeContainer: {
     alignItems: 'center',
@@ -150,20 +150,20 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     borderRadius: 50 / 2,
     height: 50,
-    width: 50
+    width: 50,
   },
   header: {
     flexDirection: 'row',
     backgroundColor: '#0d61ac',
-    padding: 5
+    padding: 5,
   },
   title: {
-    color: 'rgba(255,255,255,0.8)'
+    color: 'rgba(255,255,255,0.8)',
   },
   primary: {
-    flex: 1
+    flex: 1,
   },
   secondary: {
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 });

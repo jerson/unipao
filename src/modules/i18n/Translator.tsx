@@ -43,7 +43,7 @@ export function _(key: string, params: Params = {}): string {
 export default class Translator {
   static settings: Settings = {
     translations: { en },
-    defaultLocale: 'en'
+    defaultLocale: 'en',
   };
   static locale: string;
 
@@ -54,7 +54,7 @@ export default class Translator {
     }
 
     try {
-      let locale = await this.getUserLocale();
+      const locale = await this.getUserLocale();
       this.setLocale(locale);
     } catch (e) {
       Log.debug('[TRANSLATOR]', e);
@@ -89,8 +89,8 @@ export default class Translator {
 
   static async getUserLocale(): Promise<string> {
     try {
-      let data = await PreferencesStorage.get('locale');
-      let locale = data.toString();
+      const data = await PreferencesStorage.get('locale');
+      const locale = data.toString();
       return locale ? locale : this.getSystemLocale();
     } catch (e) {
       return this.getSystemLocale();
@@ -98,8 +98,8 @@ export default class Translator {
   }
 
   static getSystemLocale(): string {
-    let initialLocale = getDefaultLocale();
-    let locale = initialLocale.split('-');
+    const initialLocale = getDefaultLocale();
+    const locale = initialLocale.split('-');
     return locale[0] ? locale[0] : this.settings.defaultLocale;
   }
 }

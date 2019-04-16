@@ -18,7 +18,7 @@ export default class ScheduleList extends React.PureComponent<
 > {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
-    navigation: PropTypes.object.isRequired
+    navigation: PropTypes.object.isRequired,
   };
 
   state: State = {};
@@ -28,7 +28,7 @@ export default class ScheduleList extends React.PureComponent<
   };
 
   render() {
-    let { schedule } = this.props;
+    const { schedule } = this.props;
 
     if (!schedule || schedule.length < 1) {
       return <AlertMessage type={'warning'} title={_('No tienes clases')} />;

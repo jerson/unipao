@@ -4,7 +4,7 @@ import {
   ListRenderItemInfo,
   RefreshControl,
   StyleSheet,
-  View
+  View,
 } from 'react-native';
 import { Color, Theme } from '../../../../themes/styles';
 import * as PropTypes from 'prop-types';
@@ -16,13 +16,13 @@ import UPAO from '../../../../scraping/UPAO';
 import SyllableItem from '../../../../components/syllable/SyllableItem';
 import {
   NavigationScreenProp,
-  NavigationStackScreenOptions
+  NavigationStackScreenOptions,
 } from 'react-navigation';
 import { SyllableModel } from '../../../../scraping/student/intranet/Course';
 import AlertMessage from '../../../../components/ui/AlertMessage';
 
 export interface CourseSyllableScreenProps {
-  navigation: NavigationScreenProp<null, null>;
+  navigation: NavigationScreenProp<any, any>;
 }
 
 export interface State {
@@ -38,7 +38,7 @@ export default class CourseSyllableScreen extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   static navigationOptions: NavigationStackScreenOptions = {
@@ -49,19 +49,19 @@ export default class CourseSyllableScreen extends React.Component<
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,
-      Theme.shadowDefault
-    ]
+      Theme.shadowDefault,
+    ],
   };
 
   state: State = {
     items: [],
     isLoading: false,
     cacheLoaded: false,
-    isRefreshing: false
+    isRefreshing: false,
   };
 
   load = async () => {
-    let { isRefreshing } = this.state;
+    const { isRefreshing } = this.state;
 
     if (!isRefreshing) {
       this.setState({ isLoading: true, cacheLoaded: false });
@@ -70,12 +70,12 @@ export default class CourseSyllableScreen extends React.Component<
     await this.loadRequest();
   };
   getCacheKey = () => {
-    let { course } = this.getParams();
+    const { course } = this.getParams();
     return `course_syllables_${course.id || '_'}`;
   };
   checkCache = async () => {
     try {
-      let data = await CacheStorage.get(this.getCacheKey());
+      const data = await CacheStorage.get(this.getCacheKey());
       data && this.loadResponse(data, true);
     } catch (e) {
       Log.info(TAG, 'checkCache', e);
@@ -87,15 +87,15 @@ export default class CourseSyllableScreen extends React.Component<
       items,
       cacheLoaded,
       isLoading: false,
-      isRefreshing: false
+      isRefreshing: false,
     });
   };
   loadRequest = async () => {
-    let { cacheLoaded } = this.state;
+    const { cacheLoaded } = this.state;
 
     try {
-      let { course } = this.getParams();
-      let items = await UPAO.Student.Intranet.Course.getSyllables(course);
+      const { course } = this.getParams();
+      const items = await UPAO.Student.Intranet.Course.getSyllables(course);
       this.loadResponse(items);
       CacheStorage.set(this.getCacheKey(), items);
     } catch (e) {
@@ -121,7 +121,7 @@ export default class CourseSyllableScreen extends React.Component<
   }
 
   getParams(): any {
-    let { params } = this.props.navigation.state || { params: {} };
+    const { params } = this.props.navigation.state || { params: {} };
     return params;
   }
 
@@ -130,16 +130,15 @@ export default class CourseSyllableScreen extends React.Component<
   }
 
   render() {
-    let { isLoading, isRefreshing, items } = this.state;
+    const { isLoading, isRefreshing, items } = this.state;
     return (
       <View style={[styles.container]}>
-        {!isLoading &&
-          items.length < 1 && (
-            <AlertMessage
-              type={'warning'}
-              title={_('No se encontraron silabos')}
-            />
-          )}
+        {!isLoading && items.length < 1 && (
+          <AlertMessage
+            type={'warning'}
+            title={_('No se encontraron silabos')}
+          />
+        )}
         {isLoading && <Loading margin />}
         <FlatList
           ref={'list'}
@@ -164,6 +163,6 @@ export default class CourseSyllableScreen extends React.Component<
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
-  }
+    backgroundColor: '#fff',
+  },
 });

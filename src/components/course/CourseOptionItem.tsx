@@ -19,13 +19,13 @@ export default class CourseOptionItem extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   state: State = {};
 
   onPress = () => {
-    let { option, onChooseItem } = this.props;
+    const { option, onChooseItem } = this.props;
     if (option.disabled) {
       this.context.notification.show({
         type: 'warning',
@@ -33,7 +33,7 @@ export default class CourseOptionItem extends React.Component<
         title: _('Esta opción no esta implementada'),
         icon: 'error-outline',
         autoDismiss: 4,
-        iconType: 'MaterialIcons'
+        iconType: 'MaterialIcons',
       });
       return;
     }
@@ -44,20 +44,19 @@ export default class CourseOptionItem extends React.Component<
   };
 
   render() {
-    let { option } = this.props;
+    const { option } = this.props;
 
     return (
       <Touchable onPress={this.onPress}>
         <View style={[styles.container, option.disabled && styles.disabled]}>
           <View style={styles.info}>
-            {option.icon &&
-              option.iconType && (
-                <Icon
-                  style={styles.icon}
-                  name={option.icon}
-                  type={option.iconType}
-                />
-              )}
+            {option.icon && option.iconType && (
+              <Icon
+                style={styles.icon}
+                name={option.icon}
+                type={option.iconType}
+              />
+            )}
 
             <Text style={styles.name}>{option.name}</Text>
           </View>
@@ -75,25 +74,25 @@ const styles = StyleSheet.create({
     borderColor: '#fafafa',
     flexDirection: 'row',
     alignItems: 'center',
-    height: 58
+    height: 58,
   },
   disabled: {
-    opacity: 0.5
+    opacity: 0.5,
   },
   info: {
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   icon: {
     fontSize: 28,
     padding: 5,
     width: 50,
     color: '#f59331',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   name: {
     fontSize: 14,
-    color: '#666'
-  }
+    color: '#666',
+  },
 });

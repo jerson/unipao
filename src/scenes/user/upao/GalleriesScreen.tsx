@@ -3,9 +3,9 @@ import {
   ListRenderItemInfo,
   RefreshControl,
   StyleSheet,
-  View
+  View,
 } from 'react-native';
-import { Theme, Color } from '../../../themes/styles';
+import { Color, Theme } from '../../../themes/styles';
 import * as PropTypes from 'prop-types';
 import Log from '../../../modules/logger/Log';
 import GalleryItem from '../../../components/gallery/GalleryItem';
@@ -17,12 +17,12 @@ import FlexibleGrid from '../../../components/ui/FlexibleGrid';
 import { GalleryModel } from '../../../scraping/info/Gallery';
 import {
   NavigationScreenProp,
-  NavigationStackScreenOptions
+  NavigationStackScreenOptions,
 } from 'react-navigation';
 import AlertMessage from '../../../components/ui/AlertMessage';
 
 export interface GalleriesScreenProps {
-  navigation: NavigationScreenProp<null, null>;
+  navigation: NavigationScreenProp<any, any>;
 }
 
 export interface State {
@@ -41,7 +41,7 @@ export default class GalleriesScreen extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   static navigationOptions: NavigationStackScreenOptions = {
@@ -52,8 +52,8 @@ export default class GalleriesScreen extends React.Component<
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,
-      Theme.shadowDefault
-    ]
+      Theme.shadowDefault,
+    ],
   };
 
   state: State = {
@@ -63,11 +63,11 @@ export default class GalleriesScreen extends React.Component<
     isRefreshing: false,
     isLoadingMore: false,
     cacheLoaded: false,
-    canLoadMore: true
+    canLoadMore: true,
   };
 
   load = async () => {
-    let { page, isRefreshing, isLoadingMore } = this.state;
+    const { page, isRefreshing, isLoadingMore } = this.state;
 
     if (!(isRefreshing || isLoadingMore)) {
       this.setState({ isLoading: true, cacheLoaded: false });
@@ -78,14 +78,14 @@ export default class GalleriesScreen extends React.Component<
     await this.loadRequest();
   };
   getCacheKey = () => {
-    let { page } = this.state;
+    const { page } = this.state;
     return `galleries_${page}`;
   };
   checkCache = async () => {
-    let { page } = this.state;
+    const { page } = this.state;
 
     try {
-      let data = await CacheStorage.get(this.getCacheKey());
+      const data = await CacheStorage.get(this.getCacheKey());
       data && this.loadResponse(data, true);
     } catch (e) {
       Log.info(TAG, 'checkCache', e);
@@ -93,7 +93,7 @@ export default class GalleriesScreen extends React.Component<
   };
 
   loadResponse = (data: GalleryModel[], cacheLoaded = false) => {
-    let { page } = this.state;
+    const { page } = this.state;
     let galleries: GalleryModel[] = [];
     if (data.length < 1) {
       this.setState({ canLoadMore: false });
@@ -109,14 +109,14 @@ export default class GalleriesScreen extends React.Component<
       galleries,
       isLoading: false,
       isRefreshing: false,
-      isLoadingMore: false
+      isLoadingMore: false,
     });
   };
   loadRequest = async () => {
-    let { cacheLoaded, page } = this.state;
+    const { cacheLoaded, page } = this.state;
 
     try {
-      let items = await UPAO.Info.Gallery.getList(page);
+      const items = await UPAO.Info.Gallery.getList(page);
       this.loadResponse(items);
       CacheStorage.set(this.getCacheKey(), items);
     } catch (e) {
@@ -127,7 +127,7 @@ export default class GalleriesScreen extends React.Component<
         this.setState({
           isLoading: false,
           isRefreshing: false,
-          isLoadingMore: false
+          isLoadingMore: false,
         });
       }
     }
@@ -141,13 +141,13 @@ export default class GalleriesScreen extends React.Component<
     });
   };
   loadNext = () => {
-    let page = this.state.page + 1;
+    const page = this.state.page + 1;
     this.setState({ isLoadingMore: true, page }, () => {
       this.load();
     });
   };
   onEndReached = () => {
-    let { isLoadingMore, canLoadMore, isLoading } = this.state;
+    const { isLoadingMore, canLoadMore, isLoading } = this.state;
     if (!canLoadMore || isLoadingMore || isLoading) {
       return;
     }
@@ -163,16 +163,12 @@ export default class GalleriesScreen extends React.Component<
   }
 
   render() {
-    let { isLoading, isRefreshing, galleries } = this.state;
+    const { isLoading, isRefreshing, galleries } = this.state;
     return (
       <View style={[styles.container]}>
-        {!isLoading &&
-          galleries.length < 1 && (
-            <AlertMessage
-              type={'warning'}
-              title={_('No se encontraron datos')}
-            />
-          )}
+        {!isLoading && galleries.length < 1 && (
+          <AlertMessage type={'warning'} title={_('No se encontraron datos')} />
+        )}
         {isLoading && <Loading margin />}
         <FlexibleGrid
           itemWidth={300}
@@ -200,6 +196,6 @@ export default class GalleriesScreen extends React.Component<
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
-  }
+    backgroundColor: '#fff',
+  },
 });

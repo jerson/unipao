@@ -18,13 +18,13 @@ const TAG = 'ModalWindows';
 export default class ModalWindows extends React.Component<ModalProps, State> {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
-    navigation: PropTypes.object.isRequired
+    navigation: PropTypes.object.isRequired,
   };
 
   state: State = {
     px: 0,
     py: 0,
-    loaded: false
+    loaded: false,
   };
 
   refs: any;
@@ -53,14 +53,14 @@ export default class ModalWindows extends React.Component<ModalProps, State> {
   }
 
   render() {
-    let {
+    const {
       onBackButtonPress,
       onBackdropPress,
       isVisible,
-      children
+      children,
     } = this.props;
-    let { height, width } = Dimensions.get('window');
-    let { py, px } = this.state;
+    const { height, width } = Dimensions.get('window');
+    const { py, px } = this.state;
 
     if (!isVisible) {
       return null;
@@ -72,7 +72,7 @@ export default class ModalWindows extends React.Component<ModalProps, State> {
         style={[
           styles.absolute,
           styles.modal,
-          { width, height, left: px * -1, top: py * -1 }
+          { width, height, left: px * -1, top: py * -1 },
         ]}
       >
         <Touchable
@@ -88,19 +88,19 @@ export default class ModalWindows extends React.Component<ModalProps, State> {
 const styles = StyleSheet.create({
   container: {},
   backdrop: {
-    backgroundColor: 'rgba(0,0,0,0.4)'
+    backgroundColor: 'rgba(0,0,0,0.4)',
   },
   absolute: {
     position: 'absolute',
     left: 0,
     top: 0,
     right: 0,
-    bottom: 0
+    bottom: 0,
   },
   modal: {
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 9000,
-    elevation: 9000
-  }
+    elevation: 9000,
+  },
 });

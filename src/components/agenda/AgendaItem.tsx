@@ -17,15 +17,15 @@ export default class AgendaItem extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   state: State = {};
 
   render() {
-    let { agenda, isToday } = this.props;
-    let day = agenda.dayOfMonth;
-    let dayName = agenda.dayName;
+    const { agenda, isToday } = this.props;
+    const day = agenda.dayOfMonth;
+    const dayName = agenda.dayName;
 
     return (
       <View style={[styles.container, isToday && styles.today]}>
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fafafa',
     padding: 10,
     borderBottomWidth: 1,
-    borderColor: '#f1f1f1'
+    borderColor: '#f1f1f1',
   },
   todayIcon: {
     borderRadius: 4,
@@ -74,16 +74,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#0d61ac',
     position: 'absolute',
     right: 2,
-    top: 3
+    top: 3,
   },
   todayText: {
     textAlign: 'center',
     fontWeight: 'bold',
     color: '#fff',
-    fontSize: 9
+    fontSize: 9,
   },
   today: {
-    backgroundColor: '#fbf3e1'
+    backgroundColor: '#fbf3e1',
   },
   date: {
     backgroundColor: '#d82f29',
@@ -92,42 +92,42 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: 55,
-    height: 55
+    height: 55,
   },
   dateContainer: {
     paddingRight: 10,
-    paddingTop: 0
+    paddingTop: 0,
   },
   day: {
     color: '#fff',
-    fontSize: 22
+    fontSize: 22,
   },
   dayName: {
     color: 'rgba(255,255,255,0.5)',
-    fontSize: 10
+    fontSize: 10,
   },
   header: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   titleContainer: {
-    flex: 1
+    flex: 1,
   },
 
   name: {
     color: 'rgba(0,0,0,0.95)',
     fontSize: 14,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   property: {
     color: 'rgba(0,0,0,0.35)',
     fontSize: 12,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
 
   subtitle: {
     color: 'rgba(0,0,0,0.55)',
     fontSize: 11,
-    backgroundColor: 'transparent'
-  }
+    backgroundColor: 'transparent',
+  },
 });

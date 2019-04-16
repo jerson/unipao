@@ -1,7 +1,6 @@
-import * as React from 'react';
-import { TabBarBottom, TabBarTop, TabNavigatorConfig } from 'react-navigation';
-import { Theme } from '../themes/styles';
+import { TabBarTop, TabNavigatorConfig } from 'react-navigation';
 import { Platform } from 'react-native';
+import { BottomTabBar } from 'react-navigation-tabs';
 
 export const tabsOptions: TabNavigatorConfig = {
   tabBarComponent: TabBarTop,
@@ -21,20 +20,20 @@ export const tabsOptions: TabNavigatorConfig = {
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.2,
       shadowRadius: 2,
-      elevation: 1
+      elevation: 1,
     },
     labelStyle: {
       fontSize: 12,
-      fontWeight: 'normal'
+      fontWeight: 'normal',
     },
     indicatorStyle: {
-      backgroundColor: '#0d61ac'
-    }
-  }
+      backgroundColor: '#0d61ac',
+    },
+  },
 };
 
 export const tabsOptionsMain: TabNavigatorConfig = {
-  tabBarComponent: TabBarBottom,
+  tabBarComponent: BottomTabBar,
   tabBarPosition: 'bottom',
   initialLayout: undefined,
   lazy: true,
@@ -45,18 +44,18 @@ export const tabsOptionsMain: TabNavigatorConfig = {
     activeTintColor: '#f59331',
     labelStyle: {
       marginTop: Platform.OS === 'ios' ? 15 : 0,
-      marginLeft: 0
+      marginLeft: 0,
     },
     style: {
       borderTopColor: undefined,
       borderColor: '#d4d4d4',
-      height: 49
+      height: 49,
     },
     tabStyle: {
       justifyContent: 'flex-end',
-      flexDirection: 'column'
-    }
-  }
+      flexDirection: 'column',
+    },
+  },
 };
 export const tabsOptionsSub: TabNavigatorConfig = {
   tabBarComponent: TabBarTop,
@@ -77,14 +76,14 @@ export const tabsOptionsSub: TabNavigatorConfig = {
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.2,
       shadowRadius: 2,
-      elevation: 1
+      elevation: 1,
     },
     labelStyle: {
       fontSize: 12,
-      fontWeight: 'normal'
+      fontWeight: 'normal',
     },
     indicatorStyle: {
-      backgroundColor: '#f59331'
-    }
-  }
+      backgroundColor: '#f59331',
+    },
+  },
 };

@@ -19,20 +19,20 @@ export default class GalleryImage extends React.Component<
 > {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
-    navigation: PropTypes.object.isRequired
+    navigation: PropTypes.object.isRequired,
   };
 
   state: State = {};
 
   toggle = () => {
-    let { onShowGallery } = this.props;
+    const { onShowGallery } = this.props;
     if (typeof onShowGallery === 'function') {
       onShowGallery();
     }
   };
 
   render() {
-    let { image, onShowGallery } = this.props;
+    const { image, onShowGallery } = this.props;
     return (
       <View style={styles.container}>
         <Touchable onPress={this.toggle}>
@@ -50,6 +50,6 @@ export default class GalleryImage extends React.Component<
 const styles = StyleSheet.create({
   container: {},
   image: {
-    height: 200
-  }
+    height: 200,
+  },
 });

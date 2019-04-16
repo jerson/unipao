@@ -5,7 +5,7 @@ import {
   StyleSheet,
   Text,
   TextStyle,
-  ViewStyle
+  ViewStyle,
 } from 'react-native';
 import { Theme } from '../../themes/styles';
 import Touchable, { TouchableProps } from './Touchable';
@@ -43,7 +43,7 @@ export interface State {}
 
 export default class Button extends React.Component<ButtonProps, State> {
   render() {
-    let {
+    const {
       label,
       icon,
       isLoading,
@@ -115,30 +115,29 @@ export default class Button extends React.Component<ButtonProps, State> {
           type !== 'link' && Theme.shadowDefault,
           containerStyle,
           sizeStyle,
-          style
+          style,
         ]}
         {...props}
       >
-        {icon &&
-          !isLoading && (
-            <Icon
-              name={icon}
-              style={[
-                styles.text,
-                Theme.textShadow,
-                label ? styles.iconWithLabel : undefined,
-                textStyle,
-                textSizeStyle
-              ]}
-              type={iconType}
-            />
-          )}
+        {icon && !isLoading && (
+          <Icon
+            name={icon}
+            style={[
+              styles.text,
+              Theme.textShadow,
+              label ? styles.iconWithLabel : undefined,
+              textStyle,
+              textSizeStyle,
+            ]}
+            type={iconType}
+          />
+        )}
         {!icon ||
           (isLoading && (
             <Loading
               style={[
                 label ? styles.iconWithLabel : undefined,
-                { width: 16, height: 16, transform: [{ scale: 0.8 }] }
+                { width: 16, height: 16, transform: [{ scale: 0.8 }] },
               ]}
               color={loadingColor}
               size={'small'}
@@ -163,68 +162,68 @@ const styles = StyleSheet.create({
     padding: 12,
     paddingLeft: 20,
     paddingRight: 20,
-    height: 44
+    height: 44,
   },
   smallSize: {
     padding: 6,
     paddingLeft: 10,
-    paddingRight: 10
+    paddingRight: 10,
   },
   iconWithLabel: {
-    paddingRight: 5
+    paddingRight: 5,
   } as ViewStyle,
   text: {
-    fontSize: 15
+    fontSize: 15,
   },
   textSmallSize: {
-    fontSize: 12
+    fontSize: 12,
   },
   default: {
-    backgroundColor: 'rgba(0,0,0,0.2)'
+    backgroundColor: 'rgba(0,0,0,0.2)',
   },
   defaultText: {
-    color: '#fff'
+    color: '#fff',
   },
   alter: {
-    backgroundColor: 'rgba(255,255,255,0.3)'
+    backgroundColor: 'rgba(255,255,255,0.3)',
   },
   alterText: {
-    color: '#666'
+    color: '#666',
   },
   link: {
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   linkText: {
-    color: '#fff'
+    color: '#fff',
   },
   primary: {
-    backgroundColor: '#f59331'
+    backgroundColor: '#f59331',
   },
   primaryText: {
-    color: '#fff'
+    color: '#fff',
   },
   danger: {
-    backgroundColor: '#cf4346'
+    backgroundColor: '#cf4346',
   },
   dangerText: {
-    color: '#fff'
+    color: '#fff',
   },
   warning: {
-    backgroundColor: '#ea8435'
+    backgroundColor: '#ea8435',
   },
   warningText: {
-    color: '#fff'
+    color: '#fff',
   },
   success: {
-    backgroundColor: '#74cf67'
+    backgroundColor: '#74cf67',
   },
   successText: {
-    color: '#fff'
+    color: '#fff',
   },
   facebook: {
-    backgroundColor: '#344e85'
+    backgroundColor: '#344e85',
   },
   facebookText: {
-    color: '#fff'
-  }
+    color: '#fff',
+  },
 });

@@ -4,7 +4,7 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
 } from 'react-native';
 import { Color, Theme } from '../../../themes/styles';
 import * as PropTypes from 'prop-types';
@@ -18,15 +18,15 @@ import FlexibleGrid from '../../../components/ui/FlexibleGrid';
 import GalleryModal from '../../../components/gallery/GalleryModal';
 import {
   NavigationScreenProp,
-  NavigationStackScreenOptions
+  NavigationStackScreenOptions,
 } from 'react-navigation';
 import {
   GalleryDetailModel,
-  GalleryModel
+  GalleryModel,
 } from '../../../scraping/info/Gallery';
 
 export interface GalleryScreenProps {
-  navigation: NavigationScreenProp<null, null>;
+  navigation: NavigationScreenProp<any, any>;
 }
 
 export interface State {
@@ -43,7 +43,7 @@ export default class GalleryScreen extends React.PureComponent<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   static navigationOptions: NavigationStackScreenOptions = {
@@ -54,15 +54,15 @@ export default class GalleryScreen extends React.PureComponent<
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,
-      Theme.shadowDefault
-    ]
+      Theme.shadowDefault,
+    ],
   };
   state: State = {
     cacheLoaded: false,
     showGalleryModal: false,
     gallery: undefined,
     galleryIndex: 0,
-    isLoading: true
+    isLoading: true,
   };
   load = async () => {
     this.setState({ isLoading: true, cacheLoaded: false });
@@ -70,12 +70,12 @@ export default class GalleryScreen extends React.PureComponent<
     await this.loadRequest();
   };
   getCacheKey = () => {
-    let { gallery } = this.getParams();
+    const { gallery } = this.getParams();
     return `gallery_${gallery.id}`;
   };
   checkCache = async () => {
     try {
-      let data = await CacheStorage.get(this.getCacheKey());
+      const data = await CacheStorage.get(this.getCacheKey());
       data && this.loadResponse(data, true);
     } catch (e) {
       Log.info(TAG, 'checkCache', e);
@@ -85,15 +85,15 @@ export default class GalleryScreen extends React.PureComponent<
     this.setState({
       cacheLoaded,
       gallery,
-      isLoading: false
+      isLoading: false,
     });
   };
   loadRequest = async () => {
-    let { gallery } = this.getParams();
-    let { cacheLoaded } = this.state;
+    const { gallery } = this.getParams();
+    const { cacheLoaded } = this.state;
 
     try {
-      let item = await UPAO.Info.Gallery.get(gallery.id);
+      const item = await UPAO.Info.Gallery.get(gallery.id);
       this.loadResponse(item);
       CacheStorage.set(this.getCacheKey(), item);
     } catch (e) {
@@ -102,22 +102,22 @@ export default class GalleryScreen extends React.PureComponent<
         this.loadResponse(undefined);
       } else {
         this.setState({
-          isLoading: false
+          isLoading: false,
         });
       }
     }
   };
   toogleGallery = (index: number) => {
-    let { gallery } = this.state;
-    let images = gallery ? gallery.images || [] : [];
+    const { gallery } = this.state;
+    const images = gallery ? gallery.images || [] : [];
 
     if (Platform.OS === 'windows') {
-      let image = images[index];
+      const image = images[index];
       image && this.props.navigation.navigate('Photo', { image });
     } else {
       this.setState({
         showGalleryModal: !this.state.showGalleryModal,
-        galleryIndex: index
+        galleryIndex: index,
       });
     }
   };
@@ -130,7 +130,7 @@ export default class GalleryScreen extends React.PureComponent<
   }
 
   getParams(): any {
-    let { params } = this.props.navigation.state || { params: {} };
+    const { params } = this.props.navigation.state || { params: {} };
     return params;
   }
 
@@ -139,9 +139,9 @@ export default class GalleryScreen extends React.PureComponent<
   }
 
   render() {
-    let { gallery: galleryParams } = this.getParams();
-    let { gallery, isLoading, galleryIndex, showGalleryModal } = this.state;
-    let images = gallery ? gallery.images || [] : [];
+    const { gallery: galleryParams } = this.getParams();
+    const { gallery, isLoading, galleryIndex, showGalleryModal } = this.state;
+    const images = gallery ? gallery.images || [] : [];
 
     return (
       <View style={[styles.container]}>
@@ -197,18 +197,18 @@ export default class GalleryScreen extends React.PureComponent<
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#222'
+    backgroundColor: '#222',
   },
   name: {
     color: 'rgba(255,255,255,0.95)',
     fontSize: 18,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   header: {
     justifyContent: 'center',
     padding: 4,
     paddingTop: 0,
     height: 60,
-    paddingLeft: 60
-  }
+    paddingLeft: 60,
+  },
 });

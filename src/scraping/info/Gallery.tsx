@@ -27,22 +27,22 @@ export interface GalleryImageModel {
 const TAG = 'Gallery';
 export default class Gallery {
   static async getList(page: number): Promise<GalleryModel[]> {
-    let items: GalleryModel[] = [];
+    const items: GalleryModel[] = [];
     try {
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         'http://www.upao.edu.pe/actualidad/?mod=mod_act&s=ima&Page=' + page,
         {},
         { tag: 'Gallery.getList', checkSession: false }
       );
 
-      let $container = $(
+      const $container = $(
         '#ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_dtl_album'
       );
 
       $('td > table > tr', $container).each((index, value) => {
-        let imageSmall = ImageUtils.getImageInfo($('img', value).attr('src'));
-        let href = $('a', value).attr('href') || '';
-        let item: GalleryModel = {
+        const imageSmall = ImageUtils.getImageInfo($('img', value).attr('src'));
+        const href = $('a', value).attr('href') || '';
+        const item: GalleryModel = {
           id: href,
           url: href,
           imageSmall,
@@ -50,7 +50,7 @@ export default class Gallery {
           title: $('td > strong', value)
             .text()
             .replace(/\s+/g, ' ')
-            .trim()
+            .trim(),
         };
 
         items.push(item);
@@ -66,26 +66,26 @@ export default class Gallery {
   static async get(id: string): Promise<GalleryDetailModel> {
     let item: GalleryDetailModel;
     try {
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         'http://www.upao.edu.pe/actualidad/' + id,
         {},
         { tag: 'Agenda.get', checkSession: false }
       );
-      let title = $('.menu_cen div > b > span')
+      const title = $('.menu_cen div > b > span')
         .text()
         .replace('::', '')
         .replace(/\s+/g, ' ')
         .trim();
 
-      let $container = $(
+      const $container = $(
         '#ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_dtl_album'
       );
 
-      let images: GalleryImageModel[] = [];
+      const images: GalleryImageModel[] = [];
       $('table', $container).each((index, value) => {
-        let imageSmall = ImageUtils.getImageInfo($('img', value).attr('src'));
-        let href = $('a', value).attr('href') || '';
-        let image: GalleryImageModel = {
+        const imageSmall = ImageUtils.getImageInfo($('img', value).attr('src'));
+        const href = $('a', value).attr('href') || '';
+        const image: GalleryImageModel = {
           url: href,
           id: href,
           imageSmall,
@@ -93,7 +93,7 @@ export default class Gallery {
           title: ($('img', value).attr('alt') || '')
             .replace(/\s+/g, ' ')
             .replace(/(<([^>]+)>)/gi, '')
-            .trim()
+            .trim(),
         };
 
         images.push(image);
@@ -102,7 +102,7 @@ export default class Gallery {
       item = {
         id,
         title,
-        images
+        images,
       };
     } catch (e) {
       Log.info(TAG, 'get', e);

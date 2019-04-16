@@ -9,7 +9,6 @@ import RequestUtil from './utils/RequestUtil';
 import Agenda from './info/Agenda';
 import News from './info/News';
 import Gallery from './info/Gallery';
-import Config from './Config';
 
 export interface LoginPrepareData {
   params: Params;
@@ -23,15 +22,13 @@ export default class UPAO {
     Schedule,
     Agenda,
     News,
-    Gallery
+    Gallery,
   };
 
   static Student = {
     Profile,
-    Intranet
+    Intranet,
   };
-
-  private static loginUrl = '/login.aspx?ReturnUrl=%2fdefault.aspx';
 
   static async loginPrepare(username: string): Promise<LoginPrepareData> {
     let params: Params = {};
@@ -48,7 +45,7 @@ export default class UPAO {
     }
 
     try {
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         this.loginUrl,
         {},
         { tag: 'login', checkSession: false }
@@ -97,7 +94,7 @@ export default class UPAO {
 
     return {
       params,
-      requireCaptcha
+      requireCaptcha,
     };
   }
 
@@ -111,8 +108,8 @@ export default class UPAO {
 
     delete params.btn_valida;
 
-    let keys = Object.keys(params);
-    for (let key of keys) {
+    const keys = Object.keys(params);
+    for (const key of keys) {
       if (key.indexOf('_id') !== -1) {
         params[key] = username;
       } else if (key.indexOf('_nip') !== -1) {
@@ -125,20 +122,20 @@ export default class UPAO {
     params['btn_valida.y'] = NumberUtils.getRandomInt(5, 25);
 
     try {
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         this.loginUrl,
         {
           method: 'POST',
           body: ParamsUtils.getFormData(params),
           headers: {
             Referer: 'https://campusvirtual.upao.edu.pe' + this.loginUrl,
-            'User-Agent': this.getUserAgentDesktop()
-          }
+            'User-Agent': this.getUserAgentDesktop(),
+          },
         },
         { tag: 'login', checkSession: false }
       );
 
-      let labelError = $('#lbl_error').text();
+      const labelError = $('#lbl_error').text();
       if (labelError) {
         Log.info(TAG, labelError);
         return ok;
@@ -148,7 +145,7 @@ export default class UPAO {
       throw e;
     }
     try {
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         '/',
         {},
         { tag: 'login', checkSession: false }
@@ -181,7 +178,7 @@ export default class UPAO {
     }
 
     try {
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         this.loginUrl,
         {},
         { tag: 'login', checkSession: false }
@@ -194,8 +191,8 @@ export default class UPAO {
 
     delete params.btn_valida;
 
-    let keys = Object.keys(params);
-    for (let key of keys) {
+    const keys = Object.keys(params);
+    for (const key of keys) {
       if (key.indexOf('_id') !== -1) {
         params[key] = username;
       } else if (key.indexOf('_nip') !== -1) {
@@ -208,20 +205,20 @@ export default class UPAO {
     params['btn_valida.y'] = NumberUtils.getRandomInt(5, 25);
 
     try {
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         this.loginUrl,
         {
           method: 'POST',
           body: ParamsUtils.getFormData(params),
           headers: {
             Referer: 'https://campusvirtual.upao.edu.pe' + this.loginUrl,
-            'User-Agent': this.getUserAgentDesktop()
-          }
+            'User-Agent': this.getUserAgentDesktop(),
+          },
         },
         { tag: 'login', checkSession: false }
       );
 
-      let labelError = $('#lbl_error').text();
+      const labelError = $('#lbl_error').text();
       if (labelError) {
         Log.info(TAG, labelError);
         return ok;
@@ -231,7 +228,7 @@ export default class UPAO {
       throw e;
     }
     try {
-      let $ = await RequestUtil.fetch(
+      const $ = await RequestUtil.fetch(
         '/',
         {},
         { tag: 'login', checkSession: false }
@@ -265,16 +262,18 @@ export default class UPAO {
   }
 
   static getUserAgentMobile() {
-    let agents = [
-      'Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19'
+    const agents = [
+      'Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19',
     ];
     return agents[NumberUtils.getRandomInt(0, agents.length - 1)];
   }
 
   static getUserAgentDesktop() {
-    let agents = [
-      'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36'
+    const agents = [
+      'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36',
     ];
     return agents[NumberUtils.getRandomInt(0, agents.length - 1)];
   }
+
+  private static loginUrl = '/login.aspx?ReturnUrl=%2fdefault.aspx';
 }

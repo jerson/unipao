@@ -36,8 +36,8 @@ export interface State {}
 
 export default class Icon extends React.Component<IconProps, State> {
   render() {
-    let { type, name, ...props } = this.props;
-    let nameDefault = name;
+    const { type, name, ...props } = this.props;
+    const nameDefault = name;
 
     switch (type) {
       default:

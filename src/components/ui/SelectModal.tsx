@@ -5,7 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  View
+  View,
 } from 'react-native';
 import Touchable from '../ui/Touchable';
 import * as PropTypes from 'prop-types';
@@ -34,21 +34,21 @@ export default class SelectModal extends React.Component<
 > {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
-    navigation: PropTypes.object.isRequired
+    navigation: PropTypes.object.isRequired,
   };
 
   state: State = {};
 
   render() {
-    let {
+    const {
       values,
       selectedValue,
       title,
       onCancel,
       isVisible,
-      onValueChange
+      onValueChange,
     } = this.props;
-    let { height } = Dimensions.get('window');
+    const { height } = Dimensions.get('window');
 
     return (
       <Modal
@@ -63,11 +63,12 @@ export default class SelectModal extends React.Component<
             showsVerticalScrollIndicator={true}
             horizontal={false}
             style={{
-              maxHeight: Platform.OS === 'windows' ? height - 260 : height - 200
+              maxHeight:
+                Platform.OS === 'windows' ? height - 260 : height - 200,
             }}
           >
             {values.map((value, index) => {
-              let isSelected = value.value === selectedValue;
+              const isSelected = value.value === selectedValue;
               return (
                 <Touchable
                   key={index}
@@ -83,7 +84,7 @@ export default class SelectModal extends React.Component<
                       <Icon
                         style={[
                           styles.optionIcon,
-                          isSelected && styles.optionIconActive
+                          isSelected && styles.optionIconActive,
                         ]}
                         name={value.icon}
                         type={value.iconType}
@@ -100,7 +101,7 @@ export default class SelectModal extends React.Component<
                           style={[
                             styles.text,
                             styles.subtitle,
-                            isSelected && styles.textActive
+                            isSelected && styles.textActive,
                           ]}
                         >
                           {value.subtitle}
@@ -128,10 +129,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
     padding: 4,
     paddingBottom: 10,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   modal: {
-    alignItems: 'center'
+    alignItems: 'center',
   },
   modalContainer: {
     maxWidth: 300,
@@ -139,39 +140,39 @@ const styles = StyleSheet.create({
     width: 300,
     overflow: 'hidden',
     backgroundColor: '#fff',
-    borderRadius: 4
+    borderRadius: 4,
   },
   optionIcon: {
     fontSize: 30,
     marginRight: 10,
-    color: '#f59331'
+    color: '#f59331',
   },
   optionIconActive: {
-    color: '#fff'
+    color: '#fff',
   },
   option: {
     backgroundColor: '#fafafa',
     flexDirection: 'row',
     alignItems: 'center',
     padding: 10,
-    borderRadius: 4
+    borderRadius: 4,
   },
   optionContainer: {
     marginTop: 3,
-    borderRadius: 4
+    borderRadius: 4,
   },
   text: {
     color: '#444',
-    fontSize: 13
+    fontSize: 13,
   },
   subtitle: {
     color: '#777',
-    fontSize: 12
+    fontSize: 12,
   },
   textActive: {
-    color: '#fff'
+    color: '#fff',
   },
   optionActive: {
-    backgroundColor: '#f59331'
-  }
+    backgroundColor: '#f59331',
+  },
 });

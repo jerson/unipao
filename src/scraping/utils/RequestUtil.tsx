@@ -23,10 +23,10 @@ export default class RequestUtil {
       url = `${Config.URL}${url}`;
     }
     let html = '<div></div>';
-    let tag = options.tag || url;
+    const tag = options.tag || url;
     try {
       Log.debug(TAG, 'fetch', tag, url);
-      let response = await fetchCancelable(
+      const response = await fetchCancelable(
         url,
         {
           // redirect: 'follow',
@@ -34,9 +34,9 @@ export default class RequestUtil {
           headers: {
             // 'X-Requested-With':'',
             // 'X-Request-Id':'',
-            'User-Agent': UPAO.getUserAgentDesktop()
+            'User-Agent': UPAO.getUserAgentDesktop(),
           },
-          ...params
+          ...params,
         },
         tag
       );
@@ -44,12 +44,12 @@ export default class RequestUtil {
     } catch (e) {
       Log.error(TAG, 'fetch', e);
     }
-    let $: JQueryStatic = cio.load(
+    const $: JQueryStatic = cio.load(
       options.ajax ? `<html><body>${html}</body></html>` : html
     );
 
     if (options.checkSession) {
-      let loginMessage = ($('a[href*="login.aspx"]').text() || '').trim();
+      const loginMessage = ($('a[href*="login.aspx"]').text() || '').trim();
       if ($('input[name*=txt_nip]').length) {
         Log.warn(TAG, 'fetch', 'sesion desconectada', url);
         Emitter.emit('onForceLogout', true);

@@ -23,8 +23,8 @@ export default class PreferencesStorage {
       noti2: true,
       noti4: true,
       noti6: true,
-      noti9: true
-    }
+      noti9: true,
+    },
   };
   static cache: Preferences = {};
 
@@ -60,10 +60,10 @@ export default class PreferencesStorage {
       return this.cache[key];
     }
 
-    let defaultValue = this.getDefault(key);
+    const defaultValue = this.getDefault(key);
     let value: PreferenceValue = '';
     try {
-      let data = await SingleStorage.get(key);
+      const data = await SingleStorage.get(key);
 
       if (
         (typeof data === 'undefined' || data === null) &&

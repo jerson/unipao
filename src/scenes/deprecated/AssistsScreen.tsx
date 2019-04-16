@@ -4,7 +4,7 @@ import {
   ListRenderItemInfo,
   RefreshControl,
   StyleSheet,
-  View
+  View,
 } from 'react-native';
 import { Color, Theme } from '../../themes/styles';
 import * as PropTypes from 'prop-types';
@@ -18,13 +18,13 @@ import AlertMessage from '../../components/ui/AlertMessage';
 import {
   NavigationScreenConfigProps,
   NavigationScreenProp,
-  NavigationStackScreenOptions
+  NavigationStackScreenOptions,
 } from 'react-navigation';
 import CacheStorage from '../../modules/storage/CacheStorage';
 import { _ } from '../../modules/i18n/Translator';
 
 export interface AssistsScreenProps {
-  navigation: NavigationScreenProp<null, null>;
+  navigation: NavigationScreenProp<any, any>;
 }
 
 export interface State {
@@ -41,12 +41,12 @@ export default class AssistsScreen extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   static navigationOptions = ({
     navigation,
-    screenProps
+    screenProps,
   }: NavigationScreenConfigProps): NavigationStackScreenOptions => ({
     title: _('Mis Asistencias'),
     headerBackTitle: null,
@@ -55,35 +55,34 @@ export default class AssistsScreen extends React.Component<
     headerStyle: [
       Theme.navigationBar,
       Theme.subNavigationBar,
-      Theme.shadowDefault
+      Theme.shadowDefault,
     ],
     headerRight: (
       <View style={{ flexDirection: 'row' }}>
         <NavigationButton
           onPress={() => {
-            navigation.state.params.togglePeriods();
+            navigation.state.params!.togglePeriods();
           }}
           icon={'filter'}
           iconType={'Feather'}
         />
         <NavigationButton
           onPress={() => {
-            navigation.state.params.reload();
+            navigation.state.params!.reload();
           }}
           icon={'refresh'}
           iconType={'MaterialIcons'}
         />
       </View>
-    )
+    ),
   });
-
   refs: any;
   state: State = {
     isLoading: true,
     period: null,
     isRefreshing: false,
     cacheLoaded: false,
-    assists: []
+    assists: [],
   };
 
   renderItem = ({ item, index }: ListRenderItemInfo<any>) => {
@@ -96,7 +95,7 @@ export default class AssistsScreen extends React.Component<
   };
 
   load = async () => {
-    let { isRefreshing } = this.state;
+    const { isRefreshing } = this.state;
     if (!isRefreshing) {
       this.setState({ isLoading: true, cacheLoaded: false });
       await this.checkCache();
@@ -104,12 +103,12 @@ export default class AssistsScreen extends React.Component<
     await this.loadRequest();
   };
   getCacheKey = () => {
-    let { period } = this.state;
+    const { period } = this.state;
     return `assists_${period.PERIODO || '_'}`;
   };
   checkCache = async () => {
     try {
-      let data = await CacheStorage.get(this.getCacheKey());
+      const data = await CacheStorage.get(this.getCacheKey());
       data && this.loadResponse(data, true);
     } catch (e) {
       Log.info(TAG, 'checkCache', e);
@@ -125,22 +124,22 @@ export default class AssistsScreen extends React.Component<
       cacheLoaded,
       assists,
       isLoading: false,
-      isRefreshing: false
+      isRefreshing: false,
     });
   };
   loadRequest = async () => {
-    let { cacheLoaded, period } = this.state;
+    const { cacheLoaded, period } = this.state;
 
     try {
-      let response = await Request.post(
+      const response = await Request.post(
         'av/ej/asistencia',
         {
-          periodo: period.PERIODO
+          periodo: period.PERIODO,
         },
         { secure: true }
       );
 
-      let { body } = response;
+      const { body } = response;
       this.loadResponse(body);
       CacheStorage.set(this.getCacheKey(), body);
     } catch (e) {
@@ -168,21 +167,21 @@ export default class AssistsScreen extends React.Component<
   };
 
   getParams(): any {
-    let { params } = this.props.navigation.state || { params: {} };
+    const { params } = this.props.navigation.state || { params: {} };
     return params;
   }
 
   componentDidMount() {
     this.props.navigation.setParams({ reload: this.reload });
     this.props.navigation.setParams({
-      togglePeriods: this.togglePeriods
+      togglePeriods: this.togglePeriods,
     });
-    let { period } = this.getParams();
+    const { period } = this.getParams();
     this.onChangePeriod(period);
   }
 
   render() {
-    let { assists, period, isLoading, isRefreshing } = this.state;
+    const { assists, period, isLoading, isRefreshing } = this.state;
 
     return (
       <View style={[styles.container]}>
@@ -194,13 +193,12 @@ export default class AssistsScreen extends React.Component<
           />
         )}
 
-        {!isLoading &&
-          assists.length < 1 && (
-            <AlertMessage
-              type={'warning'}
-              title={_('No se econtró registro de asistencias')}
-            />
-          )}
+        {!isLoading && assists.length < 1 && (
+          <AlertMessage
+            type={'warning'}
+            title={_('No se econtró registro de asistencias')}
+          />
+        )}
         {isLoading && <Loading margin />}
         {!isLoading && (
           <FlatList
@@ -226,6 +224,6 @@ export default class AssistsScreen extends React.Component<
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
-  }
+    backgroundColor: '#fff',
+  },
 });

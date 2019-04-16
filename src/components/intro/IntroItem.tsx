@@ -5,7 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  View
+  View,
 } from 'react-native';
 import * as PropTypes from 'prop-types';
 import { Theme } from '../../themes/styles';
@@ -24,18 +24,18 @@ const TAG = 'IntroItem';
 export default class IntroItem extends React.Component<IntroItemProps, State> {
   static contextTypes = {
     notification: PropTypes.object.isRequired,
-    navigation: PropTypes.object.isRequired
+    navigation: PropTypes.object.isRequired,
   };
 
   render() {
-    let { height } = Dimensions.get('window');
-    let { item, width, index } = this.props;
+    const { height } = Dimensions.get('window');
+    const { item, width, index } = this.props;
     return (
-      <View style={[styles.container, { width: width }]}>
+      <View style={[styles.container, { width }]}>
         <ScrollView
           contentContainerStyle={[
             styles.content,
-            { minHeight: height, paddingTop: 20 }
+            { minHeight: height, paddingTop: 20 },
           ]}
         >
           <View style={styles.block}>
@@ -89,48 +89,48 @@ export default class IntroItem extends React.Component<IntroItemProps, State> {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   icon: {
     fontSize: 120,
     alignSelf: 'center',
     marginBottom: 10,
     color: 'rgba(255,255,255,0.8)',
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   block: {
     maxWidth: 300,
     alignItems: 'center',
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   logoName: {
     width: 125,
     height: 50,
     marginBottom: 20,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   image: {
     width: 125,
-    height: 125
+    height: 125,
   },
   imageContainer: {
     backgroundColor: '#f59331',
     marginBottom: 5,
-    borderRadius: 30
+    borderRadius: 30,
   },
   text: {
     fontSize: 18,
     color: '#fff',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   subtitle: {
     fontSize: 13,
     color: 'rgba(255,255,255,0.6)',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   content: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingBottom: 120
-  }
+    paddingBottom: 120,
+  },
 });

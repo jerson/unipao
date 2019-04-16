@@ -8,7 +8,7 @@ import {
   StatusBar,
   StyleSheet,
   Text,
-  View
+  View,
 } from 'react-native';
 import Icon from '../../components/ui/Icon';
 import { Theme } from '../../themes/styles';
@@ -20,7 +20,7 @@ import ImageUtil from '../../modules/util/ImageUtil';
 import { _ } from '../../modules/i18n/Translator';
 import {
   NavigationScreenProp,
-  NavigationTabScreenOptions
+  NavigationTabScreenOptions,
 } from 'react-navigation';
 import ViewSpacer from '../../components/ui/ViewSpacer';
 import Background from '../../components/ui/Background';
@@ -28,9 +28,9 @@ import Background from '../../components/ui/Background';
 const { titleize } = require('underscore.string');
 
 export interface ProfileScreenProps {
-  navigation: NavigationScreenProp<null, null>;
+  navigation: NavigationScreenProp<any, any>;
   screenProps: {
-    rootNavigation: NavigationScreenProp<null, null>;
+    rootNavigation: NavigationScreenProp<any, any>;
   };
 }
 
@@ -42,7 +42,7 @@ export default class ProfileScreen extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   static navigationOptions: NavigationTabScreenOptions = {
@@ -53,7 +53,7 @@ export default class ProfileScreen extends React.Component<
         type={'FontAwesome'}
         style={[Theme.tabTarIcon, { color: tintColor || '#444' }]}
       />
-    )
+    ),
   };
 
   state = {};
@@ -63,16 +63,16 @@ export default class ProfileScreen extends React.Component<
       {
         text: _('Cancelar'),
         onPress: () => {},
-        style: 'cancel'
+        style: 'cancel',
       },
       {
         text: _('Cerrar sesión'),
         onPress: async () => {
           await Auth.logout();
-          let { screenProps } = this.props;
+          const { screenProps } = this.props;
           RouterUtil.resetTo(screenProps.rootNavigation, 'Login');
-        }
-      }
+        },
+      },
     ]);
   };
   onDimensionsChange = () => {
@@ -89,8 +89,8 @@ export default class ProfileScreen extends React.Component<
   }
 
   render() {
-    let minHeight = Dimensions.get('window').height;
-    let user = Auth.getUser();
+    const minHeight = Dimensions.get('window').height;
+    const user = Auth.getUser();
 
     return (
       <View style={{ flex: 1 }}>
@@ -148,45 +148,45 @@ const styles = StyleSheet.create({
   container: {},
   content: {
     paddingBottom: 50,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   profile: {
     backgroundColor: 'transparent',
     // backgroundColor: '#fff',
     alignItems: 'center',
-    padding: 20
+    padding: 20,
   },
   imageContainer: {
     width: 100,
     height: 100,
-    borderRadius: 50
+    borderRadius: 50,
   },
   imagePlaceholder: {
     position: 'absolute',
     left: 0,
     width: 100,
     height: 100,
-    borderRadius: 50
+    borderRadius: 50,
   },
   image: {
     backgroundColor: 'transparent',
     width: 100,
     height: 100,
-    borderRadius: 50
+    borderRadius: 50,
   },
   infoContainer: {
     backgroundColor: 'transparent',
     padding: 10,
-    paddingBottom: 3
+    paddingBottom: 3,
   },
   id: {
     fontSize: 13,
     color: 'rgba(255,255,255,0.5)',
-    paddingBottom: 2
+    paddingBottom: 2,
   },
   name: {
     color: '#fff',
     textAlign: 'center',
-    fontSize: 15
-  }
+    fontSize: 15,
+  },
 });

@@ -191,5 +191,5 @@ export default {
   'Trabajos del curso': 'Course works',
   'Materiales del curso': 'Course materials',
   'No se encontraron silabos': 'No syllables were found',
-  'Silabos del curso': 'Syllables of the course'
+  'Silabos del curso': 'Syllables of the course',
 };

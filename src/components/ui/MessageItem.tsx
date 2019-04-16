@@ -4,10 +4,8 @@ import Touchable from './Touchable';
 import Log from '../../modules/logger/Log';
 import AlertMessage, {
   AlertMessageProps,
-  AlertMessageType
+  AlertMessageType,
 } from './AlertMessage';
-import EndCallback = Animated.EndCallback;
-import CompositeAnimation = Animated.CompositeAnimation;
 
 export interface Message extends AlertMessageProps {
   id?: string;
@@ -37,14 +35,14 @@ export default class MessageItem extends React.Component<
   state: State = {
     top: new Animated.Value(-100),
     fade: new Animated.Value(0),
-    itemHeight: 0
+    itemHeight: 0,
   };
 
   animation: any = undefined;
-  timeoutDismiss: number = 0;
+  timeoutDismiss!: any;
 
   onLayout = (event: LayoutChangeEvent) => {
-    let itemHeight = event.nativeEvent.layout.height;
+    const itemHeight = event.nativeEvent.layout.height;
     this.setState({ itemHeight });
     Log.info('[MessageItem]', itemHeight);
   };
@@ -57,19 +55,19 @@ export default class MessageItem extends React.Component<
       this.animation = Animated.parallel([
         Animated.timing(this.state.fade, {
           toValue: 1,
-          duration: 600
+          duration: 600,
         }),
         Animated.spring(this.state.top, {
           toValue: 0,
-          friction: 8
-        })
+          friction: 8,
+        }),
       ]);
       this.animation.start();
     });
   }
 
-  hide(cb: EndCallback) {
-    let offset = this.state.itemHeight < 1 ? 50 : this.state.itemHeight;
+  hide(cb: Animated.EndCallback) {
+    const offset = this.state.itemHeight < 1 ? 50 : this.state.itemHeight;
 
     if (this.animation) {
       this.animation.stop();
@@ -78,12 +76,12 @@ export default class MessageItem extends React.Component<
       this.animation = Animated.parallel([
         Animated.timing(this.state.fade, {
           toValue: 0,
-          duration: 200
+          duration: 200,
         }),
         Animated.spring(this.state.top, {
           toValue: offset * -1,
-          friction: 8
-        })
+          friction: 8,
+        }),
       ]);
       this.animation.start(cb);
     });
@@ -101,7 +99,7 @@ export default class MessageItem extends React.Component<
   }
 
   autoDismissSetup() {
-    let item = this.props.item || {};
+    const item = this.props.item || {};
     if (this.timeoutDismiss) {
       clearTimeout(this.timeoutDismiss);
     }
@@ -115,8 +113,8 @@ export default class MessageItem extends React.Component<
 
   componentDidUpdate(prevProps: MessageItemProps, prevState: State) {
     let autoDismissReload = false;
-    let item = this.props.item || {};
-    let prevItem = prevProps.item || {};
+    const item = this.props.item || {};
+    const prevItem = prevProps.item || {};
     if (prevItem.message !== item.message) {
       autoDismissReload = true;
     } else if (prevItem.autoDismiss !== item.autoDismiss) {
@@ -129,9 +127,9 @@ export default class MessageItem extends React.Component<
   }
 
   render() {
-    let { item, onHide, ...props } = this.props;
-    let { fade, top } = this.state;
-    let { id, autoDismiss, ...messageProps } = item;
+    const { item, onHide, ...props } = this.props;
+    const { fade, top } = this.state;
+    const { id, autoDismiss, ...messageProps } = item;
 
     return (
       <Animated.View

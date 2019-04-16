@@ -20,7 +20,7 @@ export default class Auth {
   static settings: Settings = {
     headerName: 'X-Auth',
     authPath: 'me',
-    hashToken: ''
+    hashToken: '',
   };
   static user?: ProfileModel;
 
@@ -36,7 +36,7 @@ export default class Auth {
     Log.info('[AUTH]', 'login');
     let isOk = false;
     try {
-      let profile = await UPAO.Student.Profile.me();
+      const profile = await UPAO.Student.Profile.me();
       isOk = await this.setUser(profile);
       emit && Emitter.emit('onLoginStatus', true);
     } catch (e) {
@@ -76,9 +76,9 @@ export default class Auth {
       return;
     }
     Log.info('[AUTH]', 'checkLogin');
-    let data = await SingleStorage.get('user');
+    const data = await SingleStorage.get('user');
     if (data) {
-      let user = JSON.parse(data);
+      const user = JSON.parse(data);
       Emitter.emit('onLoginStatus', true);
       this.user = user;
     }

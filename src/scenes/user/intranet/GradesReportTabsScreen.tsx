@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ListRenderItemInfo, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import * as PropTypes from 'prop-types';
 import Loading from '../../../components/ui/Loading';
 import Log from '../../../modules/logger/Log';
@@ -9,13 +9,13 @@ import CacheStorage from '../../../modules/storage/CacheStorage';
 import UPAO from '../../../scraping/UPAO';
 import { LevelModel } from '../../../scraping/student/Intranet';
 import {
+  createMaterialTopTabNavigator,
   NavigationContainer,
   NavigationRouteConfigMap,
   NavigationScreenConfigProps,
   NavigationScreenProp,
   NavigationStackScreenOptions,
   NavigationTabScreenOptions,
-  TabNavigator
 } from 'react-navigation';
 import { Color, Theme } from '../../../themes/styles';
 import NavigationButton from '../../../components/ui/NavigationButton';
@@ -24,7 +24,7 @@ import GradesReportScreen from './GradesReportScreen';
 import { ProgramModel } from '../../../scraping/student/intranet/Grade';
 
 export interface GradesReportTabsScreenProps {
-  navigation: NavigationScreenProp<null, null>;
+  navigation: NavigationScreenProp<any, any>;
   level: string;
 }
 
@@ -42,11 +42,12 @@ export default class GradesReportTabsScreen extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
+
   static navigationOptions = ({
     navigation,
-    screenProps
+    screenProps,
   }: NavigationScreenConfigProps): NavigationStackScreenOptions => ({
     title: _('Reporte de notas'),
     headerBackTitle: null,
@@ -57,24 +58,24 @@ export default class GradesReportTabsScreen extends React.Component<
       <View style={{ flexDirection: 'row' }}>
         <NavigationButton
           onPress={() => {
-            navigation.state.params.reload();
+            navigation.state.params!.reload();
           }}
           icon={'refresh'}
           iconType={'MaterialIcons'}
         />
       </View>
-    )
+    ),
   });
-
   state: State = {
     isLoading: true,
     cacheLoaded: false,
     isRefreshing: false,
     programs: [],
-    Tabs: undefined
+    Tabs: undefined,
   };
+
   load = async () => {
-    let { isRefreshing } = this.state;
+    const { isRefreshing } = this.state;
     if (!isRefreshing) {
       this.setState({ isLoading: true, cacheLoaded: false });
       await this.checkCache();
@@ -82,12 +83,12 @@ export default class GradesReportTabsScreen extends React.Component<
     await this.loadRequest();
   };
   getCacheKey = () => {
-    let { level } = this.getParams();
+    const { level } = this.getParams();
     return `gradesReportPrograms_${level || '_'}`;
   };
   checkCache = async () => {
     try {
-      let data = await CacheStorage.get(this.getCacheKey());
+      const data = await CacheStorage.get(this.getCacheKey());
       data && this.loadResponse(data, true);
     } catch (e) {
       Log.info(TAG, 'checkCache', e);
@@ -97,11 +98,11 @@ export default class GradesReportTabsScreen extends React.Component<
     data: { programs: ProgramModel[]; levelGrade?: LevelModel },
     cacheLoaded = false
   ) => {
-    let { programs, levelGrade } = data;
+    const { programs, levelGrade } = data;
     let tabs: NavigationRouteConfigMap = {};
 
-    for (let program of programs) {
-      let name = program.name || 'ERR';
+    for (const program of programs) {
+      const name = program.name || 'ERR';
       tabs[name] = {
         screen: ({ navigation, screenProps }: NavigationScreenConfigProps) => {
           return (
@@ -112,11 +113,11 @@ export default class GradesReportTabsScreen extends React.Component<
           );
         },
         navigationOptions: {
-          tabBarLabel: program.name
-        } as NavigationTabScreenOptions
+          tabBarLabel: program.name,
+        } as NavigationTabScreenOptions,
       };
     }
-    let totalTabs = Object.keys(tabs);
+    const totalTabs = Object.keys(tabs);
     if (totalTabs.length < 1) {
       tabs = {
         NO: {
@@ -124,17 +125,17 @@ export default class GradesReportTabsScreen extends React.Component<
             return <AlertMessage message={_('No hay datos')} />;
           },
           navigationOptions: {
-            tabBarLabel: _('Error')
-          } as NavigationTabScreenOptions
-        }
+            tabBarLabel: _('Error'),
+          } as NavigationTabScreenOptions,
+        },
       };
     }
-    let Tabs = TabNavigator(tabs, {
+    const Tabs = createMaterialTopTabNavigator(tabs, {
       ...tabsOptions,
       tabBarOptions: {
         ...tabsOptions.tabBarOptions,
-        scrollEnabled: totalTabs.length > 2
-      }
+        scrollEnabled: totalTabs.length > 2,
+      },
     });
 
     this.setState({
@@ -142,19 +143,21 @@ export default class GradesReportTabsScreen extends React.Component<
       programs,
       Tabs,
       isLoading: false,
-      isRefreshing: false
+      isRefreshing: false,
     });
   };
   loadRequest = async () => {
-    let { cacheLoaded } = this.state;
+    const { cacheLoaded } = this.state;
 
     try {
-      let { level } = this.getParams();
-      let levelGrade = await UPAO.Student.Intranet.Grade.getLevelByCode(level);
-      let programs = await UPAO.Student.Intranet.Grade.getPrograms(
+      const { level } = this.getParams();
+      const levelGrade = await UPAO.Student.Intranet.Grade.getLevelByCode(
+        level
+      );
+      const programs = await UPAO.Student.Intranet.Grade.getPrograms(
         levelGrade.id
       );
-      let data = { programs, levelGrade };
+      const data = { programs, levelGrade };
       this.loadResponse(data);
       CacheStorage.set(this.getCacheKey(), data);
     } catch (e) {
@@ -178,7 +181,7 @@ export default class GradesReportTabsScreen extends React.Component<
   };
 
   getParams(): any {
-    let { params } = this.props.navigation.state || { params: {} };
+    const { params } = this.props.navigation.state || { params: {} };
     return params;
   }
 
@@ -194,7 +197,7 @@ export default class GradesReportTabsScreen extends React.Component<
   }
 
   render() {
-    let { Tabs, isLoading } = this.state;
+    const { Tabs, isLoading } = this.state;
     return (
       <View style={[styles.container]}>
         {isLoading && <Loading margin />}
@@ -207,6 +210,6 @@ export default class GradesReportTabsScreen extends React.Component<
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
-  }
+    backgroundColor: '#fff',
+  },
 });

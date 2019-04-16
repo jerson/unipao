@@ -188,5 +188,5 @@ export default {
   'Trabajos del curso': 'O curso funciona',
   'Materiales del curso': 'Materiais do curso',
   'No se encontraron silabos': 'Não foram encontradas sílabas',
-  'Silabos del curso': 'Sílabas do curso'
+  'Silabos del curso': 'Sílabas do curso',
 };

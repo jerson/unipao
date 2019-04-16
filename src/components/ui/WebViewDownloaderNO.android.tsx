@@ -16,11 +16,11 @@ export default class WebViewDownloaderAndroid extends React.Component<
   State
 > {
   static contextTypes = {
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
   };
 
   render() {
-    let { onNavigationStateChange, ...props } = this.props;
+    const { onNavigationStateChange, ...props } = this.props;
 
     return (
       <CustomWebView
@@ -38,6 +38,6 @@ export default class WebViewDownloaderAndroid extends React.Component<
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });

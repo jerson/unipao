@@ -16,8 +16,8 @@ const CacheSchema = {
   primaryKey: 'key',
   properties: {
     key: 'string',
-    value: 'string'
-  }
+    value: 'string',
+  },
 };
 
 export interface Cache {
@@ -37,15 +37,15 @@ export default class CacheStorage {
 
   static getInstance() {
     return Realm.open({
-      schema: [CacheSchema]
+      schema: [CacheSchema],
     });
   }
 
   static async set(key: string, value: any): Promise<boolean> {
     Log.info(TAG, 'set', key);
-    let keyEncoded = this.hashCode(key);
-    let realm = await this.getInstance();
-    let cache: any = realm.objectForPrimaryKey('Cache', keyEncoded);
+    const keyEncoded = this.hashCode(key);
+    const realm = await this.getInstance();
+    const cache: any = realm.objectForPrimaryKey('Cache', keyEncoded);
     realm.write(() => {
       if (cache) {
         Log.info(TAG, 'set', key, 'update');
@@ -54,7 +54,7 @@ export default class CacheStorage {
         Log.info(TAG, 'set', key, 'create');
         realm.create('Cache', {
           key: keyEncoded,
-          value: JSON.stringify(value)
+          value: JSON.stringify(value),
         });
       }
     });
@@ -63,8 +63,8 @@ export default class CacheStorage {
 
   static async get(key: string): Promise<any> {
     Log.info(TAG, 'get', key);
-    let realm = await this.getInstance();
-    let keyEncoded = this.hashCode(key);
+    const realm = await this.getInstance();
+    const keyEncoded = this.hashCode(key);
     let data: any = null;
     realm.write(() => {
       data = realm.objectForPrimaryKey('Cache', keyEncoded);
@@ -73,9 +73,9 @@ export default class CacheStorage {
   }
 
   static async remove(key: string): Promise<boolean> {
-    let realm = await this.getInstance();
-    let keyEncoded = this.hashCode(key);
-    let results = realm.objects('Cache').filtered(`key = '${keyEncoded}'`);
+    const realm = await this.getInstance();
+    const keyEncoded = this.hashCode(key);
+    const results = realm.objects('Cache').filtered(`key = '${keyEncoded}'`);
     realm.write(() => {
       realm.delete(results);
     });
